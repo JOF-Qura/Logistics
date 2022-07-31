@@ -4,7 +4,7 @@ from datatables import DataTable
 
 # importing models one by one
 from models.Admin.employeeModel import Employees
-from models.Admin.userModel import Users
+from models.asset_management.user_model import User
 
 from models.Admin import employeeModel
 from schemas.Admin import employeeSchema
@@ -32,7 +32,7 @@ def datatable(request: Request, db: Session = Depends(get_db)):
                 (
                     Employees.employee_id.like('%' + user_input + '%'),
                     Employees.user_id.like('%' + user_input + '%'),
-                    Users.user_email.like('%' + user_input + '%'),
+                    User.user_email.like('%' + user_input + '%'),
                     Employees.user_type.like('%' + user_input + '%'),
                     Employees.employee_first_name.like('%' + user_input + '%'),
                     Employees.employee_middle_name.like('%' + user_input + '%'),
@@ -43,7 +43,7 @@ def datatable(request: Request, db: Session = Depends(get_db)):
                     Employees.created_at.like('%' + user_input + '%'),
                     Employees.updated_at.like('%' + user_input + '%'),
                 )
-            )
+            ) 
 
         table = DataTable(dict(request.query_params), Employees, db.query(Employees)
         , 
