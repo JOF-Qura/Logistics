@@ -7,9 +7,10 @@ from sqlalchemy.sql.functions import count
 from database import Base, get_db, engine
 from dependencies import get_token
 
-from routes.asset_management import asset_route, asset_type_route, asset_provider_route, maintenance_provider_route, maintenance_route, auth_route, event_route
+from routes.asset_management import asset_route, asset_type_route, asset_provider_route, maintenance_provider_route, maintenance_route, event_route
 from routes.asset_management import missing_asset_route, asset_request_route, sell_asset_route, dispose_asset_route, broken_asset_route, repair_asset_route
 from routes.asset_management import department_route, maintenance_report_route, check_out_route, check_in_route, asset_warranty_route
+from routes.access import auth_route
 
 # importing all admin routes
 from routes.Admin import (#authRoutes
@@ -122,6 +123,7 @@ from models.asset_management.repair_asset_model import Repair_Asset
 from models.asset_management.request_asset_model import Request_Asset
 from models.asset_management.sell_asset_model import Sell_Asset
 
+
 # creating all models
 Base.metadata.create_all(engine)
 
@@ -198,7 +200,7 @@ template = Jinja2Templates('templates')
 #     except Exception as e:
 #         print(e)
 
-# ---------------------------- HomePage Template ------------------------------ #
+# ---------------------------- HomePage Template ------------------------------ # -- Remove (Duplicate in Asset)
 @app.get('/homies', response_class=HTMLResponse)
 def landing(request: Request):
     return template.TemplateResponse('index.html', 
@@ -206,7 +208,7 @@ def landing(request: Request):
         'request': request
     })
 
-# ---------------------------- Access Template ------------------------------ #
+# ---------------------------- Access Template ------------------------------ # Remove (Duplicate in Asset)
 @app.get('/homies/main', response_class=HTMLResponse)
 def dashMain(request: Request):
     return template.TemplateResponse('mainDashboard.html', 
@@ -242,7 +244,7 @@ def login(request: Request):
         'request': request
     })
 
-# ---------------------------- Admin Template ------------------------------ #
+# ---------------------------- Warehousing Admin Template ------------------------------ #
 @app.get('/warehousing/admin/', response_class=HTMLResponse)
 def dashhboard(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     return template.TemplateResponse('warehousing/admin/content/dashboard.html', 
@@ -414,7 +416,7 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
     except Exception as e:
         print(e)
 
-# ------------ Admin View --------------- #
+# ------------ Warehousing Admin View --------------- #
 @app.get('/warehousing/admin/supplies_details', response_class=HTMLResponse)
 def index(request: Request, supply_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
@@ -489,7 +491,7 @@ def index(request: Request, inbound_report_id: str, db: Session = Depends(get_db
 
 
 
-# ---------------------------- Manager Template ------------------------------ #
+# ---------------------------- Warehousing Manager Template ------------------------------ #
 @app.get('/warehousing/manager/', response_class=HTMLResponse)
 def dashhboard(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     # users = db.query(User).filter(User.user_email == current_user).first()
@@ -630,7 +632,7 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
     except Exception as e:
         print(e)
 
-# ------------ Manager View --------------- #
+# ------------ Warehousing Manager View --------------- #
 @app.get('/warehousing/manager/supplies_details', response_class=HTMLResponse)
 def index(request: Request, supply_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
@@ -704,7 +706,7 @@ def index(request: Request, inbound_report_id: str, db: Session = Depends(get_db
     except Exception as e:
         print(e)
 
-# ---------------------------- Staff Template ------------------------------ #
+# ---------------------------- Warehousing Staff Template ------------------------------ #
 @app.get('/warehousing/staff/', response_class=HTMLResponse)
 def dashhboard(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     # users = db.query(User).filter(User.user_email == current_user).first()
@@ -794,7 +796,7 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
     except Exception as e:
         print(e)
 
-# ------------ Staff View --------------- #
+# ------------ Warehousing Staff View --------------- #
 @app.get('/warehousing/staff/supplies/{supply_id}', response_class=HTMLResponse)
 def index(request: Request, supply_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
@@ -843,7 +845,7 @@ def index(request: Request, return_id: str, db: Session = Depends(get_db), curre
     except Exception as e:
         print(e)
 
-# ---------------------------- Procurement Template ------------------------------ #
+# ---------------------------- Warehousing- Procurement Template ------------------------------ #
 @app.get('/warehousing/procurement/', response_class=HTMLResponse)
 def dashhboard(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     # users = db.query(User).filter(User.user_email == current_user).first()
@@ -864,24 +866,26 @@ def index(request: Request, request_id: str, db: Session = Depends(get_db), curr
         })
     except Exception as e:
         print(e)
+
+#-------------------------------------------- END OF Warehousing Template --------------------------------------------#
         
 # ASSET MANAGEMENT ROUTES
 
 @app.get("/", response_class=HTMLResponse)
 def dashboard(request: Request,):
-    return template.TemplateResponse("asset_management/home.html", {"request": request})
+    return template.TemplateResponse("access/home.html", {"request": request})
 
 @app.get("/login", response_class=HTMLResponse)
 def dashboard(request: Request,):
-    return template.TemplateResponse("asset_management/login.html", {"request": request})
+    return template.TemplateResponse("access/login.html", {"request": request})
 
 @app.get("/index", response_class=HTMLResponse)
 def dashboard(request: Request,):
-    return template.TemplateResponse("asset_management/index.html", {"request": request})
+    return template.TemplateResponse("access/index.html", {"request": request})
 
 @app.get("/forbidden", response_class=HTMLResponse)
 def dashboard(request: Request,):
-    return template.TemplateResponse("asset_management/forbidden.html", {"request": request})
+    return template.TemplateResponse("accesst/forbidden.html", {"request": request})
 
 @app.get("/asset_management/", response_class=HTMLResponse)
 def dashboard(request: Request,):

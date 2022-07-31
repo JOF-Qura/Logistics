@@ -8,6 +8,9 @@ $(function()
         var user_email = $("#user_email").val();
         var user_password = $("#user_password").val()
 
+        console.log(user_email)
+        console.log(user_password)
+
         if(user_email != "" || user_password != "")
         {
             $.ajax(
@@ -25,7 +28,7 @@ $(function()
                     cache: false,
                     success: function (data) 
                     {
-                        
+                        console.log(data)
                         if(data == 404)
                         {
                             console.log(data);
@@ -77,7 +80,7 @@ $(function()
                     },
                     error: function ({ responseJSON }) 
                     {
-                        
+                        console.log(responseJSON)
                     },
                 });
         }

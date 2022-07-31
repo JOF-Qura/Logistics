@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    .form-control.is-invalid
+        {
+            background-image: none;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Warehousing | Hospital Management System</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/fontawesome-free/css/all.min.css')}}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{url_for('static', path='/dist/css/adminlte.min.css')}}">
+
+    <!-- Additional CSS -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/sweetalert2/sweetalert2.css')}}">
+</head>
+<body class="hold-transition login-page bg-white">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#">HoMIES<br>
+                <!-- <b>Warehousing</b> -->
+            </a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card shadow-none">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Log in to start your session</p>
+
+                <form id="form_id" name="form_id" enctype="multipart/form_data" class="needs-validation" novalidate>
+                    <label>Email</label>
+                    <div class="input-group mb-3">
+                        <input type="email" id="user_email" class="form-control" placeholder="Type your Email here" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Email is required.
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Password</label>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" class="text-primary">I forgot my password</a>
+                        </div>
+
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" id="user_password" class="form-control" placeholder="Type your Password here" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter a password.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">Remember Me</label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Log in <i class= "fas fa-sign-in-alt"></i></button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                <div class="dropdown-divider mt-5 mb-1"></div>
+
+                <!-- Quick Links -->
+                <div class="d-flex justify-content-between text-sm">
+                    <div>
+                        <a href="./home.html">Home</a>
+                    </div>
+                    <div>
+                        <a href="#">About Us</a>
+                        <span class="text-secondary">&middot;</span>
+                        <a href="#">Terms and Policies</a>
+                    </div>
+                </div>
+
+                <!-- <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> ('di pa gumagana) Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> ('di pa gumagana) Sign in using Google+
+                    </a>
+                </div> -->
+                <!-- /.social-auth-links -->
+                <!-- <p class="mb-1">
+                    <a href="forgot-password.html"> ('di pa gumagana) I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="register.html" class="text-center"> ('di pa gumagana) Register a new membership</a>
+                </p> -->
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url_for('static', path='/dist/js/adminlte.min.js')}}"></script>
+
+<!-- Additional JS -->
+<script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+
+<!-- Common JS -->
+<script src="{{url_for('static', path='/dist/js/warehousing/common.js')}}"></script>
+
+
+<script src="{{url_for('static', path='/dist/js/warehousing/access/login.js')}}"></script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () 
+    {
+        'use strict'
+    
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+    
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+</body>
+</html>
