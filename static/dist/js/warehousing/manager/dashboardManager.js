@@ -21,7 +21,7 @@ countPendingRequest = () =>
 {
     $.ajax(
     {
-        url: apiURL + "request_count",
+        url: "http://localhost:8000/" + "request_count",
         type: "GET",
         dataType: "json",
         success: function (responseData) 
@@ -108,7 +108,7 @@ countPendingReturn = () =>
 {
     $.ajax(
     {
-        url: apiURL + "returns_count",
+        url: "http://localhost:8000/" + "returns_count",
         type: "GET",
         dataType: "json",
         success: function (responseData) 
@@ -193,7 +193,7 @@ countLowSupplies = () =>
 {
     $.ajax(
     {
-        url: apiURL + "supplies_count",
+        url: "http://localhost:8000/" + "supplies_count",
         type: "GET",
         dataType: "json",
         success: function (responseData) 
@@ -289,14 +289,14 @@ chart_JS = () =>
         Jan = Feb = Mar = Apr = May = Jun = Jul = Aug = Sep = Oct = Nov = Dec = 0
         $.ajax(
         {
-            url: apiURL + "count/request_per_month",
+            url: "http://localhost:8000/" + "count/request_per_month",
             type: "GET",
             dataType: "JSON",
             success: function(request_data)
             {
                 $.ajax(
                 {
-                    url: apiURL + "count/return_per_month",
+                    url: "http://localhost:8000/" + "count/return_per_month",
                     type: "GET",
                     dataType: "JSON",
                     success: function(return_data)
@@ -413,7 +413,7 @@ chart_JS = () =>
     // DONOT CHART
     $.ajax(
     {
-        url: apiURL + "count/most_requested",
+        url: "http://localhost:8000/" + "count/most_requested",
         type: "GET",
         dataType: "json",
         success: function (keydata) 
@@ -464,7 +464,7 @@ chart_JS = () =>
     // PIE CHART
     $.ajax(
         {
-            url: apiURL + "count/most_ordered",
+            url: "http://localhost:8000/" + "count/most_ordered",
             type: "GET",
             dataType: "json",
             success: function (keydata) 
@@ -545,14 +545,14 @@ collapsed()
         Jan = Feb = Mar = Apr = May = Jun = Jul = Aug = Sep = Oct = Nov = Dec = 0
         $.ajax(
         {
-            url: apiURL + "count/outbound_per_month",
+            url: "http://localhost:8000/" + "count/outbound_per_month",
             type: "GET",
             dataType: "JSON",
             success: function(outbound_data)
             {
                 $.ajax(
                 {
-                    url: apiURL + "count/inbound_per_month",
+                    url: "http://localhost:8000/" + "count/inbound_per_month",
                     type: "GET",
                     dataType: "JSON",
                     success: function(inbound_data)
