@@ -1,0 +1,1662 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './users/includes/head.html' %}
+
+{% include './users/includes/navbar.html' %}
+
+{% include './users/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Reports</h1>
+          <div class="text-muted">Reports to generate document report</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Default box -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="card-title">List of Reports</div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="mb-3">
+          <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="custom-tabs-two-projects-tab" data-toggle="pill"
+                href="#custom-tabs-two-projects" role="tab" aria-controls="custom-tabs-two-projects"
+                aria-selected="true">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-two-papers-tab" data-toggle="pill" href="#custom-tabs-two-papers"
+                role="tab" aria-controls="custom-tabs-two-papers" aria-selected="false">Concept Paper</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content" id="custom-tabs-six-tabContent">
+          <div class="tab-pane fade show active" id="custom-tabs-two-projects" role="tabpanel"
+            aria-labelledby="custom-tabs-two-projects-tab">
+            <table id="example1" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Department</th>
+                  <th>Project Name</th>
+                  <th>Manager</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for project in project%}
+                <tr>
+                  <td>{{ project.project_department.name }}</td>
+                  <td>{{ project.name }}</td>
+                  <td>{{ project.project_user.first_name }} {{ project.project_user.last_name }}
+                    {{ project.project_user.suffix_name }}</td>
+                  <td>{{ project.type }}</td>
+                  {%if project.progress_status == "Completed"%}
+                  <td>
+                    <div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i>
+                      {{ project.progress_status }}
+                    </div>
+                  </td>
+                  {%elif project.progress_status == "On Progress"%}
+                  <td>
+                    <div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i>
+                      {{ project.progress_status }}
+                    </div>
+                  </td>
+                  {%elif project.progress_status == "Cancelled"%}
+                  <td>
+                    <div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i>
+                      {{ project.progress_status }}
+                    </div>
+                  </td>
+                  {%else%}
+                  <td><span class="badge badge-secondary">{{ project.progress_status }}</span></td>
+                  {%endif%}
+                  <td>
+                    <div class="text-center dropdown">
+                      <div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </div>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <button type="button" value="{{ project.id }}" class="dropdown-item d-flex btn-generate">
+                          <div style="width: 2rem">
+                            <i class="fas fa-print ml-1"></i>
+                          </div>
+                          <div>Print Report</div>
+                        </button>
+                        <button type="button" value="{{ project.id }}" class="dropdown-item d-flex btn-pdf">
+                          <div style="width: 2rem">
+                            <i class="fas fa-file-pdf ml-1"></i>
+                          </div>
+                          <div>Export as PDF</div>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-pane fade" id="custom-tabs-two-papers" role="tabpanel"
+            aria-labelledby="custom-tabs-two-papers-tab">
+            <table id="example3" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Department</th>
+                  <th>Concept Paper</th>
+                  <th>Manager</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for paper in paper%}
+                <tr>
+                  <td>{{ paper.concept_department.name }}</td>
+                  <td>{{ paper.name }}</td>
+                  <td>{{ paper.concept_employee.first_name }} {{ paper.concept_employee.last_name }}
+                    {{ paper.concept_employee.suffix_name }}</td>
+                  <td>{{ paper.type }}</td>
+                  {%if paper.approval_status == "Approved"%}
+                  <td>
+                    <div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i>
+                      {{ paper.approval_status }}
+                    </div>
+                  </td>
+                  {%endif%}
+                  <td>
+                    <div class="text-center dropdown">
+                      <div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">
+                        <i class="fas fa-ellipsis-v"></i>
+                      </div>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <button type="button" value="{{ paper.id }}" class="dropdown-item d-flex btn-paper">
+                          <div style="width: 2rem">
+                            <i class="fas fa-print ml-1"></i>
+                          </div>
+                          <div>Print Report</div>
+                        </button>
+                        <button type="button" value="{{ paper.id }}" class="dropdown-item d-flex btn-pdf-paper">
+                          <div style="width: 2rem">
+                            <i class="fas fa-file-pdf ml-1"></i>
+                          </div>
+                          <div>Export as PDF</div>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+    <!-- /.card -->
+
+  </section>
+
+  <style>
+    #generate_report {
+      display: none;
+    }
+    #paper_reports {
+      display: none;
+    }
+  </style>
+
+  <div id="paper_report" hidden>
+    <style>
+      #invoice-POSs {
+        box-shadow: 0 0 1in -.25in rgba(0, 0, 0, .5);
+        padding: 2mm;
+        margin: 0 auto;
+        width: 250mm;
+        background: #fff;
+        color: #222
+      }
+
+      h4 {
+        font-size: 1.4em
+      }
+
+      .h5s {
+        margin-top: 40px;
+      }
+
+      h3 {
+        font-size: 1.6em;
+        font-weight: 400;
+        line-height: 2em
+      }
+
+      .pTags {
+        font-size: 0.9em;
+        color: black;
+        line-height: 1.2em
+      }
+
+      .fontSizes {
+        font-size: 1em;
+      }
+
+      #bots,
+      #mids,
+      #tops {
+        border-bottom: 1px solid #eee
+      }
+
+      #tops {
+        min-height: 100px
+      }
+
+      #mids {
+        min-height: 80px
+      }
+
+      #bots {
+        min-height: 50px
+      }
+
+      #top .logos {
+        height: 60px;
+        width: 60px;
+        background-size: 60px 60px
+      }
+
+      .clientlogos {
+        float: left;
+        height: 60px;
+        width: 60px;
+        background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+        background-size: 60px 60px;
+        border-radius: 50px
+      }
+
+      .infos {
+        display: block;
+        margin-left: 0
+      }
+
+      .titles {
+        float: right
+      }
+
+      .titles p {
+        text-align: right
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse
+      }
+
+      .tabletitles {
+        font-size: .5em;
+        background: #eee
+      }
+
+      .services {
+        border-bottom: 1px solid #eee;
+        text-align: center
+      }
+
+      .items {
+        width: 24mm
+      }
+
+      .itemtexts {
+        font-size: .8em
+      }
+
+      #legalcopys {
+        margin-top: 5mm
+      }
+    </style>
+    <div id="invoice-POSs">
+
+      <center>
+        <div class="infos">
+          <h4>Concept Paper</h4>
+          <h4 id="paper_names"></h4>
+          <small id="paper_types" class="pTag fontSize"></small><br>
+          <small id="paper_departments" class="pTag fontSize"></small>
+        </div>
+        <!--End Info-->
+      </center><br><br>
+      <!--End InvoiceTop-->
+      <div class="row" style="float:right; margin-right: -50px;">
+        <div class="col-sm-6">
+          <h5>Date: <span id="paper_date_createds" class="pTags"></span></h5>
+        </div>
+      </div><br><br><br>
+
+      <div id="mids" class="border-bottom-0">
+        <div class="infos">
+          <h5 class="h5s">I. Project Proponent: </h5>
+          <span class="pTags fontSizes" id="paper_managers">
+          </span>
+        </div><br>
+
+        <div class="infos">
+          <h5>II. Estimated Cost</h5>
+          <p class="pTags fontSizes" id="paper_costs">
+          </p>
+        </div>
+
+        <div class="infos">
+          <h5>III. Schedule</h5>
+          <p class="pTags fontSizes" id="paper_schedules">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>IV. Background </h5>
+          <p class="pTag fontSizes" id="paper_backgrounds">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>V. Coverage </h5>
+          <p class="pTag fontSizes" id="paper_coverages">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>VI. Objectives </h5>
+          <p class="pTag fontSizes" id="paper_objectives">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>VII. Assumptions </h5>
+          <p class="pTag fontSizes" id="paper_assumptions">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>VIII. Constraints </h5>
+          <p class="pTag fontSizes" id="paper_constraints">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>IX. Budgetary Requirements </h5>
+          <div id="table">
+            <table class="table table-bordered" id="paper_budget_requirements">
+              <thead>
+                <tr>
+                  <th>Activities / Resources</th>
+                  <th>Estimated Cost</th>
+                  <th>Description</th>
+                </tr>
+              </thead><br>
+              <tbody id="paper_requirements">
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="infos">
+          <h5>X. Target Beneficiaries </h5>
+          <p class="pTag fontSizes" id="paper_beneficiariess">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>XI. Deliverables </h5>
+          <p class="pTag fontSizes" id="paper_deliverables">
+          </p>
+        </div>
+        <br>
+      </div><br>
+      <!--End Invoice Mid-->
+      <br><br><br><br><br>
+
+      <div class="infos">
+        <div style="float:right; margin-right: 550px;">
+          <p class="pTags" id="userInfo">
+            <h5>____________________________________________</h5>
+            <h5 style="text-align: center">Department Head</h5><br>
+            <span id="paper_costs"></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="infos">
+        <div style="float:right; margin-top: -118px;">
+          <p class="pTags" id="userInfo">
+            <h5>____________________________________________</h5>
+            <h5 style="text-align: center">Project Manager</h5><br>
+            <span></span>
+          </p>
+        </div>
+      </div>
+      <!--End Invoice-->
+    </div>
+  </div>
+
+  <div id="paper_reports">
+    <style>
+      #invoice-POS {
+        padding: 0;
+        margin: auto;
+        background: #fff;
+        color: #222
+      }
+
+      h4 {
+        font-size: 1.4em
+      }
+
+      .h5 {
+        margin-top: 40px;
+      }
+
+      h3 {
+        font-size: 1.6em;
+        font-weight: 400;
+        line-height: 2em
+      }
+
+      .pTag {
+        font-size: 1em;
+        color: black;
+        line-height: 1.5em
+      }
+
+      /* .fontSize {
+        font-size: 1.1em;
+        font-weight: 600;
+      } */
+
+      #bot,
+      #mid,
+      #top {
+        border-bottom: 1px solid #eee
+      }
+
+      #top {
+        min-height: 100px
+      }
+
+      #mid {
+        min-height: 80px
+      }
+
+      #bot {
+        min-height: 50px
+      }
+
+      .info {
+        display: block;
+        margin-left: 0
+      }
+
+      .title {
+        float: right
+      }
+
+      .title p {
+        text-align: right
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse
+      }
+
+      .tabletitle {
+        font-size: .5em;
+        background: #eee
+      }
+
+      .service {
+        border-bottom: 1px solid #eee;
+        text-align: center
+      }
+
+      .itemtext {
+        font-size: .8em
+      }
+
+      #legalcopy {
+        margin-top: 5mm
+      }
+    </style>
+    <div id="invoice-POS">
+
+      <center>
+        <div class="info">
+          <h4>Concept Paper</h4>
+          <h4 id="paper_name"></h4>
+          <small id="paper_type" class="pTag fontSize"></small><br>
+          <small id="paper_department" class="pTag fontSize"></small>
+        </div>
+        <!--End Info-->
+      </center><br><br>
+      <!--End InvoiceTop-->
+      <div class="row" style="float:right; margin-right: -250px;">
+        <div class="col-sm-6">
+          <h5>Date: <small style="font-size: 1rem;" id="paper_date_created" class="pTag"></small></h5>
+        </div>
+      </div><br><br><br>
+
+      <div id="mid" class="border-bottom-0">
+        <div class="info">
+          <h6 style="font-weight: bold;">I. Project Proponent: </h6>
+          <p id="paper_manager">
+          </p>
+        </div>
+
+        <div class="info">
+          <h6 style="font-weight: bold;">II. Estimated Cost</h6>
+          <p id="paper_cost">
+          </p>
+        </div>
+
+        <div class="info">
+          <h6 style="font-weight: bold;">III. Schedule</h6>
+          <p id="paper_schedule">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">IV. Background </h6>
+          <p id="paper_background">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">V. Coverage </h6>
+          <p id="paper_coverage">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">VI. Objectives </h6>
+          <p id="paper_objective">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">VII. Assumptions </h6>
+          <p id="paper_assumption">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">VIII. Constraints </h6>
+          <p id="paper_constraint">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">IX. Budgetary Requirements </h6>
+          <div id="table">
+            <table class="table table-bordered" id="paper_budget_requirement">
+              <thead>
+                <tr>
+                  <th>Activities / Resources</th>
+                  <th>Estimated Cost</th>
+                  <th>Description</th>
+                </tr>
+              </thead><br>
+              <tbody id="paper_requirement">
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="info">
+          <h6 style="font-weight: bold;">X. Target Beneficiaries </h6>
+          <p id="paper_beneficiaries">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">XI. Deliverables </h6>
+          <p id="paper_deliverable">
+          </p>
+        </div>
+        <br>
+      </div><br>
+      <!--End Invoice Mid-->
+      <br><br><br><br><br>
+
+      <div class="info">
+        <div style="float:right; margin-right: 550px;">
+          <p class="pTag" id="userInfo">
+            <h6>____________________________________________</h6>
+            <h6 class="h6" style="text-align: center">Department Head</h6><br>
+            <span id="paper_cost"></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="info">
+        <div style="float:right; margin-top: -118px;">
+          <p class="pTag" id="userInfo">
+            <h6>____________________________________________</h6>
+            <h6 class="h6" style="text-align: center">Project Manager</h6><br>
+            <span></span>
+          </p>
+        </div>
+      </div>
+      <!--End Invoice-->
+    </div>
+  </div>
+
+  <div id="generate_reports" hidden>
+    <style>
+      #invoice-POSs {
+        box-shadow: 0 0 1in -.25in rgba(0, 0, 0, .5);
+        padding: 2mm;
+        margin: 0 auto;
+        width: 250mm;
+        background: #fff;
+        color: #222
+      }
+
+      h4 {
+        font-size: 1.4em
+      }
+
+      .h5s {
+        margin-top: 40px;
+      }
+
+      h3 {
+        font-size: 1.6em;
+        font-weight: 400;
+        line-height: 2em
+      }
+
+      .pTags {
+        font-size: 0.9em;
+        color: black;
+        line-height: 1.2em
+      }
+
+      .fontSizes {
+        font-size: 1em;
+      }
+
+      #bots,
+      #mids,
+      #tops {
+        border-bottom: 1px solid #eee
+      }
+
+      #tops {
+        min-height: 100px
+      }
+
+      #mids {
+        min-height: 80px
+      }
+
+      #bots {
+        min-height: 50px
+      }
+
+      #top .logos {
+        height: 60px;
+        width: 60px;
+        background-size: 60px 60px
+      }
+
+      .clientlogos {
+        float: left;
+        height: 60px;
+        width: 60px;
+        background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+        background-size: 60px 60px;
+        border-radius: 50px
+      }
+
+      .infos {
+        display: block;
+        margin-left: 0
+      }
+
+      .titles {
+        float: right
+      }
+
+      .titles p {
+        text-align: right
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse
+      }
+
+      .tabletitles {
+        font-size: .5em;
+        background: #eee
+      }
+
+      .services {
+        border-bottom: 1px solid #eee;
+        text-align: center
+      }
+
+      .items {
+        width: 24mm
+      }
+
+      .itemtexts {
+        font-size: .8em
+      }
+
+      #legalcopys {
+        margin-top: 5mm
+      }
+    </style>
+    <div id="invoice-POSs">
+
+      <center>
+        <div class="infos">
+          <h4 id="project_names">Project Report</h4>
+          <small id="project_types" class="pTag fontSize"></small><br>
+          <small id="project_departments" class="pTag fontSize"></small>
+        </div>
+        <!--End Info-->
+      </center><br><br>
+      <!--End InvoiceTop-->
+      <div class="row" style="float:right; margin-right: -250px;">
+        <div class="col-sm-6">
+          <h5>Date: <span id="date_createds" class="pTags"></span></h5>
+        </div>
+        <div class="col-sm-6">
+          <h5>Status: <span id="project_progresss" class="pTags"></span></h5>
+        </div>
+      </div><br><br><br>
+
+      <div id="mids">
+        <div class="infos">
+          <h5 class="h5s">I. Project Proponent: </h5>
+          <span class="pTags fontSizes" id="project_managers">
+          </span>
+        </div><br>
+
+        <div class="infos">
+          <h5>II. Estimated Cost</h5>
+          <p class="pTags fontSizes" id="project_costs">
+          </p>
+        </div>
+
+        <div class="infos">
+          <h5>III. Schedule</h5>
+          <p class="pTags fontSizes" id="project_schedules">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>IV. Background </h5>
+          <p class="pTag fontSizes" id="project_backgrounds">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>V. Coverage </h5>
+          <p class="pTag fontSizes" id="project_coverages">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>VI. Objectives </h5>
+          <p class="pTag fontSizes" id="project_objectives">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>VII. Assumptions </h5>
+          <p class="pTag fontSizes" id="project_assumptions">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>VIII. Constraints </h5>
+          <p class="pTag fontSizes" id="project_constraints">
+          </p>
+        </div>
+        <div class="infos">
+          <h5>IX. Budgetary Requirements </h5>
+          <div id="table">
+            <table class="table table-bordered" id="budget_requirements">
+              <thead>
+                <tr>
+                  <th>Activities / Resources</th>
+                  <th>Estimated Cost</th>
+                  <th>Description</th>
+                </tr>
+              </thead><br>
+              <tbody id="project_requirements">
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="infos">
+          <h5>X. Target Beneficiaries </h5>
+          <p class="pTag fontSizes" id="project_beneficiaries">
+          </p>
+        </div><br>
+        <div class="infos">
+          <h5>XI. Stakeholders </h5>
+          <div id="table">
+            <table class="table table-bordered" id="project_stakeholders">
+              <thead>
+                <tr>
+                  <th>Stakeholder Name</th>
+                  <th>Role</th>
+                  <th>Project Expectancy</th>
+                </tr>
+              </thead><br>
+              <tbody>
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="infos">
+          <h5>XII. Deliverables </h5>
+          <p class="pTag fontSizes" id="project_deliverables">
+          </p>
+        </div>
+        <br>
+      </div><br>
+      <!--End Invoice Mid-->
+
+      <div class="infos">
+        <h5>Project Milestones</h5>
+      </div>
+
+      <div id="tables">
+        <table class="table table-bordered" id="project_milestones">
+          <thead>
+            <tr>
+              <th>Milestone</th>
+              <th>Date</th>
+              <th>Description</th>
+            </tr>
+          </thead><br>
+          <tbody>
+          </tbody>
+
+        </table>
+      </div><br>
+
+      <div class="infos">
+        <h5>Project Quotations</h5>
+      </div>
+
+      <div id="bots">
+        <div id="tables">
+          <table class="table table-bordered" id="passengerTablePrints">
+            <thead>
+            </thead><br>
+            <tbody id="tbodys">
+            </tbody>
+
+          </table>
+        </div>
+        <!--End Table-->
+        <!-- 
+            <div id="legalcopy">
+              <p class="pTag" class="legal"> This official receipt has a validity of five (5) years from the date of transaction
+              </p>
+            </div> -->
+        <div class="infos">
+          <div style="float:right">
+            <p class="pTags" id="userInfo">
+              <h5>Project Cost: <span id="total_costs"></span></h5><br>
+            </p>
+          </div>
+        </div>
+        <!--End InvoiceBot-->
+      </div><br><br><br><br><br><br><br><br><br><br>
+
+      <div class="infos">
+        <div style="float:right; margin-right: 550px;">
+          <p class="pTags" id="userInfo">
+            <h5>____________________________________________</h5>
+            <h5 style="text-align: center">Department Head</h5><br>
+            <span id="project_costs"></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="infos">
+        <div style="float:right; margin-top: -118px;">
+          <p class="pTags" id="userInfo">
+            <h5>____________________________________________</h5>
+            <h5 style="text-align: center">Project Manager</h5><br>
+          </p>
+        </div>
+      </div>
+      <!--End Invoice-->
+    </div>
+
+  </div>
+
+  <div id="generate_report">
+    <style>
+      #invoice-POS {
+        padding: 0;
+        margin: auto;
+        background: #fff;
+        color: #222
+      }
+
+      h4 {
+        font-size: 1.4em
+      }
+
+      .h5 {
+        margin-top: 40px;
+      }
+
+      h3 {
+        font-size: 1.6em;
+        font-weight: 400;
+        line-height: 2em
+      }
+
+      .pTag {
+        font-size: 1em;
+        color: black;
+        line-height: 1.5em
+      }
+
+      /* .fontSize {
+        font-size: 1.1em;
+        font-weight: 600;
+      } */
+
+      #bot,
+      #mid,
+      #top {
+        border-bottom: 1px solid #eee
+      }
+
+      #top {
+        min-height: 100px
+      }
+
+      #mid {
+        min-height: 80px
+      }
+
+      #bot {
+        min-height: 50px
+      }
+
+      .info {
+        display: block;
+        margin-left: 0
+      }
+
+      .title {
+        float: right
+      }
+
+      .title p {
+        text-align: right
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse
+      }
+
+      .tabletitle {
+        font-size: .5em;
+        background: #eee
+      }
+
+      .service {
+        border-bottom: 1px solid #eee;
+        text-align: center
+      }
+
+      .itemtext {
+        font-size: .8em
+      }
+
+      #legalcopy {
+        margin-top: 5mm
+      }
+    </style>
+    <div id="invoice-POS">
+
+      <center>
+        <div class="info">
+          <h4 id="project_name">Project Report</h4>
+          <small style="font-size: 1.2rem;" id="project_type" class="pTag"></small><br>
+          <small id="project_department" class="pTag text-secondary"></small>
+        </div>
+        <!--End Info-->
+      </center><br><br>
+      <!--End InvoiceTop-->
+      <div class="row" style="float:right; margin-right: -125px;">
+        <div class="col-sm-12">
+          <h5 class="h6">Date: <small style="font-size: 1rem;" id="date_created" class="pTag"></small></h5>
+        </div>
+        <div class="col-sm-12">
+          <h5 class="h6">Status: <small style="font-size: 1rem;" id="project_progress" class="pTag"></small></h5>
+        </div>
+      </div><br><br><br>
+
+      <div id="mid">
+        <div class="info">
+          <h6 style="font-weight: bold;">I. Project Proponent: </h6>
+          <span class="pTag fontSize" id="project_manager">
+          </span>
+        </div><br>
+
+        <div class="info">
+          <h6 style="font-weight: bold;">II. Estimated Cost</h6>
+          <p class="pTags fontSize" id="project_cost">
+          </p>
+        </div>
+
+        <div class="info">
+          <h6 style="font-weight: bold;">III. Schedule</h6>
+          <p class="pTag fontSize" id="project_schedule">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">IV. Background </h6>
+          <p class="pTag fontSize" id="project_background">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">V. Coverage </h6>
+          <p class="pTag fontSize" id="project_coverage">
+          </p>
+        </div>
+        <div class="infos">
+          <h6 style="font-weight: bold;">VI. Objectives </h6>
+          <p class="pTag fontSize" id="project_objective">
+          </p>
+        </div>
+        <div class="infos">
+          <h6 style="font-weight: bold;">VII. Assumptions </h6>
+          <p class="pTag fontSize" id="project_assumption">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">VIII. Constraints </h6>
+          <p class="pTag fontSize" id="project_constraint">
+          </p>
+        </div>
+        <div class="info">
+          <h6 style="font-weight: bold;">IX. Budgetary Requirements </h6>
+          <div id="table">
+            <table class="table table-bordered" id="budget_requirement">
+              <thead>
+                <tr>
+                  <th>Activities / Resources</th>
+                  <th>Estimated Cost</th>
+                  <th>Description</th>
+                </tr>
+              </thead><br>
+              <tbody id="project_requirement">
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="info">
+          <h6 style="font-weight: bold;">X. Target Beneficiaries </h6>
+          <p class="pTag fontSize" id="project_beneficiary">
+          </p>
+        </div><br>
+        <div class="info">
+          <h6 style="font-weight: bold;">XI. Stakeholders </h6>
+          <div id="table">
+            <table class="table table-bordered" id="project_stakeholder">
+              <thead>
+                <tr>
+                  <th>Stakeholder Name</th>
+                  <th>Role</th>
+                  <th>Project Expectancy</th>
+                </tr>
+              </thead><br>
+              <tbody>
+              </tbody>
+
+            </table>
+          </div>
+        </div><br>
+        <div class="info">
+          <h6 style="font-weight: bold;">XII. Deliverables </h6>
+          <p class="pTag fontSize" id="project_deliverable">
+          </p>
+        </div>
+        <br>
+      </div><br>
+      <!--End Invoice Mid-->
+
+      <div class="info">
+        <h6 style="font-weight: bold;">Project Milestones</h6>
+      </div>
+
+      <div id="table">
+        <table class="table table-bordered" id="project_milestone">
+          <thead>
+            <tr>
+              <th>Milestone</th>
+              <th>Date</th>
+              <th>Description</th>
+            </tr>
+          </thead><br>
+          <tbody>
+          </tbody>
+
+        </table>
+      </div><br>
+
+      <div class="info">
+        <h6 style="font-weight: bold;">Project Quotations</h6>
+      </div>
+
+      <div id="bot">
+        <div id="table">
+          <table class="table table-bordered" id="passengerTablePrint">
+            <thead>
+            </thead><br>
+            <tbody id="tbody">
+            </tbody>
+
+          </table>
+        </div>
+        <!--End Table-->
+        <!-- 
+              <div id="legalcopy">
+                <p class="pTag" class="legal"> This official receipt has a validity of five (5) years from the date of transaction
+                </p>
+              </div> -->
+        <div class="info">
+          <div style="float:right">
+            <p>
+              <h5 class="h6">Project Cost: <span id="total_cost"></span></h5><br>
+            </p>
+          </div>
+        </div>
+        <!--End InvoiceBot-->
+      </div><br><br><br><br><br><br><br><br><br><br>
+
+      <div class="row" style="margin-left: auto; text-align: center;">
+        <div class="info">
+          <div>
+            <p class="pTag" id="userInfo">
+              <h5>__________________________________</h5>
+              <h5 class="h6">Department Head</h5><br>
+              <span id="project_cost"></span>
+            </p>
+          </div>
+        </div>
+
+        <div style="padding-left: 100px;" class="info">
+          <div>
+            <p class="pTag" id="userInfo">
+              <h5>__________________________________</h5>
+              <h5 class="h6">Project Manager</h5><br>
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--End Invoice-->
+    </div>
+
+  </div>
+  <div id="editor"></div>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/project_officer_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_notification.js')}}"></script>
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      buttons: [{
+          extend: 'excel',
+          title: 'Projects',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4]
+          },
+        },
+        {
+          extend: 'pdf',
+          title: 'Projects',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4]
+          },
+        },
+        {
+          extend: 'print',
+          title: 'Projects',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4],
+            autoPrint: true,
+            orientation: 'landscape'
+          },
+        },
+      ],
+      responsive: true,
+      "lengthChange": false,
+      "autoWidth": false,
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  });
+
+  $(function () {
+
+    $("#example3").DataTable({
+      buttons: [{
+          extend: 'excel',
+          title: 'Concept Paper',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4]
+          },
+        },
+        {
+          extend: 'pdf',
+          title: 'Concept Paper',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4]
+          },
+        },
+        {
+          extend: 'print',
+          title: 'Concept Paper',
+          exportOptions: {
+            columns: [0, 1, 2, 3, 4],
+            autoPrint: true,
+            orientation: 'landscape'
+          },
+        },
+      ],
+      responsive: true,
+      "lengthChange": false,
+      "autoWidth": false,
+    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+  });
+
+  $(document).on('click', '.btn-generate', function () {
+
+    let project_id = this.value;
+
+    $.ajax({
+      url: '/projects/' + project_id,
+      type: 'GET',
+      data: {
+        project_id,
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        console.log(data);
+
+        $('#project_names').html(data.name)
+        $('#project_types').html(data.type)
+        $('#project_departments').html(data.project_department.name)
+        if (data.updated_at) {
+          $('#date_createds').html(moment(data.updated_at).format('MMMM D, YYYY'))
+        } else {
+          $('#date_createds').html(moment(data.created_at).format('MMMM D, YYYY'))
+        }
+        $('#project_progresss').html(data.progress_status);
+        $('#project_managers').html(data.project_user.first_name + ' ' + data.project_user
+          .last_name + ' ' + data.project_user.suffix_name)
+        $('#project_backgrounds').html(data.background)
+        $('#project_coverages').html(data.coverage)
+        $('#project_objectives').html(data.objectives)
+        $('#project_assumptions').html(data.assumptions)
+        $('#project_constraints').html(data.constraints)
+
+        $('#budget_requirements').find('tbody').empty()
+        $('#project_stakeholders').find('tbody').empty()
+        $('#project_milestones').find('tbody').empty()
+
+        for (var i = 0; i < data.project_budget.length; i++) {
+          $('#budget_requirements').find('tbody').append(`<tr>
+                                <td width="20%">${data.project_budget[i].name}</td>
+                                <td width="20%">${'₱' + new Intl.NumberFormat().format(data.project_budget[i].cost)}</td>
+                                <td width="20%">${data.project_budget[i].description}</td>
+                            </tr>`)
+        }
+
+        for (var i = 0; i < data.project_stakeholder.length; i++) {
+          $('#project_stakeholders').find('tbody').append(`<tr>
+                                <td width="20%">${data.project_stakeholder[i].name}</td>
+                                <td width="20%">${data.project_stakeholder[i].role}</td>
+                                <td width="20%">${data.project_stakeholder[i].expectation}</td>
+                            </tr>`)
+        }
+
+        for (var i = 0; i < data.project_milestone.length; i++) {
+          $('#project_milestones').find('tbody').append(`<tr>
+                                <td width="20%">${data.project_milestone[i].name}</td>
+                                <td width="20%">${moment(data.project_milestone[i].date).format('MMMM D, YYYY')}</td>
+                                <td width="20%">${data.project_milestone[i].description}</td>
+                            </tr>`)
+        }
+
+        $('#project_beneficiaries').html(data.target_beneficiaries)
+        $('#project_deliverables').html(data.expected_output)
+        $('#project_schedules').html(moment(data.start_date).format('MMMM D, YYYY') + ' - ' + moment(data
+          .end_date).format('MMMM D, YYYY'))
+        $('#project_costs').html('₱' + new Intl.NumberFormat().format(data.cost));
+
+        $.ajax({
+          url: '/quotation/project/' + project_id,
+          type: 'GET',
+          data: {
+            project_id,
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            console.log(data);
+            if (data.length != 0) {
+
+              $('#passengerTablePrints').find('thead').empty().append(`<tr>
+                                <th width="20%" id="passengerSeatPrint">Task Name</th>
+                                <th width="20%" id="passengerNamePrint">Product/Service</th>
+                                <th width="20%" id="passengerRoutePrint">Quantity</th>
+                                <th width="20%" id="passengerInsurancePrint">Total Price</th>
+                            </tr>`)
+
+              var html = "";
+              var total_price = 0;
+
+              for (i = 0; i < data.length; i++) {
+                total_price = total_price + data[i].total;
+
+                html += (`
+                <tr>
+                  <td><p class="pTag fontSize">${data[i].quotation_task.name}</p></td>
+                  <td><p class="pTag fontSize">${data[i].name}</p></td>
+                  <td><p class="pTag fontSize">${data[i].quantity}</p></td>
+                  <td><p class="pTag fontSize">₱${new Intl.NumberFormat().format(data[i].total)}</p></td>
+                </tr>
+              `)
+              }
+              $('#tbodys').html(html);
+              $('#total_costs').html('₱' + new Intl.NumberFormat().format(total_price));
+            }
+          }
+        })
+      }
+    })
+
+    $("#generate_reports").printThis({
+      debug: true, // show the iframe for debugging
+      importCSS: true, // import parent page css
+      importStyle: true, // import style tags
+      printContainer: false, // print outer container/$.selector
+      loadCSS: "", // path to additional css file - use an array [] for multiple
+      pageTitle: "", // add title to print page
+      removeInline: false, // remove inline styles from print elements
+      removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
+      printDelay: 333, // variable print delay
+      header: null, // prefix to html
+      footer: null, // postfix to html
+      base: false, // preserve the BASE tag or accept a string for the URL
+      formValues: true, // preserve input/form values
+      canvas: false, // copy canvas content
+      doctypeString: '...', // enter a different doctype for older markup
+      removeScripts: true, // remove script tags from print content
+      copyTagClasses: true, // copy classes from the html & body tag
+      beforePrintEvent: null, // function for printEvent in iframe
+      beforePrint: null, // function called before iframe is filled
+      afterPrint: null // function called before iframe is removed
+    });
+  })
+
+  $(document).on('click', '.btn-paper', function () {
+
+    let paper_id = this.value;
+
+    $.ajax({
+      url: '/concept_paper/' + paper_id,
+      type: 'GET',
+      data: {
+        paper_id,
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        console.log(data);
+
+        $('#paper_names').html(data.name)
+        $('#paper_types').html(data.type)
+        $('#paper_departments').html(data.concept_department.name)
+        if (data.updated_at) {
+          $('#paper_date_createds').html(moment(data.updated_at).format('MMMM D, YYYY'))
+        } else {
+          $('#paper_date_createds').html(moment(data.created_at).format('MMMM D, YYYY'))
+        }
+        $('#paper_progresss').html(data.progress_status);
+        $('#paper_managers').html(data.concept_employee.first_name + ' ' + data.concept_employee
+          .last_name + ' ' + data.concept_employee.suffix_name)
+        $('#paper_backgrounds').html(data.background)
+        $('#paper_coverages').html(data.coverage)
+        $('#paper_objectives').html(data.objectives)
+        $('#paper_assumptions').html(data.assumptions)
+        $('#paper_constraints').html(data.constraints)
+
+        $('#paper_budget_requirements').find('tbody').empty()
+
+        for (var i = 0; i < data.concept_budget.length; i++) {
+          $('#paper_budget_requirements').find('tbody').append(`<tr>
+                            <td width="20%">${data.concept_budget[i].name}</td>
+                            <td width="20%">${'₱' + new Intl.NumberFormat().format(data.concept_budget[i].cost)}</td>
+                            <td width="20%">${data.concept_budget[i].description}</td>
+                        </tr>`)
+        }
+
+        $('#paper_beneficiariess').html(data.target_beneficiaries)
+        $('#paper_deliverables').html(data.expected_output)
+        $('#paper_schedules').html(moment(data.start_date).format('MMMM D, YYYY') + ' - ' + moment(data
+          .end_date).format('MMMM D, YYYY'))
+        $('#paper_costs').html('₱' + new Intl.NumberFormat().format(data.cost));
+      }
+    })
+
+    $("#paper_report").printThis({
+      debug: true, // show the iframe for debugging
+      importCSS: true, // import parent page css
+      importStyle: true, // import style tags
+      printContainer: false, // print outer container/$.selector
+      loadCSS: "", // path to additional css file - use an array [] for multiple
+      pageTitle: "", // add title to print page
+      removeInline: false, // remove inline styles from print elements
+      removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
+      printDelay: 333, // variable print delay
+      header: null, // prefix to html
+      footer: null, // postfix to html
+      base: false, // preserve the BASE tag or accept a string for the URL
+      formValues: true, // preserve input/form values
+      canvas: false, // copy canvas content
+      doctypeString: '...', // enter a different doctype for older markup
+      removeScripts: true, // remove script tags from print content
+      copyTagClasses: true, // copy classes from the html & body tag
+      beforePrintEvent: null, // function for printEvent in iframe
+      beforePrint: null, // function called before iframe is filled
+      afterPrint: null // function called before iframe is removed
+    });
+  })
+
+  const options = {
+    margin: 0.5,
+    filename: 'report.pdf', //name the output file
+    image: {
+      type: 'jpeg', //image type
+      quality: 100
+    },
+    html2canvas: {
+      scale: 5
+    },
+    jsPDF: {
+      unit: 'in',
+      format: 'legal',
+      orientation: 'portrait' // pdf orientation
+    }
+  }
+
+  $('.btn-pdf').click(function (e) {
+    let project_id = this.value;
+
+    $.ajax({
+      url: '/projects/' + project_id,
+      type: 'GET',
+      data: {
+        project_id,
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        console.log(data);
+
+        $('#project_name').html(data.name)
+        $('#project_type').html(data.type)
+        $('#project_department').html(data.project_department.name)
+        if (data.updated_at) {
+          $('#date_created').html(moment(data.updated_at).format('MMMM D, YYYY'))
+        } else {
+          $('#date_created').html(moment(data.created_at).format('MMMM D, YYYY'))
+        }
+        $('#project_progress').html(data.progress_status);
+        $('#project_manager').html(data.project_user.first_name + ' ' + data.project_user
+          .last_name + ' ' + data.project_user.suffix_name)
+        $('#project_background').html(data.background)
+        $('#project_coverage').html(data.coverage)
+        $('#project_objective').html(data.objectives)
+        $('#project_assumption').html(data.assumptions)
+        $('#project_constraint').html(data.constraints)
+
+        $('#budget_requirement').find('tbody').empty()
+        $('#project_stakeholder').find('tbody').empty()
+        $('#project_milestone').find('tbody').empty()
+
+        for (var i = 0; i < data.project_budget.length; i++) {
+          $('#budget_requirement').find('tbody').append(`<tr>
+                                <td width="20%">${data.project_budget[i].name}</td>
+                                <td width="20%">${'₱' + new Intl.NumberFormat().format(data.project_budget[i].cost)}</td>
+                                <td width="20%">${data.project_budget[i].description}</td>
+                            </tr>`)
+        }
+
+        for (var i = 0; i < data.project_stakeholder.length; i++) {
+          $('#project_stakeholder').find('tbody').append(`<tr>
+                                <td width="20%">${data.project_stakeholder[i].name}</td>
+                                <td width="20%">${data.project_stakeholder[i].role}</td>
+                                <td width="20%">${data.project_stakeholder[i].expectation}</td>
+                            </tr>`)
+        }
+
+        for (var i = 0; i < data.project_milestone.length; i++) {
+          $('#project_milestone').find('tbody').append(`<tr>
+                                <td width="20%">${data.project_milestone[i].name}</td>
+                                <td width="20%">${moment(data.project_milestone[i].date).format('MMMM D, YYYY')}</td>
+                                <td width="20%">${data.project_milestone[i].description}</td>
+                            </tr>`)
+        }
+
+        $('#project_beneficiary').html(data.target_beneficiaries)
+        $('#project_deliverable').html(data.expected_output)
+        $('#project_schedule').html(moment(data.start_date).format('MMMM D, YYYY') + ' - ' + moment(data
+          .end_date).format('MMMM D, YYYY'))
+        $('#project_cost').html('₱' + new Intl.NumberFormat().format(data.cost));
+
+        $.ajax({
+          url: '/quotation/project/' + project_id,
+          type: 'GET',
+          data: {
+            project_id,
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            console.log(data);
+            if (data.length != 0) {
+
+              $('#passengerTablePrint').find('thead').empty().append(`<tr>
+                                <th width="20%" id="passengerSeatPrint">Task Name</th>
+                                <th width="20%" id="passengerNamePrint">Product/Service</th>
+                                <th width="20%" id="passengerRoutePrint">Quantity</th>
+                                <th width="20%" id="passengerInsurancePrint">Total Price</th>
+                            </tr>`)
+
+              var html = "";
+              var total_price = 0;
+
+              for (i = 0; i < data.length; i++) {
+                total_price = total_price + data[i].total;
+
+                html += (`
+                <tr>
+                  <td><p class="pTag fontSize">${data[i].quotation_task.name}</p></td>
+                  <td><p class="pTag fontSize">${data[i].name}</p></td>
+                  <td><p class="pTag fontSize">${data[i].quantity}</p></td>
+                  <td><p class="pTag fontSize">₱${new Intl.NumberFormat().format(data[i].total)}</p></td>
+                </tr>
+              `)
+              }
+              $('#tbody').html(html);
+              $('#total_cost').html('₱' + new Intl.NumberFormat().format(total_price));
+            }
+            e.preventDefault();
+            const element = document.getElementById('generate_report');
+            // clone the element
+            var clonedElement = element.cloneNode(true);
+
+            // change display of cloned element 
+            $(clonedElement).css("display", "block");
+            html2pdf().from(clonedElement).set(options).save();
+            //Hide the PDF div
+            clonedElement.remove();
+          }
+        })
+      }
+    })
+  });
+
+  $('.btn-pdf-paper').click(function (e) {
+    let paper_id = this.value;
+
+    $.ajax({
+      url: '/concept_paper/' + paper_id,
+      type: 'GET',
+      data: {
+        paper_id,
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        console.log(data);
+
+        $('#paper_name').html(data.name)
+        $('#paper_type').html(data.type)
+        $('#paper_department').html(data.concept_department.name)
+        if (data.updated_at) {
+          $('#paper_date_created').html(moment(data.updated_at).format('MMMM D, YYYY'))
+        } else {
+          $('#paper_date_created').html(moment(data.created_at).format('MMMM D, YYYY'))
+        }
+        $('#paper_progress').html(data.progress_status);
+        $('#paper_manager').html(data.concept_employee.first_name + ' ' + data.concept_employee
+          .last_name + ' ' + data.concept_employee.suffix_name)
+        $('#paper_background').html(data.background)
+        $('#paper_coverage').html(data.coverage)
+        $('#paper_objective').html(data.objectives)
+        $('#paper_assumption').html(data.assumptions)
+        $('#paper_constraint').html(data.constraints)
+
+        $('#paper_budget_requirement').find('tbody').empty()
+
+        for (var i = 0; i < data.concept_budget.length; i++) {
+          $('#paper_budget_requirement').find('tbody').append(`<tr>
+                            <td width="20%">${data.concept_budget[i].name}</td>
+                            <td width="20%">${'₱' + new Intl.NumberFormat().format(data.concept_budget[i].cost)}</td>
+                            <td width="20%">${data.concept_budget[i].description}</td>
+                        </tr>`)
+        }
+
+        $('#paper_beneficiaries').html(data.target_beneficiaries)
+        $('#paper_deliverable').html(data.expected_output)
+        $('#paper_schedule').html(moment(data.start_date).format('MMMM D, YYYY') + ' - ' + moment(data
+          .end_date).format('MMMM D, YYYY'))
+        $('#paper_cost').html('₱' + new Intl.NumberFormat().format(data.cost));
+        e.preventDefault();
+        const element = document.getElementById('paper_reports');
+        // clone the element
+        var clonedElement = element.cloneNode(true);
+
+        // change display of cloned element 
+        $(clonedElement).css("display", "block");
+        html2pdf().from(clonedElement).set(options).save();
+        //Hide the PDF div
+        clonedElement.remove();
+      }
+    })
+  });
+</script>
+{%endblock%}

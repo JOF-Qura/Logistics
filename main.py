@@ -151,6 +151,41 @@ from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
 from models.procurement.utilities import Utilities
 from models.procurement.rfq_vendor import RequestQuotationVendor
 from models.procurement.replacement_request import ReplacementRequest
+
+# importing all project management models
+from models.project_management.activity_model import Activity
+from models.project_management.budget_requirements_model import BudgetRequirements
+from models.project_management.concept_paper_model import ConceptPaper
+from models.project_management.department_model import Department
+from models.project_management.document_model import Document
+from models.project_management.history_model import ProjectHistory
+from models.project_management.job_model import Job
+from models.project_management.milestone_model import Milestones
+from models.project_management.project_model import Project
+from models.project_management.quotation_model import Quotation
+from models.project_management.stakeholders_model import Stakeholder
+from models.project_management.task_model import Task
+from models.project_management.tor_model import TermsOfReference
+from models.project_management.vendor_model import Vendor
+
+# importing all project management routes
+from routes.project_management import (activity_routes
+                    , budget_requirements_routes
+                    , concept_paper_routes
+                    , department_routes
+                    , document_routes 
+                    , history_routes
+                    , job_routes
+                    , milestone_routes
+                    , project_routes
+                    , quotation_routes
+                    , stakeholder_routes
+                    , task_routes
+                    , tor_routes
+                    , vendor_routes
+                    )
+
+
 # from .replacement_items import ReplacementItems
 
 # importing all procurement routes
@@ -204,6 +239,22 @@ app.include_router(maintenance_report_route.router)
 app.include_router(check_out_route.router)
 app.include_router(check_in_route.router)
 app.include_router(asset_warranty_route.router)
+
+# PROJECT MANAGEMENT ROUTES
+app.include_router(activity_routes.router)
+app.include_router(budget_requirements_routes.router)
+app.include_router(concept_paper_routes.router)
+app.include_router(department_routes.router)
+app.include_router(document_routes.router)
+app.include_router(history_routes.router)
+app.include_router(job_routes.router)
+app.include_router(milestone_routes.router)
+app.include_router(project_routes.router)
+app.include_router(quotation_routes.router)
+app.include_router(stakeholder_routes.router)
+app.include_router(task_routes.router)
+app.include_router(tor_routes.router)
+app.include_router(vendor_routes.router)
 
 app.include_router(countRequestDetail_Supply.router)
 app.include_router(countSupply.router)

@@ -1,0 +1,893 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './admin/includes/head.html' %}
+
+{% include './admin/includes/navbar.html' %}
+
+{% include './admin/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Users Profile</h1>
+          <div class="text-muted">User Profile to manage potential profile</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Default box -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="card-title">List of User Profile</div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+            <i class="fas fa-expand"></i>
+          </button>
+          <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary bg-solid-primary btn-sm"
+            id="new_task"><i class="fa fa-plus"></i> Add New User Profile</button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <table id="users_table" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Birthday</th>
+              <th>Gender</th>
+              <th>Municipality</th>
+              <th>Created At</th>
+              <th width="20%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i>New User Profile</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add_user_profile_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Email </label>
+                <select placeholder="Select Email" class="form-control select2bs4" style="width: 100%;" id="user_id"
+                  name="user_id">
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">First Name <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input placeholder="Enter First Name" type="text" class="form-control" name="first_name"
+                  id="first_name">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Middle Name </label>
+                <input placeholder="Enter Middle Name" type="text" class="form-control" name="middle_name"
+                  id="middle_name">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Last Name <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Last Name" type="text" class="form-control" name="last_name" id="last_name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Suffix Name </label>
+                <input placeholder="Enter Suffix Name" type="text" class="form-control" name="suffix_name"
+                  id="suffix_name">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Gender </label>
+                <select placeholder="Select Gender" class="form-control select2bs4" style="width: 100%;" id="gender"
+                  name="gender">
+                  <option selected disabled value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label class="location" for="exampleInputPassword1">Birthdate </label>
+                <input type="date" class="form-control" name="birthdate" id="birthdate">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">House Number <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input placeholder="Enter House Number" type="number" class="form-control" name="house_number"
+                  id="house_number">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Street </label>
+                <input placeholder="Enter Street" type="text" class="form-control" name="street" id="street">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Barangay <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Barangay" type="text" class="form-control" name="barangay" id="barangay">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Municipality <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input placeholder="Enter Municipality" type="text" class="form-control" name="municipality"
+                  id="municipality">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Province </label>
+                <input placeholder="Enter Municipality" type="text" class="form-control" name="province" id="province">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add User Profile <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="view_user_profile_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-file-alt mr-2"></i> User Details</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="view_user_profile_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Email: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_email" id="view_email" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">First Name: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_first_name" id="view_first_name" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Middle Name: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_middle_name" id="view_middle_name" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Last Name: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_last_name" id="view_last_name" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Suffix Name: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_suffix_name" id="view_suffix_name" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Gender: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_gender" id="view_gender" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Birthdate: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_birthdate" id="view_birthdate" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">House Number: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_house_number" id="view_house_number" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Street: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_street" id="view_street" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Barangay: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_barangay" id="view_barangay" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Municipality: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_municipality" id="view_municipality" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Province: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_province" id="view_province" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="edit_user_profile_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i>Edit User Profile</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_user_profile_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <input type="hidden" class="form-control" name="edit_id" id="edit_id" aria-describedby="emailHelp">
+                <label class="location" for="exampleInputPassword1">Email <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_user_id" name="edit_user_id">
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">First Name <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input placeholder="Enter First Name" type="text" class="form-control" name="edit_first_name"
+                  id="edit_first_name">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Middle Name </label>
+                <input placeholder="Enter Middle Name" type="text" class="form-control" name="edit_middle_name"
+                  id="edit_middle_name">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Last Name <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Last Name" type="text" class="form-control" name="edit_last_name"
+                  id="edit_last_name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Suffix Name </label>
+                <input placeholder="Enter Suffix Name" type="text" class="form-control" name="edit_suffix_name"
+                  id="edit_suffix_name">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Gender </label>
+                <select placeholder="Select Gender" class="form-control select2bs4" style="width: 100%;"
+                  id="edit_gender" name="edit_gender">
+                  <option selected disabled value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label class="location" for="exampleInputPassword1">Birthdate </label>
+                <input type="date" class="form-control" name="edit_birthdate" id="edit_birthdate">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">House Number <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input placeholder="Enter House Number" type="number" class="form-control" name="edit_house_number"
+                  id="edit_house_number">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Street </label>
+                <input placeholder="Enter Street" type="text" class="form-control" name="edit_street" id="edit_street">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Barangay <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Barangay" type="text" class="form-control" name="edit_barangay"
+                  id="edit_barangay">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Municipality <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input placeholder="Enter Municipality" type="text" class="form-control" name="edit_municipality"
+                  id="edit_municipality">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Province </label>
+                <input placeholder="Enter Province" type="text" class="form-control" name="edit_province"
+                  id="edit_province">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="delete_user_profile_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="delete_user_profile_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="delete_id" id="delete_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to delete this user profile?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger delete-confirm">Yes, delete it! <i class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/admin_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/admin_notification.js')}}"></script>
+
+<script>
+  $('.select2bs4').select2()
+
+  $(function () {
+    function loadtable() {
+      userProfileDataTable = $('#users_table').DataTable({
+        ajax: {
+          url: "/user_profile/",
+          dataSrc: ""
+        },
+        "columns": [{
+            data: "id"
+          },
+          {
+            data: null,
+            render: function (data, type, row, meta) {
+              return row.first_name + " " + row.last_name + " " + row.suffix_name;
+            }
+          },
+          {
+            data: null,
+            render: function (data, type, row, meta) {
+              return moment(row.birthdate).format('LL')
+            }
+          },
+          {
+            data: "gender"
+          },
+          {
+            data: "municipality"
+          },
+          {
+            data: "created_at"
+          },
+          {
+            data: "active_status",
+            render: function (data, type, row) {
+              if (data == "Active") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View User Profile</div>' +
+                  '</button>' +
+                  '<div class="dropdown-divider"></div>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-edit mr-1"></i>' +
+                  '</div>' +
+                  '<div>Edit User Profile</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-trash-alt mr-1"></i>' +
+                  '</div>' +
+                  '<div>Delete User Profile</div>' +
+                  '</button>'
+              }
+            }
+          },
+        ],
+        "aoColumnDefs": [{
+          "bVisible": false,
+          "aTargets": [0, 5]
+        }],
+        "order": [
+          [5, "desc"]
+        ]
+      })
+    }
+
+    function get_all_email() {
+      $.ajax({
+        url: '/users/',
+        type: "GET",
+        dataType: "JSON",
+
+        success: function (data) {
+          var user = data;
+          console.log(user)
+
+          var html = "";
+
+          if (user.length == 0) {
+            var html = `<option>No Email</option>`;
+          } else {
+            var html = "<option selected disabled>Select Email</option>";
+          }
+
+          for (var i = 0; i < user.length; i++) {
+            html += `<option value="${user[i].id}">${user[i].email}</option>`
+          }
+
+          $('#user_id').html(html);
+          $('#edit_user_id').html(html);
+
+        }
+      })
+    }
+
+    get_all_email();
+    loadtable();
+
+    $('#add_user_profile_form').validate({
+      rules: {
+        email: {
+          required: true,
+          email: true
+        },
+        first_name: {
+          required: true,
+        },
+        last_name: {
+          required: true,
+        },
+        birthdate: {
+          required: true,
+        },
+        gender: {
+          required: true,
+        },
+        house_number: {
+          required: true,
+        },
+        street: {
+          required: true,
+        },
+        barangay: {
+          required: true,
+        },
+        municipality: {
+          required: true,
+        },
+        province: {
+          required: true,
+        },
+        user_id: {
+          required: true,
+        },
+      },
+      messages: {
+        user_id: {
+          required: "Please select email",
+        },
+        first_name: {
+          required: "Please enter first name",
+        },
+        last_name: {
+          required: "Please enter last name",
+        },
+        birthdate: {
+          required: "Please enter birthdate",
+        },
+        gender: {
+          required: "Please select gender",
+        },
+        house_number: {
+          required: "Please enter house number",
+        },
+        street: {
+          required: "Please enter street",
+        },
+        barangay: {
+          required: "Please enter barangay",
+        },
+        municipality: {
+          required: "Please enter municipality",
+        },
+        province: {
+          required: "Please enter province",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // ADD USER
+        var form = $('#add_user_profile_form');
+
+        // ajax opening tag
+        $.ajax({
+          url: '/user_profile/',
+          type: "POST",
+          data: form.serialize(),
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#add_user_profile_form").trigger("reset");
+            $("#modal-default").modal('hide');
+            toastr.success('Successfully added new user profile.')
+            refresh();
+            // End of Confirmation
+          }
+          // ajax closing tag
+        })
+      }
+    });
+
+    $('#edit_user_profile_form').validate({
+      rules: {
+        edit_user_id: {
+          required: true,
+        },
+        edit_first_name: {
+          required: true,
+        },
+        edit_last_name: {
+          required: true,
+        },
+        edit_birthdate: {
+          required: true,
+        },
+        edit_gender: {
+          required: true,
+        },
+        edit_house_number: {
+          required: true,
+        },
+        edit_street: {
+          required: true,
+        },
+        edit_barangay: {
+          required: true,
+        },
+        edit_municipality: {
+          required: true,
+        },
+        edit_province: {
+          required: true,
+        },
+        edit_user_id: {
+          required: true,
+        },
+      },
+      messages: {
+        edit_user_id: {
+          required: "Please select email",
+        },
+        edit_first_name: {
+          required: "Please enter first name",
+        },
+        edit_last_name: {
+          required: "Please enter last name",
+        },
+        edit_birthdate: {
+          required: "Please enter birthdate",
+        },
+        edit_gender: {
+          required: "Please select gender",
+        },
+        edit_house_number: {
+          required: "Please enter house number",
+        },
+        edit_street: {
+          required: "Please enter street",
+        },
+        edit_barangay: {
+          required: "Please enter barangay",
+        },
+        edit_municipality: {
+          required: "Please enter municipality",
+        },
+        edit_province: {
+          required: "Please enter province",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // EDIT USER
+        var id = document.getElementById("edit_id").value
+        var user_id = document.getElementById("edit_user_id").value
+        var first_name = document.getElementById("edit_first_name").value
+        var middle_name = document.getElementById("edit_middle_name").value
+        var last_name = document.getElementById("edit_last_name").value
+        var suffix_name = document.getElementById("edit_suffix_name").value
+        var gender = document.getElementById("edit_gender").value
+        var birthdate = document.getElementById("edit_birthdate").value
+        var house_number = document.getElementById("edit_house_number").value
+        var street = document.getElementById("edit_street").value
+        var barangay = document.getElementById("edit_barangay").value
+        var municipality = document.getElementById("edit_municipality").value
+        var province = document.getElementById("edit_province").value
+        var user_id = document.getElementById("edit_user_id").value
+        var form = $('#edit_department_form');
+        console.log(province)
+
+        $.ajax({
+          url: '/user_profile/' + id,
+          type: "PUT",
+          data: {
+            user_id: user_id,
+            first_name: first_name,
+            middle_name: middle_name,
+            last_name: last_name,
+            suffix_name: suffix_name,
+            gender: gender,
+            birthdate: birthdate,
+            house_number: house_number,
+            street: street,
+            barangay: barangay,
+            municipality: municipality,
+            province: province
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#edit_user_profile_form_modal").modal('hide');
+            toastr.info('Successfully updated user profile.')
+            refresh();
+          }
+        })
+      }
+    });
+  });
+
+  function refresh() {
+    var url = "/user_profile/";
+    userProfileDataTable.ajax.url(url).load();
+  }
+
+  // VIEW USER
+  $(document).on("click", ".btn-view", function () {
+    var id = this.value;
+    $("#view_user_profile_form_modal").modal('show');
+
+    $.ajax({
+      url: '/user_profile/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var user = data;
+
+        $('#view_id').html(user.id);
+        $('#view_email').html(user.user.email);
+        $('#view_first_name').html(user.first_name);
+        $('#view_middle_name').html(user.middle_name);
+        $('#view_last_name').html(user.last_name);
+        $('#view_suffix_name').html(user.suffix_name);
+        $('#view_gender').html(user.gender);
+        $('#view_birthdate').html(moment(user.birthdate).format('LL'));
+        $('#view_house_number').html(user.house_number);
+        $('#view_street').html(user.street);
+        $('#view_barangay').html(user.barangay);
+        $('#view_municipality').html(user.municipality);
+        $('#view_province').html(user.province);
+      }
+    })
+  });
+
+  // EDIT USER
+  $(document).on("click", ".btn-edit", function () {
+    var id = this.value;
+    $("#edit_user_profile_form_modal").modal('show');
+
+    $.ajax({
+      url: '/user_profile/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var user = data;
+
+        $('#edit_id').val(user.id);
+        $('#edit_user_id').val(user.user_id);
+        $('#edit_first_name').val(user.first_name);
+        $('#edit_middle_name').val(user.middle_name);
+        $('#edit_last_name').val(user.last_name);
+        $('#edit_suffix_name').val(user.suffix_name);
+        $('#edit_gender').val(user.gender);
+        $('#edit_birthdate').val(moment(user.birthdate).format('YYYY-MM-DD'));
+        $('#edit_house_number').val(user.house_number);
+        $('#edit_street').val(user.street);
+        $('#edit_barangay').val(user.barangay);
+        $('#edit_municipality').val(user.municipality);
+        $('#edit_province').val(user.province);
+      }
+    })
+  });
+
+  // DELETE DEPARTMENT
+  $(document).on("click", ".btn-delete", function () {
+    var id = this.value;
+    $('#delete_user_profile_form_modal').modal('show');
+
+    $.ajax({
+      url: '/user_profile/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var user = data;
+        $('#delete_id').val(id);
+      }
+    })
+  });
+
+  $('.delete-confirm').on('click', function (e) {
+    e.preventDefault();
+    $('#delete_user_profile_form_modal').modal('show');
+    var id = document.getElementById("delete_id").value
+    var form = $('#delete_user_profile_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/user_profile/' + id,
+      type: "DELETE",
+      data: form.serialize(),
+      dataType: "JSON",
+
+      success: function (data) {
+        refresh();
+        toastr.info('Successfully deleted user profile.')
+        $('#delete_user_profile_form_modal').modal('hide');
+      }
+      // ajax closing tag
+    })
+  });
+</script>
+{%endblock%}

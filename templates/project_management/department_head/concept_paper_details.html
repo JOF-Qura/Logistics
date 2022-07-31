@@ -1,0 +1,693 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './users/includes/head.html' %}
+
+{% include './users/includes/navbar.html' %}
+
+{%endblock%}
+
+{%block sidebar%}
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+  <!-- Brand Logo -->
+  <a href="../../../index3.html" class="brand-link">
+    <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">HoMIES</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+      </div>
+      <!-- User Full Name -->
+      <div class="info mr-1 w-100" id="userFullNameDisplay">
+                      
+        <!-- User Full Name -->
+        <a href="#" class="nav-item text-truncate" id="full_name"></a>
+
+        <!-- User Position -->
+        <div class="small text-secondary text-truncate" id="user_type"></div>
+        
+        <!-- User Department -->
+        <div class="small text-secondary text-truncate" id="department"></div>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
+        <li class="nav-header">CORE</li>
+        <li class="nav-item">
+          <a href="/department_head/dashboard" {%if request.path == '/department_head/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-header">REQUESTS</li>
+          <li class="nav-item">
+            <a href="/department_head/concept_paper_requisition" class="nav-link active" {%if request.path == '/department_head/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-file-alt"></i>
+              <p>Concept Papers</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/department_head/project_requisition" {%if request.path == '/department_head/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>Proposals</p>
+            </a>
+          </li>
+        <li class="nav-header">PROJECTS</li>
+        <li class="nav-item">
+          <a href="/department_head/project_lists" {%if request.path == '/department_head/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-hammer"></i>
+            <p>Projects</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/department_head/calendar" {%if request.path == '/department_head/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-calendar"></i>
+            <p>Schedule</p>
+          </a>
+        </li>
+        <li class="nav-header">TASKS</li>
+        <li class="nav-item">
+          <a href="/department_head/task_lists" {%if request.path == '/department_head/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>General Tasks</p>
+          </a>
+        </li>
+        <li class="nav-header">REPORTS</li>
+        <li class="nav-item">
+          <a href="/department_head/reports" {%if request.path == '/department_head/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-file-signature"></i>
+            <p>Reports</p>
+          </a>
+        </li>
+        <li class="nav-header">TERMS OF REFERENCE</li>
+          <li class="nav-item">
+            <a href="/department_head/terms_of_reference" {%if request.path == '/department_head/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>Terms of Reference</p>
+            </a>
+          </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+
+  </div>
+  <!-- /.sidebar -->
+
+  <!-- Sidebar Custom -->
+  <div class="sidebar-custom">
+    <form>
+      <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cogs"></i></a>
+      <button type="button" class="btn btn-sm btn-danger hide-on-collapse pos-right btn-logouts">Log out <i
+          class="fas fa-sign-out-alt ml-1"></i></button>
+    </form>
+  </div>
+  <!-- /.sidebar-custom -->
+
+</aside>
+<!-- /.main-sidebar -->
+{%endblock%}
+
+
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Concept Paper Details</h1>
+          <div class="text-muted">Concept Paper to view additional details</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card card-primary card-outline card-tab">
+          <div class="card-header">
+            <h3 class="card-title">Project Details</h3>
+            <div class="card-tools">
+                {%if data.approval_status == "Pending"%}
+                <div class="badge badge-info p-2 w-100"><i class="fas fa-redo"></i> Pending</div>
+                {%elif data.approval_status == "Approved"%}
+                {%if data.progress_status == "On Hold"%}
+                  <button type="button" value="{{ data.id }}" class="btn btn-sm btn-primary btn-accept"><i class="fas fa-check mr-1"></i> Accept</button>
+                  <button type="button" value="{{ data.id }}" class="btn btn-sm btn-danger btn-refuse"><i class="fas fa-times-circle mr-1"></i> Refuse</button>
+                  {%else%}
+                  <div class="badge badge-success p-2 w-100"><i class="fas fa-check"></i> Approved</div>
+                  {%endif%}
+                {%elif data.approval_status == "Rejected"%}
+                <div class="badge badge-danger p-2 w-100"><i class="fas fa-times"></i> Rejected</div>
+                {%elif data.approval_status == "Refused"%}
+                <div class="badge badge-danger p-2 w-100"><i class="fas fa-times"></i> Refused</div>
+                {%else%}
+                <div class="badge badge-danger p-2 w-100"><i class="fas fa-times"></i> Cancelled</div>
+                {%endif%}
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+                <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box border shadow-none bg-default">
+                      <div class="info-box-content">
+                        <label class="info-box-text" for="inputName">Project Name</label>
+                        <span>{{ data.name }}</span>
+                        <small class="text-muted"> {{ data.type }} </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box border shadow-none bg-default">
+                      <div class="info-box-content">
+                        <label class="info-box-text" for="inputName">Project Manager</label>
+                        <span>{{ data.concept_employee.first_name }} {{ data.concept_employee.last_name}}
+                          {{ data.concept_employee.suffix_name}}</span>
+                        <small class="text-muted"> {{ data.concept_department.name }} </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box border shadow-none bg-default">
+                      <div class="info-box-content">
+                        <label class="info-box-text" for="inputName">Project Cost</label>
+                        <span>{{ "₱{:,.2f}".format(data.cost) }}</span>
+                        <small class="text-muted">{{ data.start_date.strftime('%b %d, %Y') }} -
+                          {{ data.end_date.strftime('%b %d, %Y') }}</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">I. Project Duration</label><br>
+                <p id="duration" class="ml-3"></p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">II. Project Background</label><br>
+                <p class="ml-3">{{ data.background }}</p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">III. Project Coverage</label><br>
+                <p class="ml-3">{{ data.coverage }}</p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">IV. Objectives</label><br>
+                <p class="ml-3">{{ data.objectives }}</p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">V. Project Assumptions</label><br>
+                <p class="ml-3">{{ data.assumptions }}</p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">VI. Project Constraints</label><br>
+                <p class="ml-3">{{ data.constraints }}</p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">VII. Budgetary Requirements</label><br>
+                <table id="on_hold_table" class="table table-bordered" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Activities / Resources</th>
+                      <th>Cost</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%for budget in data.concept_budget%}
+                    {%if budget.active_status == "Active"%}
+                    <tr>
+                      <td>{{ budget.name }}</td>
+                      <td>{{ "₱{:,.2f}".format(budget.cost) }}</td>
+                      <td>{{ budget.description }}</td>
+                    </tr>
+                    {%endif%}
+                    {%endfor%}
+                  </tbody>
+                </table>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">VIII. Target Beneficiaries</label><br>
+                <p class="ml-3">{{ data.target_beneficiaries }}</p>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">X. Deliverables</label><br>
+                <p class="ml-3">{{ data.expected_output }}</p>
+              </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer text-center">
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+      <div class="col-md-4">
+        <!-- /.card -->
+        <div class="card card-primary card-outline card-tab">
+            <div class="card-header">
+              <h3 class="card-title">Date Requested</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <div class="info-box border shadow-none bg-default">
+                  <div class="info-box-content">
+                    <label for="inputEstimatedBudget">Requested at</label>
+                    <span class="info-box-text">{{ data.created_at.strftime('%A, %B %d, %Y') }}</span>
+                    <span class="info-box-text">{{ data.created_at.strftime('%I:%S %p') }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        <!-- /.card -->
+        <div class="card card-primary card-outline card-tab">
+          <div class="card-header">
+            {%if data.approval_status == "Refused"%}
+            <h3 class="card-title">Reason of Refusal</h3>
+            {%elif data.progress_status == "Cancelled"%}
+            <h3 class="card-title">Reason of Cancellation</h3>
+            {%elif data.approval_status == "Approved"%}
+            <h3 class="card-title">Concept Paper Remarks</h3>
+            {%elif data.approval_status == "Pending"%}
+            <h3 class="card-title">Concept Paper Remarks</h3>
+            {%else%}
+            <h3 class="card-title">Reason of Rejection</h3>
+            {%endif%}
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="info-box border shadow-none bg-default">
+                <div class="info-box-content">
+                  {%if data.remarks is not none%}
+                  {%if data.approval_status == "Refused"%}
+                  <label for="inputEstimatedBudget">Reason</label>
+                  <small class="text-muted">{{ data.updated_at.strftime('%A, %B %d, %Y') }}</small>
+                  <span>{{ data.remarks }}</span>
+                  {%elif data.progress_status == "Cancelled"%}
+                  <label for="inputEstimatedBudget">Reason</label>
+                  <small class="text-muted">{{ data.updated_at.strftime('%A, %B %d, %Y') }}</small>
+                  <span>{{ data.remarks }}</span>
+                  {%elif data.approval_status == "Approved"%}
+                  <label for="inputEstimatedBudget">Remarks</label>
+                  <small class="text-muted">{{ data.updated_at.strftime('%A, %B %d, %Y') }}</small>
+                  <span>{{ data.remarks }}</span>
+                  {%elif data.approval_status == "Pending"%}
+                  <label for="inputEstimatedBudget">Remarks</label>
+                  <small class="text-muted">{{ data.updated_at.strftime('%A, %B %d, %Y') }}</small>
+                  <span>{{ data.remarks }}</span>
+                  {%else%}
+                  <label for="inputEstimatedBudget">Reason of Rejection</label>
+                  <small class="text-muted">{{ data.updated_at.strftime('%A, %B %d, %Y') }}</small>
+                  <span>{{ data.remarks }}</span>
+                  {%endif%}
+                  {%else%}
+                  <label for="inputEstimatedBudget">Remarks</label>
+                  <span class="btn-link text-secondary font-italic">No posted remarks.</span>
+                  {%endif%}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="add_milestone_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-md modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i> Add New Milestone</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add_milestone_form">
+          <div class="modal-body">
+            <input placeholder="Enter Milestone" type="hidden" class="form-control" name="project_id" id="project_id"
+              value="{{ data.id }}">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Milestone <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Milestone" type="text" class="form-control" name="name" id="name">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Date <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Date" type="datetime-local" class="form-control" name="date" id="date">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <textarea placeholder="Enter Description" rows="5" cols="50" class="form-control" name="description"
+                  id="description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Milestone <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="edit_milestone_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-md modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i> Edit Milestone</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_milestone_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="edit_id" id="edit_id"
+              value="{{ data.id }}">
+            <input type="hidden" class="form-control" name="edit_project_id" id="edit_project_id"
+              value="{{ data.id }}">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Milestone <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Milestone" type="text" class="form-control" name="edit_name" id="edit_name">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Date <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Date" type="datetime-local" class="form-control" name="edit_date" id="edit_date">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <textarea placeholder="Enter Description" rows="5" cols="50" class="form-control" name="edit_description"
+                  id="edit_description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="delete_milestone_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="delete_milestone_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="delete_ids" id="delete_ids" aria-describedby="emailHelp">
+            <h7>Are you sure you want to delete this milestone?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger delete-confirms">Yes, delete it! <i
+                class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="add_file_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-md modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i>Add New File</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add_file_form" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="hidden" id="project_id" name="project_id">
+            <label for="exampleInputFile">File input</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="document" name="document">
+                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add File <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="delete_file_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="delete_file_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="delete_id" id="delete_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to remove this file?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger delete-confirm">Yes, remove it! <i
+                class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_notification.js')}}"></script>
+
+<script>
+  $('.select2bs4').select2()
+
+  $(document).ready(function () {
+    start_date = new Date('{{ data.start_date }}');
+    end_date = new Date('{{ data.end_date }}');
+
+    var diff = Math.floor(end_date.getTime() - start_date.getTime());
+    var day = 1000 * 60 * 60 * 24;
+
+    var days = Math.floor(diff/day);
+    var months = Math.floor(days/31);
+    var years = Math.floor(months/12);
+
+    var message = "";
+
+    if(months >= 12){
+      months = months - 11;
+      message += years + " year and "
+      message += months + " months"
+    }
+    else if(years > 1){
+      months = months - (years * 12)
+      message += years + " years and "
+      message += months + " months"
+    }
+    else if(days < 30){
+      message += days + " days"
+    }
+    else if(months > 1){
+      days = days - (months * 30);
+      message += months + " months and "
+      message += days + " days"
+    }
+    else{
+      days = days - 30;
+      message += months + " month and "
+      message += days + " days"
+    }
+
+    $('#duration').html(message);
+  });
+
+  $('#document').on('change', function (e) {
+    //get the file name
+    var fileName = e.target.files[0].name;
+    //replace the "Choose a file" label
+    $(this).next('.custom-file-label').html(fileName);
+  })
+
+  $(function () {
+    $('#add_file_form').validate({
+      rules: {
+        document: {
+          required: true,
+        },
+      },
+      messages: {
+        document: {
+          required: "Please select document",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // ADD FILE
+        formData = new FormData();
+        formData.append('project_id', $('#project_id').val());
+        formData.append('file', $('#document')[0].files[0]);
+
+        $.ajax({
+          url: '/document/',
+          type: "POST",
+          processData: false,
+          data: formData,
+          contentType: false,
+
+          success: function (data) {
+            $("#add_file_form_modal").modal('hide');
+            window.setTimeout(function () {
+              location.reload();
+            }, 1800);
+            toastr.info('Successfully added file.')
+          }
+        })
+      }
+    });
+  });
+
+  // ADD FILE
+  $(document).on("click", ".btn-file", function () {
+    var id = this.value;
+    $("#add_file_form_modal").modal('show');
+
+    $('#project_id').val(id);
+  });
+
+  // DELETE FILE
+  $(document).on("click", ".btn-delete", function () {
+    var id = this.value;
+    $('#delete_file_form_modal').modal('show');
+
+    $.ajax({
+      url: '/document/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var document = data;
+        $('#delete_id').val(id);
+      }
+    })
+  });
+
+  $('.delete-confirm').on('click', function (e) {
+    e.preventDefault();
+    var id = document.getElementById("delete_id").value
+    var form = $('#delete_file_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/document/' + id,
+      type: "DELETE",
+      data: form.serialize(),
+      dataType: "JSON",
+
+      success: function (data) {
+        $('#delete_file_form_modal').modal('hide');
+        window.setTimeout(function () {
+          location.reload();
+        }, 1800);
+        toastr.info('Successfully deleted document.')
+      }
+      // ajax closing tag
+    })
+  });
+</script>
+{%endblock%}

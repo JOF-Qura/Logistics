@@ -1,0 +1,1465 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './users/includes/head.html' %}
+
+{% include './users/includes/navbar.html' %}
+
+{% include './users/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Projects</h1>
+          <div class="text-muted">Projects to manage potential improvements</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <div class="col-12 col-sm-12">
+      <div class="card card-primary card-outline card-tabs">
+        <div class="card-header p-0 pt-1 pb-2">
+          <div class="card-title ml-4 mt-2">List of Projects</div>
+          <div class="card-tools">
+            <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+              <i class="fas fa-expand"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <ul class="nav nav-tabs" id="custom-tabs-six-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-all-tab" data-toggle="pill" href="#custom-tabs-six-all"
+                  role="tab" aria-controls="custom-tabs-six-all" aria-selected="true">All</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-six-on-progress-tab" data-toggle="pill"
+                  href="#custom-tabs-six-on-progress" role="tab" aria-controls="custom-tabs-six-on-progress"
+                  aria-selected="false">On Progress</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-completed-tab" data-toggle="pill"
+                  href="#custom-tabs-six-completed" role="tab" aria-controls="custom-tabs-six-completed"
+                  aria-selected="false">Completed</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-cancelled-tab" data-toggle="pill"
+                  href="#custom-tabs-six-cancelled" role="tab" aria-controls="custom-tabs-six-cancelled"
+                  aria-selected="false">Cancelled</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-delayed-tab" data-toggle="pill" href="#custom-tabs-six-delayed"
+                  role="tab" aria-controls="custom-tabs-six-delayed" aria-selected="false">Delayed</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-onhold-tab" data-toggle="pill" href="#custom-tabs-six-onhold"
+                  role="tab" aria-controls="custom-tabs-six-onhold" aria-selected="false">On Hold</a>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content" id="custom-tabs-six-tabContent">
+            <div class="tab-pane fade" id="custom-tabs-six-all" role="tabpanel"
+              aria-labelledby="custom-tabs-six-all-tab">
+              <table id="projects_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade show active" id="custom-tabs-six-on-progress" role="tabpanel"
+              aria-labelledby="custom-tabs-six-on-progress-tab">
+              <table id="on_progress_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-completed" role="tabpanel"
+              aria-labelledby="custom-tabs-six-completed-tab">
+              <table id="completed_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-cancelled" role="tabpanel"
+              aria-labelledby="custom-tabs-six-cancelled-tab">
+              <table id="cancelled_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-delayed" role="tabpanel"
+              aria-labelledby="custom-tabs-six-delayed-tab">
+              <table id="delayed_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-onhold" role="tabpanel"
+              aria-labelledby="custom-tabs-six-onhold-tab">
+              <table id="on_hold_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+    <!-- Default box -->
+    <!-- <div class="card card-primary card-outline"> -->
+
+    <!-- Card Header -->
+    <!-- <div class="card-header">
+          <div class="card-tools">
+            <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary bg-solid-primary btn-sm" type="button" id="new_task"><i class="fa fa-plus"></i> Create New Project</button>
+					</div>
+        </div> -->
+    <!-- /.card-header -->
+
+    <!-- Card Body -->
+    <!-- <div class="card-body">
+          <table id="projects_table" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Department</th>
+              <th>Project</th>
+              <th>Type</th>
+              <th>Cost</th>
+              <th>Status</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div> -->
+    <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="mark_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="mark_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="mark_id" id="mark_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to mark this as completed project?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success mark-confirm">Yes, mark it! <i
+                class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="edit_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i>Edit Project</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_project_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <input type="hidden" class="form-control" name="edit_id" id="edit_id" aria-describedby="emailHelp">
+
+                <label class="location" for="exampleInputPassword1">Project Name <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input disabled type="text" class="form-control" name="edit_name" id="edit_name">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Project Type <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <select disabled class="form-control select2bs4" style="width: 100%;" id="edit_type" name="edit_type">
+                  <option value="Administrative">Administrative</option>
+                  <option value="Construction">Construction</option>
+                  <option value="Computer Software Development">Computer Software Development</option>
+                  <option value="Design of Plans">Design of Plans</option>
+                  <option value="Equipment or System Installation">Equipment or System Installation</option>
+                  <option value="Event or Relocation">Event or Relocation</option>
+                  <option value="Maintenance of Process Industries">Maintenance of Process Industries</option>
+                  <option value="New Product Development">New Product Development</option>
+                  <option value="Research">Research</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Cost <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input disabled type="number" class="form-control" name="edit_cost" id="edit_cost">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="start_date" for="exampleInputPassword1">Start Date <span style="color:red"
+                    aria-hidden="true" class="required">*</span></label>
+                <input disabled type="date" class="form-control" name="edit_start_date" id="edit_start_date">
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="end_date" for="exampleInputPassword1">End Date <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input disabled type="date" class="form-control" name="edit_end_date" id="edit_end_date">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <textarea disabled rows="10" cols="50" class="form-control" name="edit_description"
+                  id="edit_description"></textarea>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Progress Status <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_progress_status"
+                  name="edit_progress_status">
+                  <option value="On Progress">On Progress</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Delayed">Delayed</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="cancel_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="cancel_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="cancel_id" id="cancel_id" aria-describedby="emailHelp">
+            <label for="exampleInputEmail1">Reason <span style="color:red" aria-hidden="true"
+                class="required">*</span></label>
+            <textarea placeholder="Enter Reason" rows="5" cols="50" class="form-control" name="reason"
+              id="reason"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger delete-confirm1">Cancel Project <i
+                class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/project_officer_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_notification.js')}}"></script>
+
+<script>
+  $('.select2bs4').select2()
+
+  $(document).ready(function () {
+    var ajaxRequest, registrationStatus;
+    var today = new Date();
+    var value = $(this).val();
+    clearTimeout(ajaxRequest);
+    ajaxRequest = setTimeout(function (e) {
+      $.ajax({
+        url: '/projects/department/approval_status/Approved/'+user_id,
+        type: "GET",
+        dataType: "JSON",
+        async: true,
+
+        success: function (data) {
+          var project = data;
+
+          for (var i = 0; i < project.length; i++) {
+            if (project[i].progress_status == 'On Progress' && today >= new Date(project[i].end_date)
+              .getTime()) {
+              progress_status = "Delayed";
+              $.ajax({
+                url: '/projects/auto_update/' + project[i].id,
+                type: "PUT",
+                data: {
+                  progress_status: progress_status
+                },
+                dataType: "JSON",
+
+                success: function (data) {
+                  var project = data;
+                  toastr.info('Successfully updated delayed project.')
+                }
+                // ajax closing tag
+              })
+            }
+          }
+          refresh1();
+          refresh2();
+          refresh3();
+          refresh4();
+          refresh5();
+          refresh6()
+        }
+      });
+    }, 100, value);
+  });
+
+  function project_table() {
+    projectsDataTable = $('#projects_table').DataTable({
+      ajax: {
+        url: "/projects/department/approval_status/project_officer/Approved/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "name"
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            if (data == "On Progress") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else if (data == "Completed") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else if (data == "Cancelled") {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-redo mr-1"></i> ' + row
+                .progress_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              if (row.progress_status == "Cancelled") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i> ' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>'
+              } else if (row.progress_status == "Completed") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i> ' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>'
+              } else if (row.progress_status == "Delayed") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i> ' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-check mr-1"></i>' +
+                  '</div>' +
+                  '<div>Mark as Completed</div>' +
+                  '</button>' +
+                  '<div class="dropdown-divider"></div>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-times-circle mr-1"></i>' +
+                  '</div>' +
+                  '<div>Cancel Project</div>' +
+                  '</button>'
+              } else if (row.progress_status == "On Hold") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i> ' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>'
+              } else {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i> ' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-check mr-1"></i>' +
+                  '</div>' +
+                  '<div>Mark as Completed</div>' +
+                  '</button>' +
+                  '<div class="dropdown-divider"></div>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-times-circle mr-1"></i>' +
+                  '</div>' +
+                  '<div>Cancel Project</div>' +
+                  '</button>'
+              }
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function on_progress_table() {
+    onProgressDataTable = $('#on_progress_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/project_officer/On%20Progress/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "name"
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i> ' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-times-circle mr-1"></i>' +
+                '</div>' +
+                '<div>Cancel Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 5]
+      }],
+      "order": [
+        [5, "desc"]
+      ]
+    })
+  }
+
+  function completed_table() {
+    completedDataTable = $('#completed_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/project_officer/Completed/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "name"
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i> ' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 5]
+      }],
+      "order": [
+        [5, "desc"]
+      ]
+    })
+  }
+
+  function cancelled_table() {
+    cancelledDataTable = $('#cancelled_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/project_officer/Cancelled/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "name"
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i> ' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 5]
+      }],
+      "order": [
+        [5, "desc"]
+      ]
+    })
+  }
+
+  function delayed_table() {
+    delayedDataTable = $('#delayed_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/project_officer/Delayed/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "name"
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].progress_status == "Done") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i> ' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Project</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-times-circle mr-1"></i>' +
+                '</div>' +
+                '<div>Cancel Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 5]
+      }],
+      "order": [
+        [5, "desc"]
+      ]
+    })
+  }
+
+  function on_hold_table() {
+    onHoldDataTable = $('#on_hold_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/project_officer/On%20Hold/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "name"
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total = 0;
+            var total_task = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view1">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i> ' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 5]
+      }],
+      "order": [
+        [5, "desc"]
+      ]
+    })
+  }
+
+  project_table();
+  on_progress_table();
+  completed_table();
+  cancelled_table();
+  delayed_table();
+  on_hold_table();
+
+  $(function () {
+    $('#edit_project_form').validate({
+      rules: {
+        edit_name: {
+          required: true,
+        },
+        edit_type: {
+          required: true
+        },
+        edit_cost: {
+          required: true
+        },
+        edit_start_date: {
+          required: true
+        },
+        edit_end_date: {
+          required: true
+        },
+        edit_description: {
+          required: true
+        },
+      },
+      messages: {
+        edit_name: {
+          required: "Please enter project name",
+        },
+        edit_cost: {
+          required: "Please enter project cost",
+        },
+        edit_type: {
+          required: "Please select project type",
+        },
+        edit_start_date: {
+          required: "Please select start date",
+        },
+        edit_end_date: {
+          required: "Please select end date",
+        },
+        edit_description: {
+          required: "Please enter description",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // EDIT PROJECT
+        var id = document.getElementById("edit_id").value
+        var name = document.getElementById("edit_name").value
+        var description = document.getElementById("edit_description").value
+        // var manager_id = document.getElementById("edit_manager_id").value
+        // var department_id = document.getElementById("edit_department_id").value
+        var cost = document.getElementById("edit_cost").value
+        var type = document.getElementById("edit_type").value
+        var end_date = document.getElementById("edit_end_date").value
+        var start_date = document.getElementById("edit_start_date").value
+        var progress_status = document.getElementById("edit_progress_status").value
+        var form = $('#edit_project_form');
+
+        $.ajax({
+          url: '/projects/' + id,
+          type: "PUT",
+          data: {
+            name: name,
+            description: description,
+            manager_id: manager_id,
+            type: type,
+            department_id: department_id,
+            cost: cost,
+            end_date: end_date,
+            start_date: start_date,
+            progress_status: progress_status
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#edit_project_form_modal").modal('hide');
+            toastr.info('Successfully updated project.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            refresh5();
+            refresh6()
+          }
+        })
+      }
+    });
+
+    $('#cancel_project_form').validate({
+      rules: {
+        reason: {
+          required: true,
+        },
+      },
+      messages: {
+        reason: {
+          required: "Please enter reason",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // CANCEL PROJECT
+        var id = document.getElementById("cancel_id").value
+        var remarks = document.getElementById("reason").value
+
+        $.ajax({
+          url: '/projects/cancel/' + id,
+          type: "PUT",
+          data: {
+            id: id,
+            remarks: remarks
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#cancel_project_form_modal").modal('hide');
+            toastr.info('Successfully cancelled a project.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            refresh5();
+            refresh6()
+          }
+        })
+      }
+    });
+  });
+
+  function refresh1() {
+    var url = "/projects/department/approval_status/project_officer/Approved/"+user_id;
+    projectsDataTable.ajax.url(url).load();
+  }
+
+  function refresh2() {
+    var url = "/projects/department/progress_status/project_officer/On%20Progress/"+user_id;
+    onProgressDataTable.ajax.url(url).load();
+  }
+
+  function refresh3() {
+    var url = "/projects/department/progress_status/project_officer/Completed/"+user_id;
+    completedDataTable.ajax.url(url).load();
+  }
+
+  function refresh4() {
+    var url = "/projects/department/progress_status/project_officer/Cancelled/"+user_id;
+    cancelledDataTable.ajax.url(url).load();
+  }
+
+  function refresh5() {
+    var url = "/projects/department/progress_status/project_officer/Delayed/"+user_id;
+    delayedDataTable.ajax.url(url).load();
+  }
+
+  function refresh6() {
+    var url = "/projects/department/progress_status/project_officer/On%20Hold/"+user_id;
+    onHoldDataTable.ajax.url(url).load();
+  }
+
+  // VIEW PROJECT
+  $(document).on("click", ".btn-view", function () {
+    var id = this.value;
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        window.location.href = "http://127.0.0.1:8000/project_officer/project_details/" + project.id;
+      }
+    })
+  });
+
+  // VIEW PROJECT
+  $(document).on("click", ".btn-view1", function () {
+
+    var id = this.value;
+    window.location.href = "http://127.0.0.1:8000/project_officer/view_project/" + id;
+
+  });
+
+  // MARK AS COMPLETED PROJECT
+  $(document).on("click", ".btn-mark", function () {
+    var id = this.value;
+    $('#mark_project_form_modal').modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        $('#mark_id').val(project.id);
+      }
+    })
+  });
+
+  // MARK AS COMPLETED PROJECT
+  $('.mark-confirm').on('click', function (e) {
+    e.preventDefault();
+    $('#mark_project_form_modal').modal('show');
+    var id = document.getElementById("mark_id").value
+    var form = $('#mark_project_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/projects/mark_completed/' + id,
+      type: "PUT",
+      data: form.serialize(),
+      dataType: "JSON",
+
+      success: function (data) {
+        refresh1();
+        refresh2();
+        refresh3();
+        refresh4();
+        refresh5();
+        refresh6();
+        toastr.info('Successfully marked as completed project.')
+        $('#mark_project_form_modal').modal('hide');
+      }
+      // ajax closing tag
+    })
+  });
+
+  // EDIT PROJECT
+  $(document).on("click", ".btn-edit", function () {
+    var id = this.value;
+    $("#edit_project_form_modal").modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        $('#edit_id').val(id);
+        $('#edit_name').val(project.name);
+        $('#edit_description').val(project.description);
+        $('#edit_cost').val(project.cost);
+        $('#edit_type').val(project.type);
+        $('#edit_start_date').val(moment(project.start_date).format('YYYY-MM-DD'));
+        $('#edit_end_date').val(moment(project.end_date).format('YYYY-MM-DD'));
+        $('#edit_progress_status').val(project.progress_status);
+      }
+    })
+  });
+
+  // CANCEL PROJECT
+  $(document).on("click", ".btn-cancel", function () {
+    var id = this.value;
+    $("#cancel_project_form_modal").modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        $('#cancel_id').val(id);
+        $('#reason').val(project.remarks);
+      }
+    })
+  });
+</script>
+{%endblock%}

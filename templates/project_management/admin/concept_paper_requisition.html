@@ -1,0 +1,992 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './admin/includes/head.html' %}
+
+{% include './admin/includes/navbar.html' %}
+
+{% include './admin/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Concept Papers</h1>
+          <div class="text-muted">Concept Papers to view potential improvements</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Info Boxes -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fas fa-file-alt"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Requests</span>
+            <span id="total" name="total" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="fas fa-check"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Approved Requests</span>
+            <span id="approved" name="approved" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-secondary"><i class="far fa-copy"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Pending Requests</span>
+            <span id="pending" name="pending" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="fas fa-times"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Rejected Requests</span>
+            <span id="rejected" name="rejected" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- / Info Boxes -->
+
+    <!-- Default box -->
+    <div class="card card-primary card-outline card-tabs">
+      <!-- Card Body -->
+      <div class="card-header p-0 pt-1 pb-2">
+        <div class="card-title ml-4 mt-2">List of Requests</div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="mt-0 mb-3">
+          <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-four-all-tab" data-toggle="pill" href="#custom-tabs-four-all" role="tab"
+                aria-controls="custom-tabs-four-all" aria-selected="true">All</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" id="custom-tabs-four-pending-tab" data-toggle="pill"
+                href="#custom-tabs-four-pending" role="tab" aria-controls="custom-tabs-four-pending"
+                aria-selected="false">Pending</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-four-approved-tab" data-toggle="pill" href="#custom-tabs-four-approved"
+                role="tab" aria-controls="custom-tabs-four-approved" aria-selected="false">Approved</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-four-rejected-tab" data-toggle="pill" href="#custom-tabs-four-rejected"
+                role="tab" aria-controls="custom-tabs-four-rejected" aria-selected="false">Rejected</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content" id="custom-tabs-four-tabContent">
+          <div class="tab-pane fade" id="custom-tabs-four-all" role="tabpanel"
+            aria-labelledby="custom-tabs-four-all-tab">
+            <table id="project_requisition_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Project Name</th>
+                  <th>Manager</th>
+                  <th>Cost</th>
+                  <th>Requested</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade show active" id="custom-tabs-four-pending" role="tabpanel"
+            aria-labelledby="custom-tabs-four-pending-tab">
+            <table id="pending_project_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Project Name</th>
+                  <th>Manager</th>
+                  <th>Cost</th>
+                  <th>Requested</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-four-approved" role="tabpanel"
+            aria-labelledby="custom-tabs-four-approved-tab">
+            <table id="approved_project_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Project Name</th>
+                  <th>Manager</th>
+                  <th>Cost</th>
+                  <th>Requested</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-four-rejected" role="tabpanel"
+            aria-labelledby="custom-tabs-four-rejected-tab">
+            <table id="rejected_project_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Project Name</th>
+                  <th>Manager</th>
+                  <th>Cost</th>
+                  <th>Requested</th>
+                  <th>Status</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="view_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Project Details</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="view_project_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Department: </label>
+                <span name="view_department_id" id="view_department_id" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label class="location" for="exampleInputPassword1">Project Name: </label>
+                <span name="view_name" id="view_name" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Project Manager: </label>
+                <span name="view_manager_id" id="view_manager_id" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Project Type: </label>
+                <span name="view_type" id="view_type" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Cost: </label>
+                ₱<span name="view_cost" id="view_cost" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Start Date: </label>
+                <span name="view_start_date" id="view_start_date" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">End Date: </label>
+                <span name="view_end_date" id="view_end_date" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Description: </label>
+                <span name="view_description" id="view_description" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="approve_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="approve_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="approve_id" id="approve_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to approve this project?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            <button type="submit" class="btn btn-primary approve-confirm">Yes, I approve! <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="reject_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-times-circle"></i> Reject Project Request</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="reject_project_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <input type="hidden" class="form-control" name="reject_id" id="reject_id">
+                <label for="exampleInputEmail1">Reason <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <textarea placeholder="Enter Reason" rows="5" cols="50" class="form-control" name="reason"
+                  id="reason"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger reject-confirm">Reject Project <i class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/admin_restriction.js')}}"></script>
+
+<script>
+  function all_project_table() {
+    projectRequisitionDataTable = $('#project_requisition_table').DataTable({
+      ajax: {
+        url: "/concept_paper/",
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.type + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            return manager
+          }
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.created_at).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.created_at).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "approval_status",
+          render: function (data, type, row) {
+            if (data == "Pending") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-redo mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else if (data == "Approved") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .approval_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              if (row.approval_status == "Pending") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else if (row.approval_status == "Approved") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>'
+              }
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function pending_project_table() {
+    pendingProjectDataTable = $('#pending_project_table').DataTable({
+      ajax: {
+        url: "/concept_paper/approval_status/Pending",
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.type + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            return manager
+          }
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.created_at).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.created_at).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "approval_status",
+          render: function (data, type, row) {
+            if (data == "Pending") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-redo mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else if (data == "Approved") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .approval_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              if (row.approval_status == "Pending") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else if (row.approval_status == "Approved") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>'
+              }
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function approved_project_table() {
+    approvedProjectDataTable = $('#approved_project_table').DataTable({
+      ajax: {
+        url: "/concept_paper/approval_status/Approved",
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.type + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            return manager
+          }
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.created_at).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.created_at).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "approval_status",
+          render: function (data, type, row) {
+            if (data == "Pending") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-redo mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else if (data == "Approved") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .approval_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              if (row.approval_status == "Pending") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else if (row.approval_status == "Approved") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>'
+              }
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function rejected_project_table() {
+    rejectedProjectDataTable = $('#rejected_project_table').DataTable({
+      ajax: {
+        url: "/concept_paper/approval_status/Rejected",
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.type+ '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            return manager
+          }
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.created_at).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.created_at).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "approval_status",
+          render: function (data, type, row) {
+            if (data == "Pending") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-redo mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else if (data == "Approved") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .approval_status + '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .approval_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              if (row.approval_status == "Pending") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else if (row.approval_status == "Approved") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>' +
+                  '</button>'
+              } else {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Concept Paper</div>'
+              }
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  // TOTAL PROJECT
+  function total_projects() {
+    $.ajax({
+      url: '/concept_paper/',
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        var approved = 0
+        var rejected = 0
+        var pending = 0
+
+        for (var i = 0; i < project.length; i++) {
+          if (project[i].approval_status == "Approved") {
+            approved++
+          } else if (project[i].approval_status == "Pending") {
+            pending++;
+          } else {
+            rejected++;
+          }
+        }
+
+        console.log(pending)
+        $('#total').html(project.length);
+        $('#approved').html(approved);
+        $('#pending').html(pending);
+        $('#rejected').html(rejected);
+      }
+    })
+  }
+
+  all_project_table();
+  pending_project_table();
+  approved_project_table();
+  rejected_project_table();
+  total_projects();
+
+  $(function () {
+    $('#reject_project_form').validate({
+      rules: {
+        reason: {
+          required: true,
+        },
+      },
+      messages: {
+        reason: {
+          required: "Please enter reason",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // REJECT PROJECT
+        var id = document.getElementById("reject_id").value
+        var remarks = document.getElementById("reason").value
+
+        $.ajax({
+          url: '/concept_paper/reject/' + id,
+          type: "PUT",
+          data: {
+            id: id,
+            remarks: remarks
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#reject_project_form_modal").modal('hide');
+            toastr.info('Successfully rejected a project.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            total_projects();
+          }
+        })
+      }
+    });
+  });
+
+  function refresh1() {
+    var url = "/concept_paper/";
+    projectRequisitionDataTable.ajax.url(url).load();
+  }
+
+  function refresh2() {
+    var url = "/concept_paper/approval_status/Pending";
+    pendingProjectDataTable.ajax.url(url).load();
+  }
+
+  function refresh3() {
+    var url = "/concept_paper/approval_status/Approved";
+    approvedProjectDataTable.ajax.url(url).load();
+  }
+
+  function refresh4() {
+    var url = "/concept_paper/approval_status/Rejected";
+    rejectedProjectDataTable.ajax.url(url).load();
+  }
+
+  // VIEW PROJECT
+  $(document).on("click", ".btn-view", function () {
+    var id = this.value;
+    $.ajax({
+      url: '/concept_paper/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var paper = data;
+        window.location.href = "http://127.0.0.1:8000/admin/concept_paper_details/" + paper.id;
+      }
+    })
+  });
+
+  // VIEW PROJECT
+  // $(document).on("click", ".btn-view", function(){
+  //   var id = this.value;
+  //   $("#view_project_form_modal").modal('show');
+
+  //   $.ajax({
+  //     url:'/projects/'+id,
+  //     type: "GET",
+  //     data: { id: id},
+  //     dataType: "JSON",
+
+  //     success: function(data){
+  //       var project = data;
+
+  //       $('#view_id').html(project.id);
+  //       $('#view_department_id').html(project.project_department.name);
+  //       $('#view_name').html(project.name);
+  //       $('#view_manager_id').html(project.project_user.profile.first_name + " " + project.project_user.profile.last_name + " " + project.project_user.profile.suffix_name);
+  //       $('#view_cost').html(new Intl.NumberFormat().format(project.cost));
+  //       $('#view_type').html(project.type);
+  //       $('#view_start_date').html(moment(project.start_date).format('LL'));
+  //       $('#view_end_date').html(moment(project.end_date).format('LL'));
+  //       $('#view_description').html(project.description);
+  //     }
+  //   })
+  // });
+
+  // APPROVE PROJECT
+  $(document).on("click", ".btn-approve", function () {
+    var id = this.value;
+    $("#approve_project_form_modal").modal('show');
+
+    $.ajax({
+      url: '/concept_paper/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        $('#approve_id').val(id);
+      }
+    })
+  });
+
+  $('#approve_project_form').on('submit', function (e) {
+    e.preventDefault();
+    var id = document.getElementById("approve_id").value
+    console.log(id)
+
+    $.ajax({
+      url: '/concept_paper/approve/' + id,
+      type: "PUT",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        $("#approve_project_form_modal").modal('hide');
+        toastr.success('Successfully approved a project.')
+        refresh1();
+        refresh2();
+        refresh3();
+        refresh4();
+        total_projects();
+      }
+    })
+  });
+
+  // REJECT PROJECT
+  $(document).on("click", ".btn-reject", function () {
+    var id = this.value;
+    $("#reject_project_form_modal").modal('show');
+
+    $.ajax({
+      url: '/concept_paper/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        $('#reject_id').val(id);
+        $('#reason').val(project.remarks);
+      }
+    })
+  });
+</script>
+{%endblock%}

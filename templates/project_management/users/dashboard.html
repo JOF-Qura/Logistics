@@ -1,0 +1,279 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './users/includes/head.html' %}
+
+{% include './users/includes/navbar.html' %}
+
+{% include './users/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Dashboard</h1>
+          <div class="text-muted">Manager Dashboard</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+      <!-- Info Boxes -->
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3 id="total"></h3>
+
+              <p>Total Projects</p>
+            </div>
+            <div class="icon">
+              <i class="nav-icon fas fa-hammer"></i>
+            </div>
+            <a href="/project_officer/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3 id="completed" name="completed"></h3>
+              <p>Completed Projects</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <a href="/project_officer/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-secondary">
+            <div class="inner">
+              <h3 id="ongoing" name="ongoing"></h3>
+
+              <p>On Going Projects</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-spinner"></i>
+            </div>
+            <a href="/project_officer/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3 id="cancelled" name="cancelled"></h3>
+
+              <p>Cancelled Projects</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-times"></i>
+            </div>
+            <a href="/project_officer/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- / Info Boxes -->
+
+      <div class="row">
+        <div class="col-md-6">
+          <!-- PIE CHART -->
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Projects Status</h3>
+                <a href="/project_officer/project_lists">View Projects</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="projectsPieChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+        <div class="col-md-6">
+          <!-- PIE CHART -->
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Tasks Status</h3>
+                <a href="/project_officer/task_lists">View Tasks</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="tasksPieChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/project_officer_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_notification.js')}}"></script>
+
+<script>
+  function total_projects() {
+    $.ajax({
+      url: '/projects/department/approval_status/project_officer/Approved/'+user_id,
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        var total = 0
+        var completed = 0
+        var ongoing = 0
+        var cancelled = 0
+        var delayed = 0
+
+        for (var i = 0; i < project.length; i++) {
+          if (project[i].progress_status == "Completed") {
+            completed++
+          } else if (project[i].progress_status == "On Progress") {
+            ongoing++;
+          } else if (project[i].progress_status == "Cancelled") {
+            cancelled++;
+          } else if (project[i].progress_status == "Delayed") {
+            delayed++;
+          } else {
+            console.log('Wala na issaprank')
+          }
+        }
+
+        $('#total').html(project.length);
+        $('#completed').html(completed);
+        $('#ongoing').html(ongoing);
+        $('#cancelled').html(cancelled);
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var projectsPieCanvas = $('#projectsPieChart').get(0).getContext('2d')
+        var pieData = {
+          labels: [
+            'Completed',
+            'On Going',
+            'Cancelled',
+            'Delayed',
+          ],
+          datasets: [{
+            data: [completed, ongoing, cancelled, delayed],
+            backgroundColor: ['#28a745', '#17a2b8', '#dc3545', '#6c757d'],
+          }]
+        }
+        var pieOptions = {
+          maintainAspectRatio: false,
+          responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(projectsPieCanvas, {
+          type: 'pie',
+          data: pieData,
+          options: pieOptions
+        })
+      }
+    })
+  }
+
+  function total_tasks() {
+    $.ajax({
+      url: "/task/department/project_officer/" + user_id,
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var task = data;
+        var ontrack = 0
+        var atrisk = 0
+        var offtrack = 0
+
+        for (var i = 0; i < task.length; i++) {
+          if (task[i].status == "On Track") {
+            ontrack++
+          } else if (task[i].status == "At Risk") {
+            atrisk++;
+          } else if (task[i].status == "Off Track") {
+            offtrack++;
+          } else {
+            console.log('Wala na issaprank')
+          }
+        }
+
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var tasksPieCanvas = $('#tasksPieChart').get(0).getContext('2d')
+        var pieData = {
+          labels: [
+            'On Track',
+            'At Risk',
+            'Off Track',
+          ],
+          datasets: [{
+            data: [ontrack, atrisk, offtrack],
+            backgroundColor: ['#28a745', '#dc3545', '#6c757d'],
+          }]
+        }
+        var pieOptions = {
+          maintainAspectRatio: false,
+          responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(tasksPieCanvas, {
+          type: 'pie',
+          data: pieData,
+          options: pieOptions
+        })
+      }
+    })
+  }
+
+  total_tasks();
+  total_projects();
+</script>
+{%endblock%}
