@@ -1,0 +1,207 @@
+<!-- Apply layout from base.html -->
+{%extends 'warehousing/staff/default/base.html'%} 
+
+<!-- Enter content for block 'content' -->
+{%block content%}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <!-- Title -->
+                <div class="col-sm-6">
+                    <h1>Inventories</h1>
+                    <p class="text-muted">This is subheading</p>
+                </div>
+
+                <!-- Breadcrumb -->
+                <!-- <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item " id ="dashboard_nav"><a href="/warehousing/staff/dashboard">Home </a></li>
+                        <li>&nbsp; / &nbsp;</li>
+                        <script>if(window.location.pathname == '/warehousing/staff/dashboard/'){document.getElementById("dashboard_nav").classList.add('active')}</script>
+                        <li class="breadcrumb-item" id ="inventories_nav">Inventories</li>
+                        <script>if(window.location.pathname == '/warehousing/staff/inventories/'){document.getElementById("inventories_nav").classList.add('active')}</script>
+                    </ol>
+                </div> -->
+                <!-- / breadcrumb -->
+            </div>
+            <br>
+            <div class="row">     
+                <!-- Button -->
+                <div class="col-sm-6">
+                    <!-- <a href="#" class="btn btn-success" data-toggle="modal" data-target="#adding_modal">Add New Inventory</a> -->
+                    <!-- <input type="submit" value="Create new Project" class="btn btn-success float-right"> -->
+                </div>
+                <!-- / Button -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- For TESTING -->
+    <!-- <div class="row align-items-center justify-content-center"> -->
+        <!-- Python conditional statement -->
+        <!-- {%for user in users%}
+            <div class="card card-outline card-primary w-75">
+                <div class="card-header">
+                    <div class="h3">ID: {{user.user_id}}</div>
+                    <div class="subtitle">Email: {{user.user_email}}</div>
+                </div>
+                <div class="card-body">
+                    <div>Date Created: {{user.created_at}}</div>
+                </div>
+            </div>
+        {%else%}
+            <h3>No users to show.</h3>
+        {%endfor%}
+    </div> -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Card -->
+                    <div class="card card-primary card-outline">
+                        <!-- Card Header -->
+                        <div class="card-header">
+                            <h3 class="card-title">Inventories</h3>
+                        </div>
+                        <!-- /.card-header -->
+
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <table id="data-table" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th width="25%">Inventory ID</th>
+                                        <th width="25%">Inventory Location Name</th>
+                                        <th width="25%">Supply Name</th>
+                                        <th width="25%" class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+    <!-- Adding Inventory Modal -->
+    <div class="modal fade" id="adding_modal">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class= "fas fa-file-alt"></i>
+                        Inventory Form</h4>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- CONTENT -->
+                    <form id="form_id" name="form_id" enctype="multipart/form_data">
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" name="uuid" id="uuid" value="" />
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="inventory_location_id" id="inventory_location_idLabel">Location</label>
+                                        <select class="form-control" id="inventory_location_id" name="inventory_location_id">
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="supply_id" id="supply_idLabel">Supply</label>
+                                        <select class="form-control" id="supply_id" name="supply_id">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <!-- BUTTONS -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="button_add">Add</button>
+                            </div>
+                            <!-- END BUTTONS -->
+                        </div>
+                    </form> <!-- END CONTENT -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- END Adding Inventory Modal -->
+
+    <!-- editing Inventory Modal -->
+    <div class="modal fade" id="editing_modal">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class= "fas fa-file-alt"></i>
+                        Edit Inventory</h4>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- CONTENT -->
+                    <form id="e_form_id" name="e_form_id" enctype="multipart/form_data">
+                        <div class="card-body">
+                            <div class="row">
+                                <input type="hidden" name="e_uuid" id="e_uuid" value="" />
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_inventory_location_id" id="e_inventory_location_idLabel">Location</label>
+                                        <select class="form-control" id="e_inventory_location_id" name="e_inventory_location_id">
+
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_supply_id" id="e_supply_idLabel">Supply</label>
+                                        <select class="form-control" id="e_supply_id" name="e_supply_id">
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <!-- BUTTONS -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="button_save">Save</button>
+                            </div>
+                            <!-- END BUTTONS -->
+                        </div>
+                    </form> <!-- END CONTENT -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- END editing Inventory Modal -->
+{%endblock%}
+
+{%block scripts%}
+    <script src="{{url_for('static', path='/dist/js/warehousing/admin/inventories.js')}}"></script>
+{%endblock%}
+
+
