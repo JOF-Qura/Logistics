@@ -12,8 +12,8 @@ from routes.asset_management import missing_asset_route, asset_request_route, se
 from routes.asset_management import department_route, maintenance_report_route, check_out_route, check_in_route, asset_warranty_route
 
 # importing all admin routes
-from routes.Admin import (authRoutes
-                    , employeeRoutes
+from routes.Admin import (#authRoutes
+                    employeeRoutes
                     , supplyRoutes
                     , postRoutes 
                     , hospital_departmentRoutes
@@ -130,7 +130,7 @@ app = FastAPI()
 app.mount('/static', StaticFiles(directory='static'), name='static')
 
 # Register Routes
-app.include_router(authRoutes.router)
+# app.include_router(authRoutes.router)
 app.include_router(employeeRoutes.router)
 app.include_router(supplyRoutes.router)
 app.include_router(hospital_departmentRoutes.router)

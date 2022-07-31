@@ -8,6 +8,7 @@ from typing import List, Optional
 class UserBase(BaseModel):
     user_type: Optional[str]
     user_email: Optional[str]
+    user_name: Optional[str]
     user_password: Optional[str]
     
     class Config:
