@@ -1,0 +1,169 @@
+{%extends 'asset_management/user/user_base.html'%}
+
+<!-- Apply layout from base.html -->
+
+{%block plugins_css%}
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.min.css')}}">
+{%endblock%}
+
+{% block title %}Asset - Dashboard{% endblock %}
+{% block title_header %} <h3> On-Hand Assets </h3>{% endblock %}
+
+
+{%block content%}
+
+<div class="card card-primary card-outline">
+
+          <!-- DATA TABLES -->
+          <div class="card-header">
+            <h3 class="card-title">Assets</h3>
+          </div>
+          <!-- /DATA TABLES -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="asset_table" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Asset No.</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Serial</th>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+<!-- MODALS -->
+
+<!-- /MODALS -->
+
+{%endblock%}
+
+{% block scripts%}
+
+<script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+
+<script>
+
+$(document).ready(function () {
+    id = sessionStorage.getItem("id")
+    //RENAMED FOR FUTURE PURPOSES
+    $("#asset_table").DataTable({
+
+        ajax: "/asset_management/api/Check_out/get_all_by_users/" + id,
+        dom: 'Blfrtip',
+        buttons: [
+            'copy',
+            'csv',
+            'excel',
+            {
+              extend: 'pdfHtml5',
+              orientation: 'landscape',
+              pageSize: 'LEGAL'
+          },
+          'print',
+            
+        ],
+        columns: [
+                { data: "the_asset.asset_id"},
+                { data: "the_asset.asset_number"},
+                { data: "the_asset.asset_title"},
+                { data: "the_asset.asset_type.asset_type_title"},
+                { data: "the_asset.asset_brand", render:function(data){
+                  if (data == ""){
+                    html = '<div class="text-secondary font-italic">Not set</div>'
+                    return html
+                    }
+                  else{
+                    return data
+                  }
+                  }
+                },
+                { data: "the_asset.asset_model", render:function(data){
+                  if (data == ""){
+                    html = '<div class="text-secondary font-italic">Not set</div>'
+                    return html
+                    }
+                  else{
+                    return data
+                  }
+                  }
+                },
+                { data: "the_asset.asset_serial", render:function(data){
+                  if (data == ""){
+                    html = '<div class="text-secondary font-italic">Not set</div>'
+                    return html
+                    }
+                  else{
+                    return data
+                  }
+                  }
+                },
+                { data: "the_asset.created_at" },
+                { data: "the_asset.asset_status", render: function(data, type, row){
+                        if(data == "Available"){
+                            return '<div class="badge badge-success p-2 w-100"><span>On Hand</span></div>'
+                        }
+                        else if(data == "Missing"){
+                            return '<div class="badge badge-warning p-2 w-100"><i class="fas fa-sticky-note mr-1"></i><span>Missing</span></div>'
+                        } 
+                        else if(data == "Sold"){
+                            return '<div class="badge badge-info p-2 w-100"><i class="fas fa-dollar-sign mr-1"></i><span>Sold</span></div>'
+                        }
+                        else if(data == "Disposed"){
+                            return '<div class="badge badge-info p-2 w-100"><i class="fas fa-thumbs-down mr-1"></i><span>Disposed</span></div>'
+                        }
+                        else if(data == "Broken"){
+                            return '<div class="badge badge-warning p-2 w-100"><i class="fas fa-heart-broken mr-1"></i><span>Broken</span></div>'
+                        }
+                        else if(data == "Repair"){
+                            return '<div class="badge badge-info p-2 w-100"><i class="fas fa-hammer mr-1"></i><span>Repair</span></div>'
+                        }   
+                        else{
+                            return '<button class="btn btn-danger >Activate</button>';
+                        }
+                    }
+                    
+                },
+                { data: "the_asset.active_status", render: function(data, type, row){
+                        if(data == "Active"){
+                            return '<div class="text-center dropdown"><div class="btn btn-sm btn-default" data-toggle="dropdown" role="button"><i class="fas fa-ellipsis-v"></i></div>' +
+                              '<div class="dropdown-menu dropdown-menu-right">' +
+                                  '<div class="dropdown-item d-flex btn_view" id="'+ row.asset_id +'" role="button">' +
+                                    '<div style="width: 2rem"><i class="fas fa-eye"></i></div>' +
+                                    '<div>View Asset</div></div></div></div>';
+                        }   
+                        else{
+                            return '<button class="btn btn-danger >Activate</button>';
+                        }
+                    }
+                    
+                },
+        ],
+        "aoColumnDefs": [{ "bVisible": false, "aTargets": [0, 7] }],
+        "order": [[7, "desc"]]
+        
+        })
+    });
+
+$(document).on("click", ".btn_view", function(){
+        var id = this.id;
+
+        window.location.href = "/asset_management/user/view_asset/"+id;
+    });
+
+
+function refresh(){
+
+        $('#asset_table').DataTable().ajax.reload();
+    }
+</script>
+{% endblock %}

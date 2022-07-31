@@ -1,0 +1,405 @@
+<html lang="en">
+<head>
+
+{% block head%}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} - Hospital Management System</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{url_for('static', path='/plugins/fontawesome-free/css/all.min.css')}}">
+  
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{{url_for('static', path='/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+  
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+
+  <!-- BLOCK FOR PLUGINS STYLESHEET -->
+    {%block plugins_css%}
+    {%endblock%}
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{url_for('static', path='/dist/css/adminlte.min.css')}}">
+  <!-- BLOCK FOR EXTRA STYLES -->
+    {%block styles%}
+    {%endblock%}
+<script>
+
+function filter_user(){
+user_type = sessionStorage.getItem("type")
+  if (user_type == null || user_type == "Employee" || user_type == "Admin"){
+    window.location.href = "/forbidden/";
+  }
+}
+filter_user()
+
+</script>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed user-select-none">
+
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div> -->
+  
+  <!-- Top Navbar -->
+  <nav class="main-header navbar navbar-expand-md navbar-white navbar-light">
+    
+
+    <!-- Left navbar links togglers (for responsive) -->
+    <ul class="navbar-nav navbar-no-expand">
+
+        <!-- Sidebar Toggler -->
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <i class="fas fa-bars"></i>
+            </a>
+        </li>
+
+        <!-- Tobpar toggler -->
+        <li class="nav-item">
+            <button class="nav-link navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                <i class="fas fa-caret-down"></i>
+            </button>
+        </li>
+    </ul>
+    
+
+    <!-- Left navbar links -->
+    <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <ul class="navbar-nav">
+
+            <!-- Home -->
+            <li class="nav-item">
+                <a class="nav-link text-primary" href="/index" role="button">
+                    <i class="fas fa-home"></i>
+                    <span class="d-inline-block d-md-none ml-1 ml-md-0">Home</span>
+                </a>
+            </li>
+
+            <!-- Hospital Core -->
+
+
+            <!-- Human Resource -->
+
+
+            <!-- Logistics -->
+            <li class="nav-item dropdown">
+                <a 
+                    href="#" 
+                    data-toggle="dropdown" 
+                    class="nav-link dropdown-toggle"
+                    id="logistics_topnav"
+                >Logistics</a>
+                
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a href="/asset_management/manager/" id="asset_mangement_topnav" class="dropdown-item">Asset Management</a></li>
+                    <script>
+                      if( window.location.pathname.includes("/asset_management/")){
+                      document.getElementById("asset_mangement_topnav").classList.add('text-primary');
+                      document.getElementById("logistics_topnav").classList.add('text-primary')
+                    }</script>
+                </ul>
+            </li>
+        </ul>
+    </div>  
+    
+
+    <!-- Right navbar links -->
+    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+    
+        <!-- User Menu -->
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                <i class="fas fa-user-circle"></i>
+                <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+            </a>
+    
+            <div class="dropdown-menu dropdown-menu-right">
+                <a href="#" class="dropdown-item d-flex align-items-center">
+                    <div class="mr-3" style="width: 1.25rem">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+                <a href="#" class="dropdown-item d-flex align-items-center">
+                    <div class="mr-3" style="width: 1.25rem">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <span>Settings</span>
+                </a>
+    
+                <div class="dropdown-divider"></div>
+                
+                <a
+                    href="#"
+                    role="button" 
+                    class="dropdown-item d-flex align-items-center" 
+                    data-toggle="modal" 
+                    data-target="#logoutModal"
+                >
+                    <div class="mr-3" style="width: 1.25rem">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+    
+    <!-- Brand Logo -->
+    <a href="../../index3.html" class="brand-link">
+      <img src="{{url_for('static', path='/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle border" style="opacity: .8">
+      <span class="brand-text font-weight-light">HoMIES</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+        <!-- User Image -->
+        <div class="image">
+            <img 
+                src="{{url_for('static', path='/dist/img/user2-160x160.jpg')}}"
+                class="img-circle border" 
+                alt="User Image"
+            >
+        </div>
+        
+        <!-- User Full Name -->
+        <div class="info mr-1 w-100" id="userFullNameDisplay">
+            
+            <!-- User Full Name -->
+            <a href="#" class="nav-item text-truncate" id="userFullName"></a>
+
+            <!-- User Position -->
+            <div class="small text-secondary text-truncate" id="userPosition"></div>
+            
+            <!-- User Department -->
+            <div class="small text-secondary text-truncate" id="userDepartment">Information Technology (IT) Department</div>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <!-- <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header font-weight-bold text-wrap">ASSET MANAGEMENT</li>
+          <li class="nav-header">CORE</li>
+            <li class="nav-item">
+              <a href="/asset_management/manager" class="nav-link" id="dashboard_sidebar">
+                <script>if(window.location.pathname == '/asset_management/manager'){document.getElementById("dashboard_sidebar").classList.add('active')}</script>
+                <i class="nav-icon fas fa-chart-line"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-header">ASSETS</li>
+            <li class="nav-item">
+              <a href="/asset_management/manager/asset" class="nav-link" id="asset_sidebar">
+                <script>if(window.location.pathname == '/asset_management/manager/asset'){document.getElementById("asset_sidebar").classList.add('active')}</script>
+                <i class="nav-icon fas fa-stream"></i>
+                <p>List of Assets</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/asset_management/manager/asset_type" class="nav-link" id="asset_type_sidebar">
+                <script>if(window.location.pathname == '/asset_management/manager/asset_type'){document.getElementById("asset_type_sidebar").classList.add('active')}</script>
+                  <i class="nav-icon fas fa-box"></i>
+                  <p>Asset Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/asset_management/manager/asset_provider" class="nav-link" id="asset_provider_sidebar">
+                <script>if(window.location.pathname == '/asset_management/manager/asset_provider'){document.getElementById("asset_provider_sidebar").classList.add('active')}</script>
+                  <i class="nav-icon fas fa-handshake"></i>
+                  <p>Asset Providers</p>
+              </a>
+            </li>
+            <li class="nav-header">MAINTENANCE</li>
+            <li class="nav-item">
+              <a href="/asset_management/manager/maintenance_page" class="nav-link" id="maintenance_page_sidebar">
+                <script>if(window.location.pathname == '/asset_management/manager/maintenance_page'){document.getElementById("maintenance_page_sidebar").classList.add('active')}</script>
+                <i class="nav-icon fas fa-tools"></i>
+                <p>List of Maintenances</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/asset_management/manager/maintenance_provider" class="nav-link" id="maintenance_provider_sidebar">
+                <script>if(window.location.pathname == '/asset_management/manager/maintenance_provider'){document.getElementById("maintenance_provider_sidebar").classList.add('active')}</script>
+                  <i class="nav-icon fas fa-users-cog"></i>
+                  <p>Maintenance Providers</p>
+              </a>
+          </li>
+            <li class="nav-header">REQUESTS</li>
+            <li class="nav-item">
+              <a href="/asset_management/manager/requests" class="nav-link" id="request_sidebar">
+              <script>if(window.location.pathname == '/asset_management/manager/requests'){document.getElementById("request_sidebar").classList.add('active')}</script>
+                <i class="nav-icon fas fa-hand-holding-heart"></i>
+                <p>Equipment Requests</p>
+              </a>
+            </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+
+    </div>
+    <!-- /.sidebar -->
+
+    <!-- Sidebar Custom -->
+    <div class="sidebar-custom">
+      <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cogs"></i></a>
+      <button
+          class="btn btn-sm btn-danger hide-on-collapse pos-right"
+          data-toggle="modal"
+          data-target="#logoutModal"
+      >
+          <span>Log out</span>
+          <i class="fas fa-sign-out-alt ml-1"></i>
+      </button>
+  </div>
+      <!-- /.sidebar-custom -->
+  </aside>
+  <!-- /.main-sidebar -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+          {% block title_header%}
+            <h1>Page Title</h1>
+          {% endblock %}
+          </div>
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+
+    <!-- head end block -->
+
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    <div class="modal fade" id="logoutModal">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title text-secondary"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</h4>
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"><i class="fas fa-times"></i></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure to you want to Logout?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger confirmed_logout">Logout <i class="fas fa-sign-out-alt"></i></button>
+          </div>
+        </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% block footer%}
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.1.0
+    </div>
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+  </footer>
+  <!-- /.main-footer -->
+{% endblock %}
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{url_for('static', path='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{url_for('static', path='/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+
+<!-- BLOCK FOR ADDITIONAL PLUGINS JAVASCRIPT -->
+    {%block plugins_js%}
+    {%endblock%}
+
+<!-- AdminLTE App -->
+<script src="{{url_for('static', path='/dist/js/adminlte.min.js')}}"></script>
+
+
+<!-- BLOCK FOR EXTRA SCRIPTS -->
+    {%block scripts%}
+    {%endblock%}
+
+<script>
+$(document).ready(function () {
+
+  $("#userFullName").html(sessionStorage.getItem("name"));
+  $("#userPosition").html(sessionStorage.getItem("type"));
+
+});
+
+$(document).on("click", ".confirmed_logout", function(){
+  sessionStorage.setItem("type", "");
+  sessionStorage.setItem("id", "");
+  sessionStorage.setItem("email", "");
+  sessionStorage.setItem("name", "");
+  sessionStorage.setItem("type", "");
+  
+  window.location.href = '/login'
+  });
+</script>
+</body>
+</html>

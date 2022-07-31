@@ -1,0 +1,278 @@
+<!-- Apply layout from base.html -->
+{%extends 'asset_management/admin/sysAdmin/sysAdmin_base.html'%} 
+
+{%block plugins_css%}
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.min.css')}}">
+{%endblock%}
+
+{% block title %}System Admin{% endblock %}
+{% block title_header %} <h3> Department </h3>{% endblock %}
+
+
+{%block content%}
+
+<div class="card card-primary card-outline">
+
+          <!-- DATA TABLES -->
+          <div class="card-header">
+            <button type="button" class="btn btn-primary float-right add_user" data-toggle="modal" data-target="#addDepartmentModal">
+            Add Department <i class="fas fa-plus mr-1"></i>
+          </button>
+          </div>
+          <!-- /DATA TABLES -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="department_table" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Department Name</th>
+                <th>Date Created</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+<!-- MODALS -->
+
+<div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+            <form id="addDepartmentForm">
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="department_name">Department Name</label><label style="color: red;">*</label>
+                    <input required class="form-control" name="department_name" id="department_name"  >
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editDepartmentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+            <form id="editDepartmentForm">
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <input hidden class="form-control" name="edit_department_id" id="edit_department_id"  >
+                    <label for="edit_department_name">Department Name</label><label style="color: red;">*</label>
+                    <input required class="form-control" name="edit_department_name" id="edit_department_name"  >
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="confirm_delete">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;Delete Department</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure to delete this Department?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-info confirmed_delete">Yes, delete it.</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /MODALS -->
+
+{%endblock%}
+
+{% block scripts%}
+
+<script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+
+<script>
+
+$(document).ready(function () {
+    $("#department_table").dataTable({
+
+        ajax: "/asset_management/api/Department/",
+        columns: [
+                { data: "department_id"},
+                { data: "department_name"},
+                { data: "created_at"},
+                { data: "active_status", render: function(data, type, row){
+                    if(data == "Active"){
+                        return '<div class="text-center dropdown"><div class="btn btn-sm btn-default" data-toggle="dropdown" role="button"><i class="fas fa-ellipsis-v"></i></div>' +
+                          '<div class="dropdown-menu dropdown-menu-right">' +
+                                '<div class="dropdown-item d-flex btn_edit" id="'+ row.department_id +'" role="button">' +
+                                  '<div style="width: 2rem"><i class="fas fa-edit"></i></div>' +
+                                  '<div>Edit Department</div></div>' +
+                                  '<div class="dropdown-divider"</div></div>' +
+                                  '<div class="dropdown-item d-flex btn_delete" id="'+ row.department_id +'" role="button">' +
+                                    '<div style="width: 2rem"><i class="fas fa-trash-alt"></i></div>' +
+                                    '<div style="color: red">Delete Department</div></div></div></div>';
+                    }  
+                    else{
+                        return '<button class="btn btn-danger >Activate</button>';
+                    }
+                 }    
+                },
+        ],
+        "aoColumnDefs": [{ "bVisible": false, "aTargets": [0, 2] }],
+        "order": [[2, "desc"]]
+        
+        })
+    });
+
+
+$("#addDepartmentForm").on("submit", function(e){
+
+      e.preventDefault();
+
+    
+    form =  { department_name: $(department_name).val()
+                };
+
+    encoded = JSON.stringify(form)
+    console.log(encoded)
+
+        $.ajax({
+            url:'/asset_management/api/Department/',
+            type: "POST",
+            data: encoded,
+            dataType: "JSON",
+            contentType: "application/json",
+
+            success: function(data){
+            document.getElementById("addDepartmentForm").reset();
+            $('#addDepartmentModal').modal('hide');
+            toastr.success('Department added successfully')
+            refresh()
+            
+            }
+        })
+    });
+
+    $(document).on("click", ".btn_edit", function(){
+      var id = this.id;
+
+        $.ajax({
+            url: '/asset_management/api/Department/' + id,
+            type: "GET",
+            data: { id: id },
+            dataType: "JSON",
+        
+            success: function(data){
+                console.log(data);
+                var user_info = data.data;
+
+                $('#edit_department_id').val(user_info.department_id);
+                $('#edit_department_name').val(user_info.department_name);
+
+                $('#editDepartmentModal').modal('show');
+            }
+        // ajax closing tag
+        })
+    });
+
+$("#editDepartmentForm").on("submit", function(e){
+
+e.preventDefault();
+
+id = $(edit_department_id).val()
+
+form =  { department_name: $(edit_department_name).val(),
+  };
+
+encoded = JSON.stringify(form)
+
+console.log(encoded)
+
+    $.ajax({
+      url:'/asset_management/api/Department/' + id,
+      type: "PUT",
+      data: encoded,
+      dataType: "JSON",
+      contentType: "application/json",
+
+      success: function(data){
+      document.getElementById("editDepartmentForm").reset();
+      $('#editDepartmentModal').modal('hide');
+
+      toastr.success('Department updated successfully')
+      
+      refresh();
+      }
+  })
+});
+
+$(document).on("click", ".btn_delete", function(){
+  var id = this.id;
+  $('#confirm_delete').modal('show');
+  
+  $(document).on("click", ".confirmed_delete", function(){
+    
+      $.ajax({
+        url: '/asset_management/api/Department/' + id,
+        type: "DELETE",
+        data: { id: id },
+        dataType: "JSON",
+    
+        success: function(data){
+          $('#confirm_delete').modal('hide');
+          toastr.info('Department deleted successfully')
+          refresh();
+        }
+    // ajax closing tag
+    })
+    
+  });
+  
+});
+
+function refresh(){
+
+        $('#department_table').DataTable().ajax.reload();
+    }
+    
+</script>
+{% endblock %}

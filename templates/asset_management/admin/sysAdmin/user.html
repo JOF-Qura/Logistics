@@ -1,0 +1,386 @@
+<!-- Apply layout from base.html -->
+{%extends 'asset_management/admin/sysAdmin/sysAdmin_base.html'%} 
+
+{%block plugins_css%}
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.min.css')}}">
+{%endblock%}
+
+{% block title %}System Admin{% endblock %}
+{% block title_header %} <h3> Users </h3>{% endblock %}
+
+
+{%block content%}
+
+<div class="card card-primary card-outline">
+
+          <!-- DATA TABLES -->
+          <div class="card-header">
+            <button type="button" class="btn btn-primary float-right add_user" data-toggle="modal" data-target="#addUserModal">
+            Add User <i class="fas fa-plus mr-1"></i>
+          </button>
+          </div>
+          <!-- /DATA TABLES -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="user_table" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Title</th>
+                <th>Date Created</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+
+<!-- MODALS -->
+
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+            <form id="addUserForm">
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="user_name">Name</label><label style="color: red;">*</label>
+                    <input required class="form-control" name="user_name" id="user_name"  >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="user_email">Email</label><label style="color: red;">*</label>
+                    <input required class="form-control" name="user_email" id="user_email"  >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="user_password">Password</label><label style="color: red;">*</label>
+                    <input required type="password" class="form-control" name="user_password" id="user_password"  >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="user_department">Department</label><label style="color: red;">*</label>
+                    <select required name="user_department" id="user_department" class="form-control">
+                        
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="user_title">Title</label><label style="color: red;">*</label>
+                    <select required name="user_title" id="user_title" class="form-control">
+                        <option>Equipment Manager</option>
+                        <option>Employee</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" id="addUserBtn">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+            <form id="editUserForm">
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <input hidden class="form-control" name="edit_user_id" id="edit_user_id"  >
+                    <label for="edit_user_name">Name</label><label style="color: red;">*</label>
+                    <input required class="form-control" name="edit_user_name" id="edit_user_name"  >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="edit_user_email">Email</label><label style="color: red;">*</label>
+                    <input required class="form-control" name="edit_user_email" id="edit_user_email"  >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="edit_user_password">Password</label><label style="color: red;">*</label>
+                    <input required type="password" class="form-control" name="edit_user_password" id="edit_user_password"  >
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label for="edit_user_department">Department</label><label style="color: red;">*</label>
+                    <select required name="edit_user_department" id="edit_user_department" class="form-control">
+                        
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="edit_user_title">Title</label><label style="color: red;">*</label>
+                    <select required name="edit_user_title" id="edit_user_title" class="form-control">
+                        <option>Equipment Manager</option>
+                        <option>Employee</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" id="editUserBtn">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Confirm Delete Modal -->
+<div class="modal fade" id="confirm_delete">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;Delete User</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure to delete this User?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-info confirmed_delete">Yes, delete it.</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /MODALS -->
+
+{%endblock%}
+
+{% block scripts%}
+
+<script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+
+<script>
+
+$(document).ready(function () {
+    $("#user_table").dataTable({
+
+        ajax: "/asset_management/api/Auth/",
+        columns: [
+                { data: "user_id"},
+                { data: "user_name"},
+                { data: "user_email"},
+                { data: "user_department.department_name", render:function(data){
+                  if (data == "" || data == null){
+                    html = '<div class="text-secondary font-italic">Not set</div>'
+                    return html
+                    }
+                  else{
+                    return data
+                  }
+                  }
+                },
+                { data: "user_type"},
+                { data: "created_at"},
+                { data: "active_status", render: function(data, type, row){
+                    if(data == "Active"){
+                        return '<div class="text-center dropdown"><div class="btn btn-sm btn-default" data-toggle="dropdown" role="button"><i class="fas fa-ellipsis-v"></i></div>' +
+                          '<div class="dropdown-menu dropdown-menu-right">' +
+                                '<div class="dropdown-item d-flex btn_edit" id="'+ row.user_id +'" role="button">' +
+                                  '<div style="width: 2rem"><i class="fas fa-edit"></i></div>' +
+                                  '<div>Edit User</div></div>' +
+                                  '<div class="dropdown-divider"</div></div>' +
+                                  '<div class="dropdown-item d-flex btn_delete" id="'+ row.user_id +'" role="button">' +
+                                    '<div style="width: 2rem"><i class="fas fa-trash-alt"></i></div>' +
+                                    '<div style="color: red">Delete User</div></div></div></div>';
+                    }  
+                    else{
+                        return '<button class="btn btn-danger >Activate</button>';
+                    }
+                 }    
+                },
+        ],
+        "aoColumnDefs": [{ "bVisible": false, "aTargets": [0, 5] }],
+        "order": [[5, "desc"]]
+        
+        })
+    });
+
+
+
+    $.ajax({
+    url: '/asset_management/api/Department/',
+    type: "GET",
+    dataType: "JSON",
+
+    success: function(data){
+      var department_data = data.data;
+
+      var html = ""
+
+      if(department_data.length == 0){
+            var html = `<option value=""> - - No Department - - </option>`;
+          }
+          else{
+            var html = `<option value=""> - - Select Department - - </option>`;
+          }
+
+      for(var i=0; i < department_data.length; i++){
+        html += `<option value="${department_data[i].department_id}">${department_data[i].department_name}</option>`
+      }
+      
+      $('#user_department').html(html);
+      $('#edit_user_department').html(html);
+    }
+  })
+
+
+$("#addUserForm").on("submit", function(e){
+
+      e.preventDefault();
+
+    
+    form =  { user_name: $(user_name).val(),
+                user_password: $(user_password).val(),
+                user_email: $(user_email).val(),
+                department_id: $(user_department).val(),
+                user_type: $(user_title).val()
+                };
+
+    encoded = JSON.stringify(form)
+    console.log(encoded)
+
+        $.ajax({
+            url:'/asset_management/api/Auth/register',
+            type: "POST",
+            data: encoded,
+            dataType: "JSON",
+            contentType: "application/json",
+
+            success: function(data){
+            document.getElementById("addUserForm").reset();
+            $('#addUserModal').modal('hide');
+            toastr.success('User added successfully')
+            refresh()
+            
+            }
+        })
+    });
+
+    $(document).on("click", ".btn_edit", function(){
+      var id = this.id;
+
+        $.ajax({
+            url: '/asset_management/api/Auth/' + id,
+            type: "GET",
+            data: { id: id },
+            dataType: "JSON",
+        
+            success: function(data){
+                console.log(data);
+                var user_info = data.data;
+
+                $('#edit_user_id').val(user_info.user_id);
+                $('#edit_user_name').val(user_info.user_name);
+                $('#edit_user_email').val(user_info.user_email);
+                $('#edit_user_department').val(user_info.department_id);
+                $('#edit_user_title').val(user_info.user_type);
+
+                $('#editUserModal').modal('show');
+            }
+        // ajax closing tag
+        })
+    });
+
+$("#editUserForm").on("submit", function(e){
+
+e.preventDefault();
+
+id = $(edit_user_id).val()
+
+form =  { user_name: $(edit_user_name).val(),
+  user_password: $(edit_user_password).val(),
+  user_email: $(edit_user_email).val(),
+  department_id: $(edit_user_department).val(),
+  user_type: $(edit_user_title).val()
+  };
+
+encoded = JSON.stringify(form)
+
+console.log(encoded)
+
+    $.ajax({
+      url:'/asset_management/api/Auth/' + id,
+      type: "PUT",
+      data: encoded,
+      dataType: "JSON",
+      contentType: "application/json",
+
+      success: function(data){
+      document.getElementById("editUserForm").reset();
+      $('#editUserModal').modal('hide');
+
+      toastr.success('User updated successfully')
+      
+      refresh();
+      }
+  })
+});
+
+$(document).on("click", ".btn_delete", function(){
+  var id = this.id;
+  $('#confirm_delete').modal('show');
+  
+  $(document).on("click", ".confirmed_delete", function(){
+    
+      $.ajax({
+        url: '/asset_management/api/Auth/' + id,
+        type: "DELETE",
+        data: { id: id },
+        dataType: "JSON",
+    
+        success: function(data){
+          $('#confirm_delete').modal('hide');
+          toastr.info('User deleted successfully')
+          refresh();
+        }
+    // ajax closing tag
+    })
+    
+  });
+  
+});
+
+function refresh(){
+
+        $('#user_table').DataTable().ajax.reload();
+    }
+    
+</script>
+{% endblock %}

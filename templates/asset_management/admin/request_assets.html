@@ -1,0 +1,320 @@
+{%extends 'asset_management/admin/admin_base.html'%}
+
+<!-- Apply layout from base.html -->
+
+{%block plugins_css%}
+<link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.min.css')}}">
+{%endblock%}
+
+{% block title %}Asset - Dashboard{% endblock %}
+{% block title_header %} <h3>Asset Requests</h3>{% endblock %}
+
+
+{%block content%}
+
+<div class="card card-primary card-outline">
+
+          <!-- DATA TABLES -->
+          <div class="card-header">
+            <h3 class="card-title">Assets</h3>
+          </div>
+          <!-- /DATA TABLES -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="request_table" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Requested by</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Remarks</th>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+          <!-- /.card-body -->
+</div>
+<!-- MODALS -->
+
+
+<!-- VIEW -->
+  <div class="modal fade" id="viewRequest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">View Request</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12">
+                    <label for="requested_by">Requested by</label> <br>
+                    <span required name="requested_by" id="requested_by" >   
+                    </span>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <label for="view_asset_type">Category</label> <br>
+                      <span required name="view_asset_type" id="view_asset_type" >   
+                      </span>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="view_request_status">Status</label> <br>
+                    <span required name="view_request_status" id="view_request_status" >   
+                    </span>
+                </div>
+                  
+              </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <label for="view_request_brand">Brand</label> <br>
+                      <span name="view_request_brand" id="view_request_brand"  ></span>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="view_request_model">Model</label><br>
+                    <span name="view_request_model" id="view_request_model"  ></span>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <label for="view_request_description">Request Description</label><br>
+                      <span name="view_request_description" id="view_request_description">
+                      </span>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <label for="view_request_remark">Remarks</label><br>
+                      <span name="view_request_remark" id="view_request_remark">
+                      </span>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit -->
+  <div class="modal fade" id="editRequest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Request</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+              <form id="editRequestForm">
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                        <input hidden class="form-control" name="request_id" id="request_id"  >
+                          <label for="request_status">Status</label><label style="color: red;"> *</label>
+                          <select required name="request_status" id="request_status" class="form-control">
+                              <option value="Pending">Pending</option>
+                              <option value="Approved">Approved</option>
+                              <option value="Rejected">Rejected</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                          <label for="request_remark">Remark</label>
+                          <textarea required rows="2" cols="50" class="form-control" name="request_remark" id="request_remark">
+                          </textarea>
+                      </div>
+                  </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" id="editRequestBtn"></div>
+          </form>
+          
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+<!-- /MODALS -->
+
+{%endblock%}
+
+{% block scripts%}
+
+<script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/moment/moment.min.js')}}"></script>
+
+<script>
+
+$(document).ready(function () {
+    $("#request_table").DataTable({
+        ajax: "/asset_management/api/Request_asset/",
+        dom: 'Blfrtip',
+        buttons: [
+            'copy',
+            'csv',
+            'excel',
+            {
+              extend: 'pdfHtml5',
+              orientation: 'landscape',
+              pageSize: 'LEGAL'
+          },
+          'print',
+            
+        ],
+        columns: [
+                { data: "request_id"},
+                { data: "created_by_details.user_name"},
+                { data: "asset_type.asset_type_title"},
+                { data: "request_description" },
+                { data: "request_remark" },
+                { data: "created_at", render:function(data){
+                    return moment(data).format('LL')
+                  } 
+                },
+                { data: "request_status", render: function(data, type, row){
+                      if(data == "Approved"){
+                          return '<div class="text-center"><span class="badge badge-success">Approved</span></div>'
+                    }
+                      else if(data == "Pending"){
+                        return '<div class="text-center"><span class="badge badge-info">Pending</span></div>'
+                    }
+                      else if(data == "Rejected"){
+                        return '<div class="text-center"><span class="badge badge-warning">Rejected</span></div>'
+                    }
+                  }
+                },
+                { data: "active_status", render: function(data, type, row){
+                      if(data == "Active"){
+                        var html = ""
+                        html += '<div class="text-center dropdown"><div class="btn btn-sm btn-default" data-toggle="dropdown" role="button"><i class="fas fa-ellipsis-v"></i></div>' +
+                            '<div class="dropdown-menu dropdown-menu-right">' +
+                            '<div class="dropdown-item d-flex btn_view" id="'+ row.request_id +'" role="button">' +
+                            '<div style="width: 2rem"><i class="fas fa-eye"></i></div>' +
+                            '<div>View Request</div></div>' +
+                            '<div class="dropdown-item d-flex btn_edit" id="'+ row.request_id +'" role="button">' +
+                            '<div style="width: 2rem"><i class="fas fa-edit"></i></div>' +
+                            '<div>Edit Request</div></div>' + 
+                            '</div></div></div>'
+                        return html
+                    }   
+                      else{
+                        return '<button class="btn btn-danger >Activate</button>';
+                    }
+                  }
+                },
+        ],
+        "aoColumnDefs": [{ "bVisible": false, "aTargets": [0, 5] }],
+        "order": [[5, "desc"]]
+        
+        })
+    });
+
+$(document).on("click", ".btn_view", function(){
+        var id = this.id;
+        $.ajax({
+          url: '/asset_management/api/Request_asset/' + id,
+          type: "GET",
+          data: { id: id },
+          dataType: "JSON",
+      
+          success: function(data){
+              console.log(data);
+              var requestInfo = data.data;
+
+              $('#requested_by').html(requestInfo.created_by_details.user_name);
+              $('#view_asset_type').html(requestInfo.asset_type.asset_type_title);
+              
+              if (requestInfo.request_status == "Approved"){
+                $('#view_request_status').html('<span class="badge badge-success">Approved</span>');
+              }
+              if (requestInfo.request_status == "Pending"){
+                $('#view_request_status').html('<span class="badge badge-info">Pending</span>');
+              }
+              if (requestInfo.request_status == "Rejected"){
+                $('#view_request_status').html('<span class="badge badge-warning">Rejected</span>');
+              }
+              $('#view_request_brand').html(requestInfo.request_brand);
+              $('#view_request_model').html(requestInfo.request_model);
+              $('#view_request_description').html(requestInfo.request_description);
+              $('#view_request_remark').html(requestInfo.request_remark);
+
+              $('#viewRequest').modal('show');
+          }
+      // ajax closing tag
+      })
+        
+    });
+
+    $(document).on("click", ".btn_edit", function(){
+      var id = this.id;
+      $.ajax({
+        url: '/asset_management/api/Request_asset/' + id,
+        type: "GET",
+        data: { id: id },
+        dataType: "JSON",
+    
+        success: function(data){
+            console.log(data);
+            var requestInfo = data.data;
+
+            $('#request_id').val(requestInfo.request_id);
+            $('#request_status').val(requestInfo.request_status);
+            $('#request_remark').val(requestInfo.request_remark);
+
+            $('#editRequest').modal('show');
+        }
+    // ajax closing tag
+    })
+      
+  });
+
+  $("#editRequestForm").on("submit", function(e){
+
+    e.preventDefault();
+
+  id = $(request_id).val()
+
+  form =  { 
+        request_status: $(request_status).val(),
+        request_remark: $(request_remark).val(),
+        updated_by: sessionStorage.getItem("id")
+        };
+
+      $.ajax({
+          url:'/asset_management/api/Request_asset/update_status/' + id,
+          type: "PUT",
+          data: JSON.stringify(form),
+          dataType: "JSON",
+          contentType: "application/json",
+
+          success: function(data){
+          document.getElementById("editRequestForm").reset();
+          $('#editRequest').modal('hide');
+          refresh()
+          toastr.success('Request updated successfully')
+          }
+
+      })
+  });
+
+
+function refresh(){
+
+        $('#request_table').DataTable().ajax.reload();
+    }
+</script>
+{% endblock %}

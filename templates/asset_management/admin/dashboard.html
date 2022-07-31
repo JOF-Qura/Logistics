@@ -1,0 +1,540 @@
+<!-- Apply layout from base.html -->
+{%extends 'asset_management/admin/admin_base.html'%} 
+
+{% block title %}Asset - Dashboard{% endblock %}
+{% block title_header %} <h3> Asset Dashboard </h3>{% endblock %}
+
+
+{%block content%}
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fas fa-stream"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Total Value of Assets</span>
+          <span class="info-box-number" id ="value_assets"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fas fa-list-ol"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Number of Assets</span>
+          <span class="info-box-number" id ="num_assets"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-success"><i class="fas fa-check-circle"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Available Assets</span>
+          <span class="info-box-number" id ="num_avail_assets"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-warning"><i class="fas fa-box"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Checked-out Assets</span>
+          <span class="info-box-number" id ="num_checkout"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>       
+</div>
+
+<div class="row">
+
+    <div class="col-md-4 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-info"><i class="fas fa-calendar-day"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Maintenances Due Today</span>
+          <span class="info-box-number" id ="num_maintenance_due"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-success"><i class="fas fa-calendar"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Maintenances Due in 30 days</span>
+          <span class="info-box-number" id ="num_maintenance_due_month"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+
+    <div class="col-md-4 col-sm-6 col-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-warning"><i class="fas fa-calendar"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Maintenances Due in Past 30 days</span>
+          <span class="info-box-number" id ="num_maintenance_pastdue_month"></span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+</div>
+
+<!-- <div class="row">
+
+  <div class="col-md-4 col-sm-6 col-12">
+    <div class="info-box">
+      <span class="info-box-icon bg-warning"><i class="fas fa-wrench"></i></span>
+
+      <div class="info-box-content">
+        <span class="info-box-text">Total cost of Maintenances in past 30 days</span>
+        <span class="info-box-number" id ="total_maintenance_cost_month"></span>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header border-0">
+        <div class="d-flex justify-content-between">
+          <h3 class="card-title">Maintenance Cost Completed in a year</h3>
+          <!-- <a href="javascript:void(0);">View Report</a> -->
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <p class="d-flex flex-column">
+            <span class="text-bold text-lg" id="total_mainte_cost"></span>
+            <span>Cost Over Time</span>
+          </p>
+        </div>
+        <!-- /.d-flex -->
+
+        <div class="position-relative mb-4">
+          <canvas id="yearly_mainte_cost_chart" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header border-0">
+        <div class="d-flex justify-content-between">
+          <h3 class="card-title">Asset Status</h3>
+          <!-- <a href="javascript:void(0);">View Report</a> -->
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- /.d-flex -->
+
+        <div class="position-relative mb-4">
+          <canvas id="status_donut" height="200" style="min-height: 250px; height: 300px; max-height: 250px; max-width: 100%;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+
+
+
+
+{%endblock%}
+
+{% block scripts%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+    $(document).ready(function() {
+
+
+        $.ajax({
+          url: '/asset_management/api/Asset/dashboard/value_all_asset',
+          type: "GET",
+          dataType: "JSON",
+
+          success: function(data){
+              count = data.data.length
+              console.log(count)
+              total = 0
+              for (let i = 0; i < count; i++) {
+                total += data.data[i].asset_cost;
+              }
+              $('#value_assets').html("₱"+total.toLocaleString('en-US'))
+
+          }
+          })
+
+          $.ajax({
+            url: '/asset_management/api/Asset/dashboard/all_status',
+            type: "GET",
+            dataType: "JSON",
+  
+            success: function(data){
+                count = data.data.length
+                console.log(count)
+                avail = 0
+                rep = 0
+                brok = 0
+                miss = 0
+                sold = 0
+                disp = 0
+
+                for (let i = 0; i < count; i++) {
+                 if (data.data[i].asset_status == "Available"){
+                  avail += 1
+                 };
+                 if (data.data[i].asset_status == "Repair"){
+                  rep += 1
+                 };
+                 if (data.data[i].asset_status == "Broken"){
+                  brok += 1
+                 };
+                 if (data.data[i].asset_status == "Missing"){
+                  miss += 1
+                 };
+                 if (data.data[i].asset_status == "Sold"){
+                  sold += 1
+                 };
+                 if (data.data[i].asset_status == "Disposed"){
+                  disp += 1
+                 };
+                }
+                
+                var donutChartCanvas = $('#status_donut').get(0).getContext('2d')
+                var donutData        = {
+                  labels: [
+                      'Available',
+                      'Repair',
+                      'Broken',
+                      'Missing',
+                      'Sold',
+                      'Disposed',
+                  ],
+                  datasets: [
+                    {
+                      data: [avail,rep,brok,miss,sold,disp],
+                      backgroundColor : ['#00a65a', '#f56954', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                    }
+                  ]
+                }
+                var donutOptions     = {
+                  maintainAspectRatio : false,
+                  responsive : true,
+                }
+                //Create pie or douhnut chart
+                // You can switch between pie and douhnut using the method below.
+                new Chart(donutChartCanvas, {
+                  type: 'doughnut',
+                  data: donutData,
+                  options: donutOptions
+                })
+            }
+            })
+          
+        $.ajax({
+            url: '/asset_management/api/Asset/dashboard/all_asset',
+            type: "GET",
+            dataType: "JSON",
+    
+            success: function(data){
+                $('#num_assets').html(data.data.toLocaleString('en-US'))
+    
+            }
+            })
+
+        $.ajax({
+            url: '/asset_management/api/Asset/dashboard/avail',
+            type: "GET",
+            dataType: "JSON",
+    
+            success: function(data){
+                //console.log(data.data.length)
+                $('#num_avail_assets').html(data.data.toLocaleString('en-US'))
+    
+            }
+            })
+
+        $.ajax({
+            url: '/asset_management/api/Check_out/dashboard/all_checkout',
+            type: "GET",
+            dataType: "JSON",
+    
+            success: function(data){
+                //console.log(data.data.length)
+                $('#num_checkout').html(data.data.toLocaleString('en-US'))
+    
+            }
+            })
+
+        $.ajax({
+            url: '/asset_management/api/Maintenance/dashboard/due_today',
+            type: "GET",
+            dataType: "JSON",
+    
+            success: function(data){
+                //console.log(data.data.length)
+                $('#num_maintenance_due').html(data.data.toLocaleString('en-US'))
+    
+            }
+            })
+
+        $.ajax({
+          url: '/asset_management/api/Maintenance/dashboard/due_this_month',
+          type: "GET",
+          dataType: "JSON",
+  
+          success: function(data){
+              //console.log(data.date)
+              $('#num_maintenance_due_month').html(data.data.toLocaleString('en-US'))
+  
+          }
+          })
+
+        $.ajax({
+          url: '/asset_management/api/Maintenance/dashboard/pastdue_this_month',
+          type: "GET",
+          dataType: "JSON",
+  
+          success: function(data){
+              //console.log(data.date)
+              $('#num_maintenance_pastdue_month').html(data.data.toLocaleString('en-US'))
+  
+          }
+          })
+
+          $.ajax({
+            url: '/asset_management/api/Maintenance_report/dashboard/total_cost',
+            type: "GET",
+            dataType: "JSON",
+  
+            success: function(data){
+                count = data.data.length
+                //console.log(count)
+                total = 0
+                for (let i = 0; i < count; i++) {
+                  total += data.data[i].maintenance_cost;
+                }
+                $('#total_maintenance_cost_month').html("₱"+total.toLocaleString('en-US'))
+  
+            }
+            })
+
+            $.ajax({
+              url: '/asset_management/api/Maintenance_report/dashboard/yearly_total_cost',
+              type: "GET",
+              dataType: "JSON",
+    
+              success: function(data){
+                  count = data.data.length
+                  //console.log(count)
+                  total = 0
+                  for (let i = 0; i < count; i++) {
+                    total += data.data[i].maintenance_cost;
+                  }
+                  $('#total_mainte_cost').html("₱"+total.toLocaleString('en-US'))
+    
+              }
+              })
+
+            $.ajax({
+              url: '/asset_management/api/Maintenance_report/dashboard/yearly_cost',
+              type: "GET",
+              dataType: "JSON",
+    
+              success: function(data){
+                Jan_val = Feb_val = Mar_val = Apr_val = May_val = Jun_val = Jul_val = 0
+                Aug_val = Sep_val = Oct_val = Nov_val = Dec_val = 0
+
+                LastJan_val = LastFeb_val = LastMar_val = LastApr_val = LastMay_val = LastJun_val = LastJul_val = 0
+                LastAug_val = LastSep_val = LastOct_val = LastNov_val = LastDec_val = 0
+                  if(data.jan != null){
+                    for (let i = 0; i < data.jan.length; i++) {
+                      Jan_val = Jan_val + data.jan[i].maintenance_cost
+                    }
+                  }
+                  if(data.feb != null){
+                    for (let i = 0; i < data.feb.length; i++) {
+                      Feb_val = Feb_val + data.feb[i].maintenance_cost
+                    }
+                  }
+                  if(data.mar != null){
+                    for (let i = 0; i < data.mar.length; i++) {
+                      Mar_val = Mar_val + data.mar[i].maintenance_cost
+                    }
+                  }
+                  if(data.apr != null){
+                    for (let i = 0; i < data.apr.length; i++) {
+                      Apr_val = Apr_val + data.apr[i].maintenance_cost
+                    }
+                  }
+                  if(data.may != null){
+                    for (let i = 0; i < data.may.length; i++) {
+                      May_val = May_val + data.may[i].maintenance_cost
+                    }
+                  }
+                  if(data.jun != null){
+                    for (let i = 0; i < data.may.length; i++) {
+                      Jun_val = Jun_val + data.may[i].maintenance_cost
+                    }
+                  }
+                  if(data.jul != null){
+                    for (let i = 0; i < data.jul.length; i++) {
+                      Jul_val = Jul_val + data.jul[i].maintenance_cost
+                    }
+                  }
+                  if(data.aug != null){
+                    for (let i = 0; i < data.aug.length; i++) {
+                      Aug_val = Aug_val + data.aug[i].maintenance_cost
+                    }
+                  }
+                  if(data.sep != null){
+                    for (let i = 0; i < data.sep.length; i++) {
+                      Sep_val = Sep_val + data.sep[i].maintenance_cost
+                    }
+                  }
+                  if(data.oct != null){
+                    for (let i = 0; i < data.oct.length; i++) {
+                      Oct_val = Oct_val + data.oct[i].maintenance_cost
+                    }
+                  }
+                  if(data.nov != null){
+                    for (let i = 0; i < data.nov.length; i++) {
+                      Nov_val = Nov_val + data.nov[i].maintenance_cost
+                    }
+                  }
+                  if(data.dec != null){
+                    for (let i = 0; i < data.dec.length; i++) {
+                      Dec_val = Dec_val + data.dec[i].maintenance_cost
+                    }
+                  }
+
+                  //LAST YEAR
+
+                  if(data.last_jan != null){
+                    for (let i = 0; i < data.last_jan.length; i++) {
+                      LastJan_val = LastJan_val + data.last_jan[i].maintenance_cost
+                    }
+                  }
+                  if(data.feb != null){
+                    for (let i = 0; i < data.last_feb.length; i++) {
+                      LastFeb_val = LastFeb_val + data.last_feb[i].maintenance_cost
+                    }
+                  }
+                  if(data.mar != null){
+                    for (let i = 0; i < data.last_mar.length; i++) {
+                      LastMar_val = LastMar_val + data.last_mar[i].maintenance_cost
+                    }
+                  }
+                  if(data.apr != null){
+                    for (let i = 0; i < data.last_apr.length; i++) {
+                      LastApr_val = LastApr_val + data.last_apr[i].maintenance_cost
+                    }
+                  }
+                  if(data.may != null){
+                    for (let i = 0; i < data.last_may.length; i++) {
+                      LastMay_val = LastMay_val + data.last_may[i].maintenance_cost
+                    }
+                  }
+                  if(data.jun != null){
+                    for (let i = 0; i < data.last_may.length; i++) {
+                      LastJun_val = LastJun_val + data.last_may[i].maintenance_cost
+                    }
+                  }
+                  if(data.jul != null){
+                    for (let i = 0; i < data.last_jul.length; i++) {
+                      LastJul_val = LastJul_val + data.last_jul[i].maintenance_cost
+                    }
+                  }
+                  if(data.aug != null){
+                    for (let i = 0; i < data.last_aug.length; i++) {
+                      LastAug_val = LastAug_val + data.last_aug[i].maintenance_cost
+                    }
+                  }
+                  if(data.sep != null){
+                    for (let i = 0; i < data.last_sep.length; i++) {
+                      LastSep_val = LastSep_val + data.last_sep[i].maintenance_cost
+                    }
+                  }
+                  if(data.oct != null){
+                    for (let i = 0; i < data.last_oct.length; i++) {
+                      LastOct_val = LastOct_val + data.last_oct[i].maintenance_cost
+                    }
+                  }
+                  if(data.nov != null){
+                    for (let i = 0; i < data.last_nov.length; i++) {
+                      LastNov_val = LastNov_val + data.last_nov[i].maintenance_cost
+                    }
+                  }
+                  if(data.dec != null){
+                    for (let i = 0; i < data.last_dec.length; i++) {
+                      LastDec_val = LastDec_val + data.last_dec[i].maintenance_cost
+                    }
+                  }
+
+                  month = data
+                  const ctx = document.getElementById('yearly_mainte_cost_chart').getContext('2d');
+                  const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                      labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT',
+                                'NOV', 'DEC'],
+                      datasets: [
+                        {
+                          label: "Last Year",
+                          backgroundColor: '#ced4da',
+                          borderColor: '#ced4da',
+                          data: [LastJan_val, LastFeb_val, LastMar_val, LastApr_val, LastMay_val, LastJun_val, LastJul_val,
+                          LastAug_val, LastSep_val, LastOct_val, LastNov_val, LastDec_val]
+                        },
+                        {
+                          label: "This Year",
+                          backgroundColor: '#007bff',
+                          borderColor: '#007bff',
+                          data: [Jan_val, Feb_val, Mar_val, Apr_val, May_val, Jun_val, Jul_val,
+                                Aug_val, Sep_val, Oct_val, Nov_val, Dec_val]
+                        }
+                      ]
+                    },
+                    options: {
+                      maintainAspectRatio: false,
+                    }
+                  }); 
+              }
+              })
+              
+
+          
+    });
+    
+</script>
+{%endblock%}

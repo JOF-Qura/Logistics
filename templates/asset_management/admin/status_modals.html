@@ -1,0 +1,242 @@
+<!-- MISSING MODAL -->
+  <div class="modal fade" id="missingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Lost/Missing Asset</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form id="missingForm">
+                <div class="form-row">
+                    <input hidden type="text" class="form-control created_by_id" name="created_by_id" id="created_by_id" >
+                    <input hidden type="text" class="form-control current_status" name="current_status" id="current_status">
+                    <input hidden value="{{id}}" type="text" class="form-control" name="missing_asset_id" id="missing_asset_id" >
+                    <div class="form-group col-sm-12">
+                        <label for="missing_date">Date Lost</label><label style="color: red;">*</label>
+                        <input required type="date" class="form-control" name="missing_date" id="missing_date" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="missing_remarks">Remarks</label><label style="color: red;">*</label>
+                        <input required class="form-control" name="missing_remarks" id="missing_remarks">
+                    </div>
+                </div>           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Save" class="btn btn-primary">
+            </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+<!-- SELL MODAL -->
+  <div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sell Asset</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form id="sellForm">
+                <div class="form-row">
+                    <input hidden type="text" class="form-control created_by_id" name="created_by_id" id="created_by_id" >
+                    <input hidden type="text" class="form-control current_status" name="current_status" id="current_status">
+                    <input hidden value="{{id}}" type="text" class="form-control" name="sell_asset_id" id="sell_asset_id" >
+                    <div class="form-group col-sm-12">
+                        <label for="sell_to">Sell to</label><label style="color: red;">*</label>
+                        <input required type="text" class="form-control" name="sell_to" id="sell_to" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="sell_to_contact">Contact</label><label style="color: red;">*</label>
+                        <input required type="text" class="form-control" name="sell_to_contact" id="sell_to_contact">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="sell_to_email">Email</label><label style="color: red;">*</label>
+                        <input required type="email" class="form-control" name="sell_to_email" id="sell_to_email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="sell_date">Sell Date</label><label style="color: red;">*</label>
+                        <input required type="date" class="form-control" name="sell_date" id="sell_date">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="sell_price">Sell Price</label><label style="color: red;">*</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">₱</div>
+                            </div>
+                            <input required type="number" class="form-control" name="sell_price" id="sell_price">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="sell_remarks">Remarks</label><label style="color: red;">*</label>
+                        <input required type="text" class="form-control" name="sell_remarks" id="sell_remarks">
+                    </div>
+                </div>           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Save" class="btn btn-primary">
+            </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+<!-- DISPOSE MODAL -->
+<div class="modal fade" id="disposeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Dispose Asset</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form id="disposeForm">
+                <div class="form-row">
+                    <input hidden type="text" class="form-control created_by_id" name="created_by_id" id="created_by_id" >
+                    <input hidden type="text" class="form-control current_status" name="current_status" id="current_status">
+                    <input hidden value="{{id}}" type="text" class="form-control" name="dispose_asset_id" id="dispose_asset_id" >
+                    <div class="form-group col-sm-12">
+                        <label for="dispose_to">Dispose to</label><label style="color: red;">*</label>
+                        <input required type="text" class="form-control" name="dispose_to" id="dispose_to" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="dispose_date">Dispose Date</label><label style="color: red;">*</label>
+                        <input required type="date" class="form-control" name="dispose_date" id="dispose_date">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="dispose_remarks">Remarks</label><label style="color: red;">*</label>
+                        <input required type="text" class="form-control" name="dispose_remarks" id="dispose_remarks">
+                    </div>
+                </div>           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Save" class="btn btn-primary">
+            </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+<!-- BROKEN MODAL -->
+  <div class="modal fade" id="brokenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Broken Asset</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form id="brokenForm">
+                <div class="form-row">
+                    <input hidden type="text" class="form-control created_by_id" name="created_by_id" id="created_by_id" >
+                    <input hidden type="text" class="form-control current_status" name="current_status" id="current_status">
+                    <input hidden value="{{id}}" type="text" class="form-control" name="broken_asset_id" id="broken_asset_id" >
+                    <div class="form-group col-sm-12">
+                        <label for="broken_date">Date Broken</label><label style="color: red;">*</label>
+                        <input required type="date" class="form-control" name="broken_date" id="broken_date" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="broken_remarks">Remarks</label><label style="color: red;">*</label>
+                        <input required class="form-control" name="broken_remarks" id="broken_remarks">
+                    </div>
+                </div>           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Save" class="btn btn-primary">
+            </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+<!-- REPAIR MODAL -->
+  <div class="modal fade" id="repairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Repair Asset</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+            <form id="repairForm">
+                <div class="form-row">
+                    <input hidden type="text" class="form-control created_by_id" name="created_by_id" id="created_by_id" >
+                    <input hidden type="text" class="form-control current_status" name="current_status" id="current_status">
+                    <input hidden value="{{id}}" type="text" class="form-control" name="repair_asset_id" id="repair_asset_id" >
+                    <div class="form-group col-sm-12">
+                        <label for="assigned_to">Assigned to</label><label style="color: red;">*</label>
+                        <input required type="text" class="form-control" name="assigned_to" id="assigned_to" >
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="repair_date">Repair Schedule Date</label><label style="color: red;">*</label>
+                        <input required type="date" class="form-control" name="repair_date" id="repair_date">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="repair_price">Repair Cost</label><label style="color: red;">*</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">₱</div>
+                            </div>
+                            <input required type="number" class="form-control" name="repair_price" id="repair_price">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12"><label style="color: red;">*</label>
+                        <label for="repair_remarks">Remarks</label>
+                        <input required type="text" class="form-control" name="repair_remarks" id="repair_remarks">
+                    </div>
+                </div>           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Save" class="btn btn-primary">
+            </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>

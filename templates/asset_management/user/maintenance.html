@@ -1,0 +1,246 @@
+<div class="card-header">
+    <h3 class="card-title">List of Maintenances</h3>
+</div>
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-12">
+            <table id="maintenance_table" class="table table-bordered table-hover"
+            style = "width: 100% !important">
+                <thead>
+                <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Due Date</th>
+                <th>Date Completed</th>
+                <th>Repeatable</th>
+                <th>Created At</th>
+                <th>Maintenance Days</th>
+                <th>Status</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODALS -->
+
+
+  <!-- VIEW MODAL -->
+
+  <div class="modal fade" id="viewMaintenance" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">View Maintenance</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card-body">
+              <form id="viewMaintenanceForm">
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                          <label for="view_maintenance_name">Name</label> <br>
+                          <span  name="view_maintenance_name" id="view_maintenance_name"  ></span>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                          <label for="view_maintenance_details">Details</label> <br>
+                          <span style="margin-top: 10px;" rows="2" cols="50"  name="view_maintenance_details" id="view_maintenance_details">
+                          </span>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                          <label for="view_maintenance_provider">Maintenance Provider</label> <br>
+                          <span required name="view_maintenance_provider" id="view_maintenance_provider" >
+                              
+                          </span>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-sm-6">
+                          <label for="view_maintenance_cost">Cost</label> <br>
+                              <span required type="number"   name="view_maintenance_cost" id="view_maintenance_cost"  ></span>
+                      </div>
+                      <div class="form-group col-sm-6">
+                          <label for="view_maintenance_due">Due Date</label> <br>
+                          <span required type="date" name="view_maintenance_due" id="view_maintenance_due"></span>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                          <label for="view_maintenance_status">Status</label> <br>
+                          <span required  name="view_maintenance_status" id="view_maintenance_status"  >
+                          </span>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="view_maintenance_completed">Date Completed</label> <br>
+                        <span required   name="view_maintenance_completed" id="view_maintenance_completed"  >
+                        </span>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="form-group col-sm-12">
+                          <label for="view_repeatable">Repeatable</label> <br>
+                              <span  name="view_repeatable" id="view_repeatable"></span>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                        <label for="view_frequency">Frequency</label> <br>
+                            <span name="view_frequency" id="view_frequency"></span>
+                    </div>
+                </div>
+        </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /MODALS -->
+
+<script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
+<script>
+
+$(document).ready(function () {
+    id = "{{id}}"
+    $("#maintenance_table").DataTable({
+
+        ajax: "/asset_management/api/Maintenance/" + id,
+        columns: [
+                { data: "maintenance_id"},
+                { data: "maintenance_name"},
+                { data: "maintenance_cost", render:function(data){
+                    return "₱"+data
+                  } 
+                },
+                { data: "maintenance_due", render:function(data){
+                    return moment(data).format('LL') +
+                    "<div class='text-secondary font-italic'>" + moment(data).startOf('seconds').fromNow()+"</div>"
+                  } 
+                },
+                { data: "maintenance_completed", render:function(data){
+                    if(data != null)
+                        return moment(data).format('LL')
+                    else{
+                        return "Not yet"
+                    }
+                  } 
+                },
+                { data: "maintenance_repeatable", render:function(data){
+                    if(data == "True")
+                        return "Yes"
+                    else{
+                        return "No"
+                    }
+                  }
+                },
+                { data: "created_at" },
+                { data: "maintenance_day"},
+                { data: "maintenance_status", render: function(data, type, row){
+                    if(data == "Completed"){
+                        return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check-circle mr-1"></i><span>Completed</span></div>'
+                    }
+                    else if(data == "Pending" && row.maintenance_repeatable == "True" && moment(row.maintenance_completed).format('L') > moment(row.maintenance_due).format('L')){
+                        if(row.maintenance_completed == null){
+                            return '<div class="badge badge-warning p-2 w-100"><i class="fas fa-clock mr-1"></i><span>Past Due</span></div>'
+                        }
+                        return '<div class="badge badge-info p-2 w-100"><i class="fas fa-recycle mr-1"></i><span>Pending</span></div>'
+                    }
+                    else if(data == "Pending" && moment().isAfter(row.maintenance_due)){
+                        return '<div class="badge badge-warning p-2 w-100"><i class="fas fa-clock mr-1"></i><span>Past Due</span></div>'
+                    }
+                    else if(data == "Pending"){
+                        return '<div class="badge badge-info p-2 w-100"><i class="fas fa-recycle mr-1"></i><span>Pending</span></div>'
+                    }
+                    else{
+                        return '<button class="btn btn-danger >Activate</button>';
+                    }
+                }
+                
+            },
+                
+        ],
+        "aoColumnDefs": [{ "bVisible": false, "aTargets": [0, 6, 7] }],
+        "order": [[6, "desc"]]
+        
+        })
+
+
+    function refresh_maintenance(){
+
+        $('#maintenance_table').DataTable().ajax.reload();
+    }
+
+
+    $(document).on("click", ".btn_view", function(){
+        var id = this.id;
+  
+          $.ajax({
+              url: '/asset_management/api/Maintenance/view/' + id,
+              type: "GET",
+              data: { id: id },
+              dataType: "JSON",
+          
+              success: function(data){
+                  console.log(data);
+                  var maintenanceInfo = data.data;
+  
+                  
+                  $('#view_maintenance_name').html(maintenanceInfo.maintenance_name);
+                  $('#view_maintenance_details').html(maintenanceInfo.maintenance_details);
+                  $('#view_maintenance_provider').html(maintenanceInfo.Maintenance_provider.maintenance_provider_name);
+                  $('#view_maintenance_cost').html("₱"+maintenanceInfo.maintenance_cost);
+                  $('#view_maintenance_due').html(moment(maintenanceInfo.maintenance_due).format('LL'));
+                  $('#view_maintenance_status').html(maintenanceInfo.maintenance_status);
+
+                  if(maintenanceInfo.maintenance_completed != null){
+                    $('#view_maintenance_completed').html(moment(maintenanceInfo.maintenance_completed).format('LL'));
+                  }
+                  else{
+                    $('#view_maintenance_completed').html("Not yet");
+                  }
+
+                  if(maintenanceInfo.maintenance_repeatable == "True"){
+                    $('#view_repeatable').html("Yes");
+                    if(maintenanceInfo.maintenance_day == 1){
+                        $('#view_frequency').html("Daily");
+                    }
+                    else if(maintenanceInfo.maintenance_day == 7){
+                        $('#view_frequency').html("Weekly");
+                    }
+                    else if(maintenanceInfo.maintenance_day == 30){
+                        $('#view_frequency').html("Monthly");
+                    }
+                    else if(maintenanceInfo.maintenance_day == 365){
+                        $('#view_frequency').html("Yearly");
+                    }
+                  }
+                  else{
+                    $('#view_repeatable').html("No");
+                    $('#view_frequency').html("None");
+                  }
+                  
+  
+                  $('#viewMaintenance').modal('show');
+              }
+          // ajax closing tag
+          })
+      });
+
+      
+
+    });
+</script>

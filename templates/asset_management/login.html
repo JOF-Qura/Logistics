@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | Hospital Management System</title>
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/dist/css/adminlte.min.css')}}">
+</head>
+
+<!-- 
+| =================================================================================
+| LOGIN PAGE - body tag must have .login-page and .bg-white class
+| =================================================================================
+-->
+<body class="hold-transition login-page bg-white">
+
+    <!-- 
+    | =================================================================================
+    | LOGIN FORM (CENTERED)
+    | =================================================================================
+    -->
+    <div class="login-box">
+        <div class="login-logo">
+            <div class="">HoMIES</div>
+        </div>
+
+        <div class="card shadow-none">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Log in to start your session</p>
+
+                <form id="loginForm">
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <input type="email" id="email" class="form-control" name="email" placeholder="Email">
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label for="password">Password</label>
+                            <a class="mb-3" href="#">I forgot my password</a>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Actions -->
+                    <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                        <span>Log in</span>
+                        <i class="fas fa-sign-in-alt ml-1"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{url_for('static', path='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{url_for('static', path='/dist/js/adminlte.min.js')}}"></script>
+
+    <script>
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+            });
+        }, false);
+        })();
+
+      $(document).ready(function(){
+
+        $(document).on("submit", function(e){
+            e.preventDefault()
+
+            let formData = {
+              user_email: $('#email').val(),
+              user_password: $('#password').val()
+            }
+
+            console.log(JSON.stringify(formData))
+
+            $.ajax({
+              url: '/asset_management/api/Auth/verify',
+              type: 'POST',
+              data: JSON.stringify(formData),
+              contentType: "application/json",
+              dataType: "JSON",
+
+              success: function(data){
+                user = data.user;
+                console.log(user)
+
+              // Store
+
+              sessionStorage.setItem("id", user.user_id);
+              sessionStorage.setItem("email", user.user_email);
+              sessionStorage.setItem("name", user.user_name);
+              sessionStorage.setItem("type", user.user_type);
+
+              console.log(sessionStorage.getItem("id"))
+              console.log(sessionStorage.getItem("email"))
+              console.log(sessionStorage.getItem("type"))
+
+
+              if(user.user_type == "Admin" ){
+                  setInterval(function(){
+                    window.location.href = '/index'
+                  },2000)
+                }
+                else if(user.user_type == "Employee"){
+                  setInterval(function(){
+                    window.location.href = '/asset_management/user/on_hand_assets';
+                  },2000)
+                  
+                }
+                else if(user.user_type == "Equipment Manager"){
+                  setInterval(function(){
+                    window.location.href = '/asset_management/manager';
+                  },2000)
+                  
+                }
+                else if(user.user_type == "HR"){
+                  setInterval(function(){
+                    window.location.href = '/forbidden/';
+                  },2000)
+                }
+              }
+
+
+
+            })
+
+          })
+      })
+    </script>
+
+</body>
+</html>
