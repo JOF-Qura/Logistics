@@ -9,7 +9,9 @@ class UserBase(BaseModel):
 # Schema for request body
 class CreateUser(UserBase):
     department_id: Optional [str] = None
-    user_type: str
+    user_name: str
+    user_email: str
+    user_type: str 
     user_password: str
 
 # Schema for response body

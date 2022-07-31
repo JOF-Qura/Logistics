@@ -23,11 +23,11 @@ class Employees(Base):
 
 
     #Foreignkey
-    user_id                 = Column(String(36), ForeignKey('users.user_id'), nullable=True, unique=True)
+    user_id                 = Column(String(36), ForeignKey('user.user_id'), nullable=True, unique=True)
     
 #Relationship/s
     #Relationship/s of this Table
-    employee_user = relationship('Users', backref='user_employeeFK')
+    #employee_user = relationship('User', backref='user_employeeFK')
 
     #Relationship/s of this Table to other Table/s
     or_employeeFK = relationship("Outbound_Reports", back_populates="employee")

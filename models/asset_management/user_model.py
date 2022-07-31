@@ -19,3 +19,4 @@ class User(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
     
     user_department = relationship('Department', foreign_keys=[department_id], lazy='joined')
+    
