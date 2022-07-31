@@ -1,0 +1,144 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "vendor_management" %}
+{% set active_module = "procurement" %}
+
+{% block title %}Vendor Transactions{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+       <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper px-3">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-6">
+            <a href="/procurement/vendor-setup"><i class="fas fa-arrow-left"></i></a>
+          </div>
+  
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Vendor Transactions</a></li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row mb-3">
+
+        <div class="col-sm-6">
+          <h3 id="vendor_name"></h3>
+        </div>
+       
+      </div>
+
+      
+      
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Submitted Proposals</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>Proposal Date</th>
+                    <th>Rfq Code</th>
+                    <th>Vendor</th>
+                    <th>Prepared by</th>
+                    <th>Contact No</th>
+                    <th>Total Amount</th>
+
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+   
+    
+    
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Purchase Orders</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table-orders" class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>PO No.</th>
+                    <!-- <th>Vendor</th> -->
+                    <th>Order Date</th>
+                    <th>Expected Delivery Date</th>
+                    <th>Payment Method</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+   
+
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{ url_for('static', path='/dist/js/procurement/vendor_management/vendor_transactions.js') }}"></script>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

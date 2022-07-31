@@ -1,0 +1,150 @@
+{% extends "internal/admin/p_admin_base.html" %}
+{% set active_page = "dashboard" %}
+{% set base_page = "base_admin" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+       <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1></h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Users</span>
+              <span class="info-box-number" id="total_users"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Departments</span>
+              <span class="info-box-number" id="total_users"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Employees</span>
+              <span class="info-box-number" id="total_employees"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Vendors</span>
+              <span class="info-box-number" id="total_vendors"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    
+      </div>
+
+  
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Users</h3>
+            </div>
+            <!-- /.card-header -->
+
+     <!-- Card Body -->
+     <div class="card-body">
+      <table id="data-table" class="table table-hover table-bordered w-100">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>User Type</th>
+
+        
+
+     
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+
+          </div>
+          <!-- /.card -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <script src="{{ url_for('static', path='/dist/js/procurement/dashboards/sysadmin_dashboard.js') }}"></script>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

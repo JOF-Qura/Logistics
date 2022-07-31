@@ -1,0 +1,296 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "utilities" %}
+{% set active_module = "procurement" %}
+
+
+
+
+{% block title %}Utilities{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Utilities</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Utilities</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+       <!-- form -->
+ <div class="row" id="div_form">
+  <div class="col-xl-12">
+    <form class="card card-primary card-outline" id="form_id" name="form_id" enctype="multipart/form-data">
+      <div class="card-header">
+        
+        <h3 class="card-title">Add Utility</h3>
+      </div>
+
+      <div class="card-body">
+   
+        
+
+            <input class="form-control" type="hidden" id="uuid" name="uuid" readonly>
+
+    
+
+
+          <div class="row">
+         
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="category">Vendor<span class="text-danger">*</span></label>
+              
+                <select class="form-control select2" id="vendor_id" name="vendor_id">
+                
+                  </select>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="utility_type">Utility Type<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="utility_type" name="utility_type" placeholder="Utility Type">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="utility_amount">Utility Amount<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="utility_amount" name="utility_amount" placeholder="Utility Amount">
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="due_date">Due Date<span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="due_date" name="due_date">
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="notes">Notes</label>
+                <textarea class="form-control" id="notes" name="notes" ></textarea>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="attachment">Attachment<span class="text-danger">*</span></label>
+                <ul class="list-unstyled" id="related_files_body">
+               
+        
+                </ul>
+                <div class="mt-3">
+                  <input type="file" class="form-control " id="attachment" name="attachment" hidden>
+                  <input class="btn btn-sm btn-secondary" id='buttonid' type='button' value='Add file' />
+
+                </div>
+           
+              </div>
+            </div>
+          </div>
+   
+
+
+      </div>
+      <!-- end card body -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-12 text-right set-btn">
+            <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+            <button type="button" class="btn btn-default bg-default"
+              onclick="formReset('hide')">Cancel</button>
+
+
+            <button type="submit" class="btn btn-primary submit" id="add-button">
+              Submit
+              <i class="fas fa-file-export ml-1"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end form -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <div class="row">
+              <div class="col-6
+              d-sm-flex
+              align-items-center">
+              <h3 class="card-title">List of Utilities</h3>
+            </div>
+
+                <div class="col-6
+                d-sm-flex
+                align-items-center
+                justify-content-end">
+             
+                    <div class="page-title-right">
+                      <button type="button" class="btn btn-success create_button" onclick="formReset('show')">
+                        <i class="fas fa-plus font-size-16 mr-1"></i> Add Utility
+                      </button>
+                    </div>
+                
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>Vendor</th>
+                    <th>Utility type</th>
+                    <th>Utility Amount</th>
+                    <th>Due Date</th>
+                    <th>attachment</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+
+<script src="{{ url_for('static', path='/dist/js/procurement/utilities/utilities.js') }}"></script>
+
+
+
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <div >
+              <i class="text-secondary fas fa-times-circle mr-1"></i>
+          </div>
+          <div class="modal-title"></div>
+        </div>
+ 
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to Deativate this Utilities? </p>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="changeStatus">Yes, Deactive it</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-file">
+  <div class="
+        modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+      ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+            <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">File</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body p-5">
+        <iframe id="display_file" src=""
+        width="100%" height="500px">
+        </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+   
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

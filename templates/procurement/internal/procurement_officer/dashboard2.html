@@ -1,0 +1,443 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "dashboard" %}
+{% set active_module = "procurement" %}
+
+
+
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Dashboard</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+
+
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Vendors</span>
+              <span class="info-box-number" id="total_vendors"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Contracts</span>
+              <span class="info-box-number" id="total_contracts"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-shopping-cart"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Orders</span>
+              <span class="info-box-number" id="total_orders"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-dollar-sign"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Spending</span>
+              <span class="info-box-number" id="total_spending"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+
+
+
+
+
+
+      <div class="row my-4">
+        <div class="col-md-6">
+
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Top Vendors</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table-top-vendor" class="table table-bordered table-hover w-100">
+                <thead>
+                  <tr>
+                    <th>Vendor</th>
+                    <th>Total Ordered</th>
+                    <!-- <th>Score</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <div class="col-md-6">
+          <!-- BAR CHART -->
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Vendor Ratings</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="vendor_rating_chart"
+                  style="min-height: 250px; height: 250px; width: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Spent by Catagory</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="pieChart"
+                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <!-- BAR CHART -->
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Monthly Spent</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="barChart"
+                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Recent Orders</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table-orders" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>PO No.</th>
+                    <th>Vendor</th>
+                    <th>Order Date</th>
+                    <th>Expected Delivery Date</th>
+                    <th>Payment Method</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <!-- <th>Action</th> -->
+
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-po">
+  <div class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        ">
+    <form class="modal-content po-report-modal-content" id="form_po" name="form_po">
+      <div class="modal-header po-report-modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+            <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Order</div>
+        </div>
+        <!-- <h4 class="modal-title">Purchase Request</h4> -->
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+      <div class="modal-body po-report-modal-body modal-po p-5">
+
+        <div class="row">
+          <div class="col-md-6">
+            <h1>Purchase Order</h1>
+
+          </div>
+        </div>
+
+        <div class="row my-4">
+          <div class="col-md-6">
+            <label>Order Date</label>
+
+            <input type="text" class="form-control" id="order_date" readonly>
+          </div>
+
+          <div class="col-md-6">
+            <label>Expected Delivery Date</label>
+
+            <input type="date" class="form-control" id="expected_delivery_date" name="expected_delivery_date" readonly>
+
+          </div>
+        </div>
+
+        <div class="row my-4">
+          <div class="col-md-4">
+            <label>Payment Method</label>
+
+            <select name="payment_method" class="form-control select2" id="payment_method" readonly>
+
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label>Payment Terms</label>
+            <select name="payment_terms" class="form-control select2" id="payment_terms" readonly>
+
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label>Shipment Method</label>
+            <select name="shipment_method" class="form-control" id="shipment_method" readonly>
+              <option value="Full Shipment">Full Shipment</option>
+              <option value="Partial Shipment">Partial Shipment</option>
+
+            </select>
+          </div>
+        </div>
+
+
+        <hr />
+
+        <div class="form-group row my-5">
+          <div class="col-md-12 dt-responsive table-responsive">
+            <table id="po-detail-table" class="table table-hoverable table-bordered w-100">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Product Name</th>
+                  <th>Price Per Unit</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-10">
+                <label>Notes</label>
+                <textarea class="form-control" name="po_notes" id="po_notes" rows="3" readonly></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row my-2">
+              <div class="col-md-6">
+                <label>Subtotal</label>
+              </div>
+              <div class="col-md-6">
+
+                <span class="d-flex"> &#8369;<p id="po_subtotal"></p></span>
+
+                <!-- <input class="form-control" id="" name=""  /> -->
+              </div>
+            </div>
+
+            <div class="row my-2">
+              <div class="col-md-6">
+                <label>Tax</label>
+              </div>
+              <div class="col-md-6">
+                <span class="d-flex"> &#8369;<p id="po_tax"></p></span>
+              </div>
+            </div>
+
+
+            <div class="row my-2">
+              <div class="col-md-6">
+                <label>Discount</label>
+              </div>
+              <div class="col-md-6">
+                <span class="d-flex"> &#8369;<p id="po_discount"></p></span>
+              </div>
+            </div>
+
+
+
+
+            <hr />
+
+            <div class="row my-2">
+              <div class="col-md-6">
+                <h5>Total</h5>
+              </div>
+              <div class="col-md-6">
+                <span class="d-flex"> &#8369;<p id="po_total"></p></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer po-report-modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary print">
+          Print
+          <i class="fas fa-print ml-1"></i>
+        </button>
+      </div>
+    </form>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+<script src="{{ url_for('static', path='/plugins/chart.js/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', path='/dist/js/procurement/dashboards/procurement_officer_dashboard.js') }}"></script>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

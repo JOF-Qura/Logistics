@@ -1,0 +1,518 @@
+{% extends "internal/pr_users/p_dept_base.html" %}
+{% set active_page = "purchase_request" %}
+{% set active_module = "procurement" %}
+
+{% block title %}Purchase Request{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', path='/plugins/summernote/summernote-bs4.min.css') }}">
+
+<style>
+  .note-editor.note-frame .note-editing-area .note-editable{
+    height: 300px;
+  }
+</style>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Purchase Request</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Purchase Request</a></li>
+
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+      <!-- form -->
+      <div class="row" id="div_form">
+        <div class="col-xl-12">
+          <form class="card card-primary card-outline" id="form_id" name="form_id" enctype="multipart/form-data">
+            <div class="card-body">
+              <input type="hidden" id="uuid" name="uuid" />
+              <input type="hidden" class="form-control" id="status" name="status" readonly />
+              <div class="form-group row m-t-10">
+                <div class="col-md-6">
+                  <h2 id="generated_pr">New</h2>
+                </div>
+                <div class="col-md-6">
+                  <label>Requested By</label>
+                  <input class="form-control" id="requested_by" name="requested_by" readonly />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 department-container">
+                  <label>Department</label>
+                  <input class="form-control" id="department" name="department" readonly />
+                </div>
+                <div class="form-group  col-md-6">
+                  <label>Purpose<span class="text-danger">*</span></label>
+                  <input class="form-control" id="purpose" name="purpose" />
+                </div>
+            
+              </div>
+
+   
+
+              <div class="form-group row my-5">
+                <div class="col-md-12 summernote">
+                  <label>Message<span class="text-danger">*</span></label>
+                  <textarea class="form-control" name="message" id="message"></textarea>
+                </div>
+              </div>
+
+              <!-- <hr /> -->
+              <div class="form-group row mt-5">
+                <div class="col-md-12 d-flex justify-content-end">
+                  <button type="button" class="btn btn-secondary mr-2" onclick="addNewProduct()">
+                    Add new item
+                    <i class="fas fa-plus font-size-16 ml-1"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-secondary addProduct" onclick="addfromCatalog()">
+                    Add from catalog
+                    <i class="fas fa-plus font-size-16 ml-1"></i>
+                  </button>
+                </div>
+
+              </div>
+
+              <label class="h5 pb-3">Purchase Request Items</label>
+
+              <div class="form-group row">
+                <div class="col-md-12 dt-responsive table-responsive">
+                  <table id="pr-detail-table" class="table table-bordered display wrap w-100">
+                    <thead>
+                      <tr>
+                        <!-- <th></th> -->
+                        <th>Category</th>
+                        <th>Product/Services</th>
+                        <th>Description</th>
+                        <th>Estimated Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+
+                        <th>Action</th>
+                        <!-- <th>Comments</th> -->
+
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="row my-5">
+                <div class="col-md-6">
+                
+                </div>
+                <div class="col-md-6">
+             
+
+
+                  <div class="row my-2">
+                    <div class="col-md-6 form-group ">
+                      <h5>Estimated Price:</h5>
+                    </div>
+                    <div class="input-group mb-3 col-md-6">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">&#8369;</span>
+                      </div>
+                      <input class="form-control" id="estimated_total" name="estimated_total" readonly />
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="card-footer">
+
+              <div class="row">
+                <div class="col-md-12 text-right set-btn">
+                  <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+                  <button type="button" class="btn btn-default bg-default"
+                    onClick="formReset('hide')">Cancel</button>
+
+
+                  <button type="submit" class="btn btn-primary save-draft" id="save-button"
+                    onclick="$('#status').val('Draft');"> Save as Draft <i class="fas fa-file-alt ml-1"></i> </button>
+
+                  <button type="submit" class="btn btn-primary " style="display: none;" id="update-button"
+                    onclick="$('#status').val('Draft');">
+                    Update
+                    <i class="fas fa-check ml-1"></i>
+                  </button>
+
+
+                  <button type="submit" class="btn btn-primary submit" id="add-button"
+                    onclick="$('#status').val('Pending');">
+                    Submit
+                    <i class="fas fa-file-export ml-1"></i>
+                  </button>
+
+                </div>
+              </div>
+
+
+            </div>
+            <!-- end card body -->
+          </form>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end form -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <div class="row">
+                <div class="col-6 
+                d-sm-flex
+                align-items-center">
+
+                  <h3 class="card-title">Drafts</h3>
+                </div>
+                <div class="col-6 
+                d-sm-flex
+                align-items-center
+                justify-content-end">
+
+                  <div class="page-title-right">
+                    <button type="button" class="btn btn-sm btn-success" id="btn_add"
+                      onClick="formReset('show')">
+                      <i class="fas fa-plus font-size-16 mr-1"></i> Create Request
+                    </button>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>PR No.</th>
+                    <th>Requested By</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script src="{{ url_for('static', path='/plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+
+<script src="{{ url_for('static', path='/dist/js/procurement/purchase_request/purchase_request.js') }}"></script>
+
+
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-products">
+  <div class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add product from catalog</h4>
+
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table id="product-table" class="table" style="width: 100%;">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Category</th>
+              <th>Product</th>
+              <th>Product Details</th>
+              <th>Estimated Price</th>
+              <th>Qty</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary add-product" onclick="addProduct();">
+          Add
+          <i class="fas fa-plus ml-1"></i>
+
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="edit-product-catalog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="
+  modal-dialog modal-dialog-centered modal-dialog-scrollable
+">
+    <form class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Item Details</h4>
+
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <input class="form-control" type="hidden" id="catalog_item_uuid" name="catalog_item_uuid" />
+
+        <!-- <div class="form-group row d-flex justify-content-center">
+
+          <div class="col-md-6 ">
+            <div class="mb-3 validate">
+              <img src="https://avatars.dicebear.com/api/bottts/smile.svg" alt=""
+                class="rounded avatar-lg img-thumbnail" style="object-fit: cover;" id="photo_path_placeholder"
+                name="photo_path_placeholder">
+            </div>
+          </div>
+        </div> -->
+
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product / Service Category<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" id="catalog_item_category" name="catalog_item_category" readonly />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product/ Service Name<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" id="catalog_item_name" name="catalog_item_name" readonly />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product/Service Price<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" id="catalog_product_price" name="catalog_product_price" readonly />
+          </div>
+
+        </div>
+
+        <!-- <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product Description<span class="text-danger">*</span></label>
+            <textarea class="form-control" id="catalog_item_description" name="catalog_item_description"
+              readonly></textarea>
+          </div>
+        </div> -->
+
+
+        <div class="form-group row">
+
+          <div class="col-md-12">
+            <label>Quantity<span class="text-danger">*</span></label>
+            <input class="form-control" type="number" min="1" value="1" id="catalog_item_quantity"
+              name="catalog_item_quantity" />
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <!-- <button type="button" class="btn btn-primary add_item_button" onclick="editCatalogProduct();">
+          Update
+          <i class="fas fa-plus ml-1"></i>
+        </button> -->
+      </div>
+
+      <!-- /.modal-content -->
+    </form>
+    <!-- /.modal-dialog -->
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-add-new-product" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="
+  modal-dialog modal-dialog-centered modal-dialog-scrollable
+">
+    <form class="modal-content" id="add_manual_product_form">
+      <div class="modal-header">
+        <h4 class="modal-title">Add new item</h4>
+
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <input class="form-control" type="hidden" id="new_item_uuid" name="new_item_uuid" />
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product / Service Category<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" id="new_item_category" name="new_item_category" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product / Service Name<span class="text-danger">*</span></label>
+            <input class="form-control" type="text" id="new_item_name" name="new_item_name" />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Estimated Price<span class="text-danger">*</span></label>
+            <input class="form-control" type="number" id="estimated_price" name="estimated_price" />
+          </div>
+
+        </div>
+
+
+        <div class="form-group row">
+
+          <div class="col-md-12">
+            <label>Quantity<span class="text-danger">*</span></label>
+            <input class="form-control" type="number" min="1" value="1" id="new_item_quantity"
+              name="new_item_quantity" />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12 summernote">
+            <label>Product Description<span class="text-danger">*</span></label>
+            <textarea class="form-control" id="new_item_description" name="new_item_description"></textarea>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary add_item_button" onclick="addManualProduct();">
+          Add
+          <i class="fas fa-plus ml-1"></i>
+        </button>
+      </div>
+
+      <!-- /.modal-content -->
+    </form>
+    <!-- /.modal-dialog -->
+  </div>
+</div>
+
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <div>
+            <i class="text-secondary fas fa-times-circle mr-1"></i>
+          </div>
+          <div class="modal-title">Delete PR</div>
+        </div>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="del_uuid">
+        <p>Are you sure you want to Deativate this user? </p>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" onclick="changeStatus()" id="changeStatus">Yes, Deactive it</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

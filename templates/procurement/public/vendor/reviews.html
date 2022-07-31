@@ -1,0 +1,230 @@
+{% extends "public/vendor/vendor_base.html" %}
+{% set active_page = "reviews" %}
+
+{% block title %}Reviews And Feedbacks{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+       <!-- Content Wrapper. Contains page content -->
+       <div class="content-wrapper px-3">
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              
+                <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Reviews And Feedbacks</h1>
+        </div>
+      
+    
+              <!-- Breadcrumb -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Results</a></li>
+                </ol>
+              </div>
+              <!-- / breadcrumb -->
+    
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+     
+  
+    
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Card -->
+              <div class="card card-primary card-outline">
+                <!-- Card Header -->
+                <div class="card-header">
+                  <!-- <h3 class="card-title">Evaluation Schedules</h3> -->
+                  <h3 class="card-title">Ratings and Feedbacks</h3>
+    
+                </div>
+                <!-- /.card-header -->
+    
+                <!-- Card Body -->
+                <div class="card-body">
+                  <table id="data-table" class="table table-hover table-bordered w-100">
+                    <thead>
+                      <tr>
+                          <th>Date</th>
+                        <th>Product Quality</th>
+                        <th>User Satisfaction</th>
+                        <th>On-time Delivery</th>
+                        <th>Product Defect</th>
+                        <th>Feedback</th>
+    
+    
+                        <th>Action</th>
+              
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+        
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    
+    
+    <!-- Extra Large Modal  For Updating, Adding and Viewing-->
+    <div class="modal fade" id="modal-xl">
+        <div class="
+                modal-dialog modal-default modal-dialog-centered modal-dialog-scrollable
+              ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="d-flex align-items-center">
+                <div >
+                    <i class="text-secondary fas fa-file-alt mr-2"></i>
+                </div>
+                <div class="modal-title">Result</div>
+              </div> 
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+              </button>
+            </div>
+            <form id="form_id" name="form_id" enctype="multipart/form-data">
+            <div class="modal-body">
+                <div class="row">
+      
+                  <input class="form-control" type="hidden" id="uuid" name="uuid" readonly>
+      
+                </div>
+      
+           
+      
+              <div class="row">
+      
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="product_quality">Product Quality</label>
+                    <input type="text" class="form-control" id="product_quality" name="product_quality" placeholder="Product Quality">
+                  </div>
+                </div>
+    
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="user_satisfaction">User Satisfaction</label>
+                      <input type="text" class="form-control" id="user_satisfaction" name="user_satisfaction" placeholder="User Satisfaction">
+                    </div>
+                  </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="on_time_delivery">On time Delivery</label>
+                        <input type="text" class="form-control" id="on_time_delivery" name="on_time_delivery" placeholder="On time Delivery">
+                      </div>
+                    </div>
+                <div class="col-md-6">
+             <div class="form-group">
+                      <label for="product_defect">Product Defect</label>
+                      <input type="text" class="form-control" id="product_defect" name="product_defect" placeholder="Product Defect">
+                    </div>
+                </div>
+              </div>
+    
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="defect_comments">Defect Comments</label>
+                        <textarea class="form-control" id="defect_comments" name="defect_comments"></textarea>
+    
+                      </div>
+                    </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message"></textarea>
+         
+                      </div>
+                    </div>
+       
+    
+              </div>
+            
+      
+      
+      
+                <div class="modal-footer">
+                  <button type="reset" class="btn btn-default" data-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary submit">
+                    Submit <i class="fas fa-check font-size-16 ml-2"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      
+      <!-- Default Modal For deleting -->
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="d-flex align-items-center">
+                <div >
+                    <i class="text-secondary fas fa-times-circle mr-1"></i>
+                </div>
+                <div class="modal-title">Deactivate Schedule</div>
+              </div> 
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="del_uuid" name="del_uuid">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                Close
+              </button>
+              <button type="button" onClick="deleteData2();" class="btn btn-warning">Continue <i class="fas fa-times-circle font-size-16 ml-1"></i></button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+    
+      <script src="{{ url_for('static', path='/dist/js/vendor_side/reviews/reviews.js') }}"></script>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

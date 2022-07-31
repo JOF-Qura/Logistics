@@ -1,5 +1,7 @@
 from sqlalchemy import Integer, String, DateTime, Text as Desc, text
 from sqlalchemy.sql.schema import Column, ForeignKey
+from models.asset_management.user_model import User
+
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -23,7 +25,7 @@ class Employees(Base):
 
 
     #Foreignkey
-    user_id                 = Column(String(36), ForeignKey('user.user_id'), nullable=True, unique=True)
+    user_id                 = Column(String(36), ForeignKey(User.user_id), nullable=True, unique=True)
     
 #Relationship/s
     #Relationship/s of this Table

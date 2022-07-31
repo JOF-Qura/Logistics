@@ -1,0 +1,268 @@
+{% extends "public/vendor/vendor_base.html" %}
+ {% set active_page = "account" %} {% block title
+    %}Account Profile{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+    content %}
+    
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper px-3">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+    
+    
+            
+               <!-- Title -->
+               <div class="col-sm-6">
+                <h1>Account Profile</h1>
+              </div>
+      
+    
+    
+            
+            <!-- Breadcrumb -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Account Profile</a></li>
+              </ol>
+            </div>
+            <!-- / breadcrumb -->
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </section>
+      <!-- /.content-header -->
+    
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+   
+            <!-- /.col -->
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header p-2">
+                  <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#update_profile" data-toggle="tab">Update Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#change_password" data-toggle="tab">Change Password</a></li>
+
+                  </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content">
+                 
+  
+                    <div class="tab-pane active" id="update_profile">
+                      <form class="form-horizontal" id="form_id" name="form_id" enctype="multipart/form-data">
+                      
+    
+
+          <div class="row">
+            <div class="col-md-4">
+              <label>Add Vendor Logo</label>
+              <div class="mb-3 validate">
+                  <img src="https://avatars.dicebear.com/api/bottts/smile.svg" alt="" class="rounded avatar-lg img-thumbnail" style="height:100px;" id="photo_path_placeholder" name="photo_path_placeholder">
+
+              </div>
+              <div class="form-group">
+               
+                <input type="file" class="form-control" id="vendor_logo" name="vendor_logo">
+              </div>
+          </div>
+        
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vendor_name">Vendor Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="vendor_name" name="vendor_name" placeholder="Vendor Name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="category">Category<span class="text-danger">*</span></label>
+                <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary"
+                  id="category_id" name="category_id">
+
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact_person">Contact Person<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="Contact Person">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact_no">Contact No<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="contact_no" name="contact_no" placeholder="Contact No">
+              </div>
+            </div>
+
+    
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vendor_website">Website</label>
+                <input type="text" class="form-control" id="vendor_website" name="vendor_website" placeholder="Website">
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email<span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="region">Region<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="region" id="region"></select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="province">Province<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="province" id="province"></select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="municipality">Municipality<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="municipality" id="municipality"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="barangay">Barangay</label>
+                <select class="form-control select2" name="barangay" id="barangay"></select>                
+              </div>
+            </div>
+
+        
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="text" class="form-control" id="street" name="street" placeholder="street">
+                </div>
+              </div>
+
+        
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="organization_type">Organization Type</label>
+                <input type="text" class="form-control" id="organization_type" name="organization_type" placeholder="Organization Type">
+              </div>
+            </div>
+       
+
+          </div>
+          
+          <!-- <div class="col-md-6 hide-password">
+            <div class="form-group">
+              <label for="password">Password<span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="password" name="password"
+                placeholder="Password">
+            </div>
+
+          </div> -->
+          <div class="form-group row mt-3">
+            <div class="col-md-12 d-flex justify-content-end">
+              <button type="submit"  class="btn btn-primary">Save changes</button>
+            </div> 
+          </div>
+                      </form>
+                    </div>
+                    <!-- /.tab-pane -->
+
+
+                    <div class="tab-pane" id="change_password">
+                      <form class="form-horizontal">
+                      
+                 
+              
+                       <div class="row">
+
+                         <div class="col-md-12">
+                           <div class="form-group">
+                             <label for="old_password">Old Password<span class="text-danger">*</span></label>
+                             <input type="password" class="form-control" id="old_password" name="old_password"
+                               placeholder="Old Password">
+                           </div>
+               
+                         </div>
+                       </div>
+
+                       <div class="row">
+
+                        <div class="col-md-12 hide-password">
+                          <div class="form-group">
+                            <label for="new_password">New Password<span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="new_password" name="new_password"
+                              placeholder="New Password">
+                          </div>
+              
+                        </div>
+                      </div>
+
+                      <div class="row">
+
+                        <div class="col-md-12 hide-password">
+                          <div class="form-group">
+                            <label for="confirm_password">Confirm Password<span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                              placeholder="Confirm Password">
+                          </div>
+              
+                        </div>
+                      </div>
+                        <div class="form-group row mt-3">
+                          <div class="col-md-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                  </div>
+                  <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    
+    
+ 
+    
+    <script src="{{ url_for('static', path='/dist/js/vendor_side/vendor_account/vendor_account.js') }}"></script>
+    
+    {% endblock %} {% block scripts %} {{ super() }} {% endblock %}
+    

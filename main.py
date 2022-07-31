@@ -122,6 +122,43 @@ from models.asset_management.repair_asset_model import Repair_Asset
 from models.asset_management.request_asset_model import Request_Asset
 from models.asset_management.sell_asset_model import Sell_Asset
 
+
+
+# importing all procurement models
+
+
+from models.procurement.vendor_blacklist import VendorBlacklist 
+from models.procurement.budget_plan import BudgetPlan 
+from models.procurement.category import Category 
+from models.procurement.vendor import Vendor 
+from models.procurement.vendor_performance_evaluation import VendorPerformanceEvaluation 
+from models.procurement.purchase_order_detail import PurchaseOrderDetail 
+from models.procurement.vendor_proposal import VendorProposals
+from models.procurement.vendor_bidding_items import VendorBiddingItems
+from models.procurement.product import Product 
+
+from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
+from models.procurement.vendor_audit_trail import VendorAuditTrail
+from models.procurement.vendor_time_log import VendorTimeLog
+from models.procurement.request_quotation import RequestQuotation
+from models.procurement.notification import Notification
+from models.procurement.purchase_order import PurchaseOrder 
+from models.procurement.purchase_requisition import PurchaseRequisition 
+from models.procurement.related_documents import RelatedDocuments
+from models.procurement.payment_method import PaymentMethod
+from models.procurement.payment_terms import PaymentTerms
+from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
+from models.procurement.utilities import Utilities
+from models.procurement.rfq_vendor import RequestQuotationVendor
+from models.procurement.replacement_request import ReplacementRequest
+# from .replacement_items import ReplacementItems
+
+# importing all procurement routes
+# from routes.procurement import (purchase_order_invoice, user, login, user_type,product, category, department,budget_plan, vendor_performance_evaluation,vendor_proposal, vendor_login, terms_of_reference,
+# purchase_order,purchase_requisition,purchase_requisition_detail,request_quotation,vendor, vendor_bidding_item, notif,project_request,
+# vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor,employee,employee_type,payment_method,payment_terms,returns,return_details,replacement_request)
+
+
 # creating all models
 Base.metadata.create_all(engine)
 
