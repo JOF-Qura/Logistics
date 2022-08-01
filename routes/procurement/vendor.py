@@ -4,12 +4,12 @@ from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
 
 from typing import List
-from app.repository import vendor
+from repository.procurement import vendor
 from .. import database, models
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.vendor import Vendor,ShowVendor,BlacklistVendor,ShowBlacklistVendor, VendorStatus
-from app.schemas.user import User
+from schemas.procurement.vendor import Vendor,ShowVendor,BlacklistVendor,ShowBlacklistVendor, VendorStatus
+from schemas.procurement.user import User
 import aiohttp
 #dotenv
 from dotenv import dotenv_values

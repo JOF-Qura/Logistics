@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.repository import notif
+from repository.procurement import notif
 from .. import database
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.notif import Notif,ShowNotif, UpdateNotif
-from app.schemas.user import User
+from schemas.procurement.notif import Notif,ShowNotif, UpdateNotif
+from schemas.procurement.user import User
 
 router = APIRouter(
     prefix="/api/v1/notification",

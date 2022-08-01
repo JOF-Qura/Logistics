@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.repository import budget_plan
+from repository.procurement import budget_plan
 from .. import database
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.budget_plan import BudgetPlan, BudgetPlanPO, BudgetPlanStatus,ShowBudgetPlan
-from app.schemas.user import User
+from schemas.procurement.budget_plan import BudgetPlan, BudgetPlanPO, BudgetPlanStatus,ShowBudgetPlan
+from schemas.procurement.user import User
 
 
 from typing import List

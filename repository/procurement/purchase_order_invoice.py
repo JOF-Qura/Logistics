@@ -1,11 +1,11 @@
 from datetime import datetime
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+import models.procurement as models
+# from security import oauth2
 
 from fastapi import HTTPException, status
-from app.schemas.purchase_order_invoice import PurchaseOrderInvoice, PurchaseOrderInvoiceStatus
+from schemas.procurement.purchase_order_invoice import PurchaseOrderInvoice, PurchaseOrderInvoiceStatus
 
 
 # get one

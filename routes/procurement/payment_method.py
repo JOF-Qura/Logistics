@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.repository import payment_method
+from repository.procurement import payment_method
 from .. import database
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.payment_method import PaymentMethod,ShowPaymentMethod
-from app.schemas.user import User
+from schemas.procurement.payment_method import PaymentMethod,ShowPaymentMethod
+# from schemas.procurement.user import User
 
 
 router = APIRouter(

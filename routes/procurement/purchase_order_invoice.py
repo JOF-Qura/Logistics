@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from repository import purchase_order_invoice
+from repository.procurement import purchase_order_invoice
 from .. import database
-from security import oauth2
+from .. import oauth2
 
-from schemas.purchase_order_invoice import PurchaseOrderInvoice, PurchaseOrderInvoiceStatus,ShowPurchaseOrderInvoice
-from schemas.user import User
+from schemas.procurement.purchase_order_invoice import PurchaseOrderInvoice, PurchaseOrderInvoiceStatus,ShowPurchaseOrderInvoice
+from schemas.procurement.user import User
 
 
 router = APIRouter(

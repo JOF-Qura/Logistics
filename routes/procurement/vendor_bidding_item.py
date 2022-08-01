@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.repository import vendor_bidding_item
+from repository.procurement import vendor_bidding_item
 from .. import  database, models
-from app.security import oauth2
-from app.schemas.vendor_proposal import VendorBiddingItems, ShowVendorBiddingItems,VendorBiddingItemsStatus
-from app.schemas.user import User
+from security import oauth2
+from schemas.procurement.vendor_proposal import VendorBiddingItems, ShowVendorBiddingItems,VendorBiddingItemsStatus
+# from schemas.procurement.user import User
 
 
 

@@ -8,16 +8,16 @@ from fastapi_mail import FastMail, MessageSchema,ConnectionConfig
 
 
 from typing import List
-from app.repository import request_quotation
+from repository.procurement import request_quotation
 from .. import database, models
-from app.security import oauth2
+from security import oauth2
 
 
-from app.schemas.request_quotation import EmailContent,QuotationStatus, RequestQuotationStatus,ShowRequestQuotation,RequestQuotation,ShowRequestQuotationToVendor,ShowQuotationCode
+from schemas.procurement.request_quotation import EmailContent,QuotationStatus, RequestQuotationStatus,ShowRequestQuotation,RequestQuotation,ShowRequestQuotationToVendor,ShowQuotationCode
 
-from app.schemas.user import User
+# from schemas.procurement.user import User
 
-from app.schemas.terms_of_reference import TermsOfReference
+# from schemas.procurement.terms_of_reference import TermsOfReference
 
 
 

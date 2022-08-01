@@ -3,12 +3,12 @@ from sqlalchemy.orm import Session
 # from repository import user 
 
 from typing import List
-from app.repository import purchase_order
+from repository.procurement import purchase_order
 from .. import database, models
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.purchase_order import ShowPurchaseOrder,PurchaseOrder,UpdatePurchaseOrderStatus
-from app.schemas.user import User
+from schemas.procurement.purchase_order import ShowPurchaseOrder,PurchaseOrder,UpdatePurchaseOrderStatus
+# from schemas.procurement.user import User
 
 router = APIRouter(
     prefix="/api/v1/purchase-order",

@@ -2,8 +2,7 @@ from datetime import date, datetime
 from pydantic import BaseModel
 from typing import Optional, Text, List
 
-from app.models import request_quotation
-from . import vendor, purchase_requisition, terms_of_reference,related_documents,rfq_vendor
+from . import vendor, purchase_requisition,related_documents,rfq_vendor #terms_of_reference
 from . import user
 
 # quotation email sent
@@ -46,7 +45,7 @@ class ShowRequestQuotation(BaseModel):
     purchase_requisition: purchase_requisition.ShowPurchaseRequisition
     related_documents: Optional[List[related_documents.ShowRelatedDocuments]]
 
-    terms_of_reference: Optional[terms_of_reference.ShowTermsOfReference]
+    # terms_of_reference: Optional[terms_of_reference.ShowTermsOfReference]
 
 
     class Config():

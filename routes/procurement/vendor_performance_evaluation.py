@@ -3,12 +3,12 @@ from sqlalchemy.orm import Session
 
 
 from typing import List
-from app.repository import vendor_performance_evaluation
+from repository.procurement import vendor_performance_evaluation
 from .. import database, models
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.vendor_evaluation import VendorEvaluationResult,ShowVendorEvaluationResults,ShowVendorEvaluationResultsVendor
-from app.schemas.user import User
+from schemas.procurement.vendor_evaluation import VendorEvaluationResult,ShowVendorEvaluationResults,ShowVendorEvaluationResultsVendor
+from schemas.procurement.user import User
 
 
 

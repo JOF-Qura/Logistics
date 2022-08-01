@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from typing import List
-from app.repository import rfq_vendor
+from repository.procurement import rfq_vendor
 from .. import database
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.rfq_vendor import RFQVendor, RFQVendorStatus,ShowRFQVendor
-from app.schemas.user import User
+from schemas.procurement.rfq_vendor import RFQVendor, RFQVendorStatus,ShowRFQVendor
+# from schemas.procurement.user import User
 
 
 router = APIRouter(

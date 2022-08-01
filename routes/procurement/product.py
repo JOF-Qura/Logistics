@@ -3,14 +3,14 @@ from fastapi import APIRouter, Depends, status, Response, File, UploadFile, Form
 import shutil, os
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
-from app.repository import product
+from repository.procurement import product
 
 # from repository import user 
 from .. import database
-from app.security import oauth2
+from security import oauth2
 
-from app.schemas.product import Product, ProductStatus, ShowProduct
-from app.schemas.user import User
+from schemas.procurement.product import Product, ProductStatus, ShowProduct
+# from schemas.procurement.user import User
 
 
 

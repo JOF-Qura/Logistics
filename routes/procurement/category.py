@@ -7,7 +7,7 @@ from repository import category
 from .. import database, models
 
 from schemas.procurement.category import Category, CategoryStatus,ShowCategory
-from schemas.user import User
+from schemas.procurement.user import User
 
 
 
