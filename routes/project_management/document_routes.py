@@ -14,7 +14,7 @@ from controllers.token_controller import get_token
 router = APIRouter(
     prefix='/document',
     tags=['document'],
-    dependencies=[Depends(get_token)]
+    # dependencies=[Depends(get_token)]
 )
 
 # GET ALL DOCUMENT

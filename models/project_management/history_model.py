@@ -18,4 +18,4 @@ class ProjectHistory(Base):
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
     history_project = relationship('Project', back_populates='project_history')
-    history_employee = relationship('Employee', back_populates='employee_history')
+    history_employee = relationship('Employees', back_populates='employee_history')

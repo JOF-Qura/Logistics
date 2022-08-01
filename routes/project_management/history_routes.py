@@ -15,7 +15,7 @@ from controllers.token_controller import get_token
 router = APIRouter(
     prefix='/history',
     tags=['history'],
-    dependencies=[Depends(get_token)]
+    # dependencies=[Depends(get_token)]
 )
 
 # GET ALL HISTORY

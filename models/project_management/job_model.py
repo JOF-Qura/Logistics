@@ -14,4 +14,4 @@ class Job(Base):
     created_at = Column(DateTime, server_default=text('NOW()'))
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
-    employee = relationship('Employee', back_populates='job')
+    employee = relationship('Employees', back_populates='job')

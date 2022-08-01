@@ -30,7 +30,7 @@ class ConceptPaper(Base):
     created_at = Column(DateTime, server_default=text('NOW()'))
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
-    concept_employee = relationship('Employee', back_populates='employee_concept')
-    concept_department = relationship('Department', back_populates='department_concept')
+    concept_employee = relationship('Employees', back_populates='employee_concept')
+    concept_department = relationship('Departments', back_populates='department_concept')
     concept_budget = relationship('BudgetRequirements', back_populates='budget_concept')
     concept_project = relationship('Project', back_populates='project_concept')

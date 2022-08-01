@@ -6,7 +6,7 @@ from sqlalchemy.sql.expression import desc
 from sqlalchemy.sql.functions import user
 from schemas.project_management.quotation_schema import ShowQuotation
 from models.project_management.quotation_model import Quotation
-from models.project_management.department_model import Department
+from models.project_management.department_model import Departments
 from database import get_db
 from typing import List
 from controllers.encryption import Hash
@@ -16,7 +16,7 @@ from controllers.token_controller import get_token
 router = APIRouter(
     prefix='/quotation',
     tags=['quotation'],
-    dependencies=[Depends(get_token)]
+    # dependencies=[Depends(get_token)]
 )
 
 # GET ALL QUOTATIONS

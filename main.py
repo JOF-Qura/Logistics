@@ -127,36 +127,36 @@ from models.asset_management.sell_asset_model import Sell_Asset
 # importing all procurement models
 
 
-from models.procurement.vendor_blacklist import VendorBlacklist 
-from models.procurement.budget_plan import BudgetPlan 
-from models.procurement.category import Category 
-from models.procurement.vendor import Vendor 
-from models.procurement.vendor_performance_evaluation import VendorPerformanceEvaluation 
-from models.procurement.purchase_order_detail import PurchaseOrderDetail 
-from models.procurement.vendor_proposal import VendorProposals
-from models.procurement.vendor_bidding_items import VendorBiddingItems
-from models.procurement.product import Product 
+# from models.procurement.vendor_blacklist import VendorBlacklist 
+# from models.procurement.budget_plan import BudgetPlan 
+# from models.procurement.category import Category 
+# from models.procurement.vendor import Vendor 
+# from models.procurement.vendor_performance_evaluation import VendorPerformanceEvaluation 
+# from models.procurement.purchase_order_detail import PurchaseOrderDetail 
+# from models.procurement.vendor_proposal import VendorProposals
+# from models.procurement.vendor_bidding_items import VendorBiddingItems
+# from models.procurement.product import Product 
 
-from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
-from models.procurement.vendor_audit_trail import VendorAuditTrail
-from models.procurement.vendor_time_log import VendorTimeLog
-from models.procurement.request_quotation import RequestQuotation
-from models.procurement.notification import Notification
-from models.procurement.purchase_order import PurchaseOrder 
-from models.procurement.purchase_requisition import PurchaseRequisition 
-from models.procurement.related_documents import RelatedDocuments
-from models.procurement.payment_method import PaymentMethod
-from models.procurement.payment_terms import PaymentTerms
-from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
-from models.procurement.utilities import Utilities
-from models.procurement.rfq_vendor import RequestQuotationVendor
-from models.procurement.replacement_request import ReplacementRequest
+# from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
+# from models.procurement.vendor_audit_trail import VendorAuditTrail
+# from models.procurement.vendor_time_log import VendorTimeLog
+# from models.procurement.request_quotation import RequestQuotation
+# from models.procurement.notification import Notification
+# from models.procurement.purchase_order import PurchaseOrder 
+# from models.procurement.purchase_requisition import PurchaseRequisition 
+# from models.procurement.related_documents import RelatedDocuments
+# from models.procurement.payment_method import PaymentMethod
+# from models.procurement.payment_terms import PaymentTerms
+# from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
+# from models.procurement.utilities import Utilities
+# from models.procurement.rfq_vendor import RequestQuotationVendor
+# from models.procurement.replacement_request import ReplacementRequest
 
 # importing all project management models
 from models.project_management.activity_model import Activity
 from models.project_management.budget_requirements_model import BudgetRequirements
 from models.project_management.concept_paper_model import ConceptPaper
-from models.project_management.department_model import Department
+from models.project_management.department_model import Departments
 from models.project_management.document_model import Document
 from models.project_management.history_model import ProjectHistory
 from models.project_management.job_model import Job
@@ -253,8 +253,8 @@ app.include_router(project_routes.router)
 app.include_router(quotation_routes.router)
 app.include_router(stakeholder_routes.router)
 app.include_router(task_routes.router)
-app.include_router(tor_routes.router)
-app.include_router(vendor_routes.router)
+# app.include_router(tor_routes.router)
+# app.include_router(vendor_routes.router)
 
 app.include_router(countRequestDetail_Supply.router)
 app.include_router(countSupply.router)

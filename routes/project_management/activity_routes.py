@@ -12,7 +12,7 @@ from datetime import datetime as dt
 router = APIRouter(
     prefix='/activity',
     tags=['activity'],
-    dependencies=[Depends(get_token)]
+    # dependencies=[Depends(get_token)]
 )
 
 # GET ALL ACTIVITY

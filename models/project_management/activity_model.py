@@ -19,4 +19,4 @@ class Activity(Base):
 
     activity_project = relationship('Project', back_populates='project_activity')
     activity_task = relationship('Task', back_populates='task_activity')
-    activity_employee = relationship('Employee', back_populates='employee_activity')
+    activity_employee = relationship('Employees', back_populates='employee_activity')

@@ -32,8 +32,8 @@ class Project(Base):
     created_at = Column(DateTime, server_default=text('NOW()'))
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
-    project_user = relationship('Employee', back_populates='projects')
-    project_department = relationship('Department', back_populates='department_projects')
+    project_user = relationship('Employees', back_populates='projects')
+    project_department = relationship('Departments', back_populates='department_projects')
     project_task = relationship('Task', back_populates='task_project')
     project_quotation = relationship('Quotation', back_populates='quotation_project')
     project_activity = relationship('Activity', back_populates='activity_project')

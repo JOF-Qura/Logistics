@@ -22,6 +22,6 @@ class Task(Base):
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
     task_project = relationship('Project', back_populates='project_task')
-    task_employee = relationship('Employee', back_populates='employee_task')
+    task_employee = relationship('Employees', back_populates='employee_task')
     task_quotation = relationship('Quotation', back_populates='quotation_task')
     task_activity = relationship('Activity', back_populates='activity_task')

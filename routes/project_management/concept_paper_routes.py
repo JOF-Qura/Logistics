@@ -16,7 +16,7 @@ from controllers.token_controller import get_token
 router = APIRouter(
     prefix='/concept_paper',
     tags=['concept_paper'],
-    dependencies=[Depends(get_token)]
+    # dependencies=[Depends(get_token)]
 )
 
 # GET ALL CONCEPT PAPER

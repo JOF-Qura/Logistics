@@ -43,10 +43,10 @@ class Employees(Base):
     hd_employeeFK = relationship("Hospital_Departments", back_populates="manager")
 
 #Relationship w/ Project Management
-    user_employee = relationship('Users', back_populates='employee_user')
+    user_employee = relationship('User', back_populates='employee_user')
     job = relationship('Job', back_populates='employee')
     projects = relationship('Project', back_populates='project_user')
-    departments = relationship('Department', back_populates='department_employee')
+    departments = relationship('Departments', back_populates='department_employee')
     employee_concept = relationship('ConceptPaper', back_populates='concept_employee')
     employee_task = relationship('Task', back_populates='task_employee')
     employee_activity = relationship('Activity', back_populates='activity_employee')
