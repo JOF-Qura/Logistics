@@ -17,7 +17,7 @@ def password_hash(password):
     return pwd_context.hash(password)
 
 router = APIRouter(
-    prefix='/asset_management/api/Auth',
+    prefix='/auth',
     tags=['Auth']
 )
 
@@ -54,8 +54,12 @@ def register(request: CreateUser, db: Session = Depends(get_db)):
 def verify(form: AuthForm, response: Response, db: Session = Depends(get_db)):
     try:
         user = db.query(User).filter(User.user_email == form.user_email).first()
-        if user:
+        if not user:
+            return 404
+        elif user:
             match = password_verify(form.user_password, user.user_password)
+            if not match:
+                return 4041
             if match:
                 data = TokenData(user_name = user.user_name,
                                 user_email = user.user_email,

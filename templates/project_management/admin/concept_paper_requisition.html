@@ -1,11 +1,11 @@
-{%extends 'base.html'%}
+{%extends './project_management/admin/base.html'%}
 
 {%block includes%}
-{% include './admin/includes/head.html' %}
+{% include './project_management/admin/includes/head.html' %}
 
-{% include './admin/includes/navbar.html' %}
+{% include './project_management/admin/includes/navbar.html' %}
 
-{% include './admin/includes/sidebar.html' %}
+{% include './project_management/admin/includes/sidebar.html' %}
 {%endblock%}
 
 <!-- Content Wrapper. Contains page content -->
@@ -342,8 +342,8 @@
 <!-- /.content-wrapper -->
 
 {%block scripts%}
-<script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
-<script src="{{url_for('static', path='/admin_restriction.js')}}"></script>
+<!-- <script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/admin_restriction.js')}}"></script> -->
 
 <script>
   function all_project_table() {
