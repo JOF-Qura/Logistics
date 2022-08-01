@@ -1,8 +1,7 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 
-from pages_routers.procurement.p_manager_pages import department
-import models.procurement as models
+from models import procurement as models
 
 from fastapi import HTTPException, status
 from schemas.procurement.budget_plan import BudgetPlan, BudgetPlanPO, BudgetPlanStatus

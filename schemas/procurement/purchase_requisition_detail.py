@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, Text, List
-from . import user
+# from . import user
 from . import product
 
 

@@ -5,11 +5,9 @@ from starlette.responses import JSONResponse
 
 from typing import List
 from repository.procurement import vendor
-from .. import database, models
-from security import oauth2
+from database import get_db
 
 from schemas.procurement.vendor import Vendor,ShowVendor,BlacklistVendor,ShowBlacklistVendor, VendorStatus
-from schemas.procurement.user import User
 import aiohttp
 #dotenv
 from dotenv import dotenv_values
@@ -20,7 +18,6 @@ router = APIRouter(
     prefix="/api/v1/vendor",
     tags=['Vendor']
 )
-get_db = database.get_db
 
 
 
@@ -36,12 +33,12 @@ def get_vendor_pic(pic, db : Session = Depends(get_db)):
 
 # get all venors
 @router.get('/', response_model=List[ShowVendor])
-def get( db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get( db : Session = Depends(get_db)):
     return vendor.get(db)
 
 # get all pending applications
 @router.get('/pending', response_model=List[ShowVendor])
-def get_pending( db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_pending( db : Session = Depends(get_db)):
     return vendor.get_pending(db)
     
 
@@ -61,19 +58,19 @@ def create( vendor_name:str = Form(...),
                 email:str = Form(...),
                 # password:str = Form(...),
                 vendor_logo:UploadFile = File(...),
-                db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+                db : Session = Depends(get_db)):
     return vendor.create(vendor_name, vendor_website,
                         region, province, municipality, barangay, street, 
                         organization_type, category_id, contact_person, contact_no,
                         email, #password,
                         vendor_logo,
-                        db,current_user)
+                        db)
     
 
 # blacklist vendor
 @router.post('/blacklist/', status_code=status.HTTP_202_ACCEPTED)#HTTP_204_NO_CONTENT
-def blacklist(request: BlacklistVendor,db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
-    return vendor.blacklist(request,db,current_user)
+def blacklist(request: BlacklistVendor,db : Session = Depends(get_db)):
+    return vendor.blacklist(request,db)
     
 
 # update vendor
@@ -92,42 +89,42 @@ def update(id, vendor_name:str = Form(...),
                 email:str = Form(...),
                 # password:str = Form(...),
                 vendor_logo:UploadFile = File(...),
-                db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+                db : Session = Depends(get_db)):
    return vendor.update(id,vendor_name, vendor_website,
                         region, province, municipality, barangay, street, 
                         organization_type, category_id, contact_person, contact_no,
                         email, #password,
                         vendor_logo,
-                        db,current_user)
+                        db)
 
 # update vendor status
 @router.put('/status/{id}',status_code=status.HTTP_202_ACCEPTED)
-def update_vendor_status(id, request: VendorStatus, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def update_vendor_status(id, request: VendorStatus, db : Session = Depends(get_db)):
     return vendor.update_vendor_status(id, request, db)
 
 
 # get one vendor
 @router.get('/{id}', status_code=status.HTTP_200_OK, response_model=ShowVendor)
-def get_one(id, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_one(id, db : Session = Depends(get_db)):
     return vendor.get_one(id, db)
     
 
 # get one
 @router.get('/charts/count')
-def get_count(db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_count(db : Session = Depends(get_db)):
     return vendor.get_count(db)
     
 
 
 # get filitered vendors by region,city, municipality
 @router.get('/filtered/vendor/reports/{region}/{province}/{municipality}/{vendor_status}', response_model=List[ShowVendor])
-def get_filtered_vendor_reports( region,province,municipality,vendor_status,db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_filtered_vendor_reports( region,province,municipality,vendor_status,db : Session = Depends(get_db)):
     return vendor.get_filtered_vendor_reports(region,province,municipality,vendor_status,db)
 
 
 # Get api psgc regions 
 @router.get("/psgc/api/regions")
-async def psgc_regions(current_user: User = Depends(oauth2.get_current_user)):
+async def psgc_regions():
     async with aiohttp.ClientSession() as session:
         async with session.get("https://psgc.gitlab.io/api/regions") as resp:
             data = await resp.json(content_type=None)
@@ -137,7 +134,7 @@ async def psgc_regions(current_user: User = Depends(oauth2.get_current_user)):
 
 # Get api psgc provinces 
 @router.get("/psgc/api/regions/{code}/provinces")
-async def psgc_provinces(code,current_user: User = Depends(oauth2.get_current_user)):
+async def psgc_provinces(code):
     async with aiohttp.ClientSession() as session:
         if code != "130000000":
             async with session.get("https://psgc.gitlab.io/api/regions/"+code+"/provinces") as resp:
@@ -150,7 +147,7 @@ async def psgc_provinces(code,current_user: User = Depends(oauth2.get_current_us
 
 # Get api psgc cities municipalities 
 @router.get("/psgc/api/provinces/{code}/cities-municipalities")
-async def psgc_municipalities(code,current_user: User = Depends(oauth2.get_current_user)):
+async def psgc_municipalities(code):
     async with aiohttp.ClientSession() as session:
         if code != "130000000":
             async with session.get("https://psgc.gitlab.io/api/provinces/"+code+"/cities-municipalities") as resp:
@@ -163,7 +160,7 @@ async def psgc_municipalities(code,current_user: User = Depends(oauth2.get_curre
 
 # Get api psgc barangays 
 @router.get("/psgc/api/cities-municipalities/{code}/barangays")
-async def psgc_barangays(code,current_user: User = Depends(oauth2.get_current_user)):
+async def psgc_barangays(code):
     async with aiohttp.ClientSession() as session:
         async with session.get("https://psgc.gitlab.io/api/cities-municipalities/"+code+"/barangays") as resp:
             data = await resp.json(content_type=None)
@@ -175,7 +172,7 @@ async def psgc_barangays(code,current_user: User = Depends(oauth2.get_current_us
 
 # get all blacklisted vendors
 @router.get('/blacklist/reports/{start_date}/{end_date}')
-def get_all_blacklisted(start_date,end_date, db : Session = Depends(get_db), current_user: User = Depends(oauth2.get_current_user)):
+def get_all_blacklisted(start_date,end_date, db : Session = Depends(get_db)):
     return vendor.get_all_blacklisted(start_date,end_date,db)
 
 

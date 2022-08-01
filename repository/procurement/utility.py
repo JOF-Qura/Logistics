@@ -1,11 +1,10 @@
 from datetime import date
 from fastapi import UploadFile, status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
 
 from fastapi import HTTPException, status
-from app.schemas.utility import Utilities
+from schemas.procurement.utility import Utilities
 import shutil, os
 from os.path import exists
 from fastapi.responses import FileResponse

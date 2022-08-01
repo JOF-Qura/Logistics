@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Optional, Text, List
 from datetime import date
 from sqlalchemy.sql.sqltypes import Date
-from . import category, request_quotation, vendor,related_documents,user
+from . import category, request_quotation, vendor,related_documents#,user
 
 
         
@@ -66,7 +66,7 @@ class ShowVendorProposal(BaseModel):
     request_quotation_id:str
     request_quotation: request_quotation.ShowRequestQuotationToVendor
     related_documents: Optional[List[related_documents.ShowRelatedDocuments]]
-    u_created_by: user.ShowUser
+    # u_created_by: user.ShowUser
     message: Optional[str]
     created_by: str
     prepared_by: str

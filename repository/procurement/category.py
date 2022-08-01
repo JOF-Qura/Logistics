@@ -1,10 +1,10 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
+
 
 from fastapi import HTTPException, status
-from app.schemas.category import Category, CategoryStatus,ShowCategory
+from schemas.procurement.category import Category, CategoryStatus,ShowCategory
 
 
 # get all

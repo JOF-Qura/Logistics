@@ -2,7 +2,7 @@ from datetime import date
 from pydantic import BaseModel
 from typing import Optional, Text, List
 
-from . import returns
+# from . import returns
 
 
 # Replacement Request
@@ -32,7 +32,7 @@ class ShowReplacementRequest(BaseModel):
     replacement_request_date: date
     expected_arrival_date: Optional[date]
     request_type: str
-    returns: returns.ShowReturns
+    # returns: returns.ShowReturns
     status:str
     prepared_by: str
   

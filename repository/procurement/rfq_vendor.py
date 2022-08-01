@@ -1,12 +1,11 @@
 
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
 
 from datetime import datetime
 from fastapi import HTTPException, status
-from app.schemas.rfq_vendor import RFQVendor, RFQVendorStatus
+from schemas.procurement.rfq_vendor import RFQVendor, RFQVendorStatus
 
 
 # get one rfq - all vendor

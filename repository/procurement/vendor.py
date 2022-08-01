@@ -4,10 +4,9 @@ from aiohttp import request
 from fastapi import status, HTTPException,UploadFile
 
 from sqlalchemy.orm import Session
-from .. import  database, models
+from models import procurement as models
 from fastapi import HTTPException, status
-from app.schemas.vendor import Vendor,BlacklistVendor, VendorStatus
-from app.security.hashing import Hash
+from schemas.procurement.vendor import Vendor,BlacklistVendor, VendorStatus
 import shutil, os
 from os.path import exists
 from fastapi.responses import FileResponse

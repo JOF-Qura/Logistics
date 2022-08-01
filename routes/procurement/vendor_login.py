@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm.session import Session
 from fastapi.security import OAuth2PasswordRequestForm
-from security.hashing import Hash
-from security import token
+# from security.hashing import Hash
+# from security import token
 
-from .. import database,models
+import models
+from database import get_db
 
 router = APIRouter(
     tags=['Authentication']
@@ -13,7 +14,7 @@ router = APIRouter(
 
 
 @router.post('/homies/vendor-login')
-def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
+def login(request:OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     # vendor = db.query(models.Vendor).filter(models.Vendor.email == request.username).first()
     user = db.query(models.User).filter(models.User.email == request.username).filter(models.User.vendor_id != "").first()
 

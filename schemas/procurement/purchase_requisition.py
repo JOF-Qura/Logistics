@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, Text, List
 from datetime import datetime, date, time, timedelta
-from . import user, product, purchase_requisition_detail
+from . import product, purchase_requisition_detail #user, 
 
 
 
@@ -32,7 +32,7 @@ class ShowPurchaseRequisition(BaseModel):
     purchase_requisition_number: int
     given_budget:Optional[str]
     estimated_amount:Optional[float]
-    u_created_by: user.ShowUser
+    # u_created_by: user.ShowUser
     approved_by: Optional[str]
 
     date_requested: Optional[datetime] 

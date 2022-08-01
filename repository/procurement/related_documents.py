@@ -1,11 +1,10 @@
 from typing import Optional
 from fastapi import status, HTTPException,File, UploadFile,Form
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
 
 from fastapi import HTTPException, status
-from app.schemas.related_documents import RelatedDocuments
+from schemas.procurement.related_documents import RelatedDocuments
 import shutil, os
 
 from os.path import exists

@@ -155,9 +155,10 @@ from models.procurement.replacement_request import ReplacementRequest
 # from .replacement_items import ReplacementItems
 
 # importing all procurement routes
-from routes.procurement import (purchase_order_invoice, user, login, user_type,product, category, department,budget_plan, vendor_performance_evaluation,vendor_proposal, vendor_login, terms_of_reference,
-purchase_order,purchase_requisition,purchase_requisition_detail,request_quotation,vendor, vendor_bidding_item, notif,project_request,
-vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor,employee,employee_type,payment_method,payment_terms,returns,return_details,replacement_request)
+from routes.procurement import (purchase_order_invoice,product, category,budget_plan, vendor_performance_evaluation,vendor_proposal, vendor_login,
+purchase_order,purchase_requisition,purchase_requisition_detail,request_quotation,vendor, vendor_bidding_item, notif,
+vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor,payment_method,payment_terms,replacement_request)
+#return_details,project_request,returns,terms_of_reference,employee,employee_type,user,user_type,department
 
 
 # creating all models
@@ -219,6 +220,34 @@ app.include_router(requestFilter.router)
 #Saling Pusa
 app.include_router(postRoutes.router)
 
+
+# Procurement Routes
+
+
+
+app.include_router(product.router)
+app.include_router(category.router)
+app.include_router(budget_plan.router)
+app.include_router(purchase_order.router)
+app.include_router(purchase_requisition.router)
+app.include_router(purchase_requisition_detail.router)
+app.include_router(request_quotation.router)
+# app.include_router(vendor_evaluation_schedules.router)
+app.include_router(vendor_performance_evaluation.router)
+app.include_router(vendor_proposal.router)
+app.include_router(vendor_bidding_item.router)
+app.include_router(vendor.router)
+app.include_router(vendor_login.router)
+app.include_router(notif.router)
+app.include_router(vendor_log_time.router)
+app.include_router(vendor_audit_trail.router)
+app.include_router(related_documents.router)
+app.include_router(purchase_order_invoice.router)
+app.include_router(utility.router)
+app.include_router(rfq_vendor.router)
+app.include_router(payment_terms.router)
+app.include_router(payment_method.router)
+app.include_router(replacement_request.router)
 
 # Register template folder
 template = Jinja2Templates('templates')

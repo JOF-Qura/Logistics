@@ -1,8 +1,8 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import models
+from models import procurement as models
 from fastapi import HTTPException, status
-from app.schemas.purchase_requisition_detail import PurchaseRequestItemsStatus, PurchaseRequisitionDetail
+from schemas.procurement.purchase_requisition_detail import PurchaseRequestItemsStatus, PurchaseRequisitionDetail
 
 
 

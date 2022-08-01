@@ -1,13 +1,12 @@
 from fastapi import status, HTTPException, Response,UploadFile
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.sqltypes import DECIMAL
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
 
 from fastapi import HTTPException, status
 import shutil, os
 from fastapi.responses import FileResponse
-from app.schemas.product import Product,ProductStatus
+from schemas.procurement.product import Product,ProductStatus
 
 
 # # get product pic

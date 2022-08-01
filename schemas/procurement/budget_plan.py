@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, Text, List
 from datetime import date
-from . import department
+# from . import department
 
 # Budget Plan
 class BudgetPlan(BaseModel):
@@ -19,7 +19,7 @@ class ShowBudgetPlan(BaseModel):
     date_from: date
     date_to: date
     total_spent:float
-    department: department.ShowDepartment
+    # department: department.ShowDepartment
     class Config():
         orm_mode = True
 

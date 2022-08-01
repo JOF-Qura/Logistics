@@ -1,9 +1,9 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
+from models import procurement as models
 from fastapi import HTTPException, status
-from app.schemas.vendor_log_time import VendorLogTime,ShowVendorLogTime
-from app.schemas.user import User
+from schemas.procurement.vendor_log_time import VendorLogTime,ShowVendorLogTime
+# from schemas.user import User
 from datetime import datetime
 import socket
 

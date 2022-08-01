@@ -1,10 +1,10 @@
 from aiohttp import request
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
+from models import procurement as models
 
 from fastapi import HTTPException, status
-from app.schemas.vendor_proposal import VendorBiddingItems,VendorProposalStatus, BiddingItemID,VendorBiddingItemsStatus
+from schemas.procurement.vendor_proposal import VendorBiddingItems,VendorProposalStatus, BiddingItemID,VendorBiddingItemsStatus
 
 
 

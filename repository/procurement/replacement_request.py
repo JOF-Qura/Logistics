@@ -2,11 +2,10 @@ from datetime import datetime
 from statistics import mode
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
 
 from fastapi import HTTPException, status
-from app.schemas.replacement_request import ReplacementRequest, ReplacementRequestStatus
+from schemas.procurement.replacement_request import ReplacementRequest, ReplacementRequestStatus
 
 
 # get one

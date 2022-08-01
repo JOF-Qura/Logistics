@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, Text, List
 
-from . import user,vendor
+from . import vendor #user
 
 
 class CategoryStatus(BaseModel):

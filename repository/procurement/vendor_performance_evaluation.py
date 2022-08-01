@@ -2,10 +2,10 @@ from statistics import mode
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 
-from app.models import purchase_order
-from .. import database, models
+from models.procurement import purchase_order
+from models import procurement as models
 from fastapi import HTTPException, status
-from app.schemas.vendor_evaluation import VendorEvaluationResult
+from schemas.procurement.vendor_evaluation import VendorEvaluationResult
 from collections import defaultdict
 
 # get all

@@ -2,9 +2,8 @@ from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import true
 
-from app.models import payment_method, purchase_order
-from .. import database, models
-from app.schemas.purchase_order import PurchaseOrder, UpdatePurchaseOrderStatus
+from models import procurement as models
+from schemas.procurement.purchase_order import PurchaseOrder, UpdatePurchaseOrderStatus
 from random import randint
 from sqlalchemy import func
 from collections import defaultdict

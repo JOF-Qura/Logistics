@@ -1,10 +1,9 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
-from app.security import oauth2
+from models import procurement as models
 
 from fastapi import HTTPException, status
-from app.schemas.payment_terms import PaymentTerms
+from schemas.procurement.payment_terms import PaymentTerms
 
 
 # get one

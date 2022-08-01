@@ -1,10 +1,10 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from .. import database, models
+from models import procurement as models
 from fastapi import HTTPException, status
 
-from app.schemas.vendor_audit_trail import VendorAuditTrail,ShowVendorAuditTrail
-from app.schemas.user import User
+from schemas.procurement.vendor_audit_trail import VendorAuditTrail,ShowVendorAuditTrail
+# from schemas.user import User
 from datetime import datetime
 
 

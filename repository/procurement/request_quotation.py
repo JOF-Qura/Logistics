@@ -2,18 +2,18 @@
 from fastapi import APIRouter, Depends, status, BackgroundTasks, UploadFile
 from datetime import date
 from sqlalchemy.orm import Session
-from app.models.rfq_vendor import RequestQuotationVendor
-from .. import database, models
+from models.procurement.rfq_vendor import RequestQuotationVendor
+from models import procurement as models
+
 from fastapi import HTTPException, status
 from starlette.responses import JSONResponse
 from fastapi_mail import FastMail, MessageSchema,ConnectionConfig
 from collections import defaultdict
 from sqlalchemy import and_,or_
 
-from app.schemas.request_quotation import EmailContent,QuotationStatus,ShowRequestQuotation,RequestQuotation,RequestQuotationStatus
-from app.schemas.user import User
-from app.schemas.terms_of_reference import TermsOfReference
-from app.repository import purchase_requisition_detail
+from schemas.procurement.request_quotation import EmailContent,QuotationStatus,ShowRequestQuotation,RequestQuotation,RequestQuotationStatus
+# from schemas.terms_of_reference import TermsOfReference
+from repository.procurement import purchase_requisition_detail
 from datetime import datetime
 from random import randint
 #dotenv

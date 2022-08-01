@@ -1,11 +1,10 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import null, true
-from app import models
+from models import procurement as models
 from sqlalchemy import and_
 from fastapi import HTTPException, status
-from app.models import department, purchase_requisition
-from app.schemas.purchase_requisition import PurchaseRequisition,PurchaseRequisitionStatus, PrDetailID
+from schemas.procurement.purchase_requisition import PurchaseRequisition,PurchaseRequisitionStatus, PrDetailID
 from random import randint
 from datetime import date, datetime
 from sqlalchemy import func

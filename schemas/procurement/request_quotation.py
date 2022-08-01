@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, Text, List
 
 from . import vendor, purchase_requisition,related_documents,rfq_vendor #terms_of_reference
-from . import user
+# from . import user
 
 # quotation email sent
 class QuotationStatus(BaseModel):
@@ -37,7 +37,7 @@ class ShowRequestQuotation(BaseModel):
     request_quotation_vendor:List[rfq_vendor.ShowRFQVendor]
     quotation_code:str
     prepared_by:str
-    u_created_by: Optional[user.ShowUser]
+    # u_created_by: Optional[user.ShowUser]
     status: str
     # vendor_id: str
     # vendor: vendor.ShowVendor
