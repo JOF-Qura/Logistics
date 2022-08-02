@@ -243,7 +243,7 @@ viewRequestDetails = () =>
                 window.location.replace(baseURL + 'admin/request_details?request_id='+data.requested.request_id);
                 console.log(request_id);
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 window.location.replace(baseURL + 'manager/request_details?request_id='+data.requested.request_id);
                 console.log(request_id);

@@ -471,7 +471,7 @@ viewData = (inbound_report_id) =>
         window.location.replace(baseURL + 'admin/inbound_report_details?inbound_report_id='+inbound_report_id);
         console.log(inbound_report_id);
     }
-    else if (USER_TYPE == "Manager")
+    else if (USER_TYPE == "warehousing_Manager")
     {
         window.location.replace(baseURL + 'manager/inbound_report_details?inbound_report_id='+inbound_report_id);
         console.log(inbound_report_id);

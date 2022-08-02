@@ -167,7 +167,6 @@
                   console.log(sessionStorage.getItem("type"))
 
                   let session_data = "";
-            
                       session_data += 'token=' + user.token;
                       session_data += '&user_email=' + user.user_email;
                       session_data += '&user_type=' + user.user_type;
@@ -175,7 +174,7 @@
 
                   if(user.user_type == "Admin" ){ //Logistics Admin
                       setInterval(function(){
-                        window.location.href = '/access/index'
+                        window.location.href = '/index'
                       },2000)
                     }
                     else if(user.user_type == "asset_management_Employee"){
