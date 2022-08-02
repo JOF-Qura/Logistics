@@ -33,7 +33,7 @@ user_type = sessionStorage.getItem("type")
   if (user_type == null){
     window.location.href = "/forbidden/";
   }
-  else if (user_type != "Employee"){
+  else if (user_type != "asset_management_Employee"){
    window.location.href = "/forbidden/";
   }
 }

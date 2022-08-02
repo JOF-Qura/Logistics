@@ -30,7 +30,7 @@
 
 function filter_user(){
 user_type = sessionStorage.getItem("type")
-  if (user_type == null || user_type == "Employee" || user_type == "Admin"){
+  if (user_type == null || user_type == "asset_management_Employee" || user_type == "Admin"){
     window.location.href = "/forbidden/";
   }
 }
