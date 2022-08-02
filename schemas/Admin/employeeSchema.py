@@ -11,6 +11,8 @@ class EmployeeBase(BaseModel):
     employee_contact: int
     employee_age: int
     employee_address: str
+    job_id: str
+    department_id: str
     user_type: str
 
     class Config():

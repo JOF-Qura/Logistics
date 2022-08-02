@@ -364,7 +364,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            var manager = row.concept_employee.employee_first_name + " " + row.concept_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
             return manager
           }
         },
@@ -469,7 +469,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            var manager = row.concept_employee.employee_first_name + " " + row.concept_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
             return manager
           }
         },
@@ -574,7 +574,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            var manager = row.concept_employee.employee_first_name + " " + row.concept_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
             return manager
           }
         },
@@ -679,7 +679,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.concept_employee.first_name + " " + row.concept_employee.last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
+            var manager = row.concept_employee.employee_first_name + " " + row.concept_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.concept_department.name + '</small>';
             return manager
           }
         },
@@ -889,7 +889,7 @@
 
       success: function (data) {
         var paper = data;
-        window.location.href = "http://127.0.0.1:8000/admin/concept_paper_details/" + paper.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/admin/concept_paper_details/" + paper.id;
       }
     })
   });

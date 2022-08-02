@@ -1325,8 +1325,8 @@ def main_dashboard(request: Request, db: Session = Depends(get_db)):
 # DASHBOARD PAGE
 @app.get('/project_management/department_head/dashboard', response_class=HTMLResponse)
 def dashboard(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    users = db.query(User).filter(User.email == current_user).first()
-    employee = db.query(Employees).filter(Employees.user_id == users.id).first()
+    users = db.query(User).filter(User.user_email == 'eugene@gmail.com').first()
+    employee = db.query(Employees).filter(Employees.user_id == users.user_id).first()
     project = db.query(Project).filter(Project.department_id == employee.department_id, Project.active_status == "Active", Project.approval_status == "Approved").all()
     tasks = []
     for i in range(len(project)):
@@ -1334,7 +1334,6 @@ def dashboard(request: Request, db: Session = Depends(get_db), current_user: Use
         tasks.extend(data)
     return template.TemplateResponse('project_management/department_head/dashboard.html', {
         'request': request,
-        'users': users,
         "data": project,
         "tasks": tasks
     })
@@ -1342,7 +1341,7 @@ def dashboard(request: Request, db: Session = Depends(get_db), current_user: Use
 # CONCEPT PAPER REQUESTS PAGE
 @app.get('/project_management/department_head/concept_paper_requisition', response_class=HTMLResponse)
 def project_requisition(request: Request, db: Session = Depends(get_db)):
-    return template.TemplateResponse('department_head/concept_paper_requisition.html', {
+    return template.TemplateResponse('project_management/department_head/concept_paper_requisition.html', {
         'request': request,
     })
 
@@ -1482,7 +1481,7 @@ def get_one_task(id: str, request: Request, db: Session = Depends(get_db)):
 # REPORTS PAGE
 @app.get('/project_management/department_head/reports', response_class=HTMLResponse)
 def reports(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    users = db.query(User).filter(User.email == current_user).first()
+    users = db.query(User).filter(User.user_email == current_user).first()
     employee = db.query(Employees).filter(Employees.user_id == users.id).first()
     data = db.query(Project).filter(Project.active_status == "Active", Project.progress_status == "Completed", Project.department_id == employee.department_id).all()
     paper = db.query(ConceptPaper).filter(ConceptPaper.active_status == "Active", ConceptPaper.approval_status == "Approved", ConceptPaper.department_id == employee.department_id).all()

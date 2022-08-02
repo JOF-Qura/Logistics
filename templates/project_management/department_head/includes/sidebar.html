@@ -19,13 +19,22 @@
         <div class="info mr-1 w-100" id="userFullNameDisplay">
                         
           <!-- User Full Name -->
-          <a href="#" class="nav-item text-truncate" id="full_name"></a>
+          <!-- <a href="#" class="nav-item text-truncate" id="full_name"></a> -->
 
           <!-- User Position -->
-          <div class="small text-secondary text-truncate" id="user_type"></div>
+          <!-- <div class="small text-secondary text-truncate" id="user_type"></div> -->
           
           <!-- User Department -->
-          <div class="small text-secondary text-truncate" id="department"></div>
+          <!-- <div class="small text-secondary text-truncate" id="department"></div> -->
+          
+          <!-- User Full Name -->
+          <a href="#" class="nav-item text-truncate" id="userFullName"></a>
+
+          <!-- User Position -->
+          <div class="small text-secondary text-truncate" id="userPosition"></div>
+          
+          <!-- User Department -->
+          <div class="small text-secondary text-truncate" id="userDepartment">HR Department</div>
         </div>
       </div>
   
@@ -35,54 +44,54 @@
           <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
           <li class="nav-header">CORE</li>
           <li class="nav-item">
-            <a href="/department_head/dashboard" {%if request.path == '/department_head/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/dashboard" {%if request.path == '/project_management/department_head/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="nav-header">REQUESTS</li>
           <li class="nav-item">
-            <a href="/project_management/department_head/concept_paper_requisition" {%if request.path == '/department_head/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/concept_paper_requisition" {%if request.path == '/project_management/department_head/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
                 <i class="nav-icon fas fa-file-alt"></i>
               <p>Concept Papers</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/project_management/department_head/project_requisition" {%if request.path == '/department_head/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/project_requisition" {%if request.path == '/project_management/department_head/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Proposals</p>
             </a>
           </li>
           <li class="nav-header">PROJECTS</li>
           <li class="nav-item">
-            <a href="/project_management/department_head/project_lists" {%if request.path == '/department_head/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/project_lists" {%if request.path == '/project_management/department_head/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-hammer"></i>
               <p>Projects</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/project_management/department_head/calendar" {%if request.path == '/department_head/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/calendar" {%if request.path == '/project_management/department_head/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-calendar"></i>
               <p>Schedule</p>
             </a>
           </li>
           <li class="nav-header">TASKS</li>
           <li class="nav-item">
-            <a href="/project_management/department_head/task_lists" {%if request.path == '/department_head/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/task_lists" {%if request.path == '/project_management/department_head/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-tasks"></i>
               <p>General Tasks</p>
             </a>
           </li>
           <li class="nav-header">REPORTS</li>
           <li class="nav-item">
-            <a href="/project_management/department_head/reports" {%if request.path == '/department_head/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/reports" {%if request.path == '/project_management/department_head/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
                 <i class="nav-icon fas fa-file-signature"></i>
               <p>Reports</p>
             </a>
           </li>
           <li class="nav-header">TERMS OF REFERENCE</li>
           <li class="nav-item">
-            <a href="/project_management/department_head/terms_of_reference" {%if request.path == '/department_head/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/terms_of_reference" {%if request.path == '/project_management/department_head/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Terms of Reference</p>
             </a>

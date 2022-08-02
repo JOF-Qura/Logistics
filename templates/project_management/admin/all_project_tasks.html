@@ -1,9 +1,11 @@
-{%extends 'base.html'%}
+{%extends './project_management/admin/base.html'%}
 
 {%block includes%}
-{% include './admin/includes/head.html' %}
+{% include './project_management/admin/includes/head.html' %}
 
-{% include './admin/includes/navbar.html' %}
+{% include './project_management/admin/includes/navbar.html' %}
+
+{% include './project_management/admin/includes/sidebar.html' %}
 {%endblock%}
 
 {%block sidebar%}
@@ -154,7 +156,7 @@
           <div class="card-header">
             <h3 class="card-title">Project Details</h3>
             <div class="card-tools">
-              <a href="/admin/project_details/{{ data.id }}"><button
+              <a href="/project_management/admin/project_details/{{ data.id }}"><button
                   class="btn btn-secondary bg-solid-secondary btn-sm"><i class="fas fa-list mr-1"></i> View
                   Details</button></a>
             </div>
@@ -1125,7 +1127,7 @@
 
       success: function (data) {
         var task = data;
-        window.location.href = "http://127.0.0.1:8000/admin/task_details/" + task.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/admin/task_details/" + task.id;
       }
     })
   });

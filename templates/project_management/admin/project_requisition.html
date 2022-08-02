@@ -364,7 +364,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -469,7 +469,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -574,7 +574,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -679,7 +679,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -889,7 +889,7 @@
 
       success: function (data) {
         var project = data;
-        window.location.href = "http://127.0.0.1:8000/admin/view_project/" + project.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/admin/view_project/" + project.id;
       }
     })
   });

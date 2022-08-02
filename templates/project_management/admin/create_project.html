@@ -46,7 +46,7 @@
                 <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
                 <li class="nav-header">CORE</li>
                 <li class="nav-item">
-                    <a href="/admin/dashboard" {%if request.path == '/admin/dashboard'%} class="nav-link active"
+                    <a href="/project_management/admin/dashboard" {%if request.path == '/project_management/admin/dashboard'%} class="nav-link active"
                         {%else%} class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
@@ -54,21 +54,21 @@
                 </li>
                 <li class="nav-header">PROJECTS</li>
                 <li class="nav-item">
-                    <a href="/admin/project_requisition" {%if request.path == '/admin/project_requisition'%}
+                    <a href="/project_management/admin/project_requisition" {%if request.path == '/project_management/admin/project_requisition'%}
                         class="nav-link active" {%else%} class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>Requests</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/project_lists" class="nav-link active" {%if request.path == '/admin/project_lists'%}
+                    <a href="/project_management/admin/project_lists" class="nav-link active" {%if request.path == '/project_management/admin/project_lists'%}
                         class="nav-link active" {%else%} class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-hammer"></i>
                         <p>Projects</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/admin/calendar" {%if request.path == '/admin/calendar'%} class="nav-link active" {%else%}
+                    <a href="/project_management/admin/calendar" {%if request.path == '/project_management/admin/calendar'%} class="nav-link active" {%else%}
                         class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>Schedule</p>
@@ -76,7 +76,7 @@
                 </li>
                 <li class="nav-header">TASKS</li>
                 <li class="nav-item">
-                    <a href="/admin/task_lists" {%if request.path == '/admin/task_lists'%} class="nav-link active"
+                    <a href="/project_management/admin/task_lists" {%if request.path == '/project_management/admin/task_lists'%} class="nav-link active"
                         {%else%} class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>Tasks</p>
@@ -84,7 +84,7 @@
                 </li>
                 <li class="nav-header">REPORTS</li>
                 <li class="nav-item">
-                    <a href="/admin/reports" {%if request.path == '/admin/reports'%} class="nav-link active" {%else%}
+                    <a href="/project_management/admin/reports" {%if request.path == '/project_management/admin/reports'%} class="nav-link active" {%else%}
                         class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-file-signature"></i>
                         <p>Reports</p>
@@ -92,7 +92,7 @@
                 </li>
                 <li class="nav-header">ARCHIVE</li>
                 <li class="nav-item">
-                    <a href="/admin/archive" {%if request.path == '/admin/archive'%} class="nav-link active" {%else%}
+                    <a href="/project_management/admin/archive" {%if request.path == '/project_management/admin/archive'%} class="nav-link active" {%else%}
                         class="nav-link" {%endif%}>
                         <i class="nav-icon fas fa-trash"></i>
                         <p>Archive</p>

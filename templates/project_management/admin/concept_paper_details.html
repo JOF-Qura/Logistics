@@ -30,13 +30,22 @@
       <div class="info mr-1 w-100" id="userFullNameDisplay">
                       
         <!-- User Full Name -->
-        <a href="#" class="nav-item text-truncate" id="full_name"></a>
+        <!-- <a href="#" class="nav-item text-truncate" id="full_name"></a> -->
 
         <!-- User Position -->
-        <div class="small text-secondary text-truncate" id="user_type"></div>
+        <!-- <div class="small text-secondary text-truncate" id="user_type"></div> -->
         
         <!-- User Department -->
-        <div class="small text-secondary text-truncate" id="department"></div>
+        <!-- <div class="small text-secondary text-truncate" id="department"></div> -->
+
+        <!-- User Full Name -->
+        <a href="#" class="nav-item text-truncate" id="userFullName"></a>
+
+        <!-- User Position -->
+        <div class="small text-secondary text-truncate" id="userPosition"></div>
+        
+        <!-- User Department -->
+        <div class="small text-secondary text-truncate" id="userDepartment">Information Technology (IT) Department</div>
       </div>
     </div>
 
@@ -46,61 +55,61 @@
         <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
         <li class="nav-header">CORE</li>
         <li class="nav-item">
-          <a href="/admin/dashboard" {%if request.path == '/admin/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/admin/dashboard" {%if request.path == '/project_management/admin/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-header">REQUESTS</li>
           <li class="nav-item">
-            <a href="/admin/concept_paper_requisition" class="nav-link active" {%if request.path == '/admin/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/admin/concept_paper_requisition" class="nav-link active" {%if request.path == '/project_management/admin/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
                 <i class="nav-icon fas fa-file-alt"></i>
               <p>Concept Papers</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/admin/project_requisition" {%if request.path == '/admin/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/admin/project_requisition" {%if request.path == '/project_management/admin/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Proposals</p>
             </a>
           </li>
         <li class="nav-header">PROJECTS</li>
         <li class="nav-item">
-          <a href="/admin/project_lists" {%if request.path == '/admin/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/admin/project_lists" {%if request.path == '/project_management/admin/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-hammer"></i>
             <p>Projects</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/calendar" {%if request.path == '/admin/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/admin/calendar" {%if request.path == '/project_management/admin/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-calendar"></i>
             <p>Schedule</p>
           </a>
         </li>
         <li class="nav-header">TASKS</li>
         <li class="nav-item">
-          <a href="/admin/task_lists" {%if request.path == '/admin/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/admin/task_lists" {%if request.path == '/project_management/admin/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tasks"></i>
             <p>General Tasks</p>
           </a>
         </li>
         <li class="nav-header">REPORTS</li>
         <li class="nav-item">
-          <a href="/admin/reports" {%if request.path == '/admin/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/admin/reports" {%if request.path == '/project_management/admin/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-file-signature"></i>
             <p>Reports</p>
           </a>
         </li>
         <li class="nav-header">TERMS OF REFERENCE</li>
           <li class="nav-item">
-            <a href="/admin/terms_of_reference" {%if request.path == '/admin/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/admin/terms_of_reference" {%if request.path == '/project_management/admin/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Terms of Reference</p>
             </a>
           </li>
         <li class="nav-header">ARCHIVE</li>
         <li class="nav-item">
-          <a href="/admin/archive" {%if request.path == '/admin/archive'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/admin/archive" {%if request.path == '/project_management/admin/archive'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-trash"></i>
             <p>Archive</p>
           </a>

@@ -92,7 +92,7 @@ async def all_notification_projects(notification: str, db: Session = Depends(get
 # GET ALL DEPARTMENT NOTIFICATION
 @router.get('/department/notification/{notification}', status_code=status.HTTP_200_OK, response_model=List[ShowProject])
 async def all_department_notification_projects(notification: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    users = db.query(User).filter(User.email == current_user).first()
+    users = db.query(User).filter(User.user_email == current_user.user_email).first()
     employee = db.query(Employees).filter(Employees.user_id == users.id).first()
     data = db.query(Project).filter(Project.active_status == "Active", Project.manager_id == employee.id, Project.notification == notification).all()
     return data
@@ -134,7 +134,7 @@ async def request_project(department_id: str, manager_id: str, name: str = Form(
             project_id = project.id,
             employee_id = project.manager_id,
             subject = 'Requested',
-            remarks = 'Project: '+project.name+' has been requested by '+project.project_user.first_name+' '+project.project_user.last_name,
+            remarks = 'Project: '+project.name+' has been requested by '+project.project_user.employee_first_name+' '+project.project_user.employee_last_name,
         )
         db.add(history)
         db.commit()
@@ -176,7 +176,7 @@ async def create_project(name: str = Form(...), background: str = Form(...), cov
             project_id = project.id,
             employee_id = project.manager_id,
             subject = 'Assigned',
-            remarks = 'Project: '+project.name+' has been assigned to '+project.project_user.first_name+' '+project.project_user.last_name,
+            remarks = 'Project: '+project.name+' has been assigned to '+project.project_user.employee_first_name+' '+project.project_user.employee_last_name,
         )
         db.add(history)
         db.commit()

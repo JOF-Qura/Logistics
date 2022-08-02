@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var user_type = sessionStorage.getItem('user_type')
+    var user_type = sessionStorage.getItem('USER_TYPE')
     if (user_type != 'Admin') {
       window.location.replace('/error_page')
     }

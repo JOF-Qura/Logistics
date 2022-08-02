@@ -158,7 +158,7 @@
                   sessionStorage.setItem("email", user.user_email);
                   sessionStorage.setItem("name", user.user_name);
                   sessionStorage.setItem("type", user.user_type);
-                  sessionStorage.setItem('TOKEN', user.token);
+                  sessionStorage.setItem('TOKEN', data.token);
                   sessionStorage.setItem('USER_EMAIL', user.user_email);
                   sessionStorage.setItem('USER_TYPE', user.user_type);
 
@@ -213,6 +213,16 @@
                     else if (user.user_type == "warehousing_Procurement")
                     {
                         window.location.replace(apiURL + 'warehousing/procurement');
+                    }
+
+                    // PROJECT MANAGEMENT
+                    else if (user.user_type == "Project Officer")
+                    {
+                        window.location.replace(apiURL + 'project_management/project_officer/dashboard');
+                    }
+                    else if (user.user_type == "Department Head")
+                    {
+                      window.location.replace(apiURL + 'project_management/department_head/dashboard');
                     }
                 }
               },

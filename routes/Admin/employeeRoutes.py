@@ -71,7 +71,7 @@ def datatable(request: Request, db: Session = Depends(get_db)):
 # GET all Employee
 @router.get('/')
 def get_all_employee(db: Session = Depends(get_db)):
-    emps = db.query(employeeModel.Employees).options(joinedload(employeeModel.Employees.employee_user)).all()
+    emps = db.query(employeeModel.Employees).options(joinedload(employeeModel.Employees.user_employee)).all()
     return {'Employees': emps}
 
 # GET Employee by ID
@@ -94,7 +94,9 @@ def create_employee(request: employeeSchema.CreateEmployee, db: Session = Depend
         employee_last_name = request.employee_last_name,
         employee_contact = request.employee_contact,
         employee_age = request.employee_age,
-        employee_address = request.employee_address
+        employee_address = request.employee_address,
+        job_id = request.job_id,
+        department_id = request.department_id
     )
     db.add(to_store)
     db.commit()

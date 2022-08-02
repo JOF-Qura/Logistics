@@ -30,13 +30,22 @@
       <div class="info mr-1 w-100" id="userFullNameDisplay">
 
         <!-- User Full Name -->
-        <a href="#" class="nav-item text-truncate" id="full_name"></a>
+        <!-- <a href="#" class="nav-item text-truncate" id="full_name"></a> -->
 
         <!-- User Position -->
-        <div class="small text-secondary text-truncate" id="user_type"></div>
+        <!-- <div class="small text-secondary text-truncate" id="user_type"></div> -->
 
         <!-- User Department -->
-        <div class="small text-secondary text-truncate" id="department"></div>
+        <!-- <div class="small text-secondary text-truncate" id="department"></div> -->
+
+        <!-- User Full Name -->
+        <a href="#" class="nav-item text-truncate" id="userFullName"></a>
+
+        <!-- User Position -->
+        <div class="small text-secondary text-truncate" id="userPosition"></div>
+        
+        <!-- User Department -->
+        <div class="small text-secondary text-truncate" id="userDepartment">Information Technology (IT) Department</div>
       </div>
     </div>
 
@@ -46,7 +55,7 @@
         <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
         <li class="nav-header">CORE</li>
         <li class="nav-item">
-          <a href="/department_head/dashboard" {%if request.path == '/department_head/dashboard'%}
+          <a href="/project_management/department_head/dashboard" {%if request.path == '/project_management//department_head/dashboard'%}
             class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
@@ -54,15 +63,15 @@
         </li>
         <li class="nav-header">REQUESTS</li>
         <li class="nav-item">
-          <a href="/department_head/concept_paper_requisition"
-            {%if request.path == '/department_head/concept_paper_requisition'%} class="nav-link active" {%else%}
+          <a href="/project_management/department_head/concept_paper_requisition"
+            {%if request.path == '/project_management/department_head/concept_paper_requisition'%} class="nav-link active" {%else%}
             class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-file-alt"></i>
             <p>Concept Papers</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/department_head/project_requisition" {%if request.path == '/department_head/project_requisition'%}
+          <a href="/project_management/department_head/project_requisition" {%if request.path == '/project_management/department_head/project_requisition'%}
             class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-copy"></i>
             <p>Proposals</p>
@@ -70,15 +79,15 @@
         </li>
         <li class="nav-header">PROJECTS</li>
         <li class="nav-item">
-          <a href="/department_head/project_lists" class="nav-link active"
-            {%if request.path == '/department_head/project_lists'%} class="nav-link active" {%else%} class="nav-link"
+          <a href="/project_management/department_head/project_lists" class="nav-link active"
+            {%if request.path == '/project_management/department_head/project_lists'%} class="nav-link active" {%else%} class="nav-link"
             {%endif%}>
             <i class="nav-icon fas fa-hammer"></i>
             <p>Projects</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/department_head/calendar" {%if request.path == '/department_head/calendar'%} class="nav-link active"
+          <a href="/project_management/department_head/calendar" {%if request.path == '/project_management/department_head/calendar'%} class="nav-link active"
             {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-calendar"></i>
             <p>Schedule</p>
@@ -86,7 +95,7 @@
         </li>
         <li class="nav-header">TASKS</li>
         <li class="nav-item">
-          <a href="/department_head/task_lists" {%if request.path == '/department_head/task_lists'%}
+          <a href="/project_management/department_head/task_lists" {%if request.path == '/project_management/department_head/task_lists'%}
             class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tasks"></i>
             <p>General Tasks</p>
@@ -94,7 +103,7 @@
         </li>
         <li class="nav-header">REPORTS</li>
         <li class="nav-item">
-          <a href="/department_head/reports" {%if request.path == '/department_head/reports'%} class="nav-link active"
+          <a href="/project_management/department_head/reports" {%if request.path == '/project_management/department_head/reports'%} class="nav-link active"
             {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-file-signature"></i>
             <p>Reports</p>
@@ -102,7 +111,7 @@
         </li>
         <li class="nav-header">TERMS OF REFERENCE</li>
           <li class="nav-item">
-            <a href="/department_head/terms_of_reference" {%if request.path == '/department_head/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/department_head/terms_of_reference" {%if request.path == '/project_management/project_management/department_head/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Terms of Reference</p>
             </a>
@@ -166,7 +175,7 @@
           <div class="card-header">
             <h3 class="card-title">Project Details</h3>
             <div class="card-tools">
-              <a href="/department_head/project_details/{{ data.id }}"><button
+              <a href="/project_management/department_head/project_details/{{ data.id }}"><button
                   class="btn btn-secondary bg-solid-secondary btn-sm"><i class="fas fa-list mr-1"></i> View
                   Details</button></a>
             </div>
@@ -566,9 +575,9 @@
 <!-- /.content-wrapper -->
 
 {%block scripts%}
-<script src="{{url_for('static', path='/department_head_footer_scripts.js')}}"></script>
-<script src="{{url_for('static', path='/department_head_restriction.js')}}"></script>
-<script src="{{url_for('static', path='/department_head_notification.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head_notification.js')}}"></script>
 
 <script>
   $('.select2bs4').select2()
@@ -1341,7 +1350,7 @@
 
       success: function (data) {
         var task = data;
-        window.location.href = "http://127.0.0.1:8000/department_head/task_details/" + task.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/department_head/task_details/" + task.id;
       }
     })
   });

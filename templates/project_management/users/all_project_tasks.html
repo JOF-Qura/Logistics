@@ -46,54 +46,54 @@
         <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
         <li class="nav-header">CORE</li>
         <li class="nav-item">
-          <a href="/project_officer/dashboard" {%if request.path == '/project_officer/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/dashboard" {%if request.path == '/project_management/project_officer/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-header">REQUESTS</li>
           <li class="nav-item">
-            <a href="/project_officer/concept_paper_requisition" {%if request.path == '/project_officer/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/project_officer/concept_paper_requisition" {%if request.path == '/project_management/project_officer/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
                 <i class="nav-icon fas fa-file-alt"></i>
               <p>Concept Papers</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/project_officer/project_requisition" {%if request.path == '/project_officer/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/project_officer/project_requisition" {%if request.path == '/project_management/project_officer/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Proposals</p>
             </a>
           </li>
         <li class="nav-header">PROJECTS</li>
         <li class="nav-item">
-          <a href="/project_officer/project_lists" class="nav-link active" {%if request.path == '/project_officer/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/project_lists" class="nav-link active" {%if request.path == '/project_management/project_officer/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-hammer"></i>
             <p>Projects</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/project_officer/calendar" {%if request.path == '/project_officer/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/calendar" {%if request.path == '/project_management/project_officer/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-calendar"></i>
             <p>Schedule</p>
           </a>
         </li>
         <li class="nav-header">TASKS</li>
         <li class="nav-item">
-          <a href="/project_officer/task_lists" {%if request.path == '/project_officer/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/task_lists" {%if request.path == '/project_management/project_officer/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tasks"></i>
             <p>General Tasks</p>
           </a>
         </li>
         <li class="nav-header">REPORTS</li>
         <li class="nav-item">
-          <a href="/project_officer/reports" {%if request.path == '/project_officer/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/reports" {%if request.path == '/project_management/project_officer/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-file-signature"></i>
             <p>Reports</p>
           </a>
         </li>
         <li class="nav-header">TERMS OF REFERENCE</li>
           <li class="nav-item">
-            <a href="/project_officer/terms_of_reference" {%if request.path == '/project_officer/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/project_officer/terms_of_reference" {%if request.path == '/project_management/project_officer/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Terms of Reference</p>
             </a>
@@ -145,7 +145,7 @@
             <div class="card-tools">
               <div class="text-center dropdown">
                 <div class="card-tools">
-                  <a href="/project_officer/project_details/{{ data.id }}"><button
+                  <a href="/project_management/project_officer/project_details/{{ data.id }}"><button
                       class="btn btn-secondary bg-solid-secondary btn-sm"><i class="fas fa-list mr-1"></i> View
                       Details</button></a>
                 </div>
@@ -550,9 +550,9 @@
 <!-- /.content-wrapper -->
 
 {%block scripts%}
-<script src="{{url_for('static', path='/project_officer_footer_scripts.js')}}"></script>
-<script src="{{url_for('static', path='/project_officer_restriction.js')}}"></script>
-<script src="{{url_for('static', path='/project_officer_notification.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/project_officer/project_officer_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/project_officer/project_officer_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/project_officer/project_officer_notification.js')}}"></script>
 
 <script>
   $('.select2bs4').select2()
@@ -1236,7 +1236,7 @@
 
       success: function (data) {
         var task = data;
-        window.location.href = "http://127.0.0.1:8000/project_officer/task_details/" + task.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/project_officer/task_details/" + task.id;
       }
     })
   });
