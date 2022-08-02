@@ -396,14 +396,20 @@ $(document).ready(function () {
 });
 
 $(document).on("click", ".confirmed_logout", function(){
-  sessionStorage.setItem("type", "");
-  sessionStorage.setItem("id", "");
-  sessionStorage.setItem("email", "");
-  sessionStorage.setItem("name", "");
-  sessionStorage.setItem("type", "");
-  sessionStorage.setItem('TOKEN', "]");
-  sessionStorage.setItem('USER_EMAIL', "");
-  sessionStorage.setItem('USER_TYPE', "");
+  sessionStorage.removeItem("type");
+  sessionStorage.removeItem("id");
+  sessionStorage.removeItem("email");
+  sessionStorage.removeItem("name");
+  sessionStorage.removeItem("type");
+  sessionStorage.removeItem("TOKEN");
+  sessionStorage.removeItem("USER_EMAIL");
+  sessionStorage.removeItem("USER_TYPE");
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('user_id');
+  sessionStorage.removeItem('user_type');
+
+  sessionStorage.clear();
+  localStorage.clear();
   
   window.location.href = '/login'
   });
