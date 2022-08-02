@@ -1,0 +1,218 @@
+{% extends "internal/procurement_manager/p_manager_base.html" %}
+{% set active_page = "department" %}
+{% set active_module = "procurement" %}
+
+
+
+
+{% block title %}Department{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Department</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Department</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <div class="row">
+              <div class="col-6
+              d-sm-flex
+              align-items-center">
+              <h3 class="card-title">List of Departments</h3>
+            </div>
+
+                <div class="col-6
+                d-sm-flex
+                align-items-center
+                justify-content-end">
+             
+                    <div class="page-title-right">
+                      <button type="button" class="btn btn-success waves-effect waves-light add" onclick="addData()">
+                        <i class="fas fa-plus font-size-16 mr-1"></i> Add Department
+                      </button>
+                    </div>
+                
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Contact No</th>
+                    <th>Department Head</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+
+<script src="{{ url_for('static', path='/dist/js/procurement/system_setup/department.js') }}"></script>
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-xl">
+  <div class="
+          modal-dialog modal-default modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Add Department</div>
+        </div>        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form_id" name="form_id" enctype="multipart/form-data">
+          <div class="row">
+
+            <input class="form-control" type="hidden" id="uuid" name="uuid" readonly>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="first_name">Department Name</label>
+                <input type="text" class="form-control" id="department_name" name="department_name"
+                  placeholder="Department Name">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="contact_no">Contact No</label>
+                <input type="text" class="form-control" id="contact_no" name="contact_no" placeholder="Contact No">
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="department_head">Department Head</label>
+                <input type="text" class="form-control" id="department_head" name="department_head" placeholder="Department Head">
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="reset" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary submit">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <div >
+              <i class="text-secondary fas fa-times-circle mr-1"></i>
+          </div>
+          <div class="modal-title"></div>
+        </div>
+ 
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to Deativate this Department? </p>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="changeStatus">Yes, Deactive it</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

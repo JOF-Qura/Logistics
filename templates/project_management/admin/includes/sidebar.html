@@ -1,0 +1,114 @@
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+    <!-- Brand Logo -->
+    <a href="../../../index3.html" class="brand-link">
+      <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+        style="opacity: .8">
+      <span class="brand-text font-weight-light">HoMIES</span>
+    </a>
+  
+    <!-- Sidebar -->
+    <div class="sidebar">
+  
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+        </div>
+        <!-- User Full Name -->
+        <div class="info mr-1 w-100" id="userFullNameDisplay">
+                        
+          <!-- User Full Name -->
+          <a href="#" class="nav-item text-truncate" id="full_name"></a>
+
+          <!-- User Position -->
+          <div class="small text-secondary text-truncate" id="user_type"></div>
+          
+          <!-- User Department -->
+          <div class="small text-secondary text-truncate" id="department"></div>
+        </div>
+      </div>
+  
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
+          <li class="nav-header">CORE</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/dashboard" {%if request.path == '/project_management/admin/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-header">REQUESTS</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/concept_paper_requisition" {%if request.path == '/project_management/admin/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-file-alt"></i>
+              <p>Concept Papers</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/project_management/admin/project_requisition" {%if request.path == '/project_management/admin/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>Proposals</p>
+            </a>
+          </li>
+          <li class="nav-header">PROJECTS</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/project_lists" {%if request.path == '/project_management/admin/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-hammer"></i>
+              <p>Projects</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/project_management/admin/calendar" {%if request.path == '/project_management/admin/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>Schedule</p>
+            </a>
+          </li>
+          <li class="nav-header">TASKS</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/task_lists" {%if request.path == '/project_management/admin/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-tasks"></i>
+              <p>General Tasks</p>
+            </a>
+          </li>
+          <li class="nav-header">REPORTS</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/reports" {%if request.path == '/project_management/admin/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-file-signature"></i>
+              <p>Reports</p>
+            </a>
+          </li>
+          <li class="nav-header">TERMS OF REFERENCE</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/terms_of_reference" {%if request.path == '/project_management/admin/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>Terms of Reference</p>
+            </a>
+          </li>
+          <li class="nav-header">ARCHIVE</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/archive" {%if request.path == '/project_management/admin/archive'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-trash"></i>
+              <p>Archive</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+  
+    </div>
+    <!-- /.sidebar -->
+  
+    <!-- Sidebar Custom -->
+    <div class="sidebar-custom">
+      <form>
+        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cogs"></i></a>
+        <button type="button" class="btn btn-sm btn-danger hide-on-collapse pos-right btn-logouts">Log out <i
+            class="fas fa-sign-out-alt ml-1"></i></button>
+      </form>
+    </div>
+    <!-- /.sidebar-custom -->
+  
+  </aside>

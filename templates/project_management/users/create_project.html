@@ -1,0 +1,941 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/users/includes/head.html' %}
+
+{% include './project_management/users/includes/navbar.html' %}
+
+{% include './project_management/users/includes/sidebar.html' %}
+{%endblock%}
+
+{%block sidebar%}
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+    <!-- Brand Logo -->
+    <a href="../../../index3.html" class="brand-link">
+        <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light">HoMIES</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+            </div>
+            <!-- User Full Name -->
+            <div class="info mr-1 w-100" id="userFullNameDisplay">
+
+                <!-- User Full Name -->
+                <a href="#" class="nav-item text-truncate" id="full_name"></a>
+
+                <!-- User Position -->
+                <div class="small text-secondary text-truncate" id="user_type"></div>
+
+                <!-- User Department -->
+                <div class="small text-secondary text-truncate" id="department"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
+                <li class="nav-header">CORE</li>
+                <li class="nav-item">
+                    <a href="/project_officer/dashboard" {%if request.path == '/project_officer/dashboard'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-header">REQUESTS</li>
+                <li class="nav-item">
+                    <a href="/project_officer/concept_paper_requisition"
+                        {%if request.path == '/project_officer/concept_paper_requisition'%} class="nav-link active"
+                        {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>Concept Papers</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/project_officer/project_requisition" class="nav-link active"
+                        {%if request.path == '/project_officer/project_requisition'%} class="nav-link active" {%else%}
+                        class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>Proposals</p>
+                    </a>
+                </li>
+                <li class="nav-header">PROJECTS</li>
+                <li class="nav-item">
+                    <a href="/project_officer/project_lists" {%if request.path == '/project_officer/project_lists'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-hammer"></i>
+                        <p>Projects</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/project_officer/calendar" {%if request.path == '/project_officer/calendar'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>Schedule</p>
+                    </a>
+                </li>
+                <li class="nav-header">TASKS</li>
+                <li class="nav-item">
+                    <a href="/project_officer/task_lists" {%if request.path == '/project_officer/task_lists'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>General Tasks</p>
+                    </a>
+                </li>
+                <li class="nav-header">REPORTS</li>
+                <li class="nav-item">
+                    <a href="/project_officer/reports" {%if request.path == '/project_officer/reports'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-file-signature"></i>
+                        <p>Reports</p>
+                    </a>
+                </li>
+                <li class="nav-header">TERMS OF REFERENCE</li>
+                <li class="nav-item">
+                    <a href="/project_officer/terms_of_reference"
+                        {%if request.path == '/project_officer/terms_of_reference'%} class="nav-link active" {%else%}
+                        class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>Terms of Reference</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+
+    </div>
+    <!-- /.sidebar -->
+
+    <!-- Sidebar Custom -->
+    <div class="sidebar-custom">
+        <form>
+            <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+            <button type="button" class="btn btn-danger hide-on-collapse pos-right btn-logouts">Log out <i
+                    class="fas fa-sign-out-alt"></i></button>
+        </form>
+    </div>
+    <!-- /.sidebar-custom -->
+
+</aside>
+<!-- /.main-sidebar -->
+{%endblock%}
+
+
+{%block maincontent%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Proposal</h1>
+                    <div class="text-muted">Propose project to manage potential improvements</div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-tab">
+                    <div class="card-header">
+                        <h3 class="card-title">Project Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                                <!-- your steps here -->
+                                <div class="step" data-target="#paper-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="paper-part"
+                                        id="paper-part-trigger">
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">Concept Paper</span>
+                                    </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#details-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="details-part"
+                                        id="details-part-trigger">
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">Project Details</span>
+                                    </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#requirement-part">
+                                    <button type="button" class="step-trigger" role="tab"
+                                        aria-controls="requirement-part" id="requirement-part-trigger">
+                                        <span class="bs-stepper-circle">3</span>
+                                        <span class="bs-stepper-label">Budget Requirements</span>
+                                    </button>
+                                </div>
+                                <div class="line"></div>
+                                <div class="step" data-target="#stakeholder-part">
+                                    <button type="button" class="step-trigger" role="tab"
+                                        aria-controls="stakeholder-part" id="stakeholder-part-trigger">
+                                        <span class="bs-stepper-circle">4</span>
+                                        <span class="bs-stepper-label">Stakeholders</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bs-stepper-content">
+                                <form id="request_project_form">
+                                    <div id="paper-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                                        aria-labelledby="paper-part-trigger">
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Concept Paper <span
+                                                            style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <select class="form-control select2bs4" style="width: 100%;"
+                                                    onchange="get_paper_details()" id="concept_paper_id" name="concept_paper_id">
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary float-right btn-next-form"
+                                                onclick="stepper.next()">Next</button>
+                                        </div>
+                                    </div>
+
+                                    <div id="details-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                                        aria-labelledby="details-part-trigger">
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-6">
+                                                    <label class="location" for="exampleInputPassword1">Project Name
+                                                        <span style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <input placeholder="Enter Project Name" type="text"
+                                                        class="form-control" name="name" id="name">
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label class="location" for="exampleInputPassword1">Project Type
+                                                        <span style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <select class="form-control select2bs4" style="width: 100%;"
+                                                        id="type" name="type">
+                                                        <option selected disabled value="">Select Type</option>
+                                                        <option value="Administrative">Administrative</option>
+                                                        <option value="Construction">Construction</option>
+                                                        <option value="Computer Software Development">Computer Software
+                                                            Development</option>
+                                                        <option value="Design of Plans">Design of Plans</option>
+                                                        <option value="Equipment or System Installation">Equipment or
+                                                            System Installation</option>
+                                                        <option value="Event or Relocation">Event or Relocation</option>
+                                                        <option value="Maintenance of Process Industries">Maintenance of
+                                                            Process Industries</option>
+                                                        <option value="New Product Development">New Product Development
+                                                        </option>
+                                                        <option value="Research">Research</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="location" for="exampleInputPassword1">Estimated Cost
+                                                        <span style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <input placeholder="Enter Cost" type="number" step="any"
+                                                        class="form-control" name="cost" id="cost">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="start_date" for="exampleInputPassword1">Start Date
+                                                        <span style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <input type="date" class="form-control" name="start_date"
+                                                        id="start_date">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label class="end_date" for="exampleInputPassword1">End Date <span
+                                                            style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <input type="date" class="form-control" name="end_date"
+                                                        id="end_date">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Background <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Background" rows="10" cols="50"
+                                                        class="form-control" name="background"
+                                                        id="background"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Coverage <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Coverage" rows="10" cols="50"
+                                                        class="form-control" name="coverage" id="coverage"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Assumption <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Assumption" rows="10" cols="50"
+                                                        class="form-control" name="assumptions"
+                                                        id="assumptions"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Constraint <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Constraint" rows="10" cols="50"
+                                                        class="form-control" name="constraints"
+                                                        id="constraints"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Target Beneficiary <span
+                                                            style="color:red" aria-hidden="true"
+                                                            class="required">*</span></label>
+                                                    <textarea placeholder="Enter Target Beneficiary" rows="10" cols="50"
+                                                        class="form-control" name="target_beneficiaries"
+                                                        id="target_beneficiaries"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Objectives <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Objectives" rows="10" cols="50"
+                                                        class="form-control" name="objectives"
+                                                        id="objectives"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Deliverables <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Deliverables" rows="10" cols="50"
+                                                        class="form-control" name="expected_output"
+                                                        id="expected_output"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default float-right"
+                                                onclick="stepper.previous()">Previous</button>
+                                            <button type="button" class="btn btn-primary float-right btn-next-form"
+                                                onclick="stepper.next()">Next</button>
+                                        </div>
+                                    </div>
+
+                                    <div id="requirement-part" class="content" role="tabpanel"
+                                        class="bs-stepper-pane fade" aria-labelledby="requirement-part-trigger">
+                                        <div class="card-tools ">
+                                            <button class="card-tools btn btn-sm btn-primary"
+                                                style="margin-left: 900px;" type="button" name="add_requirement"
+                                                id="add_requirement"><i class="fas fa-plus"></i> Add More</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div id="requirement_form" name="requirement_form">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-sm-6">
+                                                            <label for="exampleInputEmail1">Activities / Resources <span
+                                                                    style="color:red" aria-hidden="true"
+                                                                    class="required">*</span></label>
+                                                            <input type="text" placeholder="Enter Activities / Resources"
+                                                                class="form-control name_list" name="task_name[]"
+                                                                id="task_name[]">
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
+                                                            <label for="exampleInputEmail1">Estimated Cost <span
+                                                                    style="color:red" aria-hidden="true"
+                                                                    class="required">*</span></label>
+                                                            <input type="number" placeholder="Enter Cost"
+                                                                class="form-control" name="task_cost[]"
+                                                                id="task_cost[]">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row border-bottom">
+                                                        <div class="form-group col-sm-12">
+                                                            <label for="exampleInputEmail1">Description <span
+                                                                    style="color:red" aria-hidden="true"
+                                                                    class="required">*</span></label>
+                                                            <textarea placeholder="Enter Description" rows="5" cols="20"
+                                                                class="form-control" name="task_description[]"
+                                                                id="task_description[]"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default float-right"
+                                                onclick="stepper.previous()">Previous</button>
+                                            <button type="button" class="btn btn-primary float-right btn-next-form"
+                                                onclick="stepper.next()">Next</button>
+                                        </div>
+                                    </div>
+
+                                    <div id="stakeholder-part" class="content" role="tabpanel"
+                                        class="bs-stepper-pane fade" aria-labelledby="stakeholder-part-trigger">
+                                        <div class="card-tools ">
+                                            <button class="card-tools btn btn-sm btn-primary"
+                                                style="margin-left: 900px;" type="button" name="add_stakeholder"
+                                                id="add_stakeholder"><i class="fas fa-plus"></i> Add More</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <div id="stakeholder_form" name="stakeholder_form">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-sm-6">
+                                                            <label for="exampleInputEmail1">Stakeholder Name <span
+                                                                    style="color:red" aria-hidden="true"
+                                                                    class="required">*</span></label>
+                                                            <input type="text" placeholder="Enter Stakeholder Name"
+                                                                class="form-control name_list" name="stakeholder_name[]"
+                                                                id="stakeholder_name[]">
+                                                        </div>
+                                                        <div class="form-group col-sm-6">
+                                                            <label for="exampleInputEmail1">Role <span style="color:red"
+                                                                    aria-hidden="true" class="required">*</span></label>
+                                                            <input type="text" placeholder="Enter Role"
+                                                                class="form-control" name="role[]" id="role[]">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row border-bottom">
+                                                        <div class="form-group col-sm-12">
+                                                            <label for="exampleInputEmail1">Project Expectancy <span
+                                                                    style="color:red" aria-hidden="true"
+                                                                    class="required">*</span></label>
+                                                            <textarea placeholder="Enter Expectation" rows="5" cols="20"
+                                                                class="form-control" name="expectation[]"
+                                                                id="expectation[]"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default float-right"
+                                                onclick="stepper.previous()">Previous</button>
+                                            <button type="submit" class="btn btn-primary">Create Project <i
+                                                    class="fas fa-check"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div id="tor-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                                        aria-labelledby="tor-part-trigger">
+                                        <div class="modal-body">
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Background <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Background" rows="10" cols="50"
+                                                        class="form-control" name="tor_background"
+                                                        id="tor_background"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Purpose <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Purpose" rows="10" cols="50"
+                                                        class="form-control" name="tor_purpose"
+                                                        id="tor_purpose"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Issue <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Issue" rows="10" cols="50"
+                                                        class="form-control" name="tor_issue" id="tor_issue"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Methodology <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Methodology" rows="10" cols="50"
+                                                        class="form-control" name="tor_methodology"
+                                                        id="tor_methodology"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Expertise <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Expertise" rows="10" cols="50"
+                                                        class="form-control" name="tor_expertise"
+                                                        id="tor_expertise"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Work Plan <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Work Plan" rows="10" cols="50"
+                                                        class="form-control" name="tor_work_plan"
+                                                        id="tor_work_plan"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-sm-12">
+                                                    <label for="exampleInputEmail1">Reporting <span style="color:red"
+                                                            aria-hidden="true" class="required">*</span></label>
+                                                    <textarea placeholder="Enter Reporting" rows="10" cols="50"
+                                                        class="form-control" name="tor_reporting"
+                                                        id="tor_reporting"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default float-right"
+                                                onclick="stepper.previous()">Previous</button>
+                                            <button type="submit" class="btn btn-primary">Create Project <i
+                                                    class="fas fa-check"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/project_officer_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_officer_notification.js')}}"></script>
+
+<script>
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+
+    $('.select2bs4').select2()
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("start_date").setAttribute("min", today);
+  document.getElementById("end_date").setAttribute("min", today);
+
+    $('#document').on('change', function (e) {
+        //get the file name
+        var files = [];
+        for (var i = 0; i < $(this)[0].files.length; i++) {
+            files.push($(this)[0].files[i].name);
+        }
+        $(this).next('.custom-file-label').html(files.join(', '));
+    })
+
+    var i = 1;
+    var k = 1;
+    $('#add_stakeholder').click(function () {
+        i++
+        $('#stakeholder_form').append('<div id="row-stakeholder' + i +
+            '"><br><button type="button" name="remove" id="' + i +
+            '" class="btn btn-sm btn-danger btn-remove-stakeholder" style="margin-left:885px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Stakeholder Name <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Stakeholder Name" class="form-control" name="stakeholder_name[]" id="stakeholder_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Role <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Role" class="form-control" name="role[]" name="role[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Expectation <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Expectation" rows="5" cols="20" class="form-control" name="expectation[]" id="expectation[]"></textarea> </div></div>'
+        )
+    });
+
+    $(document).on('click', '.btn-remove-stakeholder', function () {
+        var button_id = $(this).attr("id");
+        $('#row-stakeholder' + button_id + '').remove();
+        $('#rows-stakeholder' + button_id + '').remove();
+    });
+
+    $('#add_requirement').click(function () {
+        k++
+        $('#requirement_form').append('<div id="row-requirement' + k +
+            '"><br><button type="button" name="remove" id="' + k +
+            '" class="btn btn-sm btn-danger btn-remove-requirement" style="margin-left:885px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Activities / Resources <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Activities / Resources" class="form-control name_list" name="task_name[]" id="task_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Estimated Cost <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="number" placeholder="Enter Cost" class="form-control" name="task_cost[]" id="task_cost[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control" name="task_description[]" id="task_description[]"></textarea> </div> </div>'
+        )
+    });
+
+    $(document).on('click', '.btn-remove-requirement', function () {
+        var button_id = $(this).attr("id");
+        $('#row-requirement' + button_id + '').remove();
+        $('#rows-requirement' + button_id + '').remove();
+    });
+
+    function get_all_paper() {
+        $.ajax({
+            url: '/concept_paper/department/approval_status/project_officer/Approved/' + user_id,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var paper = data;
+
+                var html = "";
+
+                if (paper.length == 0) {
+                    var html = `<option>No Approved Concept Paper</option>`;
+                } else {
+                    var html = "<option selected disabled>Select Concept Paper</option>";
+                }
+
+                for (var i = 0; i < paper.length; i++) {
+                    html += `<option value="${paper[i].id}">${paper[i].name}</option>`
+                }
+
+                $('#concept_paper_id').html(html);
+            }
+        })
+    }
+
+    function get_paper_details() {
+        var concept = document.getElementById("concept_paper_id").value
+                
+        $.ajax({
+            url: '/concept_paper/' + concept,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var paper = data;
+
+                $('#name').val(paper.name);
+                $('#type').val(paper.type);
+                $('#cost').val(paper.cost);
+                $('#start_date').val(paper.start_date);
+                $('#end_date').val(paper.end_date);
+                $('#background').val(paper.background);
+                $('#coverage').val(paper.coverage);
+                $('#assumptions').val(paper.assumptions);
+                $('#constraints').val(paper.constraints);
+                $('#target_beneficiaries').val(paper.target_beneficiaries);
+                $('#objectives').val(paper.objectives);
+                $('#expected_output').val(paper.expected_output);
+            }
+        })
+    }
+
+    get_all_paper();
+
+    $(function () {
+        $('#request_project_form').validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                cost: {
+                    required: true
+                },
+                type: {
+                    required: true,
+                },
+                start_date: {
+                    required: true,
+                    date: true
+                },
+                end_date: {
+                    required: true,
+                    date: true
+                },
+                background: {
+                    required: true
+                },
+                coverage: {
+                    required: true
+                },
+                assumptions: {
+                    required: true
+                },
+                constraints: {
+                    required: true
+                },
+                target_beneficiary: {
+                    required: true
+                },
+                objectives: {
+                    required: true
+                },
+                expected_output: {
+                    required: true
+                },
+                "task_name[]": {
+                    required: true
+                },
+                "task_cost[]": {
+                    required: true
+                },
+                "task_description[]": {
+                    required: true
+                },
+                document: {
+                    required: true
+                },
+                "stakeholder_name[]": {
+                    required: true
+                },
+                "role[]": {
+                    required: true
+                },
+                "expectation[]": {
+                    required: true
+                },
+                "risk_name[]": {
+                    required: true
+                },
+                "risk_description[]": {
+                    required: true
+                },
+                "occuring_possibility[]": {
+                    required: true
+                },
+                "impact[]": {
+                    required: true
+                },
+                "mitigating_action[]": {
+                    required: true
+                },
+            },
+            messages: {
+                name: {
+                    required: "Please enter project name",
+                },
+                type: {
+                    required: "Please select project type",
+                },
+                cost: {
+                    required: "Please enter project cost",
+                },
+                start_date: {
+                    required: "Please select start date",
+                },
+                end_date: {
+                    required: "Please select end date",
+                },
+                background: {
+                    required: "Please enter background",
+                },
+                coverage: {
+                    required: "Please enter coverage",
+                },
+                assumptions: {
+                    required: "Please enter assumptions",
+                },
+                constraints: {
+                    required: "Please enter constraints",
+                },
+                target_beneficiary: {
+                    required: "Please enter target beneficiary",
+                },
+                objectives: {
+                    required: "Please enter objectives",
+                },
+                expected_output: {
+                    required: "Please enter deliverables",
+                },
+                "task_name[]": {
+                    required: "Please enter name",
+                },
+                "task_description[]": {
+                    required: "Please enter description",
+                },
+                "task_cost[]": {
+                    required: "Please enter cost",
+                },
+                document: {
+                    required: "Please select document",
+                },
+                "stakeholder_name[]": {
+                    required: "Please enter name",
+                },
+                "role[]": {
+                    required: "Please enter role",
+                },
+                "expectation[]": {
+                    required: "Please enter expectation",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+
+            submitHandler: function (form) {
+                // ADD JOB TITLE
+                var form = $('#request_project_form');
+
+                // ADD PROJECT
+                var form = $('#request_project_form');
+                var name = document.getElementById("name").value
+                var type = document.getElementById("type").value
+                var cost = document.getElementById("cost").value
+                var start_date = document.getElementById("start_date").value
+                var end_date = document.getElementById("end_date").value
+                var background = document.getElementById("background").value
+                var coverage = document.getElementById("coverage").value
+                var assumptions = document.getElementById("assumptions").value
+                var constraints = document.getElementById("constraints").value
+                var target_beneficiaries = document.getElementById("target_beneficiaries").value
+                var objectives = document.getElementById("objectives").value
+                var expected_output = document.getElementById("expected_output").value
+                var concept_paper_id = document.getElementById("concept_paper_id").value
+                var project_id;
+
+                // ajax opening tag
+                $.ajax({
+                    url: '/projects/department/' + department_id + '/' + manager_id,
+                    type: "POST",
+                    data: {
+                        name: name,
+                        background: background,
+                        coverage: coverage,
+                        assumptions: assumptions,
+                        constraints: constraints,
+                        target_beneficiaries: target_beneficiaries,
+                        objectives: objectives,
+                        expected_output: expected_output,
+                        cost: cost,
+                        type: type,
+                        start_date: start_date,
+                        end_date: end_date,
+                        concept_paper_id: concept_paper_id
+                    },
+                    dataType: "JSON",
+
+                    success: function (data) {
+                        var project = data.data;
+                        project_id = project.id
+
+                        toastr.success('Successfully requested a project.')
+
+                        stakeholder_names = $('input[name="stakeholder_name[]"]').map(
+                            function () {
+                                return this.value;
+                            }).get();
+
+                        roles = $('input[name="role[]"]').map(function () {
+                            return this.value;
+                        }).get();
+
+                        expectations = $('textarea[name="expectation[]"]').map(
+                            function () {
+                                return this.value;
+                            }).get();
+
+                        for (var i = 0; i < stakeholder_names.length; i++) {
+                            for (var i = 0; i < roles.length; i++) {
+                                for (var i = 0; i < expectations.length; i++) {
+                                    $.ajax({
+                                        url: '/stakeholder/',
+                                        type: "POST",
+                                        data: {
+                                            name: stakeholder_names[i],
+                                            role: roles[i],
+                                            expectation: expectations[i],
+                                            project_id: project.id,
+                                        },
+                                        dataType: "JSON",
+
+                                        success: function (data) {
+                                            console.log('success')
+                                        }
+                                        // ajax closing tag
+                                    })
+                                }
+                            }
+                        }
+
+                        task_names = $('input[name="task_name[]"]').map(
+                            function () {
+                                return this.value;
+                            }).get();
+
+                        task_costs = $('input[name="task_cost[]"]').map(function () {
+                            return this.value;
+                        }).get();
+
+                        task_descriptions = $('textarea[name="task_description[]"]')
+                            .map(function () {
+                                return this.value;
+                            }).get();
+
+                        for (var i = 0; i < task_names.length; i++) {
+                            for (var i = 0; i < task_costs.length; i++) {
+                                for (var i = 0; i < task_descriptions.length; i++) {
+                                    $.ajax({
+                                        url: '/budget_requirements/',
+                                        type: "POST",
+                                        data: {
+                                            name: task_names[i],
+                                            description: task_descriptions[i],
+                                            cost: task_costs[i],
+                                            project_id: project.id,
+                                        },
+                                        dataType: "JSON",
+
+                                        success: function (data) {
+                                            console.log('success')
+                                            $("#request_project_form")
+                                                .trigger("reset");
+
+                                            window.setTimeout(function () {
+                                                window.location
+                                                    .href =
+                                                    "http://127.0.0.1:8000/project_officer/project_requisition";
+                                            }, 1800);
+                                        }
+                                        // ajax closing tag
+                                    })
+                                }
+                            }
+                        }
+                    }
+                    // ajax closing tag
+                });
+
+                // ajax opening tag
+            }
+        });
+    });
+</script>
+{%endblock%}

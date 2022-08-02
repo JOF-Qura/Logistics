@@ -1,0 +1,266 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/department_head/includes/head.html' %}
+
+{% include './project_management/department_head/includes/navbar.html' %}
+
+{% include './project_management/department_head/includes/sidebar.html' %}
+{%endblock%}
+
+{%block maincontent%}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Projects Schedule</h1>
+          <div class="text-muted">Projects schedule to monitor schedules of projects</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-md-12">
+          <div class="card card-primary card-outline card-tabs"">
+              <div class=" card-body p-0">
+            <!-- THE CALENDAR -->
+            <div id="calendar"></div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="schedule_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="schedule_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="project_id" id="project_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to reschedule this project?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-info schedule-confirm">Yes, reschedule it! <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+
+{%block scripts%}
+<script src="{{url_for('static', path='/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_notification.js')}}"></script>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+
+    /* initialize the external events
+     -----------------------------------------------------------------*/
+    function ini_events(ele) {
+      ele.each(function () {
+
+        // create an Event Object (https://fullcalendar.io/docs/event-object)
+        // it doesn't need to have a start or end
+        var eventObject = {
+          title: $.trim($(this).text()) // use the element's text as the event title
+        }
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject)
+
+      })
+    }
+
+    ini_events($('#external-events div.external-event'))
+
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date()
+    var d = date.getDate(),
+      m = date.getMonth(),
+      y = date.getFullYear()
+
+    var Calendar = FullCalendar.Calendar;
+
+    var containerEl = document.getElementById('external-events');
+    var checkbox = document.getElementById('drop-remove');
+    var calendarEl = document.getElementById('calendar');
+    var today = new Date().toISOString().slice(0,10);
+
+    // initialize the external events
+    // -----------------------------------------------------------------
+
+    var calendar = new Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      themeSystem: 'bootstrap',
+      //Random default events
+      events: function (fetchInfo, successCallback, failureCallback) {
+        $.ajax({
+          url: 'http://127.0.0.1:8000/projects/department/approval_status/Approved/'+user_id,
+          success: function (doc) {
+            console.log(doc)
+            var events = []
+            $.each(doc, function (i, data) {
+              if (data.progress_status == "Completed") {
+                events.push({
+                  id: data.id,
+                  title: 'Project: ' + data.name,
+                  start: data.start_date,
+                  end: data.end_date,
+                  backgroundColor: "#28a745",
+                  borderColor: "#28a745",
+                  editable: false
+                });
+              } else if (data.progress_status == "On Progress") {
+                events.push({
+                  id: data.id,
+                  title: 'Project: ' + data.name,
+                  start: data.start_date,
+                  end: data.end_date,
+                  backgroundColor: "#17a2b8",
+                  borderColor: "#17a2b8"
+                });
+              } else if (data.progress_status == "Cancelled") {
+                events.push({
+                  id: data.id,
+                  title: 'Project: ' + data.name,
+                  start: data.start_date,
+                  end: data.end_date,
+                  backgroundColor: "#dc3545",
+                  borderColor: "#dc3545",
+                  editable: false
+                });
+              } else {
+                events.push({
+                  id: data.id,
+                  title: 'Project: ' + data.name,
+                  start: data.start_date,
+                  end: data.end_date,
+                  backgroundColor: "#6c757d",
+                  borderColor: "#6c757d"
+                });
+              }
+            });
+
+            successCallback(events);
+            //callback(events);  
+          }
+        });
+      },
+      displayEventTime: false,
+      editable: true,
+      droppable: true,
+      eventDrop: function (info) {
+        $("#schedule_project_form_modal").modal('show');
+
+        $('.schedule-confirm').on('click', function (e) {
+          e.preventDefault();
+          modifyEvent(info.event);
+        });
+      }
+    });
+
+    calendar.render();
+    // $('#calendar').fullCalendar()
+
+    /* ADDING EVENTS */
+    var currColor = '#3c8dbc' //Red by default
+    // Color chooser button
+    $('#color-chooser > li > a').click(function (e) {
+      e.preventDefault()
+      // Save color
+      currColor = $(this).css('color')
+      // Add color effect to button
+      $('#add-new-event').css({
+        'background-color': currColor,
+        'border-color': currColor
+      })
+    })
+    $('#add-new-event').click(function (e) {
+      e.preventDefault()
+      // Get value and make sure it is not null
+      var val = $('#new-event').val()
+      if (val.length == 0) {
+        return
+      }
+
+      // Create events
+      var event = $('<div />')
+      event.css({
+        'background-color': currColor,
+        'border-color': currColor,
+        'color': '#fff'
+      }).addClass('external-event')
+      event.text(val)
+      $('#external-events').prepend(event)
+
+      // Remove event from text input
+      $('#new-event').val('')
+    })
+
+    function modifyEvent(event) {
+
+      var start_date = moment(event.start).format('YYYY-MM-DD HH:mm:ss');
+      var end_date = moment(event.end).format('YYYY-MM-DD HH:mm:ss');
+      $.ajax({
+        type: "PUT",
+        url: "/projects/schedule/" + event.id,
+        data: {
+          "id": event.id,
+          "start_date": start_date,
+          "end_date": end_date
+        },
+        traditional: true,
+        success: function (msg) {
+          toastr.info('Successfully rescheduled project.')
+          $('#schedule_project_form_modal').modal('hide');
+        },
+        error: function (msg) {
+          console.log(msg);
+          toastr.error('We are unable to process your schedule.')
+          $('#schedule_project_form_modal').modal('hide');
+        }
+      });
+    }
+  })
+</script>
+{%endblock%}

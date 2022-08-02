@@ -1,0 +1,390 @@
+{% extends "public/vendor/vendor_base.html" %}
+{% set active_page = "quotations" %} {% block title
+%}Create Proposal{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+
+
+        <div class="col-6">
+          <a href="/vendor/list-of-quotations"><i class="fas fa-arrow-left"></i></a>
+        </div>
+
+
+
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Create Proposal</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row" id="div_form">
+        <div class="col-xl-12">
+          <div class="card card-primary card-outline">
+
+        <div class="card-body">
+              <div class="form-group row m-t-10">
+                <div class="col-md-6">
+                  <!-- <label>Purchase Requisition</label> -->
+                  <h2 id="rfq_number">RFQ No</h2>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6 ">
+                  <label>Prepared By</label>
+                  <input class="form-control" id="prepared_by" name="prepared_by" readonly />
+                </div>
+                <div class="col-md-6">
+                  <label>Due Date</label>
+                  <input class="form-control" id="requested_by" name="requested_by" readonly />
+                </div>
+              </div>
+
+              <div class="form-group row mb-5">
+                <div class="col-md-12">
+                  <label>Message</label>
+                  <textarea name="message" id="message" class="form-control"></textarea>
+                </div>
+              </div>
+
+              <hr />
+
+              <h3 class="pb-3">Quotation Items</h3>
+
+              <div class="form-group row">
+                <div class="col-md-12 dt-responsive table-responsive">
+                  <table id="pr-detail-table" class="table table-hover table-bordered w-100">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+
+
+            </div>
+            <!-- end card body -->
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+
+
+
+
+      <div class="row" id="div_form">
+        <div class="col-xl-12">
+          <div class="card card-primary card-outline">
+            <div class="card-body">
+              <form id="form_id" name="form_id" enctype="multipart/form-data">
+              <input type="hidden" id="uuid" name="uuid" />
+              <input type="hidden" class="form-control" id="status" name="status" readonly />
+
+              <div class="form-group row m-t-10">
+                <div class="col-md-6">
+                  <!-- <label>Purchase Requisition</label> -->
+                  <h2 id="proposal_rfq_number"></h2>
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <div class="col-md-6 ">
+                  <label>Date</label>
+                  <h3>July 12,2020</h3>
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6 ">
+                  <label>Prepared by</label>
+                  <input class="form-control" id="created_by" name="created_by" />
+                </div>
+                <div class="col-md-6">
+                  <label>Contact No</label>
+                  <input class="form-control" id="contact_no" name="contact_no" />
+                </div>
+              </div>
+
+
+
+
+              <div class="form-group row mb-5">
+                <div class="col-md-12">
+                  <label>Message</label>
+                  <textarea name="proposal_message" id="proposal_message" class="form-control"></textarea>
+                </div>
+              </div>
+
+              <hr />
+
+
+              <div class="form-group row mt-5">
+                <div class="col-md-12 d-flex justify-content-end">
+                  <!-- <label>Prouduct</label> -->
+                  <!-- <select class="form-control" id="po_item" name="po_item"
+                               onchange="return addProduct(this.value);">
+                           </select> -->
+                  <button type="button" class="btn btn-secondary mr-2 addProduct" data-toggle="modal"
+                    data-target="#modal-add-new-item">
+                    Add Product
+                    <i class="fas fa-plus font-size-16 ml-1"></i>
+                  </button>
+
+                </div>
+
+              </div>
+              <h3 class="pb-3">Proposal Items</h3>
+
+              <div class="form-group row ">
+                <div class="col-md-12 dt-responsive table-responsive">
+                  <table id="proposal-items-table" class="table table-hover table-bordered w-100">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Category</th>
+                        <th>Product</th>
+                        <th>Description</th>
+                        <th>Product Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
+
+
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="form-group row my-5">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-10">
+                      <label>Notes</label>
+                      <textarea class="form-control" name="notes" id="notes" rows="3"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row my-2">
+                    <div class="col-md-2">
+                      <label>Subtotal</label>
+                    </div>
+                    <div class="col-md-10">
+                      <input class="form-control" id="subtotal" name="subtotal" readonly />
+                    </div>
+                  </div>
+
+                  <!-- <div class="row my-2">
+                  <div class="col-md-2">
+                    <label>Freight</label>
+                </div>
+                  <div class="col-md-10">
+                    <input type="number" class="form-control" id="freight" name="freight"  />
+                </div>
+              </div> -->
+                  <div class="row my-2">
+                    <div class="col-md-2">
+                      <label>Discount</label>
+                    </div>
+                    <div class="col-md-10">
+                      <input type="number" class="form-control" id="discount" name="discount" />
+                    </div>
+                  </div>
+
+                  <div class="row my-2">
+                    <div class="col-md-2">
+                      <label>Tax</label>
+                    </div>
+                    <div class="col-md-10">
+                      <input type="number" class="form-control" id="tax" name="tax" />
+                    </div>
+                  </div>
+
+                  <hr />
+
+                  <div class="row my-2">
+                    <div class="col-md-3">
+                      <h5>Total</h5>
+                    </div>
+                    <div class="col-md-9">
+                      <input type="number" class="form-control" id="total" name="total" readonly />
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="row mt-5">
+                <div class="col-md-12 text-right">
+
+                  <button type="submit" class="btn btn-primary m-l-10" id="update-button"
+                    onclick="$('#status').val('Not Sent');">
+                    Save
+                    <i class="fas fa-check ml-1"></i>
+                  </button>
+
+
+                  <!-- <button type="submit" class="btn btn-primary submit" id="add-button"
+                    onclick="$('#status').val('Sent');">
+                    Submit
+                    <i class="fas fa-file-export ml-1"></i>
+                  </button> -->
+
+                </div>
+              </div>
+
+            </form>
+            </div>
+            <!-- end card body -->
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-add-new-item" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="
+  modal-dialog modal-dialog-centered modal-dialog-scrollable
+">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Product</h4>
+
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <input class="form-control" type="hidden" id="new_item_uuid" name="new_item_uuid" />
+
+        <div class="form-group row d-flex justify-content-center">
+
+          <div class="col-md-6">
+            <div class="mb-3 validate">
+              <img src="https://avatars.dicebear.com/api/bottts/smile.svg" alt=""
+                class="rounded avatar-lg img-thumbnail" style="object-fit: cover;" id="photo_path_placeholder"
+                name="photo_path_placeholder">
+            </div>
+
+            <div class="mb-3 validate">
+              <label for="photo_path" class="form-label">Item Picture</label>
+              <input class="form-control" type="file" id="product_pic" name="product_pic" accept="image/*">
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product Category</label>
+            <input class="form-control" type="text" id="new_item_category" name="new_item_category" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product Name</label>
+            <input class="form-control" type="text" id="new_item_name" name="new_item_name" />
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label>Product Description</label>
+            <textarea class="form-control" id="new_item_description" name="new_item_description"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <div class="col-md-12">
+            <label>Product Price</label>
+            <input class="form-control" type="number" min="1" value="1" id="new_item_price" name="new_item_price" />
+          </div>
+
+        </div>
+
+
+        <div class="form-group row">
+
+          <div class="col-md-12">
+            <label>Quantity</label>
+            <input class="form-control" type="number" min="1" value="1" id="new_item_quantity"
+              name="new_item_quantity" />
+          </div>
+
+        </div>
+
+        <!-- <div class="form-group row">
+
+          <div class="col-md-12">
+            <label>Comments</label>
+            <textarea class="form-control" id="new_item_comments" name="new_item_comments"></textarea>
+          </div>
+
+        </div> -->
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" onclick="return addManualProduct();">
+          Add
+          <i class="fas fa-plus ml-1"></i>
+        </button>
+      </div>
+
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+</div>
+
+<script src="{{ url_for('static', path='/dist/js/vendor_side/proposal/create_proposal.js') }}"></script>
+
+{% endblock %} {% block scripts %} {{ super() }} {% endblock %}

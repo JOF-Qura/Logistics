@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vendor Login | Hospital Management System</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/dist/css/adminlte.min.css') }}">
+
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/toastr/toastr.min.css') }}">
+
+  <!-- jQuery -->
+<script src="{{ url_for('static', path='/plugins/jquery/jquery.min.js') }}"></script>
+  <!-- jquery-validation -->
+<script src="{{ url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ url_for('static', path='/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+</head>
+
+<style>
+  .toast-top-center {
+  top: 12px;
+}
+</style>
+<body class="hold-transition login-page bg-white">
+    <!-- <div class="wrapper" style="display:contents;"> -->
+ <!-- Preloader -->
+ <div class="preloader flex-column justify-content-center align-items-center">
+    <div class="spinner-border text-primary" role="status" style="width: 2.5rem; height: 2.5rem;"></div>
+  </div>
+
+
+  <div class="login-box">
+      
+      <div class="card card-outline card-primary">
+        <div class="login-logo mt-4">
+            <div class="">HoMIES Vendor</div>
+        </div>
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Log in to start your session</p>
+
+            <!-- Login form -->
+            <form id="loginForm">
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <input type="email" id="email" class="form-control" name="email" placeholder="Type your email here">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <label for="password">Password</label>
+                        <a class="mb-3" href="#">I forgot my password</a>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Type your password here">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Actions -->
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember Me</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                            <span>Log in</span>
+                            <i class="fas fa-sign-in-alt ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="dropdown-divider mt-5 mb-1"></div>
+
+            <!-- Quick Links -->
+            <div class="d-flex justify-content-between text-sm mb-2">
+                <div>
+                    <a href="/">Home</a>
+                </div>
+                <!-- <div>
+                    <a href="/vendor-application">Vendor Application</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+
+
+<!-- Toastr -->
+<script src="{{ url_for('static', path='/plugins/toastr/toastr.min.js') }}"></script>
+
+<script src="{{ url_for('static', path='/dist/js/vendor_side/access/vendor_login.js') }}"></script>
+
+<!-- Bootstrap 4 -->
+<script src="{{ url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ url_for('static', path='/dist/js/adminlte.min.js') }}"></script>
+</body>
+</html>

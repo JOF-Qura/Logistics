@@ -1,0 +1,223 @@
+{% extends "internal/procurement_manager/p_manager_base.html" %}
+{% set active_page = "vendor_audit_trail" %}
+{% set active_module = "procurement" %}
+
+
+{% block title %}Vendor Audit Trail{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+       <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Vendor Audit Trail</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Vendor Audit Trail</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Card -->
+            <div class="card card-primary card-outline">
+              <!-- Card Header -->
+              <div class="card-header">
+                <div class="row mb-3">
+                  <div class="col-6
+                d-sm-flex
+                align-items-center">
+                    <h3 class="card-title">Audit Trail</h3>
+                  </div>
+  
+         
+                </div>
+  
+              </div>
+              <!-- /.card-header -->
+              <!-- Card Body -->
+              <div class="card-body">
+                <input type="hidden" id="start_date" name="start_date">
+                <input type="hidden" id="end_date" name="end_date">
+                <div class="form-group row justify-content-end">
+                  <div class="col-md-4">
+
+                  <button type="button" class="btn btn-default float-right" id="reservation">
+                    <i class="far fa-calendar-alt"></i> <span id="reportrange">
+                     Filter Date
+                    </span> 
+                    <i class="fas fa-caret-down"></i>
+                  </button>  
+                </div>
+                  
+                  <div class="col-md-2">
+                    <select class="form-control float-right select2" name="vendor_id" id="vendor_id">
+  
+
+                    </select>
+                  </div>
+                </div>
+
+                <table id="data-table" class="table table-hover table-bordered w-100">
+                  <thead>
+                    <tr>
+                      <th>Vendor</th>
+                      <th>Crud</th>
+                      <th>Table</th>
+                      <th style="max-width: 50%;">Payload</th>
+                      <th>Created At</th>
+                      <th>Client IP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+  
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+          
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <script src="{{ url_for('static', path='/dist/js/procurement/vendor_management/vendor_audit_trail.js') }}"></script>
+
+
+
+  <!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-print">
+  <div class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content pr-report-modal-content">
+ 
+      <div class="modal-header pr-report-modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Request</div>
+        </div>
+        <!-- <h4 class="modal-title">Purchase Request</h4> -->
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <!-- <div class="modal-body-wrapper"> -->
+      <div class="modal-body pr-report-modal-body">
+
+        <!-- <div class="form-group row">
+          <div class="col-md-7">
+              <h4>Purchase Request</h4>
+        
+          </div> 
+      </div> -->
+
+        <div class="form-group row m-t-10">
+          <div class="col-md-7">
+              <h4>PR Number</h4>
+             <p id="pr_number"></p>
+          </div>
+          <div class="col-md-4">
+              <h4>Status</h4>
+              <p id="status"></p>
+          </div>
+      </div>
+
+      <div class="form-group row"> 
+          <div class="col-md-7">
+              <h4>Department</h4>
+              <p id="department">hardccode</p>
+            </div>  
+          <div class="col-md-4">
+              <h4>Requested By</h4>
+              <p id="requested_by">hardccode</p>
+          </div>    
+
+
+      </div>
+
+      <div class="form-group row mb-5">
+       <div class="col-md-7">
+         <h4>Purpose</h4>
+         <p id="purpose"></p>
+        </div>
+
+        <div class="col-md-4">
+          <h4>Date Requested</h4>
+          <p id="date_requested"></p>
+         </div>
+      </div>
+
+      <h3>Item Details</h3>
+
+        <table id="pr-detail-table" class="table" style="width: 100%;">
+          <thead>
+              <tr>
+                <!-- <th></th> -->
+                <th>Category</th>
+                <th>Item</th>
+                <th>Quantity</th>
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+    </div>
+      <!-- </div> -->
+      <div class="modal-footer pr-report-modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary print">
+          Print
+          <i class="fas fa-print ml-1"></i>
+        </button>
+      </div>
+    </div>
+ 
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

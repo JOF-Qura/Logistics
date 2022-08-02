@@ -1,0 +1,3014 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/department_head/includes/head.html' %}
+
+{% include './project_management/department_head/includes/navbar.html' %}
+
+{% include './project_management/department_head/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Projects</h1>
+          <div class="text-muted">Projects to manage potential improvements</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <div class="col-12 col-sm-12">
+      <div class="card card-primary card-outline card-tabs">
+        <div class="card-header p-0 pt-1 pb-1">
+          <div class="card-title ml-4 mt-2">List of Projects</div>
+          <div class="card-tools">
+            <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+              <i class="fas fa-expand"></i>
+            </button>
+            <button class="btn btn-primary bg-solid-primary btn-sm btn-add" type="button" id="new_task"><i
+                class="fa fa-plus"></i> Create New Project</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <ul class="nav nav-tabs" id="custom-tabs-six-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-all-tab" data-toggle="pill" href="#custom-tabs-six-all"
+                  role="tab" aria-controls="custom-tabs-six-all" aria-selected="true">All</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-six-on-progress-tab" data-toggle="pill"
+                  href="#custom-tabs-six-on-progress" role="tab" aria-controls="custom-tabs-six-on-progress"
+                  aria-selected="false">On Progress</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-completed-tab" data-toggle="pill"
+                  href="#custom-tabs-six-completed" role="tab" aria-controls="custom-tabs-six-completed"
+                  aria-selected="false">Completed</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-cancelled-tab" data-toggle="pill"
+                  href="#custom-tabs-six-cancelled" role="tab" aria-controls="custom-tabs-six-cancelled"
+                  aria-selected="false">Cancelled</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-delayed-tab" data-toggle="pill" href="#custom-tabs-six-delayed"
+                  role="tab" aria-controls="custom-tabs-six-delayed" aria-selected="false">Delayed</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-six-onhold-tab" data-toggle="pill" href="#custom-tabs-six-onhold"
+                  role="tab" aria-controls="custom-tabs-six-onhold" aria-selected="false">On Hold</a>
+              </li>
+            </ul>
+          </div>
+          <div class="tab-content" id="custom-tabs-six-tabContent">
+            <div class="tab-pane fade" id="custom-tabs-six-all" role="tabpanel"
+              aria-labelledby="custom-tabs-six-all-tab">
+              <table id="projects_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade show active" id="custom-tabs-six-on-progress" role="tabpanel"
+              aria-labelledby="custom-tabs-six-on-progress-tab">
+              <table id="on_progress_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-completed" role="tabpanel"
+              aria-labelledby="custom-tabs-six-completed-tab">
+              <table id="completed_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-cancelled" role="tabpanel"
+              aria-labelledby="custom-tabs-six-cancelled-tab">
+              <table id="cancelled_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-delayed" role="tabpanel"
+              aria-labelledby="custom-tabs-six-delayed-tab">
+              <table id="delayed_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-six-onhold" role="tabpanel"
+              aria-labelledby="custom-tabs-six-onhold-tab">
+              <table id="on_hold_table" class="table table-bordered table-hover" width="100%">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Type</th>
+                    <th>Cost</th>
+                    <th>Progress</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+    <!-- Default box -->
+    <!-- <div class="card card-primary card-outline"> -->
+
+    <!-- Card Header -->
+    <!-- <div class="card-header">
+          <div class="card-tools">
+            <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary bg-solid-primary btn-sm" type="button" id="new_task"><i class="fa fa-plus"></i> Create New Project</button>
+					</div>
+        </div> -->
+    <!-- /.card-header -->
+
+    <!-- Card Body -->
+    <!-- <div class="card-body">
+          <table id="projects_table" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Department</th>
+              <th>Project</th>
+              <th>Type</th>
+              <th>Cost</th>
+              <th>Status</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div> -->
+    <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i> New Project</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="stepperForm" class="bs-stepper">
+          <div class="bs-stepper-header" role="tablist">
+            <!-- your steps here -->
+            <div class="step" data-target="#details-part">
+              <button type="button" class="step-trigger" role="tab" aria-controls="details-part"
+                id="details-part-trigger">
+                <span class="bs-stepper-circle">1</span>
+                <span class="bs-stepper-label">Project Details</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#requirement-part">
+              <button type="button" class="step-trigger" role="tab" aria-controls="requirement-part"
+                id="requirement-part-trigger">
+                <span class="bs-stepper-circle">2</span>
+                <span class="bs-stepper-label">Budget Requirements</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#document-part">
+              <button type="button" class="step-trigger" role="tab" aria-controls="document-part"
+                id="document-part-trigger">
+                <span class="bs-stepper-circle">3</span>
+                <span class="bs-stepper-label">Document Files</span>
+              </button>
+            </div>
+            <div class="line"></div>
+            <div class="step" data-target="#stakeholder-part">
+              <button type="button" class="step-trigger" role="tab" aria-controls="stakeholder-part"
+                id="stakeholder-part-trigger">
+                <span class="bs-stepper-circle">4</span>
+                <span class="bs-stepper-label">Stakeholders</span>
+              </button>
+            </div>
+            <!-- <div class="line"></div>
+            <div class="step" data-target="#tor-part">
+              <button type="button" class="step-trigger" role="tab" aria-controls="tor-part" id="tor-part-trigger">
+                <span class="bs-stepper-circle">5</span>
+                <span class="bs-stepper-label">Term of Reference</span>
+              </button>
+            </div> -->
+            <!-- <div class="line"></div>
+            <div class="step" data-target="#risk-part">
+              <button type="button" class="step-trigger" role="tab" aria-controls="risk-part" id="risk-part-trigger">
+                <span class="bs-stepper-circle">5</span>
+                <span class="bs-stepper-label">Project Risks</span>
+              </button>
+            </div> -->
+          </div>
+          <div class="bs-stepper-content">
+            <form id="add_project_form">
+              <div id="details-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                aria-labelledby="details-part-trigger">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <input type="hidden" class="form-control" name="department_id" id="department_id">
+                    <div class="form-group col-sm-4">
+                      <label class="location" for="exampleInputPassword1">Project Name <span style="color:red"
+                          aria-hidden="true" class="required">*</span></label>
+                      <input placeholder="Enter Project Name" type="text" class="form-control" name="name" id="name">
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label class="location" for="exampleInputPassword1">Project Manager <span style="color:red"
+                          aria-hidden="true" class="required">*</span></label>
+                      <select class="form-control select2bs4" style="width: 100%;" id="manager_id" name="manager_id">
+
+                      </select>
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label class="location" for="exampleInputPassword1">Project Type <span style="color:red"
+                          aria-hidden="true" class="required">*</span></label>
+                      <select class="form-control select2bs4" style="width: 100%;" id="type" name="type">
+                        <option selected disabled value="">Select Type</option>
+                        <option value="Administrative">Administrative</option>
+                        <option value="Construction">Construction</option>
+                        <option value="Computer Software Development">Computer Software Development</option>
+                        <option value="Design of Plans">Design of Plans</option>
+                        <option value="Equipment or System Installation">Equipment or System Installation</option>
+                        <option value="Event or Relocation">Event or Relocation</option>
+                        <option value="Maintenance of Process Industries">Maintenance of Process Industries</option>
+                        <option value="New Product Development">New Product Development</option>
+                        <option value="Research">Research</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-4">
+                      <label class="location" for="exampleInputPassword1">Estimated Cost <span style="color:red"
+                          aria-hidden="true" class="required">*</span></label>
+                      <input placeholder="Enter Cost" type="number" step="any" class="form-control" name="cost"
+                        id="cost">
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label class="start_date" for="exampleInputPassword1">Start Date <span style="color:red"
+                          aria-hidden="true" class="required">*</span></label>
+                      <input type="date" class="form-control" name="start_date" id="start_date">
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label class="end_date" for="exampleInputPassword1">End Date <span style="color:red"
+                          aria-hidden="true" class="required">*</span></label>
+                      <input type="date" class="form-control" name="end_date" id="end_date">
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Background <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Background" rows="10" cols="50" class="form-control"
+                        name="background" id="background"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Coverage <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Coverage" rows="10" cols="50" class="form-control" name="coverage"
+                        id="coverage"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Assumption <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Assumption" rows="10" cols="50" class="form-control"
+                        name="assumptions" id="assumptions"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Constraint <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Constraint" rows="10" cols="50" class="form-control"
+                        name="constraints" id="constraints"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Target Beneficiary <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Target Beneficiary" rows="10" cols="50" class="form-control"
+                        name="target_beneficiaries" id="target_beneficiaries"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Objectives <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Objectives" rows="10" cols="50" class="form-control"
+                        name="objectives" id="objectives"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Deliverables <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Deliverables" rows="10" cols="50" class="form-control"
+                        name="expected_output" id="expected_output"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary float-right btn-next-form"
+                    onclick="stepper.next()">Next</button>
+                </div>
+              </div>
+
+              <div id="requirement-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                aria-labelledby="requirement-part-trigger">
+                <div class="card-tools ">
+                  <button class="card-tools btn btn-sm btn-primary" style="margin-left: 950px;" type="button"
+                    name="add_requirement" id="add_requirement"><i class="fas fa-plus"></i> Add More</button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <div id="requirement_form" name="requirement_form">
+                      <div class="form-row">
+                        <div class="form-group col-sm-6">
+                          <label for="exampleInputEmail1">Task Name <span style="color:red" aria-hidden="true"
+                              class="required">*</span></label>
+                          <input type="text" placeholder="Enter Task Name" class="form-control name_list"
+                            name="task_name[]" id="task_name[]">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <label for="exampleInputEmail1">Estimated Cost <span style="color:red" aria-hidden="true"
+                              class="required">*</span></label>
+                          <input type="number" placeholder="Enter Cost" class="form-control" name="task_cost[]"
+                            id="task_cost[]">
+                        </div>
+                      </div>
+                      <div class="form-row border-bottom">
+                        <div class="form-group col-sm-12">
+                          <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                              class="required">*</span></label>
+                          <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control"
+                            name="task_description[]" id="task_description[]"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default float-right"
+                    onclick="stepper.previous()">Previous</button>
+                  <button type="button" class="btn btn-primary float-right btn-next-form"
+                    onclick="stepper.next()">Next</button>
+                </div>
+              </div>
+
+              <div id="document-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                aria-labelledby="document-part-trigger">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="exampleInputFile">File input</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="document" name="document">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default float-right"
+                    onclick="stepper.previous()">Previous</button>
+                  <button type="button" class="btn btn-primary float-right btn-next-form"
+                    onclick="stepper.next()">Next</button>
+                </div>
+              </div>
+
+              <div id="stakeholder-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                aria-labelledby="stakeholder-part-trigger">
+                <div class="card-tools ">
+                  <button class="card-tools btn btn-sm btn-primary" style="margin-left: 950px;" type="button"
+                    name="add_stakeholder" id="add_stakeholder"><i class="fas fa-plus"></i> Add More</button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <div id="stakeholder_form" name="stakeholder_form">
+                      <div class="form-row">
+                        <div class="form-group col-sm-6">
+                          <label for="exampleInputEmail1">Stakeholder Name <span style="color:red" aria-hidden="true"
+                              class="required">*</span></label>
+                          <input type="text" placeholder="Enter Stakeholder Name" class="form-control name_list"
+                            name="stakeholder_name[]" id="stakeholder_name[]">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <label for="exampleInputEmail1">Role <span style="color:red" aria-hidden="true"
+                              class="required">*</span></label>
+                          <input type="text" placeholder="Enter Role" class="form-control" name="role[]" id="role[]">
+                        </div>
+                      </div>
+                      <div class="form-row border-bottom">
+                        <div class="form-group col-sm-12">
+                          <label for="exampleInputEmail1">Project Expectancy <span style="color:red" aria-hidden="true"
+                              class="required">*</span></label>
+                          <textarea placeholder="Enter Expectation" rows="5" cols="20" class="form-control"
+                            name="expectation[]" id="expectation[]"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default float-right"
+                    onclick="stepper.previous()">Previous</button>
+                  <button type="submit" class="btn btn-primary">Create Project <i class="fas fa-check"></i></button>
+                </div>
+              </div>
+
+              <div id="tor-part" class="content" role="tabpanel" class="bs-stepper-pane fade"
+                aria-labelledby="tor-part-trigger">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Background <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Background" rows="10" cols="50" class="form-control"
+                        name="tor_background" id="tor_background"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Purpose <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Purpose" rows="10" cols="50" class="form-control" name="tor_purpose"
+                        id="tor_purpose"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Issue <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Issue" rows="10" cols="50" class="form-control" name="tor_issue"
+                        id="tor_issue"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Methodology <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Methodology" rows="10" cols="50" class="form-control"
+                        name="tor_methodology" id="tor_methodology"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Expertise <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Expertise" rows="10" cols="50" class="form-control"
+                        name="tor_expertise" id="tor_expertise"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Work Plan <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Work Plan" rows="10" cols="50" class="form-control"
+                        name="tor_work_plan" id="tor_work_plan"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <label for="exampleInputEmail1">Reporting <span style="color:red" aria-hidden="true"
+                          class="required">*</span></label>
+                      <textarea placeholder="Enter Reporting" rows="10" cols="50" class="form-control"
+                        name="tor_reporting" id="tor_reporting"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default float-right"
+                    onclick="stepper.previous()">Previous</button>
+                  <button type="submit" class="btn btn-primary">Create Project <i class="fas fa-check"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="mark_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="mark_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="mark_id" id="mark_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to mark this as completed project?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success mark-confirm">Yes, mark it! <i
+                class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="edit_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i> Edit Project</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-2 ml-2">
+          <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="custom-tabs-three-details-tab" data-toggle="pill"
+                href="#custom-tabs-three-details" role="tab" aria-controls="custom-tabs-three-details"
+                aria-selected="true">Project Details</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-three-requirements-tab" data-toggle="pill"
+                href="#custom-tabs-three-requirements" role="tab" aria-controls="custom-tabs-three-requirements"
+                aria-selected="false">Requirements</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-three-stakeholders-tab" data-toggle="pill"
+                href="#custom-tabs-three-stakeholders" role="tab" aria-controls="custom-tabs-three-stakeholders"
+                aria-selected="false">Stakeholders</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content" id="custom-tabs-three-tabContent">
+          <div class="tab-pane fade show active" id="custom-tabs-three-details" role="tabpanel"
+            aria-labelledby="custom-tabs-three-details-tab">
+            <form id="edit_project_form">
+              <div class="modal-body">
+                <div class="form-row">
+                  <input type="hidden" class="form-control" name="edit_id" id="edit_id">
+                  <input type="hidden" class="form-control" name="edit_department_id" id="edit_department_id">
+                  <div class="form-group col-sm-4">
+                    <label class="location" for="exampleInputPassword1">Project Name <span style="color:red"
+                        aria-hidden="true" class="required">*</span></label>
+                    <input placeholder="Enter Project Name" type="text" class="form-control" name="edit_name"
+                      id="edit_name">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label class="location" for="exampleInputPassword1">Project Manager <span style="color:red"
+                        aria-hidden="true" class="required">*</span></label>
+                    <select class="form-control select2bs4" style="width: 100%;" id="edit_manager_id"
+                      name="edit_manager_id">
+
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label class="location" for="exampleInputPassword1">Project Type <span style="color:red"
+                        aria-hidden="true" class="required">*</span></label>
+                    <select class="form-control select2bs4" style="width: 100%;" id="edit_type" name="edit_type">
+                      <option selected disabled value="">Select Type</option>
+                      <option value="Administrative">Administrative</option>
+                      <option value="Construction">Construction</option>
+                      <option value="Computer Software Development">Computer Software Development</option>
+                      <option value="Design of Plans">Design of Plans</option>
+                      <option value="Equipment or System Installation">Equipment or System Installation</option>
+                      <option value="Event or Relocation">Event or Relocation</option>
+                      <option value="Maintenance of Process Industries">Maintenance of Process Industries</option>
+                      <option value="New Product Development">New Product Development</option>
+                      <option value="Research">Research</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-4">
+                    <label class="location" for="exampleInputPassword1">Estimated Cost <span style="color:red"
+                        aria-hidden="true" class="required">*</span></label>
+                    <input placeholder="Enter Cost" type="number" step="any" class="form-control" name="edit_cost"
+                      id="edit_cost">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label class="start_date" for="exampleInputPassword1">Start Date <span style="color:red"
+                        aria-hidden="true" class="required">*</span></label>
+                    <input type="date" class="form-control" name="edit_start_date" id="edit_start_date">
+                  </div>
+                  <div class="form-group col-sm-4">
+                    <label class="end_date" for="exampleInputPassword1">End Date <span style="color:red"
+                        aria-hidden="true" class="required">*</span></label>
+                    <input type="date" class="form-control" name="edit_end_date" id="edit_end_date">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Background <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Background" rows="10" cols="50" class="form-control"
+                      name="edit_background" id="edit_background"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Coverage <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Coverage" rows="10" cols="50" class="form-control" name="edit_coverage"
+                      id="edit_coverage"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Assumptions <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Assumptions" rows="10" cols="50" class="form-control"
+                      name="edit_assumptions" id="edit_assumptions"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Constraints <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Constraints" rows="10" cols="50" class="form-control"
+                      name="edit_constraints" id="edit_constraints"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Target Beneficiary <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Target Beneficiary" rows="10" cols="50" class="form-control"
+                      name="edit_target_beneficiaries" id="edit_target_beneficiaries"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Objectives <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Objectives" rows="10" cols="50" class="form-control"
+                      name="edit_objectives" id="edit_objectives"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-12">
+                    <label for="exampleInputEmail1">Deliverables <span style="color:red" aria-hidden="true"
+                        class="required">*</span></label>
+                    <textarea placeholder="Enter Deliverables" rows="10" cols="50" class="form-control"
+                      name="edit_expected_output" id="edit_expected_output"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+              </div>
+            </form>
+          </div>
+
+          <div class="tab-pane fade" id="custom-tabs-three-requirements" role="tabpanel"
+            aria-labelledby="custom-tabs-three-requirements-tab">
+            <form id="edit_requirement_form">
+              <div class="form-row">
+                <input type="hidden" id="edit_task_project_id" name="edit_task_project_id" />
+              </div>
+              <div class="modal-body">
+                <div id="edit_requirement_forms"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+              </div>
+            </form>
+          </div>
+
+          <div class="tab-pane fade" id="custom-tabs-three-stakeholders" role="tabpanel"
+            aria-labelledby="custom-tabs-three-stakeholders-tab">
+            <form id="edit_stakeholder_form">
+              <div class="modal-body">
+                <div id="edit_stakeholder_forms"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="cancel_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="cancel_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="cancel_id" id="cancel_id" aria-describedby="emailHelp">
+            <label for="exampleInputEmail1">Reason <span style="color:red" aria-hidden="true"
+                class="required">*</span></label>
+            <textarea placeholder="Enter Reason" rows="5" cols="50" class="form-control" name="reason"
+              id="reason"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger delete-confirm1">Cancel Project <i
+                class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="delete_project_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="delete_project_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="delete_id" id="delete_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to delete this project?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger delete-confirm">Yes, delete it! <i
+                class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_notification.js')}}"></script>
+
+<script>
+  // BS-Stepper Init
+  document.addEventListener('DOMContentLoaded', function () {
+    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+  })
+
+  $(document).ready(function () {
+    var i = 1;
+    var k = 1;
+    var l = 1;
+    $('#add_stakeholder').click(function () {
+      i++
+      $('#stakeholder_form').append('<div id="row-stakeholder' + i +
+        '"><br><button type="button" name="remove" id="' + i +
+        '" class="btn btn-sm btn-danger btn-remove-stakeholder" style="margin-left:930px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Stakeholder Name <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Stakeholder Name" class="form-control" name="stakeholder_name[]" id="stakeholder_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Role <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Role" class="form-control" name="role[]" name="role[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Project Expectancy <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Expectation" rows="5" cols="20" class="form-control" name="expectation[]" id="expectation[]"></textarea> </div></div>'
+      )
+    });
+
+    $(document).on('click', '.btn-remove-stakeholder', function () {
+      var button_id = $(this).attr("id");
+      $('#row-stakeholder' + button_id + '').remove();
+      $('#rows-stakeholder' + button_id + '').remove();
+    });
+
+    $('#add_requirement').click(function () {
+      k++
+      $('#requirement_form').append('<div id="row-requirement' + k +
+        '"><br><button type="button" name="remove" id="' + k +
+        '" class="btn btn-danger btn-sm btn-remove-requirement" style="margin-left:930px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Task Name <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Task Name" class="form-control name_list" name="task_name[]" id="task_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Estimated Cost <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="number" placeholder="Enter Cost" class="form-control" name="task_cost[]" id="task_cost[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control" name="task_description[]" id="task_description[]"></textarea> </div> </div>'
+      )
+    });
+
+    $(document).on('click', '.btn-remove-requirement', function () {
+      var button_id = $(this).attr("id");
+      $('#row-requirement' + button_id + '').remove();
+      $('#rows-requirement' + button_id + '').remove();
+    });
+
+    $(document).on('click', '.btn-remove-edit-requirement', function () {
+      var id = this.value;
+      var button_id = $(this).attr("id");
+      $('#row-requirement' + button_id + '').remove();
+      $('#rows-requirement' + button_id + '').remove();
+
+      $.ajax({
+        url: '/budget_requirements/' + id,
+        type: "DELETE",
+        data: {
+          id: id,
+        },
+        dataType: "JSON",
+
+        success: function (data) {
+          console.log('alaws na')
+        }
+      })
+    });
+
+    $(document).on('click', '.btn-remove-edit-stakeholder', function () {
+      var id = this.value;
+      var button_id = $(this).attr("id");
+      $('#row-stakeholders' + button_id + '').remove();
+      $('#rows-stakeholders' + button_id + '').remove();
+
+      $.ajax({
+        url: '/stakeholder/' + id,
+        type: "DELETE",
+        data: {
+          id: id,
+        },
+        dataType: "JSON",
+
+        success: function (data) {
+          console.log('alaws na')
+        }
+      })
+    });
+
+    $('#add_risk').click(function () {
+      k++
+      $('#risk_form').append('<div id="row-risk' + k + '"><br><button type="button" name="remove" id="' + k +
+        '" class="btn btn-sm btn-danger btn-remove-risk" style="margin-left:930px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-4"> <label for="exampleInputEmail1">Project Risk <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Project Risk" class="form-control name_list" name="risk_name[]" id="risk_name[]"> </div> <div class="form-group col-sm-4"> <label for="exampleInputEmail1">Risk Occuring <span style="color:red" aria-hidden="true" class="required">*</span></label> <select class="form-control select2bs4" style="width: 100%;" id="occuring_possibility[]" name="occuring_possibility[]"> <option selected disabled value="">Select Risk Occuring</option> <option value="High">High</option> <option value="Medium">Medium</option> <option value="Low">Low</option> </select> </div> <div class="form-group col-sm-4"> <label for="exampleInputEmail1">Impact <span style="color:red" aria-hidden="true" class="required">*</span></label> <select class="form-control select2bs4" style="width: 100%;" id="impact[]" name="impact[]"> <option selected disabled value="">Select Impact</option> <option value="High">High</option> <option value="Medium">Medium</option> <option value="Low">Low</option> </select> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control" name="risk_description[]" id="risk_description[]"></textarea> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Mitigating Action <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Mitigating Action" rows="5" cols="20" class="form-control" name="mitigating_action[]" id="mitigating_action[]"></textarea> </div> </div>'
+      )
+    });
+
+    $(document).on('click', '.btn-remove-risk', function () {
+      var button_id = $(this).attr("id");
+      $('#row-risk' + button_id + '').remove();
+      $('#rows-risk' + button_id + '').remove();
+    });
+
+    var ajaxRequest, registrationStatus;
+    var today = new Date();
+    var value = $(this).val();
+    clearTimeout(ajaxRequest);
+    ajaxRequest = setTimeout(function (e) {
+      $.ajax({
+        url: '/projects/department/approval_status/Approved/'+user_id,
+        type: "GET",
+        dataType: "JSON",
+        async: true,
+
+        success: function (data) {
+          var project = data;
+
+          for (var i = 0; i < project.length; i++) {
+            if (project[i].progress_status == 'On Progress' && today >= new Date(project[i].end_date)
+              .getTime()) {
+              progress_status = "Delayed";
+              $.ajax({
+                url: '/projects/auto_update/' + project[i].id,
+                type: "PUT",
+                data: {
+                  progress_status: progress_status
+                },
+                dataType: "JSON",
+
+                success: function (data) {
+                  var project = data;
+                  toastr.info('Successfully updated delayed project.')
+                }
+                // ajax closing tag
+              })
+            }
+          }
+          refresh1();
+          refresh2();
+          refresh3();
+          refresh4();
+          refresh5();
+          refresh6();
+        }
+      });
+    }, 100, value);
+  });
+
+  $('.select2bs4').select2()
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("start_date").setAttribute("min", today);
+  document.getElementById("end_date").setAttribute("min", today);
+
+  // $('#document').on('change', function (e) {
+  //   //get the file name
+  //   var fileName = e.target.files[0].name;
+  //   //replace the "Choose a file" label
+  //   $(this).next('.custom-file-label').html(fileName);
+  // })
+
+  function project_table() {
+    projectsDataTable = $('#projects_table').DataTable({
+      ajax: {
+        url: "/projects/department/approval_status/Approved/" + user_id,
+        dataSrc: "",
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.type + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.project_user.first_name + " " + row.project_user.last_name +
+              '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            return manager
+          }
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            if (data == "On Progress") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else if (data == "Completed") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else if (data == "Cancelled") {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-redo mr-1"></i> ' + row
+                .progress_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total = 0;
+            var total_task = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              if (row.progress_status == "Cancelled") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1 mt-1"></i>' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-edit mr-1"></i>' +
+                  '</div>' +
+                  '<div>Edit Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-trash-alt mr-1"></i>' +
+                  '</div>' +
+                  '<div>Delete Project</div>' +
+                  '</button>'
+              } else if (row.progress_status == "Completed") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-edit mr-1"></i>' +
+                  '</div>' +
+                  '<div>Edit Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-trash-alt mr-1"></i>' +
+                  '</div>' +
+                  '<div>Delete Project</div>' +
+                  '</button>'
+              } else if (row.progress_status == "On Hold") {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-edit mr-1"></i>' +
+                  '</div>' +
+                  '<div>Edit Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-trash-alt mr-1"></i>' +
+                  '</div>' +
+                  '<div>Delete Project</div>' +
+                  '</button>' +
+                  '<div class="dropdown-divider"></div>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-times-circle mr-1"></i>' +
+                  '</div>' +
+                  '<div>Cancel Project</div>' +
+                  '</button>'
+              } else {
+                return '<div class="text-center dropdown">' +
+                  '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i>' +
+                  '</div>' +
+                  '<div class="dropdown-menu dropdown-menu-right">' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-list mr-1"></i>' +
+                  '</div>' +
+                  '<div>View Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-check mr-1"></i>' +
+                  '</div>' +
+                  '<div>Mark as Completed</div>' +
+                  '</button>' +
+                  '<div class="dropdown-divider"></div>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-edit mr-1"></i>' +
+                  '</div>' +
+                  '<div>Edit Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-trash-alt mr-1"></i>' +
+                  '</div>' +
+                  '<div>Delete Project</div>' +
+                  '</button>' +
+                  '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                  '<div style="width: 2rem">' +
+                  '<i class="fas fa-times-circle mr-1"></i>' +
+                  '</div>' +
+                  '<div>Cancel Project</div>' +
+                  '</button>'
+              }
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function on_progress_table() {
+    onProgressDataTable = $('#on_progress_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/On%20Progress/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            return manager
+          }
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-times-circle mr-1"></i>' +
+                '</div>' +
+                '<div>Cancel Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function completed_table() {
+    completedDataTable = $('#completed_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/Completed/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            return manager
+          }
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function cancelled_table() {
+    cancelledDataTable = $('#cancelled_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/Cancelled/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            return manager
+          }
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total_task = 0;
+            var total = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].active_status == "Active") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function delayed_table() {
+    delayedDataTable = $('#delayed_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/Delayed/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            return manager
+          }
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total = 0;
+            var total_task = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].progress_status == "Done") {
+                total_task++
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-cancel">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-times-circle mr-1"></i>' +
+                '</div>' +
+                '<div>Cancel Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function on_hold_table() {
+    onHoldDataTable = $('#on_hold_table').DataTable({
+      ajax: {
+        url: "/projects/department/progress_status/On%20Hold/"+user_id,
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            return manager
+          }
+        },
+        {
+          data: "type"
+        },
+        {
+          data: "cost",
+          render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            var project_task = row.project_task
+            var total = 0;
+            var total_task = 0;
+            var completed = 0;
+            for (var i = 0; i < project_task.length; i++) {
+              if (project_task[i].progress_status == "Done") {
+                total_task++;
+                if (project_task[i].progress_status == "Done") {
+                  completed++;
+                }
+              }
+            }
+            async function processArray(array) {
+              // map array to promises
+              const promises = array.map(delayedLog);
+              // wait until all promises are resolved
+              await Promise.all(promises);
+            }
+            if (total_task != 0) {
+              total = (completed / total_task) * 100;
+            } else {
+              total = 0;
+            }
+            if (total <= 25) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 50) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-warning" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else if (total <= 75) {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            } else {
+              return '<div class="project_progress"><div class="progress progress-sm rounded">' +
+                '<div class="progress-bar bg-success" role="progressbar" aria-valuenow="' + total +
+                '" aria-valuemin="0" aria-valuemax="100" style="width: ' + total + '%"></div>' +
+                '</div></div><small>' + total.toFixed(2) + '% complete</small>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Project</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Project</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  // function get_all_department() {
+  //   $.ajax({
+  //     url: '/departments/',
+  //     type: "GET",
+  //     dataType: "JSON",
+
+  //     success: function (data) {
+  //       var departments = data.data;
+
+  //       var html = "";
+
+  //       if (departments.length == 0) {
+  //         var html = `<option>No Department</option>`;
+  //       } else {
+  //         var html = "<option selected disabled>Select Department</option>";
+  //       }
+
+  //       for (var i = 0; i < departments.length; i++) {
+  //         html += `<option value="${departments[i].id}">${departments[i].name}</option>`
+  //       }
+
+  //       if (departments.length == 0) {
+  //         var html1 = `<option>No Department</option>`;
+  //       } else {
+  //         var html1 = "<option disabled>Select Department</option>";
+  //       }
+
+  //       for (var i = 0; i < departments.length; i++) {
+  //         html1 += `<option value="${departments[i].id}">${departments[i].name}</option>`
+  //       }
+
+  //       $('#department_id').html(html);
+  //       $('#edit_department_id').html(html1);
+  //     }
+  //   })
+  // }
+
+  // $("#department_id").change(function () {
+  //   get_all_users1();
+  // });
+  // $("#edit_department_id").change(function () {
+  //   get_all_users2();
+  // });
+
+  function get_all_users1() {
+    $.ajax({
+      url: '/employee/user/' + user_id,
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var department_id = data.department_id
+
+        $.ajax({
+          url: '/users/department/' + department_id,
+          type: "GET",
+          dataType: "JSON",
+
+          success: function (data) {
+            var users = data;
+            var html = "";
+
+            for (var i = 0; i < users.length; i++) {
+              html +=
+                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name}</option>`
+            }
+
+            $('#department_id').val(department_id);
+            $('#manager_id').html(html);
+            $('#edit_manager_id').html(html);
+          },
+
+          error: function (detail) {
+            console.log(detail.responseJSON.detail)
+            var html = `<option selected disabled>${detail.responseJSON.detail}</option>`;
+
+            $('#manager_id').html(html);
+          }
+        })
+      }
+    })
+  }
+
+  // function get_all_users2() {
+  //   var edit_department_id = document.getElementById('edit_department_id').value;
+
+  //   $.ajax({
+  //     url: '/users/department/' + edit_department_id,
+  //     type: "GET",
+  //     dataType: "JSON",
+
+  //     success: function (data) {
+  //       var users = data;
+
+  //       var html = "";
+
+  //       for (var i = 0; i < users.length; i++) {
+  //         html +=
+  //           `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name}</option>`
+  //       }
+
+  //       $('#edit_manager_id').html(html);
+  //     },
+
+  //     error: function (detail) {
+  //       console.log(detail.responseJSON.detail)
+
+  //       var html = `<option selected disabled>${detail.responseJSON.detail}</option>`;
+
+  //       $('#edit_manager_id').html(html);
+  //     }
+  //   })
+  // }
+
+  // get_all_department();
+  get_all_users1();
+  project_table();
+  on_progress_table();
+  completed_table();
+  cancelled_table();
+  delayed_table();
+  on_hold_table();
+
+  $(function () {
+    $('#add_project_form').validate({
+      rules: {
+        department_id: {
+          required: true,
+        },
+        name: {
+          required: true,
+        },
+        cost: {
+          required: true
+        },
+        manager_id: {
+          required: true,
+        },
+        type: {
+          required: true,
+        },
+        start_date: {
+          required: true,
+          date: true
+        },
+        end_date: {
+          required: true,
+          date: true
+        },
+        background: {
+          required: true
+        },
+        coverage: {
+          required: true
+        },
+        assumptions: {
+          required: true
+        },
+        constraints: {
+          required: true
+        },
+        target_beneficiary: {
+          required: true
+        },
+        objectives: {
+          required: true
+        },
+        expected_output: {
+          required: true
+        },
+        "task_name[]": {
+          required: true
+        },
+        "task_cost[]": {
+          required: true
+        },
+        "task_description[]": {
+          required: true
+        },
+        document: {
+          required: true
+        },
+        "stakeholder_name[]": {
+          required: true
+        },
+        "role[]": {
+          required: true
+        },
+        "expectation[]": {
+          required: true
+        },
+        "risk_name[]": {
+          required: true
+        },
+        "risk_description[]": {
+          required: true
+        },
+        "occuring_possibility[]": {
+          required: true
+        },
+        "impact[]": {
+          required: true
+        },
+        "mitigating_action[]": {
+          required: true
+        },
+      },
+      messages: {
+        department_id: {
+          required: "Please select department",
+        },
+        name: {
+          required: "Please enter project name",
+        },
+        manager_id: {
+          required: "Please select project manager",
+        },
+        type: {
+          required: "Please select project type",
+        },
+        cost: {
+          required: "Please enter project cost",
+        },
+        start_date: {
+          required: "Please select start date",
+        },
+        end_date: {
+          required: "Please select end date",
+        },
+        background: {
+          required: "Please enter background",
+        },
+        coverage: {
+          required: "Please enter coverage",
+        },
+        assumptions: {
+          required: "Please enter assumptions",
+        },
+        constraints: {
+          required: "Please enter constraints",
+        },
+        target_beneficiary: {
+          required: "Please enter target beneficiary",
+        },
+        objectives: {
+          required: "Please enter objectives",
+        },
+        expected_output: {
+          required: "Please enter deliverables",
+        },
+        "task_name[]": {
+          required: "Please enter name",
+        },
+        "task_description[]": {
+          required: "Please enter description",
+        },
+        "task_cost[]": {
+          required: "Please enter cost",
+        },
+        document: {
+          required: "Please select document",
+        },
+        "stakeholder_name[]": {
+          required: "Please enter name",
+        },
+        "role[]": {
+          required: "Please enter role",
+        },
+        "expectation[]": {
+          required: "Please enter expectation",
+        },
+        "risk_name[]": {
+          required: "Please enter name",
+        },
+        "risk_description[]": {
+          required: "Please enter description",
+        },
+        "occuring_possibility[]": {
+          required: "Please select occuring possiblity",
+        },
+        "impact[]": {
+          required: "Please select impact",
+        },
+        "mitigating_action[]": {
+          required: "Please enter mitigating action",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+
+        // ADD PROJECT
+        var form = $('#add_project_form');
+        var department_id = document.getElementById("department_id").value
+        var name = document.getElementById("name").value
+        var manager_id = document.getElementById("manager_id").value
+        var type = document.getElementById("type").value
+        var cost = document.getElementById("cost").value
+        var start_date = document.getElementById("start_date").value
+        var end_date = document.getElementById("end_date").value
+        var background = document.getElementById("background").value
+        var coverage = document.getElementById("coverage").value
+        var assumptions = document.getElementById("assumptions").value
+        var constraints = document.getElementById("constraints").value
+        var target_beneficiaries = document.getElementById("target_beneficiaries").value
+        var objectives = document.getElementById("objectives").value
+        var expected_output = document.getElementById("expected_output").value
+        var project_id;
+
+        // ajax opening tag
+        $.ajax({
+          url: '/projects/create_project/',
+          type: "POST",
+          data: {
+            name: name,
+            background: background,
+            coverage: coverage,
+            assumptions: assumptions,
+            constraints: constraints,
+            target_beneficiaries: target_beneficiaries,
+            objectives: objectives,
+            expected_output: expected_output,
+            cost: cost,
+            type: type,
+            start_date: start_date,
+            end_date: end_date,
+            manager_id: manager_id,
+            department_id: department_id,
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            var project = data.data;
+            project_id = project.id
+
+            toastr.success('Successfully added new project.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            refresh5();
+            refresh6();
+
+            // ADD FILE
+            formData = new FormData();
+            formData.append('project_id', project.id);
+            formData.append('file', $('#document')[0].files[0]);
+
+            $.ajax({
+              url: '/document/',
+              type: "POST",
+              processData: false,
+              data: formData,
+              contentType: false,
+
+              success: function (data) {
+                console.log('success')
+              }
+              // ajax closing tag
+            })
+
+            stakeholder_names = $('input[name="stakeholder_name[]"]').map(
+              function () {
+                return this.value;
+              }).get();
+
+            roles = $('input[name="role[]"]').map(function () {
+              return this.value;
+            }).get();
+
+            expectations = $('textarea[name="expectation[]"]').map(function () {
+              return this.value;
+            }).get();
+
+            for (var i = 0; i < stakeholder_names.length; i++) {
+              for (var i = 0; i < roles.length; i++) {
+                for (var i = 0; i < expectations.length; i++) {
+                  $.ajax({
+                    url: '/stakeholder/',
+                    type: "POST",
+                    data: {
+                      name: stakeholder_names[i],
+                      role: roles[i],
+                      expectation: expectations[i],
+                      project_id: project.id,
+                    },
+                    dataType: "JSON",
+
+                    success: function (data) {
+                      console.log('success')
+                    }
+                    // ajax closing tag
+                  })
+                }
+              }
+            }
+
+            task_names = $('input[name="task_name[]"]').map(
+              function () {
+                return this.value;
+              }).get();
+
+            task_costs = $('input[name="task_cost[]"]').map(function () {
+              return this.value;
+            }).get();
+
+            task_descriptions = $('textarea[name="task_description[]"]').map(function () {
+              return this.value;
+            }).get();
+
+            for (var i = 0; i < task_names.length; i++) {
+              for (var i = 0; i < task_costs.length; i++) {
+                for (var i = 0; i < task_descriptions.length; i++) {
+                  $.ajax({
+                    url: '/budget_requirements/',
+                    type: "POST",
+                    data: {
+                      name: task_names[i],
+                      description: task_descriptions[i],
+                      cost: task_costs[i],
+                      project_id: project.id,
+                    },
+                    dataType: "JSON",
+
+                    success: function (data) {
+                      console.log('success')
+                      $("#add_project_form").trigger("reset");
+                      $("#modal-default").modal('hide');
+                    }
+                    // ajax closing tag
+                  })
+                }
+              }
+            }
+          }
+          // ajax closing tag
+        });
+      }
+    });
+
+    $('#edit_project_form').validate({
+      rules: {
+        edit_name: {
+          required: true,
+        },
+        edit_manager_id: {
+          required: true
+        },
+        edit_type: {
+          required: true
+        },
+        edit_cost: {
+          required: true
+        },
+        edit_start_date: {
+          required: true
+        },
+        edit_end_date: {
+          required: true
+        },
+        edit_background: {
+          required: true
+        },
+        edit_coverage: {
+          required: true
+        },
+        edit_assumptions: {
+          required: true
+        },
+        edit_constraints: {
+          required: true
+        },
+        edit_target_beneficiaries: {
+          required: true
+        },
+        edit_objectives: {
+          required: true
+        },
+        edit_expected_output: {
+          required: true
+        },
+      },
+      messages: {
+        edit_name: {
+          required: "Please enter project name",
+        },
+        edit_cost: {
+          required: "Please enter project cost",
+        },
+        edit_manager_id: {
+          required: "Please select project manager",
+        },
+        edit_type: {
+          required: "Please select project type",
+        },
+        edit_start_date: {
+          required: "Please select start date",
+        },
+        edit_end_date: {
+          required: "Please select end date",
+        },
+        edit_background: {
+          required: "Please enter background",
+        },
+        edit_target_beneficiaries: {
+          required: "Please enter target beneficiaries",
+        },
+        edit_coverage: {
+          required: "Please enter coverage",
+        },
+        edit_assumptions: {
+          required: "Please enter assumptions",
+        },
+        edit_constraints: {
+          required: "Please enter constraints",
+        },
+        edit_objectives: {
+          required: "Please enter objectives",
+        },
+        edit_expected_output: {
+          required: "Please enter expected output",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // EDIT PROJECT
+        var id = document.getElementById("edit_id").value
+        var name = document.getElementById("edit_name").value
+        var background = document.getElementById("edit_background").value
+        var coverage = document.getElementById("edit_coverage").value
+        var assumptions = document.getElementById("edit_assumptions").value
+        var constraints = document.getElementById("edit_constraints").value
+        var target_beneficiaries = document.getElementById("edit_target_beneficiaries").value
+        var objectives = document.getElementById("edit_objectives").value
+        var expected_output = document.getElementById("edit_expected_output").value
+        var cost = document.getElementById("edit_cost").value
+        var type = document.getElementById("edit_type").value
+        var start_date = document.getElementById("edit_start_date").value
+        var end_date = document.getElementById("edit_end_date").value
+        var manager_id = document.getElementById("edit_manager_id").value
+        var department_id = document.getElementById("edit_department_id").value
+        var form = $('#edit_project_form');
+
+        $.ajax({
+          url: '/projects/' + id,
+          type: "PUT",
+          data: {
+            name: name,
+            background: background,
+            coverage: coverage,
+            assumptions: assumptions,
+            constraints: constraints,
+            target_beneficiaries: target_beneficiaries,
+            objectives: objectives,
+            expected_output: expected_output,
+            cost: cost,
+            type: type,
+            start_date: start_date,
+            end_date: end_date,
+            manager_id: manager_id,
+            department_id: department_id,
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#edit_project_form_modal").modal('hide');
+            toastr.info('Successfully updated project.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            refresh5();
+            refresh6();
+          }
+        })
+      }
+    });
+
+    $('#edit_requirement_form').validate({
+      rules: {
+        'edit_task_name[]': {
+          required: true,
+        },
+        'edit_task_cost[]': {
+          required: true,
+        },
+        'edit_task_description[]': {
+          required: true,
+        },
+      },
+      messages: {
+        'edit_task_name[]': {
+          required: "Please enter name",
+        },
+        'edit_task_cost[]': {
+          required: "Please enter cost",
+        },
+        'edit_task_description[]': {
+          required: "Please enter description",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        var form = $('#edit_requirement_form');
+
+        var project_id = document.getElementById("edit_task_project_id").value
+
+        edit_task_ids = $('input[name="edit_task_id[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        edit_task_names = $('input[name="edit_task_name[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        edit_task_costs = $('input[name="edit_task_cost[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        edit_task_descriptions = $('textarea[name="edit_task_description[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        for (var i = 0; i < edit_task_ids.length; i++) {
+          for (var i = 0; i < edit_task_names.length; i++) {
+            for (var i = 0; i < edit_task_costs.length; i++) {
+              for (var i = 0; i < edit_task_descriptions.length; i++) {
+                $.ajax({
+                  url: '/budget_requirements/' + edit_task_ids[i],
+                  type: "PUT",
+                  data: {
+                    id: edit_task_ids[i],
+                    name: edit_task_names[i],
+                    cost: edit_task_costs[i],
+                    description: edit_task_descriptions[i],
+                  },
+                  dataType: "JSON",
+
+                  success: function (data) {
+                    $("#edit_project_form_modal").modal('hide');
+                    toastr.options = {
+                        "preventDuplicates": true,
+                    }
+                    toastr.info('Successfully updated a budget requirements.')
+                  }
+                })
+              }
+            }
+          }
+        }
+      }
+    });
+
+    $('#edit_stakeholder_form').validate({
+      rules: {
+        'edit_stakeholder_name[]': {
+          required: true,
+        },
+        'edit_stakeholder_role[]': {
+          required: true,
+        },
+        'edit_stakeholder_expectation[]': {
+          required: true,
+        },
+      },
+      messages: {
+        'edit_stakeholder_name[]': {
+          required: "Please enter name",
+        },
+        'edit_stakeholder_role[]': {
+          required: "Please enter role",
+        },
+        'edit_stakeholder_expectation[]': {
+          required: "Please enter expectation",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        var form = $('#edit_stakeholder_form');
+
+        var project_id = document.getElementById("edit_task_project_id").value
+
+        edit_stakeholder_ids = $('input[name="edit_stakeholder_id[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        edit_stakeholder_names = $('input[name="edit_stakeholder_name[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        edit_stakeholder_roles = $('input[name="edit_stakeholder_role[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        edit_stakeholder_expectations = $('textarea[name="edit_stakeholder_expectation[]"]').map(function () {
+          return this.value;
+        }).get();
+
+        for (var i = 0; i < edit_stakeholder_ids.length; i++) {
+          for (var i = 0; i < edit_stakeholder_names.length; i++) {
+            for (var i = 0; i < edit_stakeholder_roles.length; i++) {
+              for (var i = 0; i < edit_stakeholder_expectations.length; i++) {
+                $.ajax({
+                  url: '/stakeholder/' + edit_stakeholder_ids[i],
+                  type: "PUT",
+                  data: {
+                    id: edit_stakeholder_ids[i],
+                    name: edit_stakeholder_names[i],
+                    role: edit_stakeholder_roles[i],
+                    expectation: edit_stakeholder_expectations[i],
+                  },
+                  dataType: "JSON",
+
+                  success: function (data) {
+                    $("#edit_project_form_modal").modal('hide');
+                    toastr.options = {
+                        "preventDuplicates": true,
+                    }
+                    toastr.info('Successfully updated a stakeholder.')
+                  }
+                })
+              }
+            }
+          }
+        }
+      }
+    });
+
+    $('#cancel_project_form').validate({
+      rules: {
+        reason: {
+          required: true,
+        },
+      },
+      messages: {
+        reason: {
+          required: "Please enter reason",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // CANCEL PROJECT
+        var id = document.getElementById("cancel_id").value
+        var remarks = document.getElementById("reason").value
+
+        $.ajax({
+          url: '/projects/cancel/' + id,
+          type: "PUT",
+          data: {
+            id: id,
+            remarks: remarks
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#cancel_project_form_modal").modal('hide');
+            toastr.info('Successfully cancelled a project.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            refresh5();
+            refresh6();
+          }
+        })
+      }
+    });
+  });
+
+  function refresh1() {
+    var url = "/projects/department/approval_status/Approved/"+user_id;
+    projectsDataTable.ajax.url(url).load();
+  }
+
+  function refresh2() {
+    var url = "/projects/department/progress_status/On%20Progress/"+user_id;
+    onProgressDataTable.ajax.url(url).load();
+  }
+
+  function refresh3() {
+    var url = "/projects/department/progress_status/Completed/"+user_id;
+    completedDataTable.ajax.url(url).load();
+  }
+
+  function refresh4() {
+    var url = "/projects/department/progress_status/Cancelled/"+user_id;
+    cancelledDataTable.ajax.url(url).load();
+  }
+
+  function refresh5() {
+    var url = "/projects/department/progress_status/Delayed/"+user_id;
+    delayedDataTable.ajax.url(url).load();
+  }
+
+  function refresh6() {
+    var url = "/projects/department/progress_status/On%20Hold/"+user_id;
+    onHoldDataTable.ajax.url(url).load();
+  }
+
+  // CREATE PROJECT
+  // $(document).on("click", ".btn-add", function () {
+  //   var id = this.value;
+  //   document.getElementById("add_project_form").reset();
+  //   $("#modal-default").modal('show');
+  // });
+
+  $(document).on("click", ".btn-add", function () {
+    window.location.href = "http://127.0.0.1:8000/department_head/create_project";
+  });
+
+  // VIEW PROJECT
+  $(document).on("click", ".btn-view", function () {
+    var id = this.value;
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        window.location.href = "http://127.0.0.1:8000/department_head/project_details/" + project.id;
+      }
+    })
+  });
+
+  // MARK AS COMPLETED PROJECT
+  $(document).on("click", ".btn-mark", function () {
+    var id = this.value;
+    $('#mark_project_form_modal').modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        $('#mark_id').val(project.id);
+      }
+    })
+  });
+
+  // MARK AS COMPLETED PROJECT
+  $('.mark-confirm').on('click', function (e) {
+    e.preventDefault();
+    $('#mark_project_form_modal').modal('show');
+    var id = document.getElementById("mark_id").value
+    var form = $('#mark_project_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/projects/mark_completed/' + id,
+      type: "PUT",
+      data: form.serialize(),
+      dataType: "JSON",
+
+      success: function (data) {
+        refresh1();
+        refresh2();
+        refresh3();
+        refresh4();
+        refresh5();
+        refresh6();
+        toastr.info('Successfully marked as completed project.')
+        $('#mark_project_form_modal').modal('hide');
+      }
+      // ajax closing tag
+    })
+  });
+
+  // EDIT PROJECT
+  $(document).on("click", ".btn-edit", function () {
+    var id = this.value;
+    $("#edit_project_form_modal").modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        $('#edit_id').val(id);
+        $('#edit_name').val(project.name);
+        $('#edit_background').val(project.background);
+        $('#edit_coverage').val(project.coverage);
+        $('#edit_assumptions').val(project.assumptions);
+        $('#edit_constraints').val(project.constraints);
+        $('#edit_target_beneficiaries').val(project.target_beneficiaries);
+        $('#edit_objectives').val(project.objectives);
+        $('#edit_expected_output').val(project.expected_output);
+        $('#edit_department_id').val(project.department_id);
+        $('#edit_manager_id').val(project.manager_id);
+        $('#edit_cost').val(project.cost);
+        $('#edit_type').val(project.type);
+        $('#edit_start_date').val(moment(project.start_date).format('YYYY-MM-DD'));
+        $('#edit_end_date').val(moment(project.end_date).format('YYYY-MM-DD'));
+      }
+    })
+
+    $.ajax({
+      url: '/budget_requirements/project/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        $('#edit_requirement_forms').empty()
+
+        var requirements = data;
+        var j = 0;
+
+        for (var i = 0; i < requirements.length; i++) {
+          j++;
+          $('#edit_task_project_id').val(requirements[i].project_id);
+
+          $('#edit_requirement_forms').prepend('<div id="row-requirement' + j +
+            '"><br><button type="button" value="' + requirements[i].id + '" name="remove" id="' + j +
+            '" class="btn btn-sm btn-danger btn-remove-edit-requirement" style="margin-left:970px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"><input type="hidden" value="' +
+            requirements[i].id +
+            '" class="form-control name_list" name="edit_task_id[]" id="edit_task_id[]"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Task Name <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Task Name" class="form-control name_list" value="' +
+            requirements[i].name +
+            '" name="edit_task_name[]" id="edit_task_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Estimated Cost <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="number" placeholder="Enter Cost" class="form-control" value="' +
+            requirements[i].cost +
+            '" name="edit_task_cost[]" id="edit_task_cost[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control" name="edit_task_description[]" id="edit_task_description[]">' +
+            requirements[i].description + '</textarea> </div> </div>'
+          )
+        }
+      }
+    })
+
+    $.ajax({
+      url: '/stakeholder/project/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        $('#edit_stakeholder_forms').empty()
+
+        var stakeholders = data;
+        var j = 0;
+
+        for (var i = 0; i < stakeholders.length; i++) {
+          j++;
+          $('#edit_stakeholder_project_id').val(stakeholders[i].project_id);
+
+          $('#edit_stakeholder_forms').prepend('<div id="row-stakeholders' + j +
+            '"><br><button type="button" value="' + stakeholders[i].id + '" name="remove" id="' + j +
+            '" class="btn btn-sm btn-danger btn-remove-edit-stakeholder" style="margin-left:970px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"><input type="hidden" value="' +
+            stakeholders[i].id +
+            '" class="form-control name_list" name="edit_stakeholder_id[]" id="edit_stakeholder_id[]"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Stakeholder <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Stakeholder Name" class="form-control name_list" value="' +
+            stakeholders[i].name +
+            '" name="edit_stakeholder_name[]" id="edit_stakeholder_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Role <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Role" class="form-control" value="' +
+            stakeholders[i].role +
+            '" name="edit_stakeholder_role[]" id="edit_stakeholder_role[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Project Expectancy <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Expectation" rows="5" cols="20" class="form-control" name="edit_stakeholder_expectation[]" id="edit_stakeholder_expectation[]">' +
+            stakeholders[i].expectation + '</textarea> </div> </div>'
+          )
+        }
+      }
+    })
+  });
+
+  // DELETE PROJECT
+  $(document).on("click", ".btn-delete", function () {
+    var id = this.value;
+    $('#delete_project_form_modal').modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        $('#delete_id').val(project.id);
+      }
+    })
+  });
+
+  // DELETE PROJECT
+  $('.delete-confirm').on('click', function (e) {
+    e.preventDefault();
+    $('#delete_project_form_modal').modal('show');
+    var id = document.getElementById("delete_id").value
+    var form = $('#delete_project_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/projects/' + id,
+      type: "DELETE",
+      data: form.serialize(),
+      dataType: "JSON",
+
+      success: function (data) {
+        refresh1();
+        refresh2();
+        refresh3();
+        refresh4();
+        refresh5();
+        refresh6();
+        toastr.info('Successfully deleted project.')
+        $('#delete_project_form_modal').modal('hide');
+      }
+      // ajax closing tag
+    })
+  });
+
+  // CANCEL PROJECT
+  $(document).on("click", ".btn-cancel", function () {
+    var id = this.value;
+    $("#cancel_project_form_modal").modal('show');
+
+    $.ajax({
+      url: '/projects/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        $('#cancel_id').val(id);
+        $('#reason').val(project.remarks);
+      }
+    })
+  });
+</script>
+{%endblock%}

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% block head %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="description" content="FastAPI Starter" />
+  <meta name="author" content="Shinichi Okada" />
+
+  <title>{% block title %}{% endblock %} | Hospital Management System</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/fontawesome-free/css/all.min.css') }}" />
+
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet"
+    href="{{ url_for('static', path='//plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}" />
+
+  <!-- DataTables -->
+  <link rel="stylesheet"
+    href="{{ url_for('static', path='/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
+  <link rel="stylesheet"
+    href="{{ url_for('static', path='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
+  <link rel="stylesheet"
+    href="{{ url_for('static', path='/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
+
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url_for('static', path='//dist/css/adminlte.min.css') }}" />
+
+
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/toastr/toastr.min.css') }}" />
+
+  
+  
+  <!-- jQuery -->
+  <script src="{{ url_for('static', path='/plugins/jquery/jquery.min.js') }}"></script>
+
+    <!-- jquery knob -->
+<script src="{{ url_for('static', path='/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+  
+  <!-- jquery-validation -->
+  <script src="{{ url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+  
+
+  
+  
+  <!-- date formatter -->
+  <script src="{{ url_for('static', path='/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/moment/moment-with-locales.min.js') }}"></script>
+  
+ <!--date range picker  -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/daterangepicker/daterangepicker.css') }}" />
+
+  <script src="{{ url_for('static', path='/plugins/daterangepicker/daterangepicker.js') }}"></script>
+  <!-- select2 -->
+
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet"
+    href="{{ url_for('static', path='/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <!-- <script src="{{ url_for('static', path='/plugins/select2/js/select2.min.js') }}"></script> -->
+
+  <script src="{{ url_for('static', path='/plugins/select2/js/select2.full.min.js') }}"></script>
+
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/bs-stepper/css/bs-stepper.min.css') }}" />
+
+  <script src="{{ url_for('static', path='/dist/js/procurement/common.js') }}"></script>
+
+  {% endblock %}
+</head>
+
+<body class="
+      hold-transition
+      sidebar-mini
+      layout-fixed layout-navbar-fixed
+      user-select-none
+    ">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <div class="spinner-border text-primary" role="status" style="width: 2.5rem; height: 2.5rem;"></div>
+    </div>
+
+    <!-- Top Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+
+      <!-- Left navbar links toggler (for responsive) -->
+      <button class="nav-link navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Left navbar links -->
+      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <ul class="navbar-nav">
+
+
+          <!-- Sidebar Toggler -->
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+              <i class="fas fa-bars"></i>
+            </a>
+          </li>
+
+
+          <!-- Home -->
+          <li class="nav-item">
+            <a class="nav-link text-primary" href="/main-dashboard" role="button">
+              <i class="fas fa-home"></i>
+              <span class="d-inline-block d-md-none ml-1 ml-md-0">Home</span>
+            </a>
+          </li>
+
+
+
+          <!-- Hospital Core -->
+          <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Hospital Core</a>
+
+            <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">Patient Management</a></li>
+              <li><a href="#" class="dropdown-item">Treatment Management</a></li>
+              <li><a href="#" class="dropdown-item">Pharmacy</a></li>
+              <li><a href="#" class="dropdown-item">Medical Record</a></li>
+              <li><a href="#" class="dropdown-item">Doctors Management</a></li>
+              <li><a href="#" class="dropdown-item">Visitors Management</a></li>
+            </ul>
+          </li>
+
+          <!-- Human Resource -->
+          <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Human Resource</a>
+
+            <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">Core Human Capital Management</a></li>
+              <li><a href="#" class="dropdown-item">Recruitment Management</a></li>
+              <li><a href="#" class="dropdown-item">Time & Attendance</a></li>
+              <li><a href="#" class="dropdown-item">Performance Management</a></li>
+            </ul>
+          </li>
+
+          <!-- Finance -->
+          <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Finance</a>
+
+            <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="#" class="dropdown-item">General Ledger</a></li>
+              <li><a href="#" class="dropdown-item">Accounts Payable/Receivable</a></li>
+              <li><a href="#" class="dropdown-item">Collection/Disbursement</a></li>
+            </ul>
+          </li>
+
+          <!-- Logistics -->
+          <li class="nav-item dropdown">
+            <a href="#" data-toggle="dropdown"
+              class="{{ 'nav-link dropdown-toggle text-primary' if active_module == 'procurement' else 'nav-link dropdown-toggle' }}">Logistics</a>
+            <!-- {{ 'nav-link dropdown-toggle text-primary' if active_module == 'procurement' else 'nav-link dropdown-toggle' }} -->
+
+            <ul class="dropdown-menu dropdown-menu-left">
+              <li><a href="/procurement/dashboard1" class="dropdown-item">Procurement Management</a></li>
+
+
+              <li><a href="#" class="dropdown-item">Warehousing Management</a></li>
+              <li><a href="#" class="dropdown-item">Asset Management</a></li>
+              <li><a href="#" class="dropdown-item">Project Management</a></li>
+            </ul>
+          </li>
+
+
+     
+        </ul>
+      </div>
+
+      <!-- Right navbar links -->
+      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+
+                 <!-- Notifications Dropdown Menu -->
+                 <li class="nav-item dropdown">
+                  <a class="nav-link" data-toggle="dropdown" id="notif_dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge" id="new_notif"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="notif_body">
+                   
+                  </div>
+                </li>
+
+        <!-- User Menu -->
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+            <i class="fas fa-user-circle"></i>
+            <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-right">
+            <a href="#" class="dropdown-item d-flex align-items-center">
+              <div class="mr-3" style="width: 1.25rem">
+                <i class="fas fa-user"></i>
+              </div>
+              <span>Profile</span>
+            </a>
+            <a href="#" class="dropdown-item d-flex align-items-center">
+              <div class="mr-3" style="width: 1.25rem">
+                <i class="fas fa-cog"></i>
+              </div>
+              <span>Settings</span>
+            </a>
+
+            <div class="dropdown-divider"></div>
+
+            <a href="#" role="button" class="dropdown-item d-flex align-items-center" data-toggle="modal"
+              data-target="#logoutModal">
+              <div class="mr-3" style="width: 1.25rem">
+                <i class="fas fa-sign-out-alt"></i>
+              </div>
+              <span>Log out</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+      <!-- Brand Logo -->
+      <a href="../../index3.html" class="brand-link">
+        <img src="{{ url_for('static', path='/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+          class="brand-image img-circle border" style="opacity: 0.8" />
+        <span class="brand-text font-weight-light">HoMIES</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+
+        <!-- Sidebar user -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+          <!-- User Image -->
+          <div class="image">
+            <img src="{{ url_for('static', path='/dist/img/user2-160x160.jpg') }}" class="img-circle border"
+              alt="User Image">
+          </div>
+
+          <!-- User Full Name -->
+          <div class="info mr-1 w-100" id="userFullNameDisplay">
+
+            <!-- User Full Name -->
+            <a href="#" class="nav-item text-truncate" id="userFullName">Juan S. Dela Cruz</a>
+
+            <!-- User Position -->
+            <div class="small text-secondary text-truncate" id="userPosition"></div>
+
+            <!-- User Department -->
+            <div class="small text-secondary text-truncate" id="userDepartment"></div>
+          </div>
+        </div>
+
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+
+
+
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+    
+
+
+            <li class="nav-header">CORE</li>
+
+
+
+            <li class="nav-item">
+              <a href="/procurement/dashboard1"
+                class="{{ 'nav-link active' if active_page == 'dashboard' else 'nav-link' }}">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+
+            <li class="nav-header">REQUEST</li>
+            <li class="nav-item">
+              <a href="/procurement/purchase-request"
+                class="{{ 'nav-link active' if active_page == 'purchase_request' else 'nav-link' }}">
+                <i class="nav-icon fas fas fa-money-check"></i>
+                <p>Purchase Request</p>
+              </a>
+            </li>
+
+            <!-- <li class="nav-item">
+              <a href="/procurement/terms-of-reference"
+                class="{{ 'nav-link active' if active_page == 'terms_of_reference' else 'nav-link' }}">
+                <i class="nav-icon fas fas fa-money-check"></i>
+                <p>TOR for Project</p>
+              </a>
+            </li> -->
+
+            <li class="nav-item">
+              <a href="/procurement/request-list"
+                class="{{ 'nav-link active' if active_page == 'request_list' else 'nav-link' }}">
+                <i class="nav-icon fas fa-paste"></i>
+                <p>
+                  List of Request
+                  <!-- <span class="right badge badge-primary">99+</span> -->
+                </p>
+              </a>
+            </li>
+            <!-- <li class="nav-header">EVALUATION</li>
+            <li class="nav-item">
+              <a href="/procurement/vendor-evaluation"
+                class="{{ 'nav-link active' if active_page == 'vendor_evaluation' else 'nav-link' }}">
+                <i class="nav-icon fas fa-paste"></i>
+                <p>
+                  Vendor Assessment Evaluation
+                </p>
+              </a>
+            </li> -->
+
+            <li class="nav-header">BUDGET</li>
+            <li class="nav-item">
+              <a href="/procurement/our-budget"
+                class="{{ 'nav-link active' if active_page == 'dept_budegts' else 'nav-link' }}">
+                <i class="nav-icon fas fas fa-search-dollar"></i>
+                <p>Budget</p>
+              </a>
+            </li>
+      
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+
+      <!-- Sidebar Custom -->
+      <div class="sidebar-custom">
+        <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cogs"></i></a>
+        <button class="btn btn-sm btn-danger hide-on-collapse pos-right" onclick="$('#logout-title').html('Logout')" data-toggle="modal" data-target="#logoutModal">
+          <span>Log out</span>
+          <i class="fas fa-sign-out-alt ml-1"></i>
+        </button>
+      </div>
+      <!-- /.sidebar-custom -->
+    </aside>
+    <!-- /.main-sidebar -->
+
+    {% block content %} {% endblock %}
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-block"><b>Version</b> 3.1.0</div>
+      <strong>Copyright &copy; 2021 <a href="#">HMS</a>.</strong> All rights
+      reserved.
+    </footer>
+    <!-- /.main-footer -->
+  </div>
+  <!-- ./wrapper -->
+
+
+  <!-- Log Out Modal -->
+  <div class="modal fade" id="logoutModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="d-flex align-items-center">
+            <div>
+              <i class="text-secondary fas fa-sign-out-alt mr-1"></i>
+            </div>
+            <div class="modal-title" id="logout-title">Logout</div>
+          </div>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" onClick="logout();" class="btn btn-danger">Logout <i
+              class="fas fa-sign-out-alt ml-1"></i></button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% block scripts %}
+
+  <script>
+    if(localStorage.getItem("EMPLOYEETYPE") == "Procurement Officer"  || localStorage.getItem("EMPLOYEETYPE") == "Procurement Manager" ){
+      window.location.replace(baseURL+"login");
+ 
+}
+
+const loadNotif = () => {
+  $.ajax({
+    url: apiURL + "notification/procurement/p_dept_users/"+localStorage.getItem("DEPARTMENTID"),
+    type: "GET",
+    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    success: (data) => {
+   
+      $("#notif_body").empty();
+      let new_notif = 0;
+      let notif_body ='<span class="dropdown-item dropdown-header">'+data.length+' Notification(s)</span>';
+      $.each(data, function (i, responseData) {
+      if(responseData.status == "unread"){
+        new_notif +=1
+      }
+      // console.log(responseData.created_at)
+      if(i <= 5){
+
+        notif_body += 
+        '<div class="dropdown-divider"></div>'+
+        '<a href="/procurement/request-list" class="dropdown-item">'+
+          '<i class="fas fa-envelope mr-2"></i>'+responseData.title+
+        '<div>' +trimString(responseData.title, 10) +
+        '<span class="float-right text-muted text-sm">'+moment(responseData.created_at).fromNow()+'</span>'+ '</div>'+
+        '</a>';
+      }
+
+
+    });
+    notif_body += 
+    '<div class="dropdown-divider"></div>' +
+    '<a href="#" onclick="return showAllNotif()"  class="dropdown-item dropdown-footer">See All Notifications</a>'
+    
+    
+  
+    if(new_notif != 0) $('#new_notif').html(new_notif)
+    else $('#new_notif').html("")
+    $("#notif_body").append(notif_body)
+  
+    },
+    error: function (data) {
+   
+
+    },
+    
+  });
+}
+
+loadNotif()
+$(document).ready(function() {
+$('#notif_dropdown').click(function(){
+  $.ajax({
+    url: apiURL + "notification/procurement/p_dept_users/"+localStorage.getItem("DEPARTMENTID"),
+    type: "PUT",
+    contentType: "application/json",
+    dataType: "json",
+    // contentType: false,
+    processData: false,
+    cache: false,
+    data: JSON.stringify({
+      status: "read"
+    }),
+    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    success: (data) => {
+      // console.log("success")
+      loadNotif()
+
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+      // alert("some error");
+    },
+  });
+})
+});
+showAllNotif = () => {
+  $("#modal-notif").modal("show");
+
+}
+
+  </script>
+
+
+  <!-- Toastr -->
+  <script src="{{ url_for('static', path='/plugins/toastr/toastr.min.js') }}"></script>
+
+  <!-- Bootstrap 4 -->
+  <script src="{{ url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- overlayScrollbars -->
+  <script src="{{ url_for('static', path='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+  <!-- DataTables  & Plugins -->
+  <script src="{{ url_for('static', path='/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }} "></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+  <script
+    src="{{ url_for('static', path='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }} "></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/jszip/jszip.min.js') }}/"></script>
+<script src="{{ url_for('static', path='/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', path='/plugins/pdfmake/vfs_fonts.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-buttons/js/buttons.html5.min.js') }} "></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+  <script src="{{ url_for('static', path='/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ url_for('static', path='/dist/js/adminlte.min.js') }}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{{ url_for('static', path='/dist/js/demo.js') }}"></script>
+
+  <!-- BS-Stepper -->
+  <script src="{{ url_for('static', path='/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+  <script>
+    // BS-Stepper Init
+    // document.addEventListener('DOMContentLoaded', function () {
+    // window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    // })
+
+
+      // $(() => {
+      //   $('#example2').DataTable({
+      //     "paging": true,
+      //     "lengthChange": false,
+      //     "searching": false,
+      //     "ordering": true,
+      //     "info": true,
+      //     "autoWidth": false,
+      //     "responsive": true,
+      //   });
+      // });
+  </script>
+
+  {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,377 @@
+{% extends "public/vendor/vendor_base.html" %}
+{% set active_page = "invoice" %}
+
+{% block title %}Invoice{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Invoice</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Invoice</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+      <!-- form -->
+      <div class="row" id="div_form">
+        <div class="col-xl-12">
+          <form id="form_id" name="form_id" enctype="multipart/form-data">
+
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+            Invoice
+            </div>
+            <div class="card-body">
+             
+
+                <input type="hidden" id="uuid" name="uuid" />
+                <div class="row">
+             
+                  <div class="col-md-6">
+                    <label>Purchase order number</label>
+
+                    <select class="form-control select2" name="po_number" id="po_number">
+
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="row mt-5">
+               
+                  <div class="col-md-6">
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Purchase Order Date</label>
+                      </div>
+                      <div class="col-md-6">
+                        <p id="order_date" name="order_date"></p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Invoice Date</label>
+                      </div>
+                      <div class="col-md-6">
+                        <p id="invoice_date" name="invoice_date"></p>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Shipment Method</label>
+                      </div>
+                      <div class="col-md-6">
+                        <p id="shipping_method" name="shipping_method"></p>
+
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-6">
+                        <label>Payment Method</label>
+                      </div>
+
+                      <div class="col-md-6">
+                        <p id="payment_method" name="payment_method"></p>
+
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-md-6">
+                        <label>Payment Terms</label>
+                      </div>
+
+                      <div class="col-md-6">
+                        <p id="payment_terms" name="payment_terms"></p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-6">
+                    
+                    <div class="row mb-3">
+                      <div class="col-md-10">
+                        <label>Prepared By</label>
+                        <input type="text" class="form-control" id="prepared_by" name="prepared_by">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-10">
+                        <label>Due date</label>
+                        <input type="date" class="form-control" id="due_date" name="due_date">
+                        </div>
+                    </div>
+
+                 
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label>Billing Address</label>
+                        <textarea class="form-control" name="billing_address" id="billing_address"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <hr />
+
+                <h3 class="my-5">
+                  Ordered Items
+                </h3>
+                <div class="form-group row">
+                  <div class="col-md-12 dt-responsive table-responsive">
+                    <table id="po-detail-table" class="table table-hoverable table-bordered w-100">
+                      <thead>
+                        <tr>
+                          <th>Category</th>
+                          <th>Product Name</th>
+                          <!-- <th>Description</th> -->
+
+                          <th>Quantity</th>
+                          <th>Price Per Unit</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label>Notes</label>
+                        <textarea class="form-control" name="message" id="message"></textarea>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <label>Subtotal</label>
+                      </div>
+                      <div class="col-md-6">
+
+                        <span class="d-flex"> &#8369;<p id="po_subtotal"></p></span>
+
+                        <!-- <input class="form-control" id="" name=""  /> -->
+                      </div>
+                    </div>
+
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <label>Tax</label>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="d-flex"> &#8369;<p id="po_tax"></p></span>
+                      </div>
+                    </div>
+
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <label>Discount</label>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="d-flex"> &#8369;<p id="po_discount"></p></span>
+                      </div>
+                    </div>
+
+
+
+                    <hr />
+
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <h5>Total</h5>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="d-flex"> &#8369;<p id="po_total"></p></span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+
+                <div class="card-footer">
+
+                <div class="row">
+
+                  <div class="col-md-12 text-right set-btn">
+                    <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+                    <button type="button" class="btn btn-default bg-default"
+                      onclick="formReset('hide')">Cancel</button>
+
+
+
+                    <button type="submit" class="btn btn-primary submit" id="add-button">
+                      Submit Invoice
+                      <i class="fas fa-file-export ml-1"></i>
+                    </button>
+
+                  </div>
+                </div>
+
+           
+            </div>
+
+
+          </div>
+          <!-- end card body -->
+          </form>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end form -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="row">
+              <div class="col-6 
+                  d-sm-flex
+                  align-items-center">
+
+                <h3 class="card-title">Invoices</h3>
+              </div>
+              <div class="col-6 
+                  d-sm-flex
+                  align-items-center
+                  justify-content-end">
+
+                <div class="page-title-right">
+                  <button type="button" class="btn btn-sm btn-success" id="btn_add"
+                    onclick="formReset('show')"> Create Invoice
+                    <i class="fas fa-plus font-size-16 mr-1"></i> 
+                  </button>
+
+              
+
+                </div>
+
+              </div>
+            </div>
+            
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="data-table" class="table table-hoverable table-bordered w-100">
+              <thead>
+                <tr>
+                  <th>PO No.</th>
+                  <th>Prepared_by</th>
+
+                  <th>Invoice Date</th>
+                  <th>Due Date</th>
+
+             
+                  <!-- <th>Total</th> -->
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+
+</div>
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+       
+          <div class="modal-title cancel-request"></div>
+        </div>
+ 
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <p class="invoice-modal-body"> </p>
+        <input type="hidden" id="del_uuid">
+
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" onclick="changeStatus()" id="changeStatus">Yes, Deactive it</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+<script src="{{ url_for('static', path='/dist/js/vendor_side/invoice/invoice.js') }}"></script>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

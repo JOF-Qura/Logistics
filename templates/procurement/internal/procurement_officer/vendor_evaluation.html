@@ -1,0 +1,126 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "vendor_evaluation" %}
+{% set active_module = "procurement" %}
+
+
+
+{% block title %}Vendor Evaluation{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+
+                <!-- Title -->
+                <div class="col-6">
+                    <h3>Vendor Evaluation</h3>
+                </div>
+
+
+                <!-- Breadcrumb -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Vendor Rating</a></li>
+                    </ol>
+                </div>
+                <!-- / breadcrumb -->
+
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            Ratings
+                        </div>
+
+                        <div class="card-body">
+     <div class="form-group row justify-content-end">
+                
+                  
+                  <div class="col-md-2">
+                    <select class="form-control float-right select2 w-100" name="category_id" id="category_id">
+  
+
+                    </select>
+                  </div>
+                </div>
+                
+            <div class="row" id="vendor_rating_body">
+
+             
+            </div>
+        </div>
+
+                </div>
+            </div>
+
+            </div>
+
+       
+
+
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script src="{{ url_for('static', path='/plugins/chart.js/Chart.min.js') }}"></script>
+
+<script src="{{ url_for('static', path='/dist/js/procurement/vendor_management/vendor_performance.js') }}"></script>
+
+
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="d-flex align-items-center">
+            <div>
+              <i class="text-secondary fas fa-times-circle mr-1"></i>
+            </div>
+            <div class="modal-title">Deactivate Evaluation</div>
+          </div>
+  
+          <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to Deativate this? </p>
+        </div>
+        <div class="modal-footer ">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="changeStatus">Yes, Deactive it</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

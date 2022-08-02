@@ -1,0 +1,797 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "rfq_for_services" %}
+{% set active_module = "procurement" %}
+
+
+{% block title %}RFQ For Services{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', path='/plugins/summernote/summernote-bs4.min.css') }}">
+
+<!-- send loader -->
+<!-- <div id='loader' style='display: none; position: absolute; left: 50%; top: 10%; z-index: 9999;'>
+  <div class="spinner-border text-secondary" style="width: 2.5rem; height: 2.5rem;"></div>
+</div> -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+
+
+  <!-- </div> -->
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-5">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>RFQ For Services</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">RFQ For Services</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+
+          <form id="form_id" name="form_id" enctype="multipart/form-data">
+            <div class="row" id="div_form">
+              <div class="col-md-3" id="vendor-list">
+                <!-- <div class="card card-outline card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Vendors</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+                  </div>
+               
+                  <div class="card-body">
+
+                    <div class="vendor-container" id="vendor-list">
+      
+                    </div>
+
+
+                  </div>
+              
+                </div> -->
+
+
+
+              </div>
+
+
+              <div class="col-md-9">
+                <div class="card card-outline card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Request for Quotation</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
+                    <!-- /.card-tools -->
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+
+                    <div class="form-group row mb-3 ml-2">
+                      <div class="col-md-12">
+
+                        <h3 id="rfq_tor">Request for Quotation</h3>
+                        <!-- <h3>Terms of Reference</h3> -->
+                        <input type="hidden" id="request_quotation_id" name="request_quotation_id">
+                      </div>
+
+                    </div>
+
+
+                    <div class="form-group row ml-2">
+                      <div class="col-md-8">
+                        <label for="prepared_by">Project Title</label>
+                        <div class="form-group row">
+                          <!-- <div class="col-md-6" id="view_pr">
+
+                            <h4 id="view_pr_id"></h4>
+
+                          </div> -->
+
+                          <div class="col-md-6 pr_select form-group">
+
+                            <select class="form-control select2 select2-primary"
+                              data-dropdown-css-class="select2-primary" id="project_request_id"
+                              name="project_request_id">
+                            </select>
+                          </div>
+
+                          <!-- <div class="col-md-6 pr_select">
+
+                            <button type="button" class="btn btn-sm btn-success view_pr_button"
+                              onclick="return viewPR()">
+                              <i class="fas fa-eye font-size-16 mr-1"></i>View
+                            </button>
+
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="bs-stepper">
+                      <div class="bs-stepper-header d-none" role="tablist">
+                        <!-- your steps here -->
+                        <div class="step" data-target="#part-one">
+                          <button type="button" class="step-trigger" role="tab" aria-controls="part-one"
+                            id="part-one-trigger">
+                            <span class="bs-stepper-circle">1</span>
+                          </button>
+                        </div>
+
+
+                        <div class="line"></div>
+                        <div class="step" data-target="#part-two">
+                          <button type="button" class="step-trigger" role="tab" aria-controls="part-two"
+                            id="part-two-trigger">
+                            <span class="bs-stepper-circle">2</span>
+                          </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#part-three">
+                          <button type="button" class="step-trigger" role="tab" aria-controls="part-three"
+                            id="part-three-trigger">
+                            <span class="bs-stepper-circle">3</span>
+                          </button>
+                        </div>
+
+
+
+                        <div class="line"></div>
+                        <div class="step" data-target="#part-four">
+                          <button type="button" class="step-trigger" role="tab" aria-controls="part-four"
+                            id="part-four-trigger">
+                            <span class="bs-stepper-circle">4</span>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- form -->
+                      <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <div id="part-one" class="content" role="tabpanel" aria-labelledby="part-one-trigger">
+                          <div class="form-group row ">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="prepared_by">Prepared by</label>
+                                <input type="text" class="form-control" id="prepared_by" name="prepared_by" readonly>
+                              </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                              <div class="mb-3 form-group">
+                                <label for="budget">Budget</label>
+
+                                <div class="mb-3 input-group ">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text">&#8369;</span>
+                                  </div>
+                                  <input type="text" class="form-control" id="budget" name="budget" readonly>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group row m-t-10">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="prepared_by">Quotation Code</label>
+                                <input type="text" class="form-control" id="quotation_code" name="quotation_code"
+                                  readonly>
+                              </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="due_date">Due Date<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="due_date" name="due_date">
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <!-- <div class="form-group row m-t-10">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="prepared_by">Mode of Payment<span class="text-danger">*</span></label>
+                                <select class="form-control" id="payment_method" name="payment_method">
+                                  <option value="Check">Check</option>
+                                  <option value="Cash">Cash</option>
+
+                                </select>
+                              </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="vendor_id">Mode of Delivery<span class="text-danger">*</span></label>
+                                <select class="form-control" id="delivery_method" name="delivery_method">
+                                  <option value="Partial">Partial</option>
+                                  <option value="Full">Full</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div> -->
+
+                          <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label for="message">Message<span class="text-danger">*</span></label>
+
+                              <textarea class="form-control" id="message" name="message"></textarea>
+                            </div>
+                          </div>
+
+                          <div class="row mb-5">
+                              <div class="col-md-6">
+                                
+              <h5 class="mt-3">Related Documents</h5>
+              <ul class="list-unstyled" id="related_files_body">
+                <!-- <div class="d-flex justify-content-between">
+                  <li>
+                    <a href="" class="btn-link text-dark"><i class="far fa-fw fa-file-word"></i> Functional-requirements.docx</a>
+                  </li>
+                  <p><i class="text-secondary fas fa-times"></i></p>
+                </div> -->
+      
+              </ul>
+              <div class="mt-3 mb-3" id="add-files-button">
+                <input id='fileid' type='file' hidden/>
+                <input class="btn btn-sm btn-primary" id='buttonid' type='button' value='Add files' />
+              </div>
+                              </div>
+                          </div>
+                          <!-- <div id="display-pdf"></div> -->
+
+                          <div class="d-flex justify-content-end">
+
+                            <button type="button" class="btn btn-primary"
+                              onclick='stepper.next(); $("#purchase_requisition_id").prop("disabled", true); $("#rfq_tor").html("Terms Of Reference")'>Next</button>
+                          </div>
+
+                        </div>
+
+                        <div id="part-two" class="content" role="tabpanel" aria-labelledby="part-two-trigger">
+
+
+                          <!-- <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Timeline</label>
+                                  <div class="d-flex"><input type="date" class="form-control"> <span class="mx-2">_</span> <input type="date" class="form-control"> </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label>Location</label>
+                                  <input type="text" class="form-control">
+                                </div>
+                            </div> -->
+
+                          <div class="form-group row">
+                            <div class="col-md-12 form-group summernote">
+                              <label class="h5 mt-3">I. Background<span class="text-danger">*</span></label>
+                              <textarea class="form-control" name="background" id="background" rows="3"></textarea>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group row">
+                            <div class="col-md-12 form-group summernote">
+                              <label class="h5 mt-3">II. Objectives<span class="text-danger">*</span></label>
+                              <textarea class="form-control" name="objectives" id="objectives" rows="3"></textarea>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group row mt-3">
+                            <div class="col-md-12 form-group summernote">
+                              <label class="h5">III. Scope of Services<span class="text-danger">*</span></label>
+                              <textarea class="form-control" name="scope_of_services" id="scope_of_services"
+                                rows="3"></textarea>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-between mt-5">
+                            <button type="button" class="btn btn-primary"
+                              onclick='stepper.previous(); $("#purchase_requisition_id").prop("disabled", false); $("#rfq_tor").html("Request For Quotation")'>Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+                          </div>
+                        </div>
+                        <div id="part-three" class="content" role="tabpanel" aria-labelledby="part-three-trigger">
+                          <label class="mt-3 h5">IV. Deliverables<span class="text-danger">*</span></label>
+                          <div class="form-group row">
+                            <div class="col-md-12 summernote">
+                              <textarea class="form-control" id="tor_deliverables" name="tor_deliverables"></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group row mt-5">
+                            <div class="col-md-12 summernote">
+                              <label class="h5">V. Qualifications<span class="text-danger">*</span></label>
+                              <textarea class="form-control" name="qualifications" id="qualifications"
+                                rows="3"></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group row mt-3">
+                            <div class="col-md-12 summernote">
+                              <label class="h5">VI. Reporting and Working Arrangements<span class="text-danger">*</span></label>
+                              <textarea class="form-control" name="reporting_working_arrangements"
+                                id="reporting_working_arrangements" rows="3"></textarea>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-between mt-5">
+                            <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                            <button type="button" class="btn btn-primary" onclick="stepper.next(); $('.submit').show()">Next</button>
+                          </div>
+                        </div>
+
+                        <div id="part-four" class="content" role="tabpanel" aria-labelledby="part-four-trigger">
+                          <div class="form-group row mt-3">
+                            <div class="col-md-12 d-flex justify-content-end">
+                              <button type="button" class="btn btn-secondary mr-2" data-toggle="modal"
+                                data-target="#modal-select-annex">
+                                Add Annex
+                                <i class="fas fa-plus font-size-16 ml-1"></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          <div id="annex_technical_specs">
+                            <div class="form-group row mt-5 annex_a">
+                              <div class="col-md-12 summernote">
+                                <label class="h5">Annex - Recommended Technical Specifications</label>
+
+                                <textarea class="form-control" id="annex_a_technical_specs"
+                                  name="annex_a_technical_specs"></textarea>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div id="annex_evaluation_criteria">
+                            <label class="h5 mt-5">Annex - Evaluation Criteria</label>
+                            <!-- <div class="form-group row my-3 ">
+                            <div class="col-md-6">
+                              <label class="h5">Type of Consultancy:</label>
+                            </div>
+                            <div class="col-md-6">
+                              <input type="radio" id="consultancy1" name="consultancy1" value="Individual"><label
+                                for="consultancy1">&nbsp;
+                                Individual</label>&nbsp;&nbsp;
+                              <input type="radio" id="consultancy2" name="consultancy2" value="Firm"><label
+                                for="consultancy1">&nbsp; Firm</label>
+                            </div>
+                          </div> -->
+
+                            <div class="form-group row">
+                              <div class="col-md-12 summernote annex_b">
+                                <label class="h5">A. Minimum Qualifications And Experience of the Key
+                                  Experts.</label>
+
+                                <textarea class="form-control" id="annex_b_key_experts"
+                                  name="annex_b_key_experts"></textarea>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div id="annex_renumeration_payment">
+                            <label class="mt-5 h5">Annex - Renumeration Payment</label>
+                            <!-- <div class="form-group row my-3">
+                            <div class="col-md-4">
+                              <label class="h5">Type of Renumeration:</label>
+                            </div>
+                            <div class="col-md-6">
+                              <input type="radio" id="renumeration1" name="renumeration1" value="Individual"><label
+                                for="renumeration1">&nbsp;
+                                Individual</label>&nbsp;&nbsp;
+                              <input type="radio" id="renumeration2" name="renumeration2" value="Firm"><label
+                                for="renumeration2">&nbsp; Firm</label>
+                            </div>
+                          </div> -->
+
+                            <div class="form-group row">
+
+                              <div class="col-md-12 summernote">
+
+                                <textarea class="form-control" id="annex_c_deliverable_amount"
+                                  name="annex_c_deliverable_amount"></textarea>
+                              </div>
+
+                            </div>
+                          </div>
+
+                          <div id="annex_terms_conditions">
+
+                            <label class="mt-5 h5">Annex - Special Terms and Conditions</label>
+                            <div class="form-group row">
+                              <div class="col-md-12 summernote">
+
+                                <textarea class="form-control" id="annex_d_terms_conditions"
+                                  name="annex_d_terms_conditions"></textarea>
+                              </div>
+
+                            </div>
+                          </div>
+
+
+                          <div class="text-left mt-5">
+                            <button type="button" class="btn btn-primary" onclick="stepper.previous(); $('.submit').hide();">Previous</button>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+               
+                  <div class="card-footer">
+
+                    <div class="row">
+                      <div class="col-md-12 text-right set-btn">
+                        <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+                        <button type="button" class="btn btn-default bg-default"
+                          onClick="return formReset('hide')">Cancel</button>
+
+
+                        <button type="submit" class="btn btn-primary submit" id="add-button"
+                          onclick="$('#status').val('Pending');">
+
+                          <span id='email_loader' class="spinner-border text-light" role="status"
+                            style="width: 1rem; height: 1rem;"></span>
+
+                          <span id="send_email_txt">
+                            Submit<i class="fas fa-file-export ml-1"></i>
+                          </span>
+
+                        </button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- end col -->
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+
+            <div class="card-header">
+              <div class="row mb-3">
+                <div class="col-6
+              d-sm-flex
+              align-items-center">
+                  <h3 class="card-title">Request for Quotations</h3>
+                </div>
+
+                <div class="col-6
+                d-sm-flex
+                align-items-center
+                justify-content-end">
+
+                  <div class="page-title-right">
+                    <button type="button" class="btn btn-sm btn-success add" onclick="return formReset('show')">
+                      <i class="fas fa-plus font-size-16 mr-2"></i>Create RFQ
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <th>RFQ Code</th>
+                    <th>RFQ No.</th>
+
+                    <th>Created By</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-xl">
+  <div class="
+        modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+      ">
+    <div class="modal-content">
+      <div class="modal-header pr">
+        <div class="d-flex align-items-center p-2">
+          <div>
+            <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Request</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body modal-pr p-5">
+        <div class="modal-print">
+
+
+          <div class="form-group row m-t-10">
+            <div class="col-md-7">
+              <h4>PR Number</h4>
+              <p id="pr_number"></p>
+            </div>
+            <div class="col-md-4">
+              <h4>Status</h4>
+              <p id="status"></p>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-7">
+              <h4>Department</h4>
+              <p id="department"></p>
+            </div>
+            <div class="col-md-4">
+              <h4>Requested By</h4>
+              <p id="requested_by"></p>
+            </div>
+
+
+          </div>
+
+          <div class="form-group row mb-5">
+            <div class="col-md-7">
+              <h4>Purpose</h4>
+              <p id="purpose"></p>
+            </div>
+
+            <div class="col-md-4">
+              <h4>Date Requested</h4>
+              <p id="date_requested"></p>
+            </div>
+          </div>
+
+          <h3>Item Details</h3>
+
+          <table id="pr-detail-table" class="table table-hover table-bordered" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Item</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+   
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+
+<!-- Default Modal For deleting -->
+<div class="modal fade" id="modal-select-annex">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+
+          <div class="modal-title">Select Annex</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select class="form-control" id="select_annex" name="select_annex">
+          <option value="technical_specifications">Annex - Recommended Technical Specifications</option>
+          <option value="evaluation_criteria">Annex - Evaluation Criteria</option>
+          <option value="renumeration_payment">Annex - Renumeration Payment</option>
+          <option value="terms_and_conditions">Annex - Special Terms and Conditions</option>
+
+
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" onClick="addAnnex();" class="btn btn-primary">Add <i class="fas fa-plus"></i></button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!-- Default Modal For updating and deleting -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title cancel-request"> Request</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <p class="request-modal-body"> </p>
+        
+        <input type="hidden" id="uuid" name="uuid">
+
+     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-info" onclick="changeStatus()" id="changeStatus">Cancel Request <i class="fas fa-times-circle ml-1"></i></button>
+
+      </div>
+  
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-file">
+  <div class="
+        modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+      ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+            <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">File</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body p-5">
+        <iframe id="display_file" src=""
+        width="100%" height="500px">
+        </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+   
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+
+
+
+<script src="{{ url_for('static', path='/plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+<script src="{{ url_for('static', path='/dist/js/procurement/request_quotation/rfq_for_services.js') }}"></script>
+
+
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <div >
+              <i class="text-secondary fas fa-file mr-1"></i>
+          </div>
+          <div class="modal-title delete-modal-title"></div>
+        </div>
+ 
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <p class="product-modal-body"> </p>
+        <input type="hidden" id="del_uuid">
+
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" onclick="changeStatus()" id="changeStatus">Yes, Deactive it</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

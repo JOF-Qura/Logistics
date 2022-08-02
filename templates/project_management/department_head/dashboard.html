@@ -1,0 +1,599 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/department_head/includes/head.html' %}
+
+{% include './project_management/department_head/includes/navbar.html' %}
+
+{% include './project_management/department_head/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Dashboard</h1>
+          <div class="text-muted">Admin Dashboard Page</div>
+        </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Info Boxes -->
+      <div class="row">
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3 id="total"></h3>
+
+              <p>Total Projects</p>
+            </div>
+            <div class="icon">
+              <i class="nav-icon fas fa-hammer"></i>
+            </div>
+            <a href="/department_head/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3 id="completed" name="completed"></h3>
+              <p>Completed Projects</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <a href="/department_head/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-secondary">
+            <div class="inner">
+              <h3 id="ongoing" name="ongoing"></h3>
+
+              <p>On Going Projects</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-spinner"></i>
+            </div>
+            <a href="/department_head/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small card -->
+          <div class="small-box bg-danger">
+            <div class="inner">
+              <h3 id="cancelled" name="cancelled"></h3>
+
+              <p>Cancelled Projects</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-times"></i>
+            </div>
+            <a href="/department_head/project_lists" class="small-box-footer">
+              More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- / Info Boxes -->
+
+      <div class="row">
+        <div class="col-md-6">
+          <!-- PIE CHART -->
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Projects Status</h3>
+                <a href="/department_head/project_lists">View Projects</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="projectsPieChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+        <div class="col-md-6">
+          <!-- PIE CHART -->
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Tasks Status</h3>
+                <a href="/department_head/task_lists">View Tasks</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="tasksPieChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <!-- TABLE: LATEST ORDERS -->
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Latest Projects</h3>
+                <div class="card-tools ml-3">
+                  <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <div id="projects_table" class="table table-bordered table-hover">
+                <table class="table m-0">
+                  <thead>
+                    <tr>
+                      <th>Project Name</th>
+                      <th>Department</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for data in data %}
+                    <tr>
+                      {%if loop.index <= 5%}
+                      <td>{{ data.name }}</td>
+                      <td>{{ data.project_department.name }}</td>
+                      {%if data.progress_status == "Completed"%}
+                      <td>
+                        <div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i>
+                          {{ data.progress_status }}</div>
+                      </td>
+                      {%elif data.progress_status == "On Progress"%}
+                      <td>
+                        <div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i>
+                          {{ data.progress_status }}</div>
+                      </td>
+                      {%elif data.progress_status == "Cancelled"%}
+                      <td>
+                        <div class="badge badge-danger p-2 w-100"><i class="fas fa-times mr-1"></i>
+                          {{ data.progress_status }}</div>
+                      </td>
+                      {%else%}
+                      <td>
+                        <div class="badge badge-secondary p-2 w-100"><i class="fas fa-redo mr-1"></i>
+                          {{ data.progress_status }}</div>
+                      </td>
+                      {%endif%}
+                      {%endif%}
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer text-center">
+              <a href="/department_head/project_lists/" class="uppercase">View All Projects</a>
+            </div>
+            <!-- /.card-footer -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+        <div class="col-md-4">
+          <!-- PRODUCT LIST -->
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header">
+              <h3 class="card-title">Recently Added Tasks</h3>
+              <div class="card-tools ml-2">
+                <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+              <ul class="products-list product-list-in-card pl-2 pr-2">
+                <li class="item">
+                  {% for task in tasks %}
+                  {%if loop.index <= 5%}
+                  <div class="post">
+                    {%if task.progress_status == "Done"%}
+                    <span class="badge badge-success float-right">{{ task.progress_status }}</span>
+                    {%elif task.progress_status == "To Do"%}
+                    <span class="badge badge-secondary float-right">{{ task.progress_status }}</span>
+                    {%else%}
+                    <span class="badge badge-info float-right">{{ task.progress_status }}</span>
+                    {%endif%}
+                    <a style="margin-left: 5px; color: black;" href="/department_head/task_details/{{ task.id }}"
+                      class="product-title d-block">{{ task.name }}</a>
+                    <span style="margin-left: 5px;" class="product-description text-muted">
+                      {{ task.description }}
+                    </span>
+                  </div>
+                  {%endif%}
+                </li>
+                {%endfor%}
+                <!-- /.item -->
+              </ul>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer text-center">
+              <a href="/department_head/task_lists/" class="uppercase">View All Tasks</a>
+            </div>
+            <!-- /.card-footer -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-12">
+          <div class="card card-primary card-outline card-tab">
+            <div class="card-header border-0">
+              <div class="d-flex justify-content-between">
+                <h3 class="card-title">Projects Monthly</h3>
+                <a href="/department_head/reports">View Reports</a>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="d-flex">
+                <p class="d-flex flex-column">
+                  <span id="total_cost" class="text-bold text-lg"></span>
+                  <span>Total Estimated Cost</span>
+                </p>
+              </div>
+              <!-- /.d-flex -->
+
+              <div class="position-relative mb-4">
+                <canvas id="sales-chart" height="200"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+    </div>
+</div>
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_notification.js')}}"></script>
+
+<script>
+  function total_projects() {
+    $.ajax({
+      url: '/projects/department/approval_status/Approved/'+user_id,
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        var total = 0
+        var completed = 0
+        var ongoing = 0
+        var cancelled = 0
+        var delayed = 0
+        var cost = 0
+
+        for (var i = 0; i < project.length; i++) {
+          cost = cost + project[i].cost
+          if (project[i].progress_status == "Completed") {
+            completed++
+          } else if (project[i].progress_status == "On Progress") {
+            ongoing++;
+          } else if (project[i].progress_status == "Cancelled") {
+            cancelled++;
+          } else if (project[i].progress_status == "Delayed") {
+            delayed++;
+          } else {
+            console.log('Wala na issaprank')
+          }
+        }
+
+        $('#total').html(project.length);
+        $('#completed').html(completed);
+        $('#ongoing').html(ongoing);
+        $('#cancelled').html(cancelled);
+        $('#total_cost').html('₱'+ cost.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var projectsPieCanvas = $('#projectsPieChart').get(0).getContext('2d')
+        var pieData = {
+          labels: [
+            'Completed',
+            'On Going',
+            'Cancelled',
+            'Delayed',
+          ],
+          datasets: [{
+            data: [completed, ongoing, cancelled, delayed],
+            backgroundColor: ['#28a745', '#17a2b8', '#dc3545', '#6c757d'],
+          }]
+        }
+        var pieOptions = {
+          maintainAspectRatio: false,
+          responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(projectsPieCanvas, {
+          type: 'pie',
+          data: pieData,
+          options: pieOptions
+        })
+      }
+    })
+  }
+
+  function total_tasks() {
+    $.ajax({
+      url: "/task/department/" + user_id,
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var task = data;
+        var ontrack = 0
+        var atrisk = 0
+        var offtrack = 0
+
+        for (var i = 0; i < task.length; i++) {
+          if (task[i].status == "On Track") {
+            ontrack++
+          } else if (task[i].status == "At Risk") {
+            atrisk++;
+          } else if (task[i].status == "Off Track") {
+            offtrack++;
+          } else {
+            console.log('Wala na issaprank')
+          }
+        }
+
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var tasksPieCanvas = $('#tasksPieChart').get(0).getContext('2d')
+        var pieData = {
+          labels: [
+            'On Track',
+            'At Risk',
+            'Off Track',
+          ],
+          datasets: [{
+            data: [ontrack, atrisk, offtrack],
+            backgroundColor: ['#28a745', '#dc3545', '#6c757d'],
+          }]
+        }
+        var pieOptions = {
+          maintainAspectRatio: false,
+          responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(tasksPieCanvas, {
+          type: 'pie',
+          data: pieData,
+          options: pieOptions
+        })
+      }
+    })
+  }
+
+  //-------------
+  //- BAR CHART -
+  //-------------
+  function total_cost() {
+
+    $.ajax({
+      url: "/projects/department/approval_status/Approved/"+user_id,
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+        var completed_jan, completed_feb = 0
+        var completed_mar, completed_apr = 0
+        var completed_may, completed_june = 0
+        var completed_july, completed_aug = 0
+        var completed_sept, completed_oct = 0
+        var completed_nov, completed_dec = 0
+        var total_jan, total_feb = 0
+        var total_mar, total_apr = 0
+        var total_may, total_june = 0
+        var total_july, total_aug = 0
+        var total_sept, total_oct = 0
+        var total_nov, total_dec = 0
+
+        for (var i = 0; i < project.length; i++) {
+          var date = new Date(project[i].created_at);
+          var month = date.getMonth() + 1;
+
+          if (month == "1") {
+            total_jan++
+          }
+          if (month == "2") {
+            total_feb++
+          }
+          if (month == "3") {
+            total_mar++
+          }
+          if (month == "4") {
+            total_april++
+          }
+          if (month == "5") {
+            total_may++
+          }
+          if (month == "6") {
+            total_june++
+          }
+          if (month == "7") {
+            total_july++
+          }
+          if (month == "8") {
+            total_aug++
+          }
+          if (month == "9") {
+            total_sept++
+          }
+          if (month == "10") {
+            total_oct++
+          }
+          if (month == "11") {
+            total_nov++
+          }
+          if (month == "12") {
+            total_dec++
+          }
+
+          if (project[i].progress_status == "Completed") {
+            if (month == "1") {
+              completed_jan++
+            }
+            if (month == "2") {
+              completed_feb++
+            }
+            if (month == "3") {
+              completed_mar++
+            }
+            if (month == "4") {
+              completed_april++
+            }
+            if (month == "5") {
+              completed_may++
+            }
+            if (month == "6") {
+              completed_june++
+            }
+            if (month == "7") {
+              completed_july++
+            }
+            if (month == "8") {
+              completed_aug++
+            }
+            if (month == "9") {
+              completed_sept++
+            }
+            if (month == "10") {
+              completed_oct++
+            }
+            if (month == "11") {
+              completed_nov++
+            }
+            if (month == "12") {
+              completed_dec++
+            }
+          }
+        }
+
+        async function processArray(array) {
+          // map array to promises
+          const promises = array.map(delayedLog);
+          // wait until all promises are resolved
+          await Promise.all(promises);
+        }
+
+        var barChartCanvas = $('#sales-chart').get(0).getContext('2d')
+        var barChartData = {
+          labels: ['January 2022', 'February 2022', 'March 2022', 'April 2022', 'May 2022', 'June 2022',
+            'July 2022'
+          ],
+          datasets: [{
+              label: 'Finished Projects',
+              backgroundColor: '#28a745',
+              borderColor: 'rgba(60,141,188,0.8)',
+              pointRadius: false,
+              pointColor: '#3b8bba',
+              pointStrokeColor: 'rgba(60,141,188,1)',
+              pointHighlightFill: '#fff',
+              pointHighlightStroke: 'rgba(60,141,188,1)',
+              data: [completed_jan, completed_feb, completed_mar, completed_apr, completed_may,
+                completed_june, completed_july
+              ]
+            },
+            {
+              label: 'Total Projects',
+              backgroundColor: '#17a2b8',
+              borderColor: 'rgba(210, 214, 222, 1)',
+              pointRadius: false,
+              pointColor: 'rgba(210, 214, 222, 1)',
+              pointStrokeColor: '#c1c7d1',
+              pointHighlightFill: '#fff',
+              pointHighlightStroke: 'rgba(220,220,220,1)',
+              data: [total_jan, total_feb, total_mar, total_apr, total_may, total_june, total_july]
+            },
+          ]
+        }
+
+        var barChartOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          datasetFill: false,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                userCallback: function (label, index, labels) {
+                  // when the floored value is the same as the value we have a whole number
+                  if (Math.floor(label) === label) {
+                    return label;
+                  }
+
+                },
+              }
+            }],
+          },
+        }
+
+        new Chart(barChartCanvas, {
+          type: 'bar',
+          data: barChartData,
+          options: barChartOptions
+        })
+      }
+    })
+  }
+
+  total_cost();
+  total_tasks();
+  total_projects();
+</script>
+{%endblock%}

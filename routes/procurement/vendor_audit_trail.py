@@ -1,0 +1,54 @@
+
+from fastapi import APIRouter, Depends, status
+from sqlalchemy.orm import Session
+# from repository import vendor_audit_trail 
+
+from typing import List
+from app.repository import vendor_audit_trail
+from .. import database, models
+from app.security import oauth2
+
+
+from app.schemas.vendor_audit_trail import VendorAuditTrail,ShowVendorAuditTrail
+from app.schemas.user import User
+
+
+
+
+
+router = APIRouter(
+    prefix="/api/v1/vendor-audit-trail",
+    tags=['Vendor Audit Trail'],
+)
+
+
+get_db = database.get_db
+
+
+
+# get all
+@router.get('/{start_date}/{end_date}/{vendor_id}', response_model=List[ShowVendorAuditTrail])#, response_model=List[ShowVendorAuditTrail]
+def get(start_date,end_date,vendor_id, db : Session = Depends(get_db), current_vendor_audit_trail: User = Depends(oauth2.get_current_user)):#, current_vendor_audit_trail: User = Depends(oauth2.get_current_user)
+    return vendor_audit_trail.get(start_date,end_date,vendor_id,db)
+
+# create
+@router.post('/', status_code=status.HTTP_201_CREATED)
+def create(request: VendorAuditTrail, db : Session = Depends(get_db)):#, current_vendor_audit_trail: User = Depends(oauth2.get_current_user)
+    return vendor_audit_trail.create(request, db)
+
+# delete
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete(id,db : Session = Depends(get_db), current_vendor_audit_trail: User = Depends(oauth2.get_current_user)):#
+    return vendor_audit_trail.delete(id, db)
+
+# update
+# @router.put('/{id}',status_code=status.HTTP_202_ACCEPTED)
+# def update(id,request: VendorAuditTrail, db : Session = Depends(get_db)):#, current_vendor_audit_trail: User = Depends(oauth2.get_current_user)
+#     return vendor_audit_trail.update(id,request, db)
+
+# get one
+@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=ShowVendorAuditTrail)
+def get_one(id, db : Session = Depends(get_db), current_vendor_audit_trail: User = Depends(oauth2.get_current_user)):#, current_vendor_audit_trail: User = Depends(oauth2.get_current_user)
+    return vendor_audit_trail.get_one(id, db)
+
+

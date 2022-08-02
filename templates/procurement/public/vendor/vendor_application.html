@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vendor Application | Hospital Management System</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/dist/css/adminlte.min.css') }}">
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/plugins/toastr/toastr.min.css') }}">
+
+
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', path='/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jquery-validation -->
+    <script src="{{ url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ url_for('static', path='/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+
+      <!-- select2 -->
+   
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', path='/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+  <!-- <script src="{{ url_for('static', path='/plugins/select2/js/select2.min.js') }}"></script> -->
+
+
+<script src="{{ url_for('static', path='/plugins/select2/js/select2.full.min.js') }}"></script>
+</head>
+
+<style>
+    .toast-top-center {
+        top: 12px;
+    }
+</style>
+
+<body class="hold-transition login-page bg-white ">
+    <div class="login mt-4">
+
+        <div class="card card-outline card-primary">
+            <div class="login-logo mt-4">
+                <div class="">HoMIES Vendor Application</div>
+            </div>
+            <div class="card-body login-card-body">
+                <!-- <p class="login-box-msg">Log in to start your session</p> -->
+
+                <!-- Login form -->
+                <form id="applicationForm">
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Company Name</label>
+                        <div class="input-group">
+                            <input type="text" id="vendor_name" class="form-control" name="vendor_name"
+                                placeholder="Type your company name here">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <input type="email" id="email" class="form-control" name="email"
+                                placeholder="Type your email here">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Website</label>
+                        <div class="input-group">
+                            <input type="text" id="vendor_website" class="form-control" name="vendor_website"
+                                placeholder="Type your website here">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Contact Person</label>
+                        <div class="input-group">
+                            <input type="text" id="contact_person" class="form-control" name="contact_person"
+                                placeholder="Type your contact person here">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Contact Number</label>
+                        <div class="input-group">
+                            <input type="number" id="contact_no" class="form-control" name="contact_no"
+                                placeholder="Type your contact number here">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Organization Type</label>
+                        <div class="input-group">
+                            <input type="text" id="organization_type" class="form-control" name="organization_type"
+                                placeholder="Type your organization type here">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Category Type</label>
+                        <div class="input-group">
+                            <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary" id="category_id"
+                            name="category_id" 
+                            >
+                        
+                         </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5>Address</h5>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Region</label>
+                                <div class="input-group">
+                                    <input type="text" id="region" class="form-control" name="region"
+                                       >
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <!-- <span class="fas fa-envelope"></span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Province</label>
+                                <div class="input-group">
+                                    <input type="text" id="province" class="form-control" name="province"
+                                        >
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <!-- <span class="fas fa-envelope"></span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Municipality</label>
+                                <div class="input-group">
+                                    <input type="text" id="municipality" class="form-control" name="municipality"
+                                     >
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <!-- <span class="fas fa-envelope"></span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Barangay</label>
+                                <div class="input-group">
+                                    <input type="text" id="barangay" class="form-control" name="barangay"
+                                        >
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <!-- <span class="fas fa-envelope"></span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Street / House no</label>
+                        <div class="input-group">
+                            <textarea type="text" id="street" class="form-control" name="street" placeholder="Type your street/house no here"></textarea>
+
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <!-- <span class="fas fa-envelope"></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- User Actions -->
+                    <div class="row">
+                        <div class="col-8">
+
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                                <span>Apply</span>
+                                <i class="fas fa-file-export ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="dropdown-divider mt-5 mb-1"></div>
+
+                <!-- Quick Links -->
+                <div class="d-flex justify-content-between text-sm mb-2">
+                    <div>
+                        <a href="/">Home</a>
+                    </div>
+                    <div>
+                        <a href="/vendor-login">Vendor Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Toastr -->
+    <script src="{{ url_for('static', path='/plugins/toastr/toastr.min.js') }}"></script>
+
+    <script src="{{ url_for('static', path='/dist/js/vendor_side/access/vendor_application.js') }}"></script>
+
+    <!-- Bootstrap 4 -->
+    <script src="{{ url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ url_for('static', path='/dist/js/adminlte.min.js') }}"></script>
+</body>
+
+</html>

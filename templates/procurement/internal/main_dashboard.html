@@ -1,0 +1,100 @@
+
+{% extends "internal/base.html" %}
+
+{% set active_page = "dashboard" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+       <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1></h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Main Dashboard</a></li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid"> 
+                    
+        <!-- Under Maintenance -->
+        <div class="d-flex flex-column justify-content-center align-items-center text-center">
+            <div class="py-5 d-flex justify-content-center">
+                <img 
+                    draggable="false"
+                    src="{{ url_for('static', path='/dist/img/under_construction.svg') }}" 
+                    alt="Under Maintenance" 
+                    width="50%"
+                >
+            </div>
+            <h4>Oops! This page is under maintenance.</h4>
+            <p class="text-secondary">You can go back in others days. Sorry for the incovenience.</p>
+        </div>
+
+    </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <script>
+    if(localStorage.getItem("EMPLOYEETYPE") == "Procurement Officer" ){
+     $("#href_link").prop("href", "/procurement/dashboard2")
+     $('#sysadmin').hide()
+
+
+    }
+    else if(localStorage.getItem("EMPLOYEETYPE") == "Procurement Manager" ){
+
+      $("#href_link").prop("href", "/procurement/dashboard3")
+      $('#sysadmin').hide()
+
+
+    }
+    else if(localStorage.getItem("EMPLOYEETYPE") == "Admin" ){
+
+$("#href_link").prop("href", "#")
+
+
+}
+    else{
+     $("#href_link").prop("href", "/procurement/dashboard1")
+     $('#sysadmin').hide()
+
+ 
+
+    }
+ </script>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends "public/vendor/vendor_base.html" %}
+{% set active_page = "dashboard" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+       <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>Dashboard</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-light"><i class="fas fa-shopping-cart"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Orders</span>
+                <span class="info-box-number" id="total_orders"></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Request Quotations</span>
+                <span class="info-box-number" id="total_contracts"></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Proposal</span>
+                <span class="info-box-number" id="total_proposal"></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-light"><i class="fas fa-dollar-sign"></i></span>
+  
+              <div class="info-box-content">
+                <span class="info-box-text">Total Sales</span>
+                <span class="info-box-number" id="total_sales"></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+  
+
+    
+        <div class="row">
+          <div class="col-md-6">
+  
+            <!-- Card -->
+            <div class="card card-primary card-outline">
+  
+              <!-- Card Header -->
+              <div class="card-header">
+                <h3 class="card-title" id="card-title"></h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="vendor_radar_chart"
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+  
+            </div>
+            <!-- /.card -->
+  
+          </div>
+          <div class="col-md-6">
+            <!-- BAR CHART -->
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">Sales Line</h3>
+  
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="monthly_sales"
+                    style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+  
+        </div>
+  
+          
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<script src="{{ url_for('static', path='/plugins/chart.js/Chart.min.js') }}"></script>
+
+  <script src="{{ url_for('static', path='/dist/js/vendor_side/dashboard/dashboard.js') }}"></script>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

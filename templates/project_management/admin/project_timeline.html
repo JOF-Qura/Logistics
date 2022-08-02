@@ -1,0 +1,636 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/admin/includes/head.html' %}
+
+{% include './project_management/admin/includes/navbar.html' %}
+
+{% include './project_management/admin/includes/sidebar.html' %}
+{%endblock%}
+
+{%block sidebar%}
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+    <!-- Brand Logo -->
+    <a href="../../../index3.html" class="brand-link">
+        <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light">Project Management</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+            </div>
+            <!-- User Full Name -->
+            <div class="info mr-1 w-100" id="userFullNameDisplay">
+                                
+                <!-- User Full Name -->
+                <a href="#" class="nav-item text-truncate" id="full_name"></a>
+
+                <!-- User Position -->
+                <div class="small text-secondary text-truncate" id="user_type"></div>
+                
+                <!-- User Department -->
+                <div class="small text-secondary text-truncate" id="department"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header">CORE</li>
+                <li class="nav-item">
+                    <a href="/admin/dashboard" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-header">PROJECT MANAGEMENT</li>
+                <li class="nav-item">
+                    <a href="/admin/calendar" class="nav-link">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>Calendar</p>
+                    </a>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-hammer"></i>
+                        <p>
+                            Projects
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/project_requisition" class="nav-link">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>Project Requests</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/project_lists" class="nav-link active">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>Projects List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-thumbtack"></i>
+                        <p>
+                            Tasks
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/task_lists" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>Tasks List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-pen-alt"></i>
+                        <p>
+                            Reports
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/reports" class="nav-link">
+                                <i class="nav-icon fas fa-file-signature"></i>
+                                <p>Project Report</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/archive" class="nav-link">
+                        <i class="nav-icon fas fa-trash"></i>
+                        <p>Archive</p>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-phone"></i>
+              <p>
+              Logs
+              <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="/logs" class="nav-link">
+                  <i class="nav-icon fas fa-phone-square"></i>
+                  <p>Call Logs</p>
+              </a>
+              </li>
+          </ul>
+        </li> -->
+                <li class="nav-header">USER MANAGEMENT</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Users
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/admin/job_titles" class="nav-link">
+                                <i class="nav-icon fas fa-briefcase"></i>
+                                <p>Job Titles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/user_type" class="nav-link">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>User Types</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/users" class="nav-link">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>Users List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/user_profile" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>User Profile</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/admin/employees" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>Employees</p>
+                            </a>
+                        </li>
+                    </ul>
+                <li class="nav-item">
+                    <a href="/admin/departments" class="nav-link">
+                        <i class="nav-icon fas fa-hospital"></i>
+                        <p>Departments</p>
+                    </a>
+                </li>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+
+    </div>
+    <!-- /.sidebar -->
+
+    <!-- Sidebar Custom -->
+    <div class="sidebar-custom">
+        <form>
+            <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+            <button type="button" class="btn btn-danger hide-on-collapse pos-right btn-logouts">Log out <i
+                    class="fas fa-sign-out-alt"></i></button>
+        </form>
+    </div>
+    <!-- /.sidebar-custom -->
+</aside>
+<!-- /.main-sidebar -->
+{%endblock%}
+
+
+{%block maincontent%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Project Timeline</h1>
+                    <div class="text-muted">Project timeline to view progress of project</div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-tab">
+                    <div class="card-header">
+                        <h3 class="card-title">Project Details</h3>
+                        <div class="card-tools">
+                            <div class="text-center dropdown">
+                                <button type="button" value="{{ data.id }}" class="btn btn-sm btn-secondary btn-details"><i class="fas fa-list mr-1"></i> View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-12 col-sm-4">
+                                    <div class="info-box border shadow-none bg-default">
+                                        <div class="info-box-content">
+                                            <label class="info-box-text" for="inputName">Project Name</label>
+                                            <span>{{ data.name }}</span>
+                                            <small class="text-muted"> {{ data.type }} </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <div class="info-box border shadow-none bg-default">
+                                        <div class="info-box-content">
+                                            <label class="info-box-text" for="inputName">Project Manager</label>
+                                            <span>{{ data.project_user.first_name }}
+                                                {{ data.project_user.last_name}}
+                                                {{ data.project_user.suffix_name}}</span>
+                                            <small class="text-muted"> {{ data.project_department.name }} </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <div class="info-box border shadow-none bg-default">
+                                        <div class="info-box-content">
+                                            <label class="info-box-text" for="inputName">Project Cost</label>
+                                            <span>{{ "₱{:,.2f}".format(data.cost) }}</span>
+                                            <small class="text-muted">{{ data.start_date.strftime('%b %d, %Y') }} -
+                                                {{ data.end_date.strftime('%b %d, %Y') }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+
+        <!-- Timelime example  -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-tab">
+                    <div class="card-header border-0">
+                        <div class="card-tools">
+                            <button data-toggle="modal" data-target="#modal-default"
+                                class="btn btn-primary bg-solid-primary btn-sm" id="new_task"><i class="fa fa-plus"></i>
+                                Add New Activity</button>
+                        </div>
+                    </div>
+                    <!-- The time line -->
+                    <div id="timeline" class="timeline ml-3">
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+        <!-- /.timeline -->
+</div>
+<!-- /.card -->
+
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i> New Task</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_quotation_form">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input value="{{ data.id }}" type="hidden" class="form-control" name="project_id"
+                                    id="project_id">
+                                <label class="location" for="exampleInputPassword1">Task Name <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="task_id"
+                                    name="task_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Product/Service <span
+                                        style="color:red" aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Name" type="text" class="form-control" name="name" id="name">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Price <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Price" type="number" step="any" class="form-control"
+                                    name="price" id="price">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Quantity <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Quantity" type="number" class="form-control" name="quantity"
+                                    id="quantity">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                                        class="required">*</span></label>
+                                <textarea placeholder="Enter Description" rows="7" cols="50" class="form-control"
+                                    name="description" id="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Quotation <i
+                                class="fas fa-check"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/admin_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/admin_notification.js')}}"></script>
+
+<script>
+    $('.select2bs4').select2()
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/projects/{{ data.id }}',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var project = data;
+                var task = project.project_task
+                var activity = project.project_activity
+                console.log(timeline)
+                var previous_date;
+                var html = "";
+
+                task.sort(function (a, b) {
+                    return new Date(a.created_at) - new Date(b.created_at);
+                });
+
+                activity.sort(function (a, b) {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+
+                console.log(task)
+                previous_date = moment(project.created_at).format('MMMM D, YYYY');
+
+                html += `<div>
+                            <i class="fas fa-envelope bg-blue"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fas fa-clock"></i> ${moment(project.created_at).fromNow()}</span>
+                                <h3 class="timeline-header">Project: ${project.name} has been created.</h3>
+                            </div>
+                        </div>
+                        <div>
+                            <i class="fas fa-clock bg-gray"></i>
+                        </div>`;
+                $('#timeline').prepend(html);
+
+                for (var i = 0; i < task.length; i++) {
+                    if(previous_date == moment(task[i].created_at).format('MMMM D, YYYY')) {
+                        var html1 = "";
+                        html1 += `<div>
+                                    <i class="fas fa-envelope bg-blue"></i>
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fas fa-clock"></i> ${moment(task[i].created_at).fromNow()}</span>
+                                        <h3 class="timeline-header">Task: ${task[i].name} has been created.</h3>
+                                    </div>
+                                </div>`;
+                        $('#timeline').prepend(html1);
+
+                        if(task[i] == task[task.length - 1]){
+                            var html1 = "";
+                            html1 += `<div class="time-label"><span class="bg-success">${moment(project.created_at).format('MMMM D, YYYY')}</span></div>`;
+                            $('#timeline').prepend(html1);
+                        }
+                    }
+                    else{
+                        previous_date = moment(task[i].created_at).format('MMMM D, YYYY');
+                        html += `<div class="time-label"><span class="bg-success">${moment(task[i].created_at).format('MMMM D, YYYY')}</span></div>
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fas fa-clock"></i> ${moment(task[i].created_at).fromNow()}</span>
+                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                                    <div class="timeline-body">
+                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                                        quora plaxo ideeli hulu weebly balihoo...
+                                    </div>
+                                </div>`;
+                        $('#timeline').prepend(html1);
+
+                        if(task[i] == task[task.length - 1]){
+                            html1 += `<div class="time-label"><span class="bg-success">${moment(task.created_at).format('MMMM D, YYYY')}</span></div>`;
+                            $('#timeline').prepend(html1);
+                        }
+                    }
+                }
+
+                // for (var i = 0; i < activity.length; i++) {
+                //     if(previous_date == moment(activity[i].created_at).format('MMMM D, YYYY')) {
+                //         var html1 = "";
+                //         html1 += `<div>
+                //                     <i class="fas fa-envelope bg-blue"></i>
+                //                     <div class="timeline-item">
+                //                         <span class="time"><i class="fas fa-clock"></i> ${moment(activity[i].created_at).fromNow()}</span>
+                //                         <h3 class="timeline-header">Activity: ${activity[i].name} has been created.</h3>
+                //                     </div>
+                //                 </div>`;
+                //         $('#timeline').prepend(html1);
+
+                //         if(activity[i] == activity[activity.length - 1]){
+                //             var html1 = "";
+                //             html1 += `<div class="time-label"><span class="bg-success">${moment(activity.created_at).format('MMMM D, YYYY')}</span></div>`;
+                //             $('#timeline').prepend(html1);
+                //         }
+                //     }
+                //     else{
+                //         previous_date = moment(activity[i].created_at).format('MMMM D, YYYY');
+                //         html += `<div class="time-label"><span class="bg-success">${moment(activity[i].created_at).format('MMMM D, YYYY')}</span></div>
+                //                 <div class="timeline-item">
+                //                     <span class="time"><i class="fas fa-clock"></i> ${moment(activity[i].created_at).fromNow()}</span>
+                //                     <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                //                     <div class="timeline-body">
+                //                         Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                //                         weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                //                         jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                //                         quora plaxo ideeli hulu weebly balihoo...
+                //                     </div>
+                //                 </div>`;
+                //         $('#timeline').prepend(html1);
+
+                //         if(activity[i] == activity[activity.length - 1]){
+                //             html1 += `<div class="time-label"><span class="bg-success">${moment(activity.created_at).format('MMMM D, YYYY')}</span></div>`;
+                //             $('#timeline').prepend(html1);
+                //         }
+                //     }
+                // }
+            }
+        })
+    });
+
+    function get_all_tasks() {
+        $.ajax({
+            url: '/task/project/{{ data.id }}',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var tasks = data;
+
+                var html = "";
+
+                if (tasks.length == 0) {
+                    var html = `<option>No Tasks</option>`;
+                } else {
+                    var html = "<option selected disabled>Select Tasks</option>";
+                }
+
+                for (var i = 0; i < tasks.length; i++) {
+                    html += `<option value="${tasks[i].id}">${tasks[i].name}</option>`
+                }
+
+                if (tasks.length == 0) {
+                    var html1 = `<option>No Tasks</option>`;
+                } else {
+                    var html1 = "<option disabled>Select Tasks</option>";
+                }
+
+                for (var i = 0; i < tasks.length; i++) {
+                    html1 += `<option value="${tasks[i].id}">${tasks[i].name}</option>`
+                }
+
+                $('#task_id').html(html);
+                $('#edit_task_id').html(html);
+            }
+        })
+    }
+
+    get_all_tasks();
+
+    $(function () {
+        $('#add_quotation_form').validate({
+            rules: {
+                task_id: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                },
+                price: {
+                    required: true,
+                },
+                quantity: {
+                    required: true,
+                },
+                description: {
+                    required: true
+                }
+            },
+            messages: {
+                task_id: {
+                    required: "Please select task",
+                },
+                name: {
+                    required: "Please enter name",
+                },
+                price: {
+                    required: "Please enter price",
+                },
+                quantity: {
+                    required: "Please enter quantity",
+                },
+                description: {
+                    required: "Please enter description",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+
+            submitHandler: function (form) {
+                var quantity = document.getElementById('quantity').value;
+                var price = document.getElementById('price').value;
+
+                var total = price * quantity;
+                // ADD TASK
+                formData = new FormData();
+                formData.append('project_id', $('#project_id').val());
+                formData.append('task_id', $('#task_id').val());
+                formData.append('name', $('#name').val());
+                formData.append('description', $('#description').val());
+                formData.append('quantity', $('#quantity').val());
+                formData.append('price', $('#price').val());
+                formData.append('total', total);
+
+                // ajax opening tag
+                $.ajax({
+                    url: '/quotation/',
+                    type: "POST",
+                    processData: false,
+                    data: formData,
+                    contentType: false,
+
+                    success: function (data) {
+                        $("#add_quotation_form").trigger("reset");
+                        $("#modal-default").modal('hide');
+                        toastr.success('Successfully added new quotation.')
+                        refresh();
+                        // End of Confirmation
+                    }
+                    // ajax closing tag
+                })
+            }
+        });
+    });
+
+    function refresh() {
+        var url = "/quotation/project/{{ data.id }}";
+        quotationDataTable.ajax.url(url).load();
+    }
+
+    // VIEW PROJECT DETAILS
+    $(document).on("click", ".btn-details", function () {
+        var id = this.value;
+        window.location.href = "http://127.0.0.1:8000/admin/project_details/" + id;
+    });
+</script>
+{%endblock%}

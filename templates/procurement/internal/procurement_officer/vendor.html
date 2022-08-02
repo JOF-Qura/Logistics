@@ -1,0 +1,458 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "vendor_management" %}
+{% set active_module = "procurement" %}
+
+
+{% block title %}Vendor{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Vendor Management</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Vendor</a></li>
+
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+  
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+ <!-- form -->
+ <div class="row" id="div_form">
+  <div class="col-xl-12">
+    <form class="card card-primary card-outline" id="form_id" name="form_id" enctype="multipart/form-data">
+      <div class="card-header">
+        
+        <h3 class="card-title">Add Vendor</h3>
+      </div>
+
+      <div class="card-body">
+   
+          <div class="row">
+
+            <input class="form-control" type="hidden" id="uuid" name="uuid" readonly>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label>Add Vendor Logo</label>
+              <div class="mb-3 validate">
+                  <img src="https://avatars.dicebear.com/api/bottts/smile.svg" alt="" class="rounded avatar-lg img-thumbnail" style="height:100px;" id="photo_path_placeholder" name="photo_path_placeholder">
+
+              </div>
+              <div class="form-group">
+               
+                <input type="file" class="form-control" id="vendor_logo" name="vendor_logo">
+              </div>
+          </div>
+        
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vendor_name">Vendor Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="vendor_name" name="vendor_name" placeholder="Vendor Name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="category">Category<span class="text-danger">*</span></label>
+                <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary"
+                  id="category_id" name="category_id">
+
+                </select>
+                <!-- <select multiple="" class="form-control" id="category_id" name="category_id">
+                
+                  </select> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact_person">Contact Person<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="Contact Person">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact_no">Contact No<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="contact_no" name="contact_no" placeholder="Contact No">
+              </div>
+            </div>
+
+    
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vendor_website">Website</label>
+                <input type="text" class="form-control" id="vendor_website" name="vendor_website" placeholder="Website">
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email<span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="region">Region<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="region" id="region"></select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="province">Province<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="province" id="province"></select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="municipality">Municipality</label>
+                <select class="form-control select2" name="municipality" id="municipality"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="barangay">Barangay</label>
+                <select class="form-control select2" name="barangay" id="barangay"></select>                
+              </div>
+            </div>
+
+        
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="text" class="form-control" id="street" name="street" placeholder="street">
+                </div>
+              </div>
+
+        
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="organization_type">Organization Type</label>
+                <input type="text" class="form-control" id="organization_type" name="organization_type" placeholder="Organization Type">
+              </div>
+            </div>
+       
+
+          </div>
+<!--           
+          <div class="col-md-6 hide-password">
+            <div class="form-group">
+              <label for="password">Password<span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="password" name="password"
+                placeholder="Password">
+            </div>
+
+          </div> -->
+
+
+      </div>
+      <!-- end card body -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-md-12 text-right set-btn">
+            <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+            <button type="button" class="btn btn-default bg-default"
+              onclick="formReset('hide')">Cancel</button>
+
+
+            <button type="submit" class="btn btn-primary submit" id="add-button">
+              Submit
+              <i class="fas fa-file-export ml-1"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- end card -->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end form -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline card-tabs">
+            <!-- Card Header -->
+            <div class="card-header"><!-- pl-0 border-bottom-0 -->
+              <div class="row">
+                <div class="col-6
+              d-sm-flex
+              align-items-center">
+              <!-- <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="tab" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">Vendors</a>
+                </li>
+
+              </ul> -->
+              <h3 class="card-title">Vendors</h3>
+
+                </div>
+
+                <div class="col-6
+                d-sm-flex
+                align-items-center
+                justify-content-end">
+
+                  <div class="page-title-right">
+                    <button type="button" class="btn btn-sm btn-success add" onclick="formReset('Show')">
+                      <i class="fas fa-plus font-size-16 mr-2"></i>Add Vendor
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-three-tabContent">
+
+              <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                <table id="data-table" class="table table-hover table-bordered w-100">
+                  <thead>
+                    <tr>
+                      <th>Vendor Name</th>
+                      <th>Industry</th>
+                      <th>Address</th>
+                      <th>Contact No.</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Action</th>
+  
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+
+              <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+
+                <table id="data-table-applications" class="table table-hover table-bordered w-100">
+                  <thead>
+                    <tr>
+                      <th>Vendor Name</th>
+                      <th>Industry</th>
+                      <th>Address</th>
+                      <th>Contact No.</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Action</th>
+  
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+
+              </div>
+              </div>
+           
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{ url_for('static', path='/dist/js/procurement/vendor_management/vendor.js') }}"></script>
+
+
+
+
+<!-- Default Modal For deleting -->
+<div class="modal fade" id="modal-blacklist">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <div>
+            <!-- <i class="text-secondary fas fa-times-circle mr-1"></i> -->
+          </div>
+          <div class="modal-title modal-title-status">Blacklist Vendor</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Vendor Name</label>
+              <input class="form-control" type="text" id="blacklist_vendor_name" name="blaklist_vendor_name" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Vendor Email</label>
+              <input class="form-control" type="text" id="blacklist_vendor_email" name="blaklist_vendor_email"readonly >
+            </div>
+          </div>
+        </div>
+
+        <div class="row blacklist-remarks">
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="region">Remarks</label>
+              <textarea class="form-control" type="text" id="blacklist_remarks" name="blacklist_remarks"></textarea>
+            </div>
+          </div>
+        </div>
+      
+
+        <input type="hidden" id="del_uuid" name="del_uuid">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" id="ReactivateData" class="btn btn-primary">Continue <i
+          class="fas fa-submit font-size-16 ml-1"></i></button>
+        <button type="button" id="blacklistData" class="btn btn-primary">Continue <i
+            class="fas fa-submit font-size-16 ml-1"></i></button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-user">
+  <div class="
+          modal-dialog modal-default modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title modal-title-user">Add User</div>
+        </div>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+    
+      <div class="modal-body">
+        <input type="hidden" id="user_uuid" name="user_uuid">
+ 
+        
+              <select class="d-none" id="user_type_id"
+              name="user_type_id" 
+              >
+          
+           </select>
+          
+        
+
+    
+        <input type="hidden" class="form-control" id="vendor_id" name="vendor_id" placeholder="Vendor" readonly>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="vendor_email">Email</label>
+              <input type="email" class="form-control" id="vendor_email" name="vendor_email" placeholder="Email" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="password" id="pass_text">Password</label>
+              <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+          </div>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" onclick="submitUser()"id="changeStatus" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+    
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

@@ -1,0 +1,417 @@
+{% extends "internal/procurement_manager/p_manager_base.html" %}
+{% set active_page = "dashboard" %}
+{% set active_module = "procurement" %}
+
+
+
+{% block title %}Dashboard{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Dashboard</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+      <h5>Departments</h5>
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Request</span>
+              <span class="info-box-number" id="total_request"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Pending Request</span>
+              <span class="info-box-number" id="total_pending"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Approved Request</span>
+              <span class="info-box-number" id="total_approved"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Rejected Request</span>
+              <span class="info-box-number" id="total_rejected"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+
+
+      
+      <div class="row my-3">
+        <div class="col-md-6">
+          <!-- PIE CHART -->
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Request by Category</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <canvas id="request_by_category_pie"
+                style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+
+
+
+        <div class="col-md-6">
+          <!-- STACKED BAR CHART -->
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Request per Month</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="request_per_month_bar"
+                style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Recent Request</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table-request" class="table table-bordered table-hover w-100">
+                <thead>
+                  <tr>
+                    <th>PR No.</th>
+                    <th>Created by</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+
+          </div>
+          <!-- /.card -->
+
+        </div>
+      </div>
+
+      <h5>Procurement Officer</h5>
+
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Vendors</span>
+              <span class="info-box-number" id="total_vendors"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-paste"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Contracts</span>
+              <span class="info-box-number" id="total_contracts"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-shopping-cart"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Orders</span>
+              <span class="info-box-number" id="total_orders"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-light"><i class="fas fa-dollar-sign"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Total Spending</span>
+              <span class="info-box-number" id="total_spending"></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+
+
+      <div class="row my-4">
+        <div class="col-md-6">
+
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Top Vendors</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table-top-vendor" class="table table-bordered table-hover w-100">
+                <thead>
+                  <tr>
+                    <th>Vendor</th>
+                    <th>Total Ordered</th>
+                    <!-- <th>Score</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <div class="col-md-6">
+          <!-- BAR CHART -->
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Vendor Bar chart rating</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="vendor_rating_chart"
+                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Spent by Catagory</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="pieChart"
+                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <!-- BAR CHART -->
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">Monthly Spent</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="barChart"
+                  style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <h3 class="card-title">Recent Orders</h3>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table-orders" class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>PO No.</th>
+                    <th>Vendor</th>
+                    <th>Order Date</th>
+                    <th>Expected Delivery Date</th>
+                    <th>Payment Method</th>
+                    <th>Total</th>
+                    <th>Status</th>
+
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<script src="{{ url_for('static', path='/plugins/chart.js/Chart.min.js') }}"></script>
+<script src="{{ url_for('static', path='/dist/js/procurement/dashboards/procurement_manager_dashboard.js') }}"></script>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

@@ -1,0 +1,366 @@
+{% extends "public/vendor/vendor_base.html" %}
+{% set active_page = "orders" %}
+
+{% block title %}Orders{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Orders</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Orders</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+      <!-- form -->
+      <div class="row" id="div_form">
+        <div class="col-xl-12">
+          <form id="form_id" name="form_id" enctype="multipart/form-data">
+
+          <div class="card card-primary card-outline">
+            <div class="card-body">
+             
+
+                <input type="hidden" id="uuid" name="uuid" />
+                <div class="row">
+                  <div class="col-md-6">
+                    <h1 id="po_number"></h1>
+        
+                  </div>
+                </div>
+        
+                <div class="row my-4">
+                  <div class="col-md-6">
+                    <label>Order Date</label>
+        
+                    <input type="text" class="form-control" id="order_date" readonly>
+                  </div>
+            
+                  <div class="col-md-6">
+                    <label>Expected Delivery Date</label>
+        
+                    <input type="date" class="form-control" id="expected_delivery_date" name="expected_delivery_date" readonly>
+        
+                  </div>
+                </div>
+        
+                <div class="row my-4">
+                  <div class="col-md-4">
+                    <label>Payment Method</label>
+        
+                        <select name="payment_method" class="form-control select2" id="payment_method">
+        
+                        </select>
+                  </div>
+            
+                  <div class="col-md-4">
+                    <label>Payment Terms</label>
+                  <select name="payment_terms" class="form-control select2" id="payment_terms">
+                          
+                        </select>
+                  </div>
+        
+                  <div class="col-md-4">
+                    <label>Shipment Method</label>
+                  <select name="shipment_method" class="form-control" id="shipment_method">
+                        <option value="Full Shipment">Full Shipment</option>
+                        <option value="Partial Shipment">Partial Shipment</option>
+        
+                        </select>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-md-6">
+                    <h5>Homies</h5>
+                    <p>Company's Address</p>
+                    <p>City, State Zip</p>
+                    <p>Philippines</p>
+                  </div>
+        
+                  <div class="col-md-6">
+                    <h1>Purchase Order</h1>
+                  </div>
+                </div>
+        
+        
+                <div class="row mt-5">
+                  <div class="col-md-6">
+                    <h5>Vendor</h5>
+                    <p id="po_vendor_name">Azure Company</p>
+                    <p id="po_vendor_address">Vendor's Address</p>
+                    <p id="po_vendor_city">City, State Zip</p>
+                    <p>Philippines</p>
+                  </div>
+        
+                  <div class="col-md-6">
+        
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>PO Date</label>
+                      </div>
+                      <div class="col-md-6">
+                        <p id="order_date" name="order_date">order date</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Expected Delivery Date<span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-md-6">
+                        <input type="date" class="form-control" id="expected_delivery_date" name="expected_delivery_date">
+                        <p id="expected_delivery_date_p" name="expected_delivery_date_p">expected date</p>
+                      </div>
+        
+                    </div>
+        
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Payment Method<span class="text-danger">*</span></label>
+                      </div>
+        
+                      <div class="col-md-6">
+                        <p id="payment_method_p" name="payment_method_p"></p>
+                        <select class="form-control" id="payment_method" name="payment_method">
+                          <option value="Check" selected>Check</option>
+                          <option value="Cash">Cash</option>
+        
+                        </select>
+                      </div>
+        
+                    </div>
+        
+                  </div>
+                </div> -->
+        
+        
+                <hr />
+        
+                <div class="form-group row my-5">
+                  <div class="col-md-12 dt-responsive table-responsive">
+                    <table id="po-detail-table" class="table table-hoverable table-bordered w-100">
+                      <thead>
+                        <tr>
+                          <th>Category</th>
+                          <th>Product Name</th>
+                          <th>Price Per Unit</th>
+                          <th>Quantity</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </div>
+        
+                <div class="form-group row">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <label>Notes</label>
+                        <textarea class="form-control" name="po_notes" id="po_notes" rows="3"></textarea>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-md-10">
+                        <label>Address</label>
+                        <p  >Homie Hospital, Don Fabian st Quezon City</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <label>Subtotal</label>
+                      </div>
+                      <div class="col-md-6">
+        
+                        <span class="d-flex"> &#8369;<p id="po_subtotal"></p></span>
+        
+                        <!-- <input class="form-control" id="" name=""  /> -->
+                      </div>
+                    </div>
+        
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <label>Tax</label>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="d-flex"> &#8369;<p id="po_tax"></p></span>
+                      </div>
+                    </div>
+        
+        
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <label>Discount</label>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="d-flex"> &#8369;<p id="po_discount"></p></span>
+                      </div>
+                    </div>
+        
+                    
+        
+        
+                    <hr />
+        
+                    <div class="row my-2">
+                      <div class="col-md-6">
+                        <h5>Total</h5>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="d-flex"> &#8369;<p id="po_total"></p></span>
+                      </div>
+                    </div>
+        
+                  </div>
+        
+                </div>
+              </div>
+
+                <div class="card-footer">
+
+                <div class="row">
+
+                  <div class="col-md-12 text-right set-btn">
+                    <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+                    <button type="button" class="btn btn-default bg-default"
+                      onClick="return formReset('hide')">Cancel</button>
+
+
+
+                    <button type="submit" class="btn btn-primary submit" id="add-button">
+                      Confirm Order
+                      <i class="fas fa-check ml-1"></i>
+                    </button>
+
+                  </div>
+                </div>
+
+           
+            </div>
+
+
+          </div>
+          <!-- end card body -->
+          </form>
+        </div>
+        <!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end form -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Card -->
+        <div class="card card-primary card-outline">
+          <!-- Card Header -->
+          <div class="card-header">
+            <h3 class="card-title">Orders</h3>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="data-table" class="table table-hoverable table-bordered w-100">
+              <thead>
+                <tr>
+                  <th>PO No.</th>
+                  <th>Order Date</th>
+                  <th>Expected Delivery Date</th>
+                  <th>Payment Method</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+
+</div>
+</section>
+<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+   <!-- Default Modal For deleting -->
+   <div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="d-flex align-items-center">
+            <div >
+                <i class="text-secondary fas fa-times-circle mr-1"></i>
+            </div>
+            <div class="modal-title">Cancel Order</div>
+          </div> 
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="del_uuid" name="del_uuid">
+          <p>Are you sure you want to cancel this order?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" onClick="deleteData2();" class="btn btn-warning">Yes, Cancel it <i class="fas fa-times-circle font-size-16 ml-1"></i></button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+
+<script src="{{ url_for('static', path='/dist/js/vendor_side/orders/orders.js') }}"></script>
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

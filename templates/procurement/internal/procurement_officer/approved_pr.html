@@ -1,0 +1,226 @@
+{% extends "internal/procurement_officer/p_officer_base.html" %}
+{% set active_page = "approved_pr" %}
+{% set active_module = "procurement" %}
+
+
+{% block title %}Approved PR{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h3>Approved Purchase Requisitions</h3>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Approved PR</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+  
+      <div class="row">
+        <div class="col-md-12 col-sm-6">
+          <div class="card card-primary card-outline ">
+            <div class="card-header ">
+
+              <h3 class="card-title">Approve Requisitions</h3>
+
+            </div>
+            <div class="card-body">
+
+
+              <table id="data-table-approved" class="table table-hover table-bordered" width="100%">
+                <thead>
+                  <tr>
+                    <th>PR No.</th>
+
+                    <th>Requested By</th>
+                    <th>Date Ordered</th>
+                    <th>Created RFQ</th>
+                    
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-xl">
+  <div class="
+        modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+      ">
+    <div class="modal-content">
+      <div class="modal-header pr">
+        <div class="d-flex align-items-center p-2">
+          <div>
+            <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Request</div>
+        </div>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body modal-pr p-5">
+        <div class="modal-print">
+
+
+          <div class="form-group row m-t-10">
+            <div class="col-md-7">
+              <label>PR Number</label>
+              <p id="pr_number"></p>
+            </div>
+            <div class="col-md-4">
+              <label>Status</label>
+              <p id="status"></p>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-7">
+              <label>Department</label>
+              <p id="department"></p>
+            </div>
+            <div class="col-md-4">
+              <label>Requested By</label>
+              <p id="requested_by"></p>
+            </div>
+
+
+          </div>
+
+          <div class="form-group row">
+
+            <div class="col-md-7">
+              <label>Date Requested</label>
+              <p id="date_requested"></p>
+            </div>
+
+            <div class="col-md-4">
+              <label>Date Approved</label>
+              <p id="date_approved"></p>
+            </div>
+
+         
+          </div>
+
+          <div class="form-group row mb-5">
+            <div class="col-md-7">
+              <label>Purpose</label>
+              <p id="purpose"></p>
+            </div>
+
+            <div class="col-md-4">
+              <label>Approved By</label>
+              <p id="approved_by"></p>
+            </div>
+          </div>
+
+          <label class="h5">Item Details</label>
+
+          <table id="pr-detail-table" class="table table-hover table-bordered" style="width: 100%;">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Estimated Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+
+
+          <div class="form-group row my-5">
+            <div class="col-md-7">
+              <label>Estimated Amount</label>
+              <p id="estimated_amount"></p>
+            </div>
+
+            <div class="col-md-4">
+              <label>Given Budget</label>
+              <p id="given_budget"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary print">
+          Print
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+<script src="{{ url_for('static', path='/dist/js/procurement/approval/approved_pr.js') }}"></script>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

@@ -1,0 +1,327 @@
+{% extends "internal/procurement_manager/p_manager_base.html" %}
+{% set active_page = "list_of_vendors" %}
+{% set active_module = "procurement" %}
+
+
+
+{% block title %}Vendor Reports{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content  %}
+
+       <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          
+          <!-- Title -->
+          <div class="col-sm-6">
+            <h1>List of Vendors</h1>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">List of Vendors</li>
+            </ol>
+          </div>
+          <!-- / breadcrumb -->
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Card -->
+            <div class="card card-primary card-outline">
+              <!-- Card Header -->
+              <div class="card-header">
+                <div class="row mb-3">
+                  <div class="col-6
+                d-sm-flex
+                align-items-center">
+                    <h3 class="card-title">List of Vendors</h3>
+                  </div>
+  
+         
+                </div>
+  
+              </div>
+              <!-- /.card-header -->
+              <!-- Card Body -->
+              <div class="card-body">
+                
+                <!-- <div class="form-group row justify-content-end">
+                  <div class="col-md-2 text-right">
+                    <label for=""></label>
+                    <button id="clear" class="btn btn-light">Clear</button>
+                              
+
+                  </div>
+                </div> -->
+                <div class="form-group row justify-content-end">
+                  <div class="col-md-2">
+                    <label for="">Region</label>
+                    <select class="form-control select2" name="region" id="region">
+                      
+                    </select>              
+
+                  </div>
+                  <div class="col-md-2">
+                    <label for="">Province</label>
+
+                    <select class="form-control select2" name="province" id="province"></select>              
+
+                  </div>
+                  <div class="col-md-2">
+                    <label for="">Municipality</label>
+
+                    <select class="form-control select2" name="municipality" id="municipality"></select>              
+
+                  </div>
+                  <div class="col-md-2">
+                    <label for="">Status</label>
+
+                    <select class="form-control select2" name="vendor_status" id="vendor_status">
+                      <option value="Active" selected="selected">Active</option>
+                      <option value="Blacklisted">Blacklisted</option>
+
+                    </select>              
+
+                  </div>
+        
+                   </div>
+                <table id="data-table" class="table table-hover table-bordered w-100">
+                  <thead>
+                    <tr>
+                      <th>Vendor Name</th>
+                      <th>Industry</th>
+                      <th>Contact Person</th>
+                      <th>Contact Number</th>
+                      <th>Email</th>
+                      <th>Address</th>
+                      <th>Status</th>
+                      <!-- <th>Action</th> -->
+  
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+          
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <script src="{{ url_for('static', path='/dist/js/procurement/vendor_management/vendor_reports.js') }}"></script>
+
+
+    <!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-print">
+  <div class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content pr-report-modal-content">
+ 
+      <div class="modal-header pr-report-modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Request</div>
+        </div>
+        <!-- <h4 class="modal-title">Purchase Request</h4> -->
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <!-- <div class="modal-body-wrapper"> -->
+      <div class="modal-body pr-report-modal-body">
+
+        <div class="card-body">
+   
+          <div class="row">
+
+            <input class="form-control" type="hidden" id="uuid" name="uuid" readonly>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <label>Add Vendor Logo</label>
+              <div class="mb-3 validate">
+                  <img src="https://avatars.dicebear.com/api/bottts/smile.svg" alt="" class="rounded avatar-lg img-thumbnail" style="height:100px;" id="photo_path_placeholder" name="photo_path_placeholder">
+
+              </div>
+              <div class="form-group">
+               
+                <input type="file" class="form-control" id="vendor_logo" name="vendor_logo">
+              </div>
+          </div>
+        
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vendor_name">Vendor Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="vendor_name" name="vendor_name" placeholder="Vendor Name">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="category">Category<span class="text-danger">*</span></label>
+                <select class="form-control select2 select2-primary" data-dropdown-css-class="select2-primary"
+                  id="category_id" name="category_id">
+
+                </select>
+                <!-- <select multiple="" class="form-control" id="category_id" name="category_id">
+                
+                  </select> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact_person">Contact Person<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="contact_person" name="contact_person" placeholder="Contact Person">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact_no">Contact No<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="contact_no" name="contact_no" placeholder="Contact No">
+              </div>
+            </div>
+
+    
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="vendor_website">Website</label>
+                <input type="text" class="form-control" id="vendor_website" name="vendor_website" placeholder="Website">
+              </div>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email<span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="region">Region<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="region" id="region"></select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="province">Province<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="province" id="province"></select>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="municipality">Municipality<span class="text-danger">*</span></label>
+                <select class="form-control select2" name="municipality" id="municipality"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="barangay">Barangay</label>
+                <select class="form-control select2" name="barangay" id="barangay"></select>                
+              </div>
+            </div>
+
+        
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="text" class="form-control" id="street" name="street" placeholder="street">
+                </div>
+              </div>
+
+        
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="organization_type">Organization Type</label>
+                <input type="text" class="form-control" id="organization_type" name="organization_type" placeholder="Organization Type">
+              </div>
+            </div>
+       
+
+          </div>
+<!--           
+          <div class="col-md-6 hide-password">
+            <div class="form-group">
+              <label for="password">Password<span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="password" name="password"
+                placeholder="Password">
+            </div>
+
+          </div> -->
+
+
+      </div>
+    </div>
+      <!-- </div> -->
+      <div class="modal-footer pr-report-modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary print">
+          Print
+          <i class="fas fa-print ml-1"></i>
+        </button>
+      </div>
+    </div>
+ 
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}

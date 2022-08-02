@@ -1,0 +1,257 @@
+{% extends "internal/procurement_manager/p_manager_base.html" %}
+{% set active_page = "product" %}
+{% set active_module = "procurement" %}
+
+
+
+
+{% block title %}Products{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', path='/plugins/summernote/summernote-bs4.min.css') }}">
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper px-3">
+
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+
+        <!-- Title -->
+        <div class="col-sm-6">
+          <h1>Products</h1>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+          </ol>
+        </div>
+        <!-- / breadcrumb -->
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Card -->
+          <div class="card card-primary card-outline">
+            <!-- Card Header -->
+            <div class="card-header">
+              <div class="row mb-3">
+                <div class="col-6
+              d-sm-flex
+              align-items-center">
+                  <h3 class="card-title">List of Products</h3>
+                </div>
+
+
+                <div class="col-6
+                d-sm-flex
+                align-items-center
+                justify-content-end">
+
+                  <div class="page-title-right">
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="addData()"
+                      data-toggle="modal" data-target="#modal-xl">
+                      <i class="fas fa-plus font-size-16 mr-1"></i> Add Product
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <table id="data-table" class="table table-hover table-bordered w-100">
+                <thead>
+                  <tr>
+                    <!-- <th>Img</th> -->
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Estimated Price</th>
+                    <th>Created At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script src="{{ url_for('static', path='/plugins/summernote/summernote-bs4.min.js') }}"></script>
+
+<script src="{{ url_for('static', path='/dist/js/procurement/system_setup/product.js') }}"></script>
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-xl">
+  <div class="
+          modal-dialog modal-default modal-dialog-centered modal-dialog-scrollable
+        ">
+  
+      <form class="modal-content" id="form_id" name="form_id" enctype="multipart/form-data">
+        <div class="modal-header">
+          <div class="d-flex align-items-center p-2">
+            <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+            </div>
+            <div class="modal-title">Add Product</div>
+          </div>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <!-- <div class="row d-flex justify-content-center">
+
+
+            <div class="col-md-6">
+              <div class="mb-3 validate">
+                  <img src="https://avatars.dicebear.com/api/bottts/smile.svg" alt="" class="rounded avatar-lg img-thumbnail" style="object-fit: cover;" id="photo_path_placeholder" name="photo_path_placeholder">
+
+              </div>
+              <div class="mb-3 validate">
+                  <label for="photo_path" class="form-label">Item Picture</label>
+                  <input class="form-control" type="file" id="product_pic" name="product_pic" accept="image/*">
+              </div>
+          </div>
+           
+          </div> -->
+
+          <div class="row">
+            <input class="form-control" type="hidden" id="uuid" name="uuid" readonly>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="product_name">Item Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Item Name">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="category_id">Item Category<span class="text-danger">*</span></label>
+                <select class="form-control select2" id="category_id" name="category_id" style="width:100%">
+                </select>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="estimated_price">Estimated Price<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" name="estimated_price" id="estimated_price" />
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="form-group summernote">
+                <label for="last_name">Description<span class="text-danger">*</span></label>
+                <textarea class="form-control" name="description" id="description"></textarea>
+
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary submit">
+            Submit
+          </button>
+        </div>
+      </form>
+   
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!-- delete -->
+<div class="modal fade" id="modal-status">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center">
+          <div>
+            <i class="text-secondary fas fa-file mr-1"></i>
+          </div>
+          <div class="modal-title delete-modal-title"></div>
+        </div>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <p class="product-modal-body"> </p>
+        <input type="hidden" id="del_uuid">
+
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" onclick="changeStatus()" id="changeStatus">Yes, Deactive
+          it</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+{% endblock %}
