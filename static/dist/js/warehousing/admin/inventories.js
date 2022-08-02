@@ -151,7 +151,7 @@ loadTable = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if ( USER_TYPE == "Manager")
+                    else if ( USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -197,7 +197,7 @@ loadTable = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -303,7 +303,7 @@ loadTable = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if ( USER_TYPE == "Manager")
+            else if ( USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -349,7 +349,7 @@ loadTable = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -482,12 +482,12 @@ viewData = (inventory_id) =>
         window.location.replace(baseURL + 'admin/inventories/'+inventory_id);
         console.log(inventory_id);
     }
-    else if (USER_TYPE == "Manager")
+    else if (USER_TYPE == "warehousing_Manager")
     {
         window.location.replace(baseURL + 'manager/inventories/'+inventory_id);
         console.log(inventory_id);
     }
-    else if (USER_TYPE == "Staff")
+    else if (USER_TYPE == "warehousing_Staff")
     {
         window.location.replace(baseURL + 'staff/inventories/'+inventory_id);
         console.log(inventory_id);

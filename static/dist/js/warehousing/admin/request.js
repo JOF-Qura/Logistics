@@ -199,103 +199,9 @@ loadTable = () =>
                 render: function (aData, type, row) 
                 {
                     console.log(aData)
+                    console.log(USER_TYPE)
                     let buttons = "";
                     if (USER_TYPE == "Admin")
-                    {
-                        if(aData["request_status"] == "Delivered")
-                        {
-                            buttons +=
-                            '<div class="text-center dropdown">' +
-                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">'  +
-                                    '<i class="fas fa-ellipsis-v"></i>'  +
-                                '</div>' +
-                                '<div class="dropdown-menu dropdown-menu-right">'  +
-                                //Info
-                                    '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
-                                    aData["request_id"] + 
-                                    '\', 0)">'  +
-                                        '<div style="width: 2rem">' +
-                                            '<i class="fas fa-eye mr-1"></i>'  +
-                                        '</div>' +
-                                        '<div>' +
-                                            'View Request' +
-                                        '</div>'  +
-                                    '</div>'  +
-                                // // Edit
-                                //     '<div class="dropdown-divider"></div>' +
-                                //     '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                                //     aData["request_id"] +
-                                //     '\',1)">'  +
-                                //         '<div style="width: 2rem">' +
-                                //             '<i class="fas fa-edit mr-1"></i>'  +
-                                //         '</div>' +
-                                //         '<div>' +
-                                //             'Edit Request' +
-                                //         '</div>'  +
-                                //     '</div>' +
-                                // // // Delete
-                                //     '<div class="dropdown-divider"></div>' +
-                                //     '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                                //     aData["request_id"] + 
-                                //     '\')">'  +
-                                //         '<div style="width: 2rem">' +
-                                //             '<i class="fas fa-trash-alt mr-1"></i>'  +
-                                //         '</div>' +
-                                //         '<div>' +
-                                //             'Delete Request' +
-                                //         '</div>'  +
-                                //     '</div>'  +
-                                '</div>'  +
-                            '</div>';
-                        }
-                        else
-                        {
-                            buttons +=
-                            '<div class="text-center dropdown">' +
-                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">'  +
-                                    '<i class="fas fa-ellipsis-v"></i>'  +
-                                '</div>' +
-                                '<div class="dropdown-menu dropdown-menu-right">'  +
-                                //Info
-                                    '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
-                                    aData["request_id"] + 
-                                    '\', 0)">'  +
-                                        '<div style="width: 2rem">' +
-                                            '<i class="fas fa-eye mr-1"></i>'  +
-                                        '</div>' +
-                                        '<div>' +
-                                            'View Request' +
-                                        '</div>'  +
-                                    '</div>'  +
-                                // Edit
-                                    '<div class="dropdown-divider"></div>' +
-                                    '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                                    aData["request_id"] +
-                                    '\',1)">'  +
-                                        '<div style="width: 2rem">' +
-                                            '<i class="fas fa-edit mr-1"></i>'  +
-                                        '</div>' +
-                                        '<div>' +
-                                            'Edit Request' +
-                                        '</div>'  +
-                                    '</div>' +
-                                // Delete
-                                    '<div class="dropdown-divider"></div>' +
-                                    '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                                    aData["request_id"] + 
-                                    '\')">'  +
-                                        '<div style="width: 2rem">' +
-                                            '<i class="fas fa-trash-alt mr-1"></i>'  +
-                                        '</div>' +
-                                        '<div>' +
-                                            'Delete Request' +
-                                        '</div>'  +
-                                    '</div>'  +
-                                '</div>'  +
-                            '</div>';
-                        }
-                    }
-                    else if (USER_TYPE == "Manager")
                     {
                         
                         if(aData["request_status"] == "Delivered")
@@ -391,7 +297,80 @@ loadTable = () =>
                             '</div>';
                         }
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Manager")
+                    {
+                        console.log("Manager Here")
+                        console.log(aData["request_status"])
+                        if(aData["request_status"] == "Delivered")
+                        {
+                            buttons +=
+                            '<div class="text-center dropdown">' +
+                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">'  +
+                                    '<i class="fas fa-ellipsis-v"></i>'  +
+                                '</div>' +
+                                '<div class="dropdown-menu dropdown-menu-right">'  +
+                                //Info
+                                    '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
+                                    aData["request_id"] + 
+                                    '\', 0)">'  +
+                                        '<div style="width: 2rem">' +
+                                            '<i class="fas fa-eye mr-1"></i>'  +
+                                        '</div>' +
+                                        '<div>' +
+                                            'View Request' +
+                                        '</div>'  +
+                                    '</div>'  +
+                                '</div>'  +
+                            '</div>';
+                        }
+                        else if(aData["request_status"] == "Pending")
+                        {
+                            buttons +=
+                            '<div class="text-center dropdown">' +
+                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">'  +
+                                    '<i class="fas fa-ellipsis-v"></i>'  +
+                                '</div>' +
+                                '<div class="dropdown-menu dropdown-menu-right">'  +
+                                //Info
+                                    '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
+                                    aData["request_id"] + 
+                                    '\', 0)">'  +
+                                        '<div style="width: 2rem">' +
+                                            '<i class="fas fa-eye mr-1"></i>'  +
+                                        '</div>' +
+                                        '<div>' +
+                                            'View Request' +
+                                        '</div>'  +
+                                    '</div>'  +
+                                // Edit
+                                    '<div class="dropdown-divider"></div>' +
+                                    '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
+                                    aData["request_id"] +
+                                    '\',1)">'  +
+                                        '<div style="width: 2rem">' +
+                                            '<i class="fas fa-edit mr-1"></i>'  +
+                                        '</div>' +
+                                        '<div>' +
+                                            'Edit Request' +
+                                        '</div>'  +
+                                    '</div>' +
+                                // Delete
+                                    '<div class="dropdown-divider"></div>' +
+                                    '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
+                                    aData["request_id"] + 
+                                    '\')">'  +
+                                        '<div style="width: 2rem">' +
+                                            '<i class="fas fa-trash-alt mr-1"></i>'  +
+                                        '</div>' +
+                                        '<div>' +
+                                            'Delete Request' +
+                                        '</div>'  +
+                                    '</div>'  +
+                                '</div>'  +
+                            '</div>';
+                        }
+                    }
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -547,7 +526,7 @@ loadTable = () =>
                     '</div>';
                 }
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 if(aData["request_status"] == "Delivered")
                 {
@@ -642,7 +621,7 @@ loadTable = () =>
                     '</div>';
                 }
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -877,7 +856,7 @@ loadTableFilterToForRequest = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Manager")
+                    else if (USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -923,7 +902,7 @@ loadTableFilterToForRequest = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -1030,7 +1009,7 @@ loadTableFilterToForRequest = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -1076,7 +1055,7 @@ loadTableFilterToForRequest = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -1260,7 +1239,7 @@ loadTableFilterToProcurement = () =>
                 render: function (aData, type, row) 
                 {
                     let buttons = "";
-                    if (USER_TYPE == "Admin")
+                    if (USER_TYPE == "warehousing_Admin")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -1306,7 +1285,7 @@ loadTableFilterToProcurement = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Manager")
+                    else if (USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -1352,7 +1331,7 @@ loadTableFilterToProcurement = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -1459,7 +1438,7 @@ loadTableFilterToProcurement = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -1505,7 +1484,7 @@ loadTableFilterToProcurement = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -1735,7 +1714,7 @@ loadTableFilterToHD = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Manager")
+                    else if (USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -1781,7 +1760,7 @@ loadTableFilterToHD = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -1888,7 +1867,7 @@ loadTableFilterToHD = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -1934,7 +1913,7 @@ loadTableFilterToHD = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -2164,7 +2143,7 @@ loadTableFilterToWarehouse = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Manager")
+                    else if (USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -2210,7 +2189,7 @@ loadTableFilterToWarehouse = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -2271,7 +2250,7 @@ loadTableFilterToWarehouse = () =>
         fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) 
         {
             let buttons = "";
-            if (USER_TYPE == "Admin")
+            if (USER_TYPE == "warehousing_Admin")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -2317,7 +2296,7 @@ loadTableFilterToWarehouse = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -2363,7 +2342,7 @@ loadTableFilterToWarehouse = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -2490,12 +2469,12 @@ viewData = (request_id) =>
         window.location.replace(baseURL + 'admin/request_details?request_id='+request_id);
         console.log(request_id);
     }
-    else if(USER_TYPE == "Manager")
+    else if(USER_TYPE == "warehousing_Manager")
     {
         window.location.replace(baseURL + 'manager/request_details?request_id='+request_id);
         console.log(request_id);
     }
-    else if(USER_TYPE == "Staff")
+    else if(USER_TYPE == "warehousing_Staff")
     {
         window.location.replace(baseURL + 'staff/request_details?request_id='+request_id);
         console.log(request_id);

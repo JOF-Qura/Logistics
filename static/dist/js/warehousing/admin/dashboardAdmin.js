@@ -45,14 +45,14 @@ countPendingRequest = () =>
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 details +=
                 '<a href="/warehousing/manager/request" class="small-box-footer">' +
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 details +=
                 '<a href="/warehousing/staff/request" class="small-box-footer">' +
@@ -83,14 +83,14 @@ countPendingRequest = () =>
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 details +=
                 '<a href="/warehousing/manager/request" class="small-box-footer">' +
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 details +=
                 '<a href="/warehousing/staff/request" class="small-box-footer">' +
@@ -133,14 +133,14 @@ countPendingReturn = () =>
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 details +=
                 '<a href="/warehousing/manager/return" class="small-box-footer">' +
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 details +=
                 '<a href="/warehousing/staff/return" class="small-box-footer">' +
@@ -171,14 +171,14 @@ countPendingReturn = () =>
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 details +=
                 '<a href="/warehousing/manager/return" class="small-box-footer">' +
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 details +=
                 '<a href="/warehousing/staff/return" class="small-box-footer">' +
@@ -220,14 +220,14 @@ countLowSupplies = () =>
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 details +=
                 '<a href="/warehousing/manager/supplies" class="small-box-footer">' +
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 details +=
                 '<a href="/warehousing/staff/supplies" class="small-box-footer">' +
@@ -256,14 +256,14 @@ countLowSupplies = () =>
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 details +=
                 '<a href="/warehousing/manager/supplies" class="small-box-footer">' +
                     ' More info <i class="fas fa-arrow-circle-right"></i>' +
                 '</a>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 details +=
                 '<a href="/warehousing/staff/supplies" class="small-box-footer">' +
