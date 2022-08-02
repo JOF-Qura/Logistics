@@ -143,7 +143,7 @@ viewReturnDetails = () =>
             console.log(data)
             $("#send_return_id").empty();
 
-        if (USER_TYPE == "Admin" || USER_TYPE == "Manager")
+        if (USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
         {
             if (data.return_type == "To Return")
             {
@@ -194,7 +194,7 @@ viewReturnDetails = () =>
                 $("#send_return_id").append(details);
             }
         }
-        else if (USER_TYPE == "Staff")
+        else if (USER_TYPE == "warehousing_Staff")
         {
             // if (data.return_type == "To Return")
             // {
@@ -474,7 +474,7 @@ loadTable = () =>
                             render: function (aData, type, row) 
                             {
                                 let buttons = "";
-                                if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                                if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                                 {
                                     console.log(aData)
                                     if(aData.status == "Approved/Ready to Return")
@@ -507,7 +507,7 @@ loadTable = () =>
                                         '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                                     }
                                 }
-                                else if (USER_TYPE == "Staff")
+                                else if (USER_TYPE == "warehousing_Staff")
                                 {
                                     buttons +=
                                         'N/A';
@@ -525,7 +525,7 @@ loadTable = () =>
                     fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) 
                     {
                         let buttons = "";
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             if(aData.status == "Approved/Ready to Return")
                             {
@@ -557,7 +557,7 @@ loadTable = () =>
                                 '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                             }
                         }
-                        else if (USER_TYPE == "Staff")
+                        else if (USER_TYPE == "warehousing_Staff")
                         {
                             buttons +=
                                 'N/A';
@@ -577,7 +577,7 @@ loadTable = () =>
                         console.log(settings    )
                     },
                 });
-                if (USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                if (USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                 {
                     $('#add_supply_id').empty()
                     details = "";
@@ -638,7 +638,7 @@ loadTable = () =>
                             render: function (aData, type, row) 
                             {
                                 let buttons = "";
-                                if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                                if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                                 {
                                     console.log(aData)
                                     if(aData.status == "Approved/Ready to Return")
@@ -671,7 +671,7 @@ loadTable = () =>
                                         '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                                     }
                                 }
-                                else if (USER_TYPE == "Staff")
+                                else if (USER_TYPE == "warehousing_Staff")
                                 {
                                     buttons +=
                                         'N/A';
@@ -689,7 +689,7 @@ loadTable = () =>
                     fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) 
                     {
                         let buttons = "";
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             if(aData.status == "Approved/Ready to Return")
                             {
@@ -721,7 +721,7 @@ loadTable = () =>
                                 '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                             }
                         }
-                        else if (USER_TYPE == "Staff")
+                        else if (USER_TYPE == "warehousing_Staff")
                         {
                             buttons +=
                                 'N/A';
@@ -741,7 +741,7 @@ loadTable = () =>
                         console.log(settings    )
                     },
                 });
-                if (USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                if (USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                 {
                     $('#add_supply_id').empty()
                     details = "";
@@ -802,7 +802,7 @@ loadTable = () =>
                             render: function (aData, type, row) 
                             {
                                 let buttons = "";
-                                if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                                if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                                 {
                                     console.log(aData)
                                     if(aData.status == "Approved/Ready to Return")
@@ -835,7 +835,7 @@ loadTable = () =>
                                         '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                                     }
                                 }
-                                else if (USER_TYPE == "Staff")
+                                else if (USER_TYPE == "warehousing_Staff")
                                 {
                                     buttons +=
                                         'N/A';
@@ -853,7 +853,7 @@ loadTable = () =>
                     fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) 
                     {
                         let buttons = "";
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             if(aData.status == "Approved/Ready to Return")
                             {
@@ -885,7 +885,7 @@ loadTable = () =>
                                 '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                             }
                         }
-                        else if (USER_TYPE == "Staff")
+                        else if (USER_TYPE == "warehousing_Staff")
                         {
                             buttons +=
                                 'N/A';

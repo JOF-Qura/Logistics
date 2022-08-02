@@ -318,12 +318,12 @@ viewData = (return_id) =>
         window.location.replace(baseURL + 'admin/return_details?return_id='+return_id);
         console.log(return_id);
     }
-    else if(USER_TYPE == "Manager")
+    else if(USER_TYPE == "warehousing_Manager")
     {
         window.location.replace(baseURL + 'manager/return_details?return_id='+return_id);
         console.log(return_id);
     }
-    else if(USER_TYPE == "Staff")
+    else if(USER_TYPE == "warehousing_Staff")
     {
         window.location.replace(baseURL + 'staff/return_details?return_id='+return_id);
         console.log(return_id);
