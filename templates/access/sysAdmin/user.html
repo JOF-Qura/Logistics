@@ -191,7 +191,7 @@
 $(document).ready(function () {
     $("#user_table").dataTable({
 
-        ajax: "/asset_management/api/Auth/",
+        ajax: "/auth/",
         columns: [
                 { data: "user_id"},
                 { data: "user_name"},
@@ -235,7 +235,7 @@ $(document).ready(function () {
 
 
     $.ajax({
-    url: '/asset_management/api/Department/',
+    url: '/Department/',
     type: "GET",
     dataType: "JSON",
 
@@ -277,7 +277,7 @@ $("#addUserForm").on("submit", function(e){
     console.log(encoded)
 
         $.ajax({
-            url:'/asset_management/api/Auth/register',
+            url:'/auth/register',
             type: "POST",
             data: encoded,
             dataType: "JSON",
@@ -297,7 +297,7 @@ $("#addUserForm").on("submit", function(e){
       var id = this.id;
 
         $.ajax({
-            url: '/asset_management/api/Auth/' + id,
+            url: '/auth/' + id,
             type: "GET",
             data: { id: id },
             dataType: "JSON",
@@ -336,7 +336,7 @@ encoded = JSON.stringify(form)
 console.log(encoded)
 
     $.ajax({
-      url:'/asset_management/api/Auth/' + id,
+      url:'/auth/' + id,
       type: "PUT",
       data: encoded,
       dataType: "JSON",
@@ -360,7 +360,7 @@ $(document).on("click", ".btn_delete", function(){
   $(document).on("click", ".confirmed_delete", function(){
     
       $.ajax({
-        url: '/asset_management/api/Auth/' + id,
+        url: '/auth/' + id,
         type: "DELETE",
         data: { id: id },
         dataType: "JSON",

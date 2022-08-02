@@ -1005,13 +1005,13 @@ def dashboard(request: Request,):
 def dashboard(request: Request,):
     return template.TemplateResponse("asset_management/admin/maintenance_page.html", {"request": request})
 
-@app.get("/asset_management/sysAdmin/users", response_class=HTMLResponse)
+@app.get("/sysAdmin/users", response_class=HTMLResponse)
 def dashboard(request: Request,):
-    return template.TemplateResponse("asset_management/admin/sysAdmin/user.html", {"request": request})
+    return template.TemplateResponse("access/sysAdmin/user.html", {"request": request})
 
-@app.get("/asset_management/sysAdmin/department", response_class=HTMLResponse)
+@app.get("/sysAdmin/department", response_class=HTMLResponse)
 def dashboard(request: Request,):
-    return template.TemplateResponse("asset_management/admin/sysAdmin/department.html", {"request": request})
+    return template.TemplateResponse("access/sysAdmin/department.html", {"request": request})
 
 #-------------Equipment Manager----------------#
 
