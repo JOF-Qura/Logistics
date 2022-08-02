@@ -48,7 +48,7 @@ async def all_department_specific_approval_status_projects(id: str, approval_sta
 @router.get('/department/approval_status/project_officer/{approval_status}/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowConceptPaper])
 async def all_department_project_officer_specific_approval_status_projects(id: str, approval_status: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    data = db.query(ConceptPaper).filter(ConceptPaper.manager_id == employee.id, ConceptPaper.active_status == "Active", ConceptPaper.approval_status == approval_status).all()
+    data = db.query(ConceptPaper).filter(ConceptPaper.manager_id == employee.employee_id, ConceptPaper.active_status == "Active", ConceptPaper.approval_status == approval_status).all()
     return data
 
 # GET ALL DEPARTMENT CONCEPT PAPERS
@@ -62,7 +62,7 @@ async def all_department_project(id: str, db: Session = Depends(get_db)):
 @router.get('/department/project_officer/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowConceptPaper])
 async def all_department_project_officer_project(id: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    data = db.query(ConceptPaper).filter(ConceptPaper.manager_id == employee.id, ConceptPaper.active_status == "Active").all()
+    data = db.query(ConceptPaper).filter(ConceptPaper.manager_id == employee.employee_id, ConceptPaper.active_status == "Active").all()
     return data
 
 # GET ALL NOTIFICATION

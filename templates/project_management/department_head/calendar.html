@@ -135,7 +135,7 @@
       //Random default events
       events: function (fetchInfo, successCallback, failureCallback) {
         $.ajax({
-          url: 'http://127.0.0.1:8000/projects/department/approval_status/Approved/'+user_id,
+          url: 'http://127.0.0.1:8000/projects/department/approval_status/Approved/'+sessionStorage.getItem("id"),
           success: function (doc) {
             console.log(doc)
             var events = []

@@ -72,7 +72,7 @@ async def all_department_tasks(id: str, db: Session = Depends(get_db)):
 @router.get('/department/project_officer/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
 async def all_department_project_officer_tasks(id: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    project = db.query(Project).filter(Project.manager_id == employee.id, Project.active_status == "Active").all()
+    project = db.query(Project).filter(Project.manager_id == employee.employee_id, Project.active_status == "Active").all()
     tasks = []
     for i in range(len(project)):
         data = db.query(Task).filter(Task.active_status == "Active", Task.project_id == project[i].id).all()
@@ -94,7 +94,7 @@ async def all_department_specific_status_tasks(id: str, status: str, db: Session
 @router.get('/department/status/project_officer/{status}/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
 async def all_department_project_officer_specific_status_tasks(id: str, status: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    project = db.query(Project).filter(Project.manager_id == employee.id, Project.active_status == "Active").all()
+    project = db.query(Project).filter(Project.manager_id == employee.employee_id, Project.active_status == "Active").all()
     tasks = []
     for i in range(len(project)):
         data = db.query(Task).filter(Task.active_status == "Active", Task.status == status, Task.project_id == project[i].id).all()

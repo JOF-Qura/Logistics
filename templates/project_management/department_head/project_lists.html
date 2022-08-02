@@ -978,7 +978,7 @@
     clearTimeout(ajaxRequest);
     ajaxRequest = setTimeout(function (e) {
       $.ajax({
-        url: '/projects/department/approval_status/Approved/'+user_id,
+        url: '/projects/department/approval_status/Approved/'+sessionStorage.getItem("id"),
         type: "GET",
         dataType: "JSON",
         async: true,
@@ -1044,7 +1044,7 @@
   function project_table() {
     projectsDataTable = $('#projects_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/Approved/" + user_id,
+        url: "/projects/department/approval_status/Approved/" + sessionStorage.getItem("id"),
         dataSrc: "",
       },
       "columns": [{
@@ -1059,7 +1059,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name +
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name +
               '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
@@ -1276,7 +1276,7 @@
   function on_progress_table() {
     onProgressDataTable = $('#on_progress_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/On%20Progress/"+user_id,
+        url: "/projects/department/progress_status/On%20Progress/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1291,7 +1291,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name;
             return manager
           }
         },
@@ -1411,7 +1411,7 @@
   function completed_table() {
     completedDataTable = $('#completed_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/Completed/"+user_id,
+        url: "/projects/department/progress_status/Completed/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1426,7 +1426,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name;
             return manager
           }
         },
@@ -1533,7 +1533,7 @@
   function cancelled_table() {
     cancelledDataTable = $('#cancelled_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/Cancelled/"+user_id,
+        url: "/projects/department/progress_status/Cancelled/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1548,7 +1548,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name;
             return manager
           }
         },
@@ -1656,7 +1656,7 @@
   function delayed_table() {
     delayedDataTable = $('#delayed_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/Delayed/"+user_id,
+        url: "/projects/department/progress_status/Delayed/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1671,7 +1671,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name;
             return manager
           }
         },
@@ -1791,7 +1791,7 @@
   function on_hold_table() {
     onHoldDataTable = $('#on_hold_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/On%20Hold/"+user_id,
+        url: "/projects/department/progress_status/On%20Hold/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1806,7 +1806,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name;
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name;
             return manager
           }
         },
@@ -1956,7 +1956,7 @@
 
   function get_all_users1() {
     $.ajax({
-      url: '/employee/user/' + user_id,
+      url: '/employees/user/' + sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -1964,7 +1964,7 @@
         var department_id = data.department_id
 
         $.ajax({
-          url: '/users/department/' + department_id,
+          url: '/auth/department/' + department_id,
           type: "GET",
           dataType: "JSON",
 
@@ -1974,7 +1974,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name}</option>`
+                `<option value="${users[i].id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name}</option>`
             }
 
             $('#department_id').val(department_id);
@@ -2734,32 +2734,32 @@
   });
 
   function refresh1() {
-    var url = "/projects/department/approval_status/Approved/"+user_id;
+    var url = "/projects/department/approval_status/Approved/"+sessionStorage.getItem("id");
     projectsDataTable.ajax.url(url).load();
   }
 
   function refresh2() {
-    var url = "/projects/department/progress_status/On%20Progress/"+user_id;
+    var url = "/projects/department/progress_status/On%20Progress/"+sessionStorage.getItem("id");
     onProgressDataTable.ajax.url(url).load();
   }
 
   function refresh3() {
-    var url = "/projects/department/progress_status/Completed/"+user_id;
+    var url = "/projects/department/progress_status/Completed/"+sessionStorage.getItem("id");
     completedDataTable.ajax.url(url).load();
   }
 
   function refresh4() {
-    var url = "/projects/department/progress_status/Cancelled/"+user_id;
+    var url = "/projects/department/progress_status/Cancelled/"+sessionStorage.getItem("id");
     cancelledDataTable.ajax.url(url).load();
   }
 
   function refresh5() {
-    var url = "/projects/department/progress_status/Delayed/"+user_id;
+    var url = "/projects/department/progress_status/Delayed/"+sessionStorage.getItem("id");
     delayedDataTable.ajax.url(url).load();
   }
 
   function refresh6() {
-    var url = "/projects/department/progress_status/On%20Hold/"+user_id;
+    var url = "/projects/department/progress_status/On%20Hold/"+sessionStorage.getItem("id");
     onHoldDataTable.ajax.url(url).load();
   }
 
@@ -2771,7 +2771,7 @@
   // });
 
   $(document).on("click", ".btn-add", function () {
-    window.location.href = "http://127.0.0.1:8000/department_head/create_project";
+    window.location.href = "http://127.0.0.1:8000/project_management/department_head/create_project";
   });
 
   // VIEW PROJECT
@@ -2787,7 +2787,7 @@
 
       success: function (data) {
         var project = data;
-        window.location.href = "http://127.0.0.1:8000/department_head/project_details/" + project.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/department_head/project_details/" + project.id;
       }
     })
   });

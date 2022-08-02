@@ -350,7 +350,7 @@
   function all_project_table() {
     projectRequisitionDataTable = $('#project_requisition_table').DataTable({
       ajax: {
-        url: "/projects/department/"+user_id,
+        url: "/projects/department/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -365,7 +365,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -468,7 +468,7 @@
   function pending_project_table() {
     pendingProjectDataTable = $('#pending_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/Pending/"+user_id,
+        url: "/projects/department/approval_status/Pending/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -483,7 +483,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -586,7 +586,7 @@
   function approved_project_table() {
     approvedProjectDataTable = $('#approved_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/Approved/"+user_id,
+        url: "/projects/department/approval_status/Approved/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -601,7 +601,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -704,7 +704,7 @@
   function rejected_project_table() {
     rejectedProjectDataTable = $('#rejected_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/Rejected/"+user_id,
+        url: "/projects/department/approval_status/Rejected/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -719,7 +719,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            var manager = row.project_user.first_name + " " + row.project_user.last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
+            var manager = row.project_user.employee_first_name + " " + row.project_user.employee_last_name + '<br>' + '<small class="text-muted">' + row.project_department.name + '</small>';
             return manager
           }
         },
@@ -822,7 +822,7 @@
   // TOTAL PROJECT
   function total_projects() {
     $.ajax({
-      url: '/projects/department/'+user_id,
+      url: '/projects/department/'+sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -942,7 +942,7 @@
 
       success: function (data) {
         var project = data;
-        window.location.href = "http://127.0.0.1:8000/department_head/view_project/" + project.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/department_head/view_project/" + project.id;
       }
     })
   });

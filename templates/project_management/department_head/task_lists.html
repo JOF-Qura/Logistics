@@ -457,7 +457,7 @@
   function tasks_table() {
     tasksDataTable = $('#tasks_table').DataTable({
       ajax: {
-        url: "/task/department/" + user_id,
+        url: "/task/department/" + sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -472,8 +472,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -593,7 +593,7 @@
   function on_track_table() {
     onTrackDataTable = $('#on_track_table').DataTable({
       ajax: {
-        url: "/task/department/status/On%20Track/" + user_id,
+        url: "/task/department/status/On%20Track/" + sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -608,8 +608,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -729,7 +729,7 @@
   function at_risk_table() {
     atRiskDataTable = $('#at_risk_table').DataTable({
       ajax: {
-        url: "/task/department/status/At%20Risk/" + user_id,
+        url: "/task/department/status/At%20Risk/" + sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -744,8 +744,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -865,7 +865,7 @@
   function off_track_table() {
     offTrackDataTable = $('#off_track_table').DataTable({
       ajax: {
-        url: "/task/department/status/Off%20Track/" + user_id,
+        url: "/task/department/status/Off%20Track/" + sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -880,8 +880,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -1000,7 +1000,7 @@
 
   function total_tasks() {
     $.ajax({
-      url: '/task/department/' + user_id,
+      url: '/task/department/' + sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -1033,7 +1033,7 @@
 
   function get_all_projects() {
     $.ajax({
-      url: '/projects/department/approval_status/Approved/'+user_id,
+      url: '/projects/department/approval_status/Approved/'+sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -1071,7 +1071,7 @@
 
   function get_all_users() {
     $.ajax({
-      url: '/employee/user/' + user_id,
+      url: '/employees/user/' + sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -1079,7 +1079,7 @@
         var department_id = data.department_id
 
         $.ajax({
-          url: '/employee/department/' + department_id,
+          url: '/employees/department/' + department_id,
           type: "GET",
           dataType: "JSON",
 
@@ -1097,7 +1097,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name + ' ' + users[i].suffix_name}</option>`
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
             }
 
             $('#employee_id').html(html);
@@ -1307,22 +1307,22 @@
   });
 
   function refresh1() {
-    var url = "/task/department/" + user_id;
+    var url = "/task/department/" + sessionStorage.getItem("id");
     tasksDataTable.ajax.url(url).load();
   }
 
   function refresh2() {
-    var url = "/task/department/status/On%20Track/" + user_id;
+    var url = "/task/department/status/On%20Track/" + sessionStorage.getItem("id");
     onTrackDataTable.ajax.url(url).load();
   }
 
   function refresh3() {
-    var url = "/task/department/status/At%20Risk/" + user_id;
+    var url = "/task/department/status/At%20Risk/" + sessionStorage.getItem("id");
     atRiskDataTable.ajax.url(url).load();
   }
 
   function refresh4() {
-    var url = "/task/department/status/Off%20Track/" + user_id;
+    var url = "/task/department/status/Off%20Track/" + sessionStorage.getItem("id");
     offTrackDataTable.ajax.url(url).load();
   }
 
@@ -1339,7 +1339,7 @@
 
       success: function (data) {
         var task = data;
-        window.location.href = "http://127.0.0.1:8000/department_head/task_details/" + task.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/department_head/task_details/" + task.id;
       }
     })
   });

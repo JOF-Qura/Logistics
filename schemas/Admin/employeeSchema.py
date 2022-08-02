@@ -2,6 +2,8 @@ from datetime import datetime as dt
 from pydantic import BaseModel
 from typing import List, Optional
 from schemas.Admin import userSchema
+from schemas.project_management.department_schema import ShowDepartment
+from schemas.project_management.job_schema import ShowJob
 
 #================================ Employees Table =================================#
 class EmployeeBase(BaseModel):
@@ -36,11 +38,13 @@ class UpdateEmployee(BaseModel):
 class ShowEmployee(EmployeeBase):
     employee_id: str
     user_id: Optional[str]
-    
     created_at: Optional[dt] = None
     updated_at: Optional[dt] = None
-    
     employee_user: Optional[userSchema.ShowUser]
+    
+    # Relationship w/ Project Management
+    job: ShowJob
+    departments: ShowDepartment
     
     class Config():
         orm_mode = True

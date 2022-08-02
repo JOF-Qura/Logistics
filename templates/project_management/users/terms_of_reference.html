@@ -219,7 +219,7 @@
   function loadtable() {
     employeeDataTable = $('#tor_table').DataTable({
       ajax: {
-        url: "/tor/department/"+ user_id,
+        url: "/tor/department/"+ sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{

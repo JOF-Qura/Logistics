@@ -813,7 +813,7 @@
   function all_project_table() {
     projectRequisitionDataTable = $('#project_requisition_table').DataTable({
       ajax: {
-        url: "/projects/department/project_officer/"+user_id,
+        url: "/projects/department/project_officer/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -917,7 +917,7 @@
   function pending_project_table() {
     pendingProjectDataTable = $('#pending_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/project_officer/Pending/"+user_id,
+        url: "/projects/department/approval_status/project_officer/Pending/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1021,7 +1021,7 @@
   function approved_project_table() {
     approvedProjectDataTable = $('#approved_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/project_officer/Approved/"+user_id,
+        url: "/projects/department/approval_status/project_officer/Approved/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1125,7 +1125,7 @@
   function rejected_project_table() {
     rejectedProjectDataTable = $('#rejected_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/project_officer/Rejected/"+user_id,
+        url: "/projects/department/approval_status/project_officer/Rejected/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1229,7 +1229,7 @@
   function cancelled_project_table() {
     cancelledProjectDataTable = $('#cancelled_project_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/project_officer/Cancelled/"+user_id,
+        url: "/projects/department/approval_status/project_officer/Cancelled/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1332,7 +1332,7 @@
 
   function get_all_paper() {
     $.ajax({
-      url: '/concept_paper/department/approval_status/project_officer/Approved/'+user_id,
+      url: '/concept_paper/department/approval_status/project_officer/Approved/'+sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -1358,7 +1358,7 @@
 
   function total_projects() {
     $.ajax({
-      url: '/projects/department/project_officer/'+user_id,
+      url: '/projects/department/project_officer/'+sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -1684,33 +1684,33 @@
   });
 
   function refresh1() {
-    var url = "/projects/department/project_officer/"+user_id;
+    var url = "/projects/department/project_officer/"+sessionStorage.getItem("id");
     projectRequisitionDataTable.ajax.url(url).load();
   }
 
   function refresh2() {
-    var url = "/projects/department/approval_status/project_officer/Pending/"+user_id;
+    var url = "/projects/department/approval_status/project_officer/Pending/"+sessionStorage.getItem("id");
     pendingProjectDataTable.ajax.url(url).load();
   }
 
   function refresh3() {
-    var url = "/projects/department/approval_status/project_officer/Approved/"+user_id;
+    var url = "/projects/department/approval_status/project_officer/Approved/"+sessionStorage.getItem("id");
     approvedProjectDataTable.ajax.url(url).load();
   }
 
   function refresh4() {
-    var url = "/projects/department/approval_status/project_officer/Rejected/"+user_id;
+    var url = "/projects/department/approval_status/project_officer/Rejected/"+sessionStorage.getItem("id");
     rejectedProjectDataTable.ajax.url(url).load();
   }
 
   function refresh5() {
-    var url = "/projects/department/approval_status/project_officer/Cancelled/"+user_id;
+    var url = "/projects/department/approval_status/project_officer/Cancelled/"+sessionStorage.getItem("id");
     cancelledProjectDataTable.ajax.url(url).load();
   }
 
   // REQUEST PROJECT
   $(document).on("click", "#btn-request", function () {
-    window.location.href = "http://127.0.0.1:8000/project_officer/create_project";
+    window.location.href = "http://127.0.0.1:8000/project_management/project_officer/create_project";
   });
 
   // VIEW PROJECT
@@ -1726,7 +1726,7 @@
 
       success: function (data) {
         var project = data;
-        window.location.href = "http://127.0.0.1:8000/project_officer/view_project/" + project.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/project_officer/view_project/" + project.id;
       }
     })
   });

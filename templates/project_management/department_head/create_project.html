@@ -30,13 +30,22 @@
       <div class="info mr-1 w-100" id="userFullNameDisplay">
 
         <!-- User Full Name -->
-        <a href="#" class="nav-item text-truncate" id="full_name"></a>
+        <!-- <a href="#" class="nav-item text-truncate" id="full_name"></a> -->
 
         <!-- User Position -->
-        <div class="small text-secondary text-truncate" id="user_type"></div>
+        <!-- <div class="small text-secondary text-truncate" id="user_type"></div> -->
 
         <!-- User Department -->
-        <div class="small text-secondary text-truncate" id="department"></div>
+        <!-- <div class="small text-secondary text-truncate" id="department"></div> -->
+
+        <!-- User Full Name -->
+        <a href="#" class="nav-item text-truncate" id="userFullName"></a>
+
+        <!-- User Position -->
+        <div class="small text-secondary text-truncate" id="userPosition"></div>
+        
+        <!-- User Department -->
+        <div class="small text-secondary text-truncate" id="userDepartment">HR Department</div>
       </div>
     </div>
 
@@ -487,7 +496,7 @@
 
   function get_all_users1() {
     $.ajax({
-      url: '/employee/user/' + user_id,
+      url: '/employees/user/' + sessionStorage.getItem("id"),
       type: "GET",
       dataType: "JSON",
 
@@ -495,7 +504,7 @@
         var department_id = data.department_id
 
         $.ajax({
-          url: '/users/department/' + department_id,
+          url: '/auth/department/' + department_id,
           type: "GET",
           dataType: "JSON",
 
@@ -505,7 +514,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name}</option>`
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name}</option>`
             }
 
             $('#department_id').val(department_id);
@@ -835,7 +844,7 @@
                       $("#add_project_form").trigger("reset");
 
                       window.setTimeout(function () {
-                        window.location.href = "http://127.0.0.1:8000/department_head/project_lists";
+                        window.location.href = "http://127.0.0.1:8000/project_management/department_head/project_lists";
                       }, 1800);
                     }
                     // ajax closing tag

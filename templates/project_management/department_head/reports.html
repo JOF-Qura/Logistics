@@ -1284,8 +1284,8 @@
           $('#date_createds').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#project_progresss').html(data.progress_status);
-        $('#project_managers').html(data.project_user.first_name + ' ' + data.project_user
-          .last_name + ' ' + data.project_user.suffix_name)
+        $('#project_managers').html(data.project_user.employee_first_name + ' ' + data.project_user
+          .employee_last_name + ' ' + data.project_user.employee_suffix_name)
         $('#project_backgrounds').html(data.background)
         $('#project_coverages').html(data.coverage)
         $('#project_objectives').html(data.objectives)
@@ -1419,8 +1419,8 @@
           $('#paper_date_createds').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#paper_progresss').html(data.progress_status);
-        $('#paper_managers').html(data.concept_employee.first_name + ' ' + data.concept_employee
-          .last_name + ' ' + data.concept_employee.suffix_name)
+        $('#paper_managers').html(data.concept_employee.employee_first_name + ' ' + data.concept_employee
+          .employee_last_name + ' ' + data.concept_employee.employee_suffix_name)
         $('#paper_backgrounds').html(data.background)
         $('#paper_coverages').html(data.coverage)
         $('#paper_objectives').html(data.objectives)
@@ -1509,8 +1509,8 @@
           $('#date_created').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#project_progress').html(data.progress_status);
-        $('#project_manager').html(data.project_user.first_name + ' ' + data.project_user
-          .last_name + ' ' + data.project_user.suffix_name)
+        $('#project_manager').html(data.project_user.employee_first_name + ' ' + data.project_user
+          .employee_last_name + ' ' + data.project_user.employee_suffix_name)
 
         $('#project_background').html(data.background)
         $('#project_coverage').html(data.coverage)
@@ -1632,8 +1632,8 @@
           $('#paper_date_created').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#paper_progress').html(data.progress_status);
-        $('#paper_manager').html(data.concept_employee.first_name + ' ' + data.concept_employee
-          .last_name + ' ' + data.concept_employee.suffix_name)
+        $('#paper_manager').html(data.concept_employee.employee_first_name + ' ' + data.concept_employee
+          .employee_last_name + ' ' + data.concept_employee.employee_suffix_name)
         $('#paper_background').html(data.background)
         $('#paper_coverage').html(data.coverage)
         $('#paper_objective').html(data.objectives)

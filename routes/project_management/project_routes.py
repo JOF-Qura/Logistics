@@ -46,7 +46,7 @@ async def all_department_specific_approval_status_projects(id: str, approval_sta
 @router.get('/department/approval_status/project_officer/{approval_status}/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowProject])
 async def all_department_project_officer_specific_approval_status_projects(id: str, approval_status: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    data = db.query(Project).filter(Project.manager_id == employee.id, Project.active_status == "Active", Project.approval_status == approval_status).all()
+    data = db.query(Project).filter(Project.manager_id == employee.employee_id, Project.active_status == "Active", Project.approval_status == approval_status).all()
     return data
 
 # GET ALL DEPARTMENT PROJECTS
@@ -60,7 +60,7 @@ async def all_department_project(id: str, db: Session = Depends(get_db)):
 @router.get('/department/project_officer/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowProject])
 async def all_department_project_officer_project(id: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    data = db.query(Project).filter(Project.manager_id == employee.id, Project.active_status == "Active").all()
+    data = db.query(Project).filter(Project.manager_id == employee.employee_id, Project.active_status == "Active").all()
     return data
 
 # GET ALL DEPARTMENT SPECIFIC PROGRESS STATUS PROJECTS
@@ -74,7 +74,7 @@ async def all_department_specific_progress_status_project(id: str, progress_stat
 @router.get('/department/progress_status/project_officer/{progress_status}/{id}', status_code=status.HTTP_200_OK, response_model=List[ShowProject])
 async def all_department_project_officer_specific_progress_status_project(id: str, progress_status: str, db: Session = Depends(get_db)):
     employee = db.query(Employees).filter(Employees.user_id == id).first()
-    data = db.query(Project).filter(Project.manager_id == employee.id, Project.active_status == "Active", Project.approval_status == "Approved", Project.progress_status == progress_status).all()
+    data = db.query(Project).filter(Project.manager_id == employee.employee_id, Project.active_status == "Active", Project.approval_status == "Approved", Project.progress_status == progress_status).all()
     return data
 
 # GET ALL DELETED PROJECTS

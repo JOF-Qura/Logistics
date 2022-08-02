@@ -392,7 +392,7 @@
     clearTimeout(ajaxRequest);
     ajaxRequest = setTimeout(function (e) {
       $.ajax({
-        url: '/projects/department/approval_status/Approved/'+user_id,
+        url: '/projects/department/approval_status/Approved/'+sessionStorage.getItem("id"),
         type: "GET",
         dataType: "JSON",
         async: true,
@@ -434,7 +434,7 @@
   function project_table() {
     projectsDataTable = $('#projects_table').DataTable({
       ajax: {
-        url: "/projects/department/approval_status/project_officer/Approved/"+user_id,
+        url: "/projects/department/approval_status/project_officer/Approved/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -628,7 +628,7 @@
   function on_progress_table() {
     onProgressDataTable = $('#on_progress_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/project_officer/On%20Progress/"+user_id,
+        url: "/projects/department/progress_status/project_officer/On%20Progress/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -741,7 +741,7 @@
   function completed_table() {
     completedDataTable = $('#completed_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/project_officer/Completed/"+user_id,
+        url: "/projects/department/progress_status/project_officer/Completed/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -841,7 +841,7 @@
   function cancelled_table() {
     cancelledDataTable = $('#cancelled_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/project_officer/Cancelled/"+user_id,
+        url: "/projects/department/progress_status/project_officer/Cancelled/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -941,7 +941,7 @@
   function delayed_table() {
     delayedDataTable = $('#delayed_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/project_officer/Delayed/"+user_id,
+        url: "/projects/department/progress_status/project_officer/Delayed/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1054,7 +1054,7 @@
   function on_hold_table() {
     onHoldDataTable = $('#on_hold_table').DataTable({
       ajax: {
-        url: "/projects/department/progress_status/project_officer/On%20Hold/"+user_id,
+        url: "/projects/department/progress_status/project_officer/On%20Hold/"+sessionStorage.getItem("id"),
         dataSrc: ""
       },
       "columns": [{
@@ -1309,32 +1309,32 @@
   });
 
   function refresh1() {
-    var url = "/projects/department/approval_status/project_officer/Approved/"+user_id;
+    var url = "/projects/department/approval_status/project_officer/Approved/"+sessionStorage.getItem("id");
     projectsDataTable.ajax.url(url).load();
   }
 
   function refresh2() {
-    var url = "/projects/department/progress_status/project_officer/On%20Progress/"+user_id;
+    var url = "/projects/department/progress_status/project_officer/On%20Progress/"+sessionStorage.getItem("id");
     onProgressDataTable.ajax.url(url).load();
   }
 
   function refresh3() {
-    var url = "/projects/department/progress_status/project_officer/Completed/"+user_id;
+    var url = "/projects/department/progress_status/project_officer/Completed/"+sessionStorage.getItem("id");
     completedDataTable.ajax.url(url).load();
   }
 
   function refresh4() {
-    var url = "/projects/department/progress_status/project_officer/Cancelled/"+user_id;
+    var url = "/projects/department/progress_status/project_officer/Cancelled/"+sessionStorage.getItem("id");
     cancelledDataTable.ajax.url(url).load();
   }
 
   function refresh5() {
-    var url = "/projects/department/progress_status/project_officer/Delayed/"+user_id;
+    var url = "/projects/department/progress_status/project_officer/Delayed/"+sessionStorage.getItem("id");
     delayedDataTable.ajax.url(url).load();
   }
 
   function refresh6() {
-    var url = "/projects/department/progress_status/project_officer/On%20Hold/"+user_id;
+    var url = "/projects/department/progress_status/project_officer/On%20Hold/"+sessionStorage.getItem("id");
     onHoldDataTable.ajax.url(url).load();
   }
 
@@ -1351,7 +1351,7 @@
 
       success: function (data) {
         var project = data;
-        window.location.href = "http://127.0.0.1:8000/project_officer/project_details/" + project.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/project_officer/project_details/" + project.id;
       }
     })
   });
@@ -1360,7 +1360,7 @@
   $(document).on("click", ".btn-view1", function () {
 
     var id = this.value;
-    window.location.href = "http://127.0.0.1:8000/project_officer/view_project/" + id;
+    window.location.href = "http://127.0.0.1:8000/project_management/project_officer/view_project/" + id;
 
   });
 

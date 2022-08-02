@@ -160,7 +160,7 @@
               <p><i class="fas fa-clock mr-1"></i> Posted <span>{{ data.created_at.strftime('%B %d, %Y') }}</span></p>
             </div> -->
             <h6><i class="fas fa-user-circle"></i> Assigned</h6>
-            {{ data.task_employee.first_name }} {{ data.task_employee.last_name }} {{ data.task_employee.suffix_name }}
+            {{ data.task_employee.employee_first_name }} {{ data.task_employee.employee_last_name }} {{ data.task_employee.employee_suffix_name }}
             <div class="row invoice-info mt-3">
               <div class="col-sm-4 invoice-col">
                 <address>
@@ -551,8 +551,8 @@
             {
               data: null,
               render: function (data, type, row, meta) {
-                return row.activity_employee.first_name + " " + row.activity_employee
-                  .last_name + " " + row.activity_employee.suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
+                return row.activity_employee.employee_first_name + " " + row.activity_employee
+                  .employee_last_name + " " + row.activity_employee.employee_suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
               }
             },
             {
@@ -625,7 +625,7 @@
       function get_all_users() {
 
         $.ajax({
-          url: '/employee/department/{{ data.task_project.department_id }}',
+          url: '/employees/department/{{ data.task_project.department_id }}',
           type: "GET",
           dataType: "JSON",
 
@@ -643,7 +643,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name + ' ' + users[i].suffix_name}</option>`
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
             }
 
             $('#employee_id').html(html);
@@ -895,8 +895,8 @@
           var user = data;
 
           $('#view_id').html(user.id);
-          $('#view_employee').html(user.activity_employee.first_name + " " + user.activity_employee
-            .last_name + " " + user.activity_employee.suffix_name);
+          $('#view_employee').html(user.activity_employee.employee_first_name + " " + user.activity_employee
+            .employee_last_name + " " + user.activity_employee.employee_suffix_name);
           $('#view_subject').html(user.subject);
           $('#view_remarks').html(user.remarks);
           $('#view_date').html(moment(user.date).format('LL'));

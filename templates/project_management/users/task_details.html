@@ -46,54 +46,54 @@
         <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
         <li class="nav-header">CORE</li>
         <li class="nav-item">
-          <a href="/project_officer/dashboard" {%if request.path == '/project_officer/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/dashboard" {%if request.path == '/project_management/project_officer/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-header">REQUESTS</li>
           <li class="nav-item">
-            <a href="/project_officer/concept_paper_requisition" {%if request.path == '/project_officer/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/project_officer/concept_paper_requisition" {%if request.path == '/project_management/project_officer/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
                 <i class="nav-icon fas fa-file-alt"></i>
               <p>Concept Papers</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/project_officer/project_requisition" {%if request.path == '/project_officer/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/project_officer/project_requisition" {%if request.path == '/project_management/project_officer/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Proposals</p>
             </a>
           </li>
         <li class="nav-header">PROJECTS</li>
         <li class="nav-item">
-          <a href="/project_officer/project_lists" {%if request.path == '/project_officer/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/project_lists" {%if request.path == '/project_management/project_officer/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-hammer"></i>
             <p>Projects</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/project_officer/calendar" {%if request.path == '/project_officer/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/calendar" {%if request.path == '/project_management/project_officer/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-calendar"></i>
             <p>Schedule</p>
           </a>
         </li>
         <li class="nav-header">TASKS</li>
         <li class="nav-item">
-          <a href="/project_officer/task_lists" class="nav-link active" {%if request.path == '/project_officer/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/task_lists" class="nav-link active" {%if request.path == '/project_management/project_officer/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
             <i class="nav-icon fas fa-tasks"></i>
             <p>General Tasks</p>
           </a>
         </li>
         <li class="nav-header">REPORTS</li>
         <li class="nav-item">
-          <a href="/project_officer/reports" {%if request.path == '/project_officer/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+          <a href="/project_management/project_officer/reports" {%if request.path == '/project_management/project_officer/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-file-signature"></i>
             <p>Reports</p>
           </a>
         </li>
         <li class="nav-header">TERMS OF REFERENCE</li>
           <li class="nav-item">
-            <a href="/project_officer/terms_of_reference" {%if request.path == '/project_officer/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <a href="/project_management/project_officer/terms_of_reference" {%if request.path == '/project_management/project_officer/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
               <i class="nav-icon fas fa-copy"></i>
               <p>Terms of Reference</p>
             </a>
@@ -161,7 +161,7 @@
           </div>
           <div class="card-body">
             <h6><i class="fas fa-user-circle"></i> Assigned</h6>
-            {{ data.task_employee.first_name }} {{ data.task_employee.last_name }} {{ data.task_employee.suffix_name }}
+            {{ data.task_employee.employee_first_name }} {{ data.task_employee.employee_last_name }} {{ data.task_employee.employee_suffix_name }}
             <div class="row invoice-info mt-3">
               <div class="col-sm-4 invoice-col">
                 <address>
@@ -514,8 +514,8 @@
             {
               data: null,
               render: function (data, type, row, meta) {
-                return row.activity_employee.first_name + " " + row.activity_employee
-                  .last_name + " " + row.activity_employee.suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
+                return row.activity_employee.employee_first_name + " " + row.activity_employee
+                  .employee_last_name + " " + row.activity_employee.employee_suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
               }
             },
             {
@@ -588,7 +588,7 @@
       function get_all_users() {
 
         $.ajax({
-          url: '/employee/department/{{ data.task_project.department_id }}',
+          url: '/employees/department/{{ data.task_project.department_id }}',
           type: "GET",
           dataType: "JSON",
 
@@ -606,7 +606,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name + ' ' + users[i].suffix_name}</option>`
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
             }
 
             $('#employee_id').html(html);
@@ -769,7 +769,7 @@
     // VIEW PROJECT
     $(document).on("click", ".btn-project", function () {
       var id = this.value;
-      window.location.href = "http://127.0.0.1:8000/project_officer/project_details/" + id;
+      window.location.href = "http://127.0.0.1:8000/project_management/project_officer/project_details/" + id;
     });
 
     // VIEW ACTIVITY
@@ -789,8 +789,8 @@
           var user = data;
 
           $('#view_id').html(user.id);
-          $('#view_employee').html(user.activity_employee.first_name + " " + user.activity_employee
-            .last_name + " " + user.activity_employee.suffix_name);
+          $('#view_employee').html(user.activity_employee.employee_first_name + " " + user.activity_employee
+            .employee_last_name + " " + user.activity_employee.employee_suffix_name);
           $('#view_subject').html(user.subject);
           $('#view_remarks').html(user.remarks);
           $('#view_date').html(moment(user.date).format('LL'));

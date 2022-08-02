@@ -196,7 +196,7 @@
                   <div class="info-box border shadow-none bg-default">
                     <div class="info-box-content">
                       <label class="info-box-text" for="inputName">Project Manager</label>
-                      <span>{{ data.project_user.first_name }} {{ data.project_user.last_name}}
+                      <span>{{ data.project_user.employee_first_name }} {{ data.project_user.employee_last_name}}
                         {{ data.project_user.suffix_name}}</span>
                       <small class="text-muted"> {{ data.project_department.name }} </small>
                     </div>
@@ -575,9 +575,9 @@
 <!-- /.content-wrapper -->
 
 {%block scripts%}
-<script src="{{url_for('static', path='/project_management/department_head_footer_scripts.js')}}"></script>
-<script src="{{url_for('static', path='/project_management/department_head_restriction.js')}}"></script>
-<script src="{{url_for('static', path='/project_management/department_head_notification.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head/department_head_notification.js')}}"></script>
 
 <script>
   $('.select2bs4').select2()
@@ -600,8 +600,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -734,8 +734,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -868,8 +868,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -1002,8 +1002,8 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -1120,7 +1120,7 @@
 
   function get_all_users() {
     $.ajax({
-      url: '/employee/department/{{ data.department_id }}',
+      url: '/employees/department/{{ data.department_id }}',
       type: "GET",
       dataType: "JSON",
 
@@ -1138,7 +1138,7 @@
 
         for (var i = 0; i < users.length; i++) {
           html +=
-            `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name + ' ' + users[i].suffix_name}</option>`
+            `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
         }
 
         $('#employee_id').html(html);

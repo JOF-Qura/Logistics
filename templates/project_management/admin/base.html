@@ -6,226 +6,226 @@
       window.location.replace('/')
     }
   </script> -->
-<!DOCTYPE html>
-<html lang="en">
-
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed user-select-none">
-  <style>
-    .table {
-      margin: 0 auto;
-      width: 100%;
-      clear: both;
-      border-collapse: collapse;
-      table-layout: fixed;
-      word-wrap: break-word;
-    }
-  </style>
-  <!-- Site wrapper -->
-  <div class="wrapper">
-
-    <!-- Preloader -->
-    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed user-select-none">
+    <style>
+      .table {
+        margin: 0 auto;
+        width: 100%;
+        clear: both;
+        border-collapse: collapse;
+        table-layout: fixed;
+        word-wrap: break-word;
+      }
+    </style>
+    <!-- Site wrapper -->
+    <div class="wrapper">
+  
+      <!-- Preloader -->
+      <!-- <div class="preloader flex-column justify-content-center align-items-center">
         <div class="spinner-border text-primary" role="status" style="width: 2.5rem; height: 2.5rem;">
         </div>
       </div> -->
+  
+      {%block includes%}
+      {%endblock%}
 
-    {%block includes%}
-    {%endblock%}
-
-    <!-- Main Sidebar Container -->
-    {%block sidebar%}
-    {%endblock%}
-    <!-- .main-sidebar -->
-
-    <!-- Content Wrapper. Contains page content -->
-    {%block maincontent%}
-    {%endblock%}
-    <!-- .content-wrapper -->
-
-    <!-- Default Modal -->
-    <div class="modal fade" id="logout_form_modal">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title"><i class="fas fa-sign-out-alt text-danger"></i> Log out</h4>
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"><i class="fas fa-times"></i></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="logout_form">
-              <div class="modal-body">
-                <div class="form-row">
-                  <div class="form-group col-sm-12">
-                    <h7>Are you sure you want to logout?</h7>
+      <!-- Main Sidebar Container -->
+      {%block sidebar%}
+      {%endblock%}
+      <!-- .main-sidebar -->
+  
+      <!-- Content Wrapper. Contains page content -->
+      {%block maincontent%}
+      {%endblock%}
+      <!-- .content-wrapper -->
+  
+      <!-- Default Modal -->
+      <div class="modal fade" id="logout_form_modal">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><i class="fas fa-sign-out-alt text-danger"></i> Log out</h4>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="logout_form">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <h7>Are you sure you want to logout?</h7>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger logout-confirm">Log out <i
-                    class="fas fa-sign-out-alt"></i></button>
-              </div>
-            </form>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-danger logout-confirm">Log out <i
+                      class="fas fa-sign-out-alt"></i></button>
+                </div>
+              </form>
+            </div>
           </div>
+          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+      <!-- /.modal -->
 
-    <!-- Default Modal -->
-    <div class="modal fade" id="logouts_form_modal">
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title"><i class="fas fa-sign-out-alt text-danger"></i> Log out</h4>
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"><i class="fas fa-times"></i></span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="logouts_form">
-              <div class="modal-body">
-                <div class="form-row">
-                  <div class="form-group col-sm-12">
-                    <h7>Are you sure you want to logout?</h7>
+      <!-- Default Modal -->
+      <div class="modal fade" id="logouts_form_modal">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><i class="fas fa-sign-out-alt text-danger"></i> Log out</h4>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="logouts_form">
+                <div class="modal-body">
+                  <div class="form-row">
+                    <div class="form-group col-sm-12">
+                      <h7>Are you sure you want to logout?</h7>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger logout-confirm">Log out <i
-                    class="fas fa-sign-out-alt"></i></button>
-              </div>
-            </form>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-danger logout-confirm">Log out <i
+                      class="fas fa-sign-out-alt"></i></button>
+                </div>
+              </form>
+            </div>
           </div>
+          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- Main Footer -->
-    <!-- <footer class="main-footer">
+      <!-- /.modal -->
+  
+      <!-- Main Footer -->
+      <!-- <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
           <b>Version</b> 3.1.0
         </div>
         <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
       </footer> -->
-    <!-- /.main-footer -->
-  </div>
-  <!-- ./wrapper -->
+      <!-- /.main-footer -->
+    </div>
+    <!-- ./wrapper -->
+  
+    <!-- pdf -->
+    <script src="{{url_for('static', path='/dist/js/jspdf.debug.js')}}"></script>
+    <script src="{{url_for('static', path='/dist/js/html2canvas.min.js')}}"></script>
+    <script src="{{url_for('static', path='/dist/js/html2pdf.min.js')}}"></script>
+  
+    <!-- jQuery -->
+    <script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{url_for('static', path='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{{url_for('static', path='/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/jszip/jszip.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/pdfmake/pdfmake.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/pdfmake/vfs_fonts.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+  
+    <!-- jquery-validation -->
+    <script src="{{url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+  
+    <!-- Select2 -->
+    <script src="{{url_for('static', path='/plugins/select2/js/select2.full.min.js')}}"></script>
+  
+    <!-- Toastr -->
+    <script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+  
+    <!-- Plugin for the momentJs  -->
+    <script src="{{url_for('static', path='/dist/js/moment.min.js')}}"></script>
+  
+    <!-- ChartJS -->
+    <script src="{{url_for('static', path='/plugins/chart.js/Chart.min.js')}}"></script>
+  
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="{{url_for('static', path='/plugins/chart.js/Chart.min.js')}}"></script>
+  
+    <!-- fullCalendar 2.2.5 -->
+    <script src="{{url_for('static', path='/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{url_for('static', path='/plugins/fullcalendar/main.js')}}"></script>
+  
+    <!-- AdminLTE App -->
+    <script src="{{url_for('static', path='/dist/js/adminlte.min.js')}}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{{url_for('static', path='/dist/js/demo.js')}}"></script>
+  
+    <script src="{{url_for('static', path='/dist/js/printThis.js')}}"></script>
 
-  <!-- pdf -->
-  <script src="{{url_for('static', path='/dist/js/jspdf.debug.js')}}"></script>
-  <script src="{{url_for('static', path='/dist/js/html2canvas.min.js')}}"></script>
-  <script src="{{url_for('static', path='/dist/js/html2pdf.min.js')}}"></script>
-
-  <!-- jQuery -->
-  <script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
-  <!-- Bootstrap 4 -->
-  <script src="{{url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <!-- overlayScrollbars -->
-  <script src="{{url_for('static', path='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
-  <!-- DataTables  & Plugins -->
-  <script src="{{url_for('static', path='/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/jszip/jszip.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/pdfmake/pdfmake.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/pdfmake/vfs_fonts.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
-
-  <!-- jquery-validation -->
-  <script src="{{url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/jquery-validation/additional-methods.min.js')}}"></script>
-
-  <!-- Select2 -->
-  <script src="{{url_for('static', path='/plugins/select2/js/select2.full.min.js')}}"></script>
-
-  <!-- Toastr -->
-  <script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
-
-  <!-- Plugin for the momentJs  -->
-  <script src="{{url_for('static', path='/dist/js/moment.min.js')}}"></script>
-
-  <!-- ChartJS -->
-  <script src="{{url_for('static', path='/plugins/chart.js/Chart.min.js')}}"></script>
-
-  <!-- OPTIONAL SCRIPTS -->
-  <script src="{{url_for('static', path='/plugins/chart.js/Chart.min.js')}}"></script>
-
-  <!-- fullCalendar 2.2.5 -->
-  <script src="{{url_for('static', path='/plugins/moment/moment.min.js')}}"></script>
-  <script src="{{url_for('static', path='/plugins/fullcalendar/main.js')}}"></script>
-
-  <!-- AdminLTE App -->
-  <script src="{{url_for('static', path='/dist/js/adminlte.min.js')}}"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="{{url_for('static', path='/dist/js/demo.js')}}"></script>
-
-  <script src="{{url_for('static', path='/dist/js/printThis.js')}}"></script>
-
-  <!-- BS-Stepper -->
-  <script src="{{url_for('static', path='/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
-
-  <!-- date-range-picker -->
-  <script src="{{url_for('static', path='/plugins/daterangepicker/daterangepicker.js')}}"></script>
-
-  <script>
-    $(() => {
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
+    <!-- BS-Stepper -->
+    <script src="{{url_for('static', path='/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
+  
+    <!-- date-range-picker -->
+    <script src="{{url_for('static', path='/plugins/daterangepicker/daterangepicker.js')}}"></script>
+  
+    <script>
+      $(() => {
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+        });
       });
-    });
-  </script>
-</body>
-<script>
-  $(document).ready(function () {
+    </script>
+  </body>
+  <script>
+    $(document).ready(function () {
 
     $("#userFullName").html(sessionStorage.getItem("name"));
     $("#userPosition").html(sessionStorage.getItem("type"));
 
-  });
+    });
 
-  $(document).on("click", ".btn-logout", function () {
-    var id = this.value;
-    $("#logout_form_modal").modal('show');
-  });
+    $(document).on("click", ".btn-logout", function () {
+      var id = this.value;
+      $("#logout_form_modal").modal('show');
+    });
+  
+    $(document).on("click", ".btn-logouts", function () {
+      var id = this.value;
+      $("#logouts_form_modal").modal('show');
+    });
+  
+    $('#logout_form').on('submit', function (e) {
+      e.preventDefault();
+      sessionStorage.clear();
+      window.location.replace('/')
+    });
 
-  $(document).on("click", ".btn-logouts", function () {
-    var id = this.value;
-    $("#logouts_form_modal").modal('show');
-  });
-
-  $('#logout_form').on('submit', function (e) {
-    e.preventDefault();
-    sessionStorage.clear();
-    window.location.replace('/')
-  });
-
-  $('#logouts_form').on('submit', function (e) {
-    e.preventDefault();
-    sessionStorage.clear();
-    window.location.replace('/')
-  });
-</script>
-
-{%block scripts%}
-{%endblock%}
-
-</html>
+    $('#logouts_form').on('submit', function (e) {
+      e.preventDefault();
+      sessionStorage.clear();
+      window.location.replace('/')
+    });
+  </script>
+  
+  {%block scripts%}
+  {%endblock%}
+  
+  </html>

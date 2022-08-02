@@ -83,6 +83,25 @@ def get_one_employee(employee_id:str, db: Session = Depends(get_db)):
                             detail=f"Employee with the id {employee_id} is not available")
     return emp
 
+
+# PROJECT MANAGEMENT NEEDED ROUTES
+# GET ONE EMPLOYEE LOGIN
+@router.get('/user/{user_id}', status_code=status.HTTP_200_OK, response_model=employeeSchema.ShowEmployee)
+async def get_one_employee(user_id: str, db: Session = Depends(get_db)):
+    employee = db.query(Employees).filter(Employees.user_id == user_id).first()
+    if not employee:
+        raise HTTPException(404, 'Employee not found')
+    return employee
+
+# GET ALL DEPARTMENT EMPLOYEES
+@router.get('/department/{id}', status_code=status.HTTP_200_OK, response_model=List[employeeSchema.ShowEmployee])
+async def get_one_department_employee(id: str, db: Session = Depends(get_db)):
+    employee = db.query(Employees).filter(Employees.active_status == 'Active', Employees.department_id == id).all()
+    if not employee:
+        raise HTTPException(404, 'Employee not found')
+    return employee
+# PROJECT MANAGEMENT NEEDED ROUTES
+
 # Create Employee
 @router.post('/')
 def create_employee(request: employeeSchema.CreateEmployee, db: Session = Depends(get_db)):
