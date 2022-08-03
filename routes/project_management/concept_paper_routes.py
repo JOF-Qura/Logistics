@@ -11,7 +11,7 @@ from database import get_db
 from typing import List
 from controllers.encryption import Hash
 from datetime import datetime as dt
-from controllers.token_controller import get_token
+from dependencies import get_token
 
 router = APIRouter(
     prefix='/concept_paper',
@@ -74,8 +74,8 @@ async def all_notification_projects(notification: str, db: Session = Depends(get
 # GET ALL DEPARTMENT NOTIFICATION
 @router.get('/department/notification/{notification}', status_code=status.HTTP_200_OK, response_model=List[ShowConceptPaper])
 async def all_department_notification_projects(notification: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    users = db.query(User).filter(User.email == current_user).first()
-    employee = db.query(Employees).filter(Employees.user_id == users.id).first()
+    users = db.query(User).filter(User.user_email == current_user).first()
+    employee = db.query(Employees).filter(Employees.user_id == users.user_id).first()
     data = db.query(ConceptPaper).filter(ConceptPaper.active_status == "Active", ConceptPaper.department_id == employee.department_id, ConceptPaper.notification == notification).all()
     return data
 

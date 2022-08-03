@@ -9,7 +9,7 @@ from models.project_management.history_model import ProjectHistory
 from database import get_db
 from datetime import datetime as dt
 from typing import List, Optional
-from controllers.token_controller import get_token
+from dependencies import get_token
 
 router = APIRouter(
     prefix='/projects',
@@ -92,9 +92,9 @@ async def all_notification_projects(notification: str, db: Session = Depends(get
 # GET ALL DEPARTMENT NOTIFICATION
 @router.get('/department/notification/{notification}', status_code=status.HTTP_200_OK, response_model=List[ShowProject])
 async def all_department_notification_projects(notification: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    users = db.query(User).filter(User.user_email == current_user.user_email).first()
-    employee = db.query(Employees).filter(Employees.user_id == users.id).first()
-    data = db.query(Project).filter(Project.active_status == "Active", Project.manager_id == employee.id, Project.notification == notification).all()
+    users = db.query(User).filter(User.user_email == current_user).first()
+    employee = db.query(Employees).filter(Employees.user_id == users.user_id).first()
+    data = db.query(Project).filter(Project.active_status == "Active", Project.manager_id == employee.employee_id, Project.notification == notification).all()
     return data
 
 # GET ONE PROJECT

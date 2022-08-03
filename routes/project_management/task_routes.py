@@ -10,7 +10,7 @@ from models.project_management.project_model import Project
 from models.asset_management.user_model import User
 from models.Admin.employeeModel import Employees
 from datetime import datetime as dt
-from controllers.token_controller import get_token
+from dependencies import get_token
 from typing import List
 
 router = APIRouter(
@@ -104,9 +104,9 @@ async def all_department_project_officer_specific_status_tasks(id: str, status: 
 # GET ALL DEPARTMENT NOTIFICATION
 @router.get('/department/notification/{notification}', status_code=status.HTTP_200_OK, response_model=List[ShowTask])
 async def all_department_notification_projects(notification: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    users = db.query(User).filter(User.email == current_user).first()
-    employee = db.query(Employees).filter(Employees.user_id == users.id).first()
-    project = db.query(Project).filter(Project.manager_id == employee.id, Project.active_status == "Active").all()
+    users = db.query(User).filter(User.user_email == current_user).first()
+    employee = db.query(Employees).filter(Employees.user_id == users.user_id).first()
+    project = db.query(Project).filter(Project.manager_id == employee.employee_id, Project.active_status == "Active").all()
     tasks = []
     for i in range(len(project)):
         data = db.query(Task).filter(Task.active_status == "Active", Task.project_id == project[i].id, Task.notification == notification).all()
