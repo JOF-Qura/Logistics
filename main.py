@@ -286,40 +286,40 @@ template = Jinja2Templates('templates')
 #     except Exception as e:
 #         print(e)
 
-# ---------------------------- HomePage Template ------------------------------ # -- Remove (Duplicate in Asset)
-@app.get('/homies', response_class=HTMLResponse)
-def landing(request: Request):
-    return template.TemplateResponse('index.html', 
-    {
-        'request': request
-    })
+# # ---------------------------- HomePage Template ------------------------------ # -- Remove (Duplicate in Asset)
+# @app.get('/homies', response_class=HTMLResponse)
+# def landing(request: Request):
+#     return template.TemplateResponse('index.html', 
+#     {
+#         'request': request
+#     })
 
-# ---------------------------- Access Template ------------------------------ # Remove (Duplicate in Asset)
-@app.get('/homies/main', response_class=HTMLResponse)
-def dashMain(request: Request):
-    return template.TemplateResponse('mainDashboard.html', 
-    {
-        'request': request
-    })
+# # ---------------------------- Access Template ------------------------------ # Remove (Duplicate in Asset)
+# @app.get('/homies/main', response_class=HTMLResponse)
+# def dashMain(request: Request):
+#     return template.TemplateResponse('mainDashboard.html', 
+#     {
+#         'request': request
+#     })
 
-@app.get('/homies/systemAdmin', response_class=HTMLResponse)
-def dashMain(request: Request):
-    return template.TemplateResponse('systemAdminMain.html', 
-    {
-        'request': request
-    }) 
+# @app.get('/homies/systemAdmin', response_class=HTMLResponse)
+# def dashMain(request: Request):
+#     return template.TemplateResponse('systemAdminMain.html', 
+#     {
+#         'request': request
+#     }) 
 
-@app.get('/homies/systemAdmin/users', response_class=HTMLResponse)
-def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
-    try:
-        users = db.query(User).all()
-        return template.TemplateResponse('systemAdmin_Users.html', 
-        {
-            'request': request,
-            'users': users
-        })
-    except Exception as e:
-        print(e)
+# @app.get('/homies/systemAdmin/users', response_class=HTMLResponse)
+# def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
+#     try:
+#         users = db.query(User).all()
+#         return template.TemplateResponse('systemAdmin_Users.html', 
+#         {
+#             'request': request,
+#             'users': users
+#         })
+#     except Exception as e:
+#         print(e)
  
 
 # ---------------------------- Access Template ------------------------------ #
@@ -329,6 +329,14 @@ def login(request: Request):
     {
         'request': request
     })
+
+@app.get("/sysAdmin/users", response_class=HTMLResponse)
+def dashboard(request: Request,):
+    return template.TemplateResponse("access/sysAdmin/user.html", {"request": request})
+
+@app.get("/sysAdmin/department", response_class=HTMLResponse)
+def dashboard(request: Request,):
+    return template.TemplateResponse("access/sysAdmin/department.html", {"request": request})
 
 # ---------------------------- Warehousing Admin Template ------------------------------ #
 @app.get('/warehousing/admin/', response_class=HTMLResponse)
@@ -1005,14 +1013,6 @@ def dashboard(request: Request,):
 def dashboard(request: Request,):
     return template.TemplateResponse("asset_management/admin/maintenance_page.html", {"request": request})
 
-@app.get("/sysAdmin/users", response_class=HTMLResponse)
-def dashboard(request: Request,):
-    return template.TemplateResponse("access/sysAdmin/user.html", {"request": request})
-
-@app.get("/sysAdmin/department", response_class=HTMLResponse)
-def dashboard(request: Request,):
-    return template.TemplateResponse("access/sysAdmin/department.html", {"request": request})
-
 #-------------Equipment Manager----------------#
 
 @app.get("/asset_management/manager", response_class=HTMLResponse)
@@ -1062,7 +1062,7 @@ def get_asset(request: Request,):
     return template.TemplateResponse("asset_management/user/request_assets.html", {"request": request})
     
 
-# PROJECT MANAGEMENT
+# ---------------------------------------------- PROJECT MANAGEMENT ---------------------------------------------- #
 # ADMIN
 
 # SYSADMIN PAGE
