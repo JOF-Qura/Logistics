@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 # from security.hashing import Hash
 # from security import token
 
-import models
+from models.asset_management import user_model as models
 from database import get_db
 
 router = APIRouter(
