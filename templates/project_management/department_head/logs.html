@@ -1,0 +1,221 @@
+{%extends './admin/includes/base.html'%}
+
+{%block sidebar%}
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+    <!-- Brand Logo -->
+    <a href="../../../index3.html" class="brand-link">
+        <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light">Project Management</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+            </div>
+            <div class="info mr-1">
+                <a href="#" class="d-block text-truncate">ADMINISTRATOR</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a href="/dashboard" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-hammer"></i>
+                        <p>
+                            Projects
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/project_requisition" class="nav-link">
+                                <i class="nav-icon fas fa-file-contract"></i>
+                                <p>Projects Requisition</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/project_lists" class="nav-link">
+                                <i class="nav-icon fas fa-list-alt"></i>
+                                <p>Projects List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-thumbtack"></i>
+                        <p>
+                            Tasks
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/task_lists" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>Tasks List</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-pencil-alt"></i>
+                        <p>
+                            Reports
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/reports" class="nav-link">
+                                <i class="nav-icon fas fa-pen-square"></i>
+                                <p>Generate Report</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                        <i class="nav-icon fas fa-phone"></i>
+                        <p>
+                            Logs
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/logs" class="nav-link active">
+                                <i class="nav-icon fas fa-phone-square"></i>
+                                <p>Call Logs</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/users" class="nav-link">
+                        <i class="nav-icon fas fa-hospital-user"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/departments" class="nav-link">
+                        <i class="nav-icon fas fa-hospital"></i>
+                        <p>Departments</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+
+    </div>
+    <!-- /.sidebar -->
+
+<!-- Sidebar Custom -->
+<div class="sidebar-custom">
+    <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+    <a href="#" class="btn btn-danger hide-on-collapse pos-right">Log out <i class="fas fa-sign-out-alt"></i></a>
+  </div>
+    <!-- /.sidebar-custom -->
+</aside>
+<!-- /.main-sidebar -->
+{%endblock%}
+
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Call Logs</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Logs</a></li>
+                        <li class="breadcrumb-item active">Call Logs</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card card-primary card-outline card-tab">
+            <div class="card-body pb-0">
+                <div class="row">
+                    {%for data in data|sort(attribute='created_at')%}
+                    {%if data.type == "Admin" or data.type == "Manager"%}
+                    <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                            <div class="card-header text-muted border-bottom-0">
+                               {{ data.type }}
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h2 class="lead"><b>{{ data.first_name }} {{ data.last_name }}</b></h2>
+                                        <p class="text-muted text-sm"><b>Email: </b> {{ data.email }} </p>
+                                        <ul class="ml-4 mb-0 fa-ul text-muted">
+                                            <li class="small"><span class="fa-li"><i
+                                                        class="fas fa-lg fa-building"></i></span> Address: Demo Street
+                                                123, Demo City 04312, NJ</li>
+                                            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: 09293572319</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <nav aria-label="Contacts Page Navigation">
+                        <ul class="pagination justify-content-center m-0">
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script>
+</script>
+{%endblock%}

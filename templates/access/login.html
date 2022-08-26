@@ -153,31 +153,44 @@
                 }
                 else 
                 {
+                  console.log(user)
                   // Store
                   sessionStorage.setItem("id", user.user_id);
                   sessionStorage.setItem("email", user.user_email);
                   sessionStorage.setItem("name", user.user_name);
                   sessionStorage.setItem("type", user.user_type);
-                  sessionStorage.setItem('TOKEN', user.token);
+                  sessionStorage.setItem('TOKEN', data.token);
                   sessionStorage.setItem('USER_EMAIL', user.user_email);
                   sessionStorage.setItem('USER_TYPE', user.user_type);
+                  sessionStorage.setItem('token', data.access_token)
+                  sessionStorage.setItem('user_id', user.user_id)
+                  sessionStorage.setItem('user_type', user.user_type)
+
 
                   console.log(sessionStorage.getItem("id"))
                   console.log(sessionStorage.getItem("email"))
                   console.log(sessionStorage.getItem("type"))
 
                   let session_data = "";
-            
                       session_data += 'token=' + user.token;
                       session_data += '&user_email=' + user.user_email;
                       session_data += '&user_type=' + user.user_type;
+                  
+                  const sessionData = 
+                      'token='      +   user.access_token +
+                      '&user_id='   +   user.user_id;
+                      // '&employee_id='      +  data.employee.id;
+
+                      
 
 
                   if(user.user_type == "Admin" ){ //Logistics Admin
                       setInterval(function(){
-                        window.location.href = '/access/index'
+                        window.location.href = '/index'
                       },2000)
                     }
+
+                    // ASSET MANAGEMENT ROLES / USERS
                     else if(user.user_type == "asset_management_Employee"){
                       setInterval(function(){
                         window.location.href = '/asset_management/user/on_hand_assets';
@@ -202,7 +215,8 @@
                     //     window.location.replace(apiURL + 'homies/main'); 
                     // }
                     //END DUPLICATE (MAKE IT ONE WITH ALL)
-
+                    
+                    // WAREHOUSING ROLES / USERS
                     else if (user.user_type == "warehousing_Manager")
                     {
                         window.location.replace(apiURL + 'warehousing/manager');
@@ -215,11 +229,25 @@
                     {
                         window.location.replace(apiURL + 'warehousing/procurement');
                     }
+
+                    // PROJECT MANAGEMENT
+                    else if (user.user_type == "Project Officer")
+                    {
+                        window.location.replace(apiURL + 'project_management/project_officer/dashboard');
+                    }
+                    else if (user.user_type == "Department Head")
+                    {
+                      window.location.replace(apiURL + 'project_management/department_head/dashboard');
+                    }
                 }
               },
               error: function ({ responseJSON }) 
               {
                   console.log(responseJSON)
+                  toastr.options = {
+                    positionClass: "toast-top-center",
+                  };
+                  toastr.error("Please give an email and password.");
               },
             })
 

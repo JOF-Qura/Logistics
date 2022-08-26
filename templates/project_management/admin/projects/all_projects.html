@@ -1,0 +1,1360 @@
+{%extends './admin/includes/base.html'%}
+
+{% include './admin/includes/sidebar.html' %}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Projects</h1>
+                    <div class=”small text-secondary”>Projects to manage potential improvements</div>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Projects</a></li>
+                        <li class="breadcrumb-item active">Projects List</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-sm-3">
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Projects</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item active">
+                                <a href="all_projects" class="nav-link">
+                                    <i class="fas fa-hammer pr-3"></i> All
+                                    <span id="all_project" class="badge bg-info float-right"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="on_progress" class="nav-link">
+                                    <i class="fas fa-spinner pr-3"></i> On Progress
+                                    <span id="on_progress_project" class="badge bg-info float-right"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="completed" class="nav-link">
+                                    <i class="fas fa-check pr-3"></i> Completed
+                                    <span id="completed_project" class="badge bg-success float-right"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="cancelled" class="nav-link">
+                                    <i class="fas fa-times-circle pr-3"></i> Cancelled
+                                    <span id="cancelled_project" class="badge bg-danger float-right"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="delayed" class="nav-link">
+                                    <i class="fas fa-redo pr-3"></i> Delayed
+                                    <span id="delayed_project" class="badge bg-secondary float-right"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="on_hold" class="nav-link">
+                                    <i class="fas fa-redo pr-3"></i> On Hold
+                                    <span id="on_hold_project" class="badge bg-secondary float-right"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+
+            <div class="col-9 col-sm-9">
+                <div class="card card-primary card-outline card-tabs">
+                    <div class="card-header">
+                        <b>List of Projects</b>
+                        <div class="card-tools mr-0">
+                            <button data-toggle="modal" data-target="#modal-default"
+                                class="btn btn-primary bg-solid-primary btn-sm" type="button" id="new_task"><i
+                                    class="fa fa-plus"></i> Create New Project</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="projects_table" class="table table-bordered table-hover" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Project Name</th>
+                                    <th>Manager</th>
+                                    <th>Type</th>
+                                    <th>Cost</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i> New Project</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add_project_form">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <label for="exampleInputEmail1">Department <span style="color:red" aria-hidden="true"
+                                        class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="department_id"
+                                    name="department_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Project Name <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Project Name" type="text" class="form-control" name="name"
+                                    id="name">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Project Manager <span
+                                        style="color:red" aria-hidden="true" class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="manager_id"
+                                    name="manager_id">
+
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Project Type <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="type" name="type">
+                                    <option selected disabled value="">Select Type</option>
+                                    <option value="Administrative">Administrative</option>
+                                    <option value="Construction">Construction</option>
+                                    <option value="Computer Software Development">Computer Software Development</option>
+                                    <option value="Design of Plans">Design of Plans</option>
+                                    <option value="Equipment or System Installation">Equipment or System Installation
+                                    </option>
+                                    <option value="Event or Relocation">Event or Relocation</option>
+                                    <option value="Maintenance of Process Industries">Maintenance of Process Industries
+                                    </option>
+                                    <option value="New Product Development">New Product Development</option>
+                                    <option value="Research">Research</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Cost <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Cost" type="number" class="form-control" name="cost"
+                                    id="cost">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="start_date" for="exampleInputPassword1">Start Date <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input type="date" class="form-control" name="start_date" id="start_date">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="end_date" for="exampleInputPassword1">End Date <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input type="date" class="form-control" name="end_date" id="end_date">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                                        class="required">*</span></label>
+                                <textarea placeholder="Enter Description" rows="10" cols="50" class="form-control"
+                                    name="description" id="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Project <i
+                                class="fas fa-check"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="view_project_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Project Details</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="view_project_form">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Department: </label>
+                                <span name="view_department_id" id="view_department_id"
+                                    aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label class="location" for="exampleInputPassword1">Project Name: </label>
+                                <span name="view_name" id="view_name" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Project Manager: </label>
+                                <span name="view_manager_id" id="view_manager_id" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Project Type: </label>
+                                <span name="view_type" id="view_type" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Cost: </label>
+                                ₱<span name="view_cost" id="view_cost" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Start Date: </label>
+                                <span name="view_start_date" id="view_start_date" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">End Date: </label>
+                                <span name="view_end_date" id="view_end_date" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Description: </label>
+                                <span name="view_description" id="view_description" aria-describedby="emailHelp"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="edit_project_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i> Edit Project</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit_project_form">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <div class="form-group col-sm-6">
+                                <input type="hidden" class="form-control" name="edit_id" id="edit_id">
+                                <label for="exampleInputEmail1">Department <span style="color:red" aria-hidden="true"
+                                        class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="edit_department_id"
+                                    name="edit_department_id">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Project Name <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Project Name" type="text" class="form-control"
+                                    name="edit_name" id="edit_name">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Project Manager <span
+                                        style="color:red" aria-hidden="true" class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="edit_manager_id"
+                                    name="edit_manager_id">
+
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Project Type <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="edit_type"
+                                    name="edit_type">
+                                    <option disabled value="">Select Type</option>
+                                    <option value="Administrative">Administrative</option>
+                                    <option value="Construction">Construction</option>
+                                    <option value="Computer Software Development">Computer Software Development</option>
+                                    <option value="Design of Plans">Design of Plans</option>
+                                    <option value="Equipment or System Installation">Equipment or System Installation
+                                    </option>
+                                    <option value="Event or Relocation">Event or Relocation</option>
+                                    <option value="Maintenance of Process Industries">Maintenance of Process Industries
+                                    </option>
+                                    <option value="New Product Development">New Product Development</option>
+                                    <option value="Research">Research</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-4">
+                                <label class="location" for="exampleInputPassword1">Cost <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input placeholder="Enter Cost" type="number" class="form-control" name="edit_cost"
+                                    id="edit_cost">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="start_date" for="exampleInputPassword1">Start Date <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input type="date" class="form-control" name="edit_start_date" id="edit_start_date">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="end_date" for="exampleInputPassword1">End Date <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <input type="date" class="form-control" name="edit_end_date" id="edit_end_date">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                                        class="required">*</span></label>
+                                <textarea placeholder="Enter Description" rows="10" cols="50" class="form-control"
+                                    name="edit_description" id="edit_description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-sm-12">
+                                <label for="exampleInputEmail1">Progress Status <span style="color:red"
+                                        aria-hidden="true" class="required">*</span></label>
+                                <select class="form-control select2bs4" style="width: 100%;" id="edit_progress_status"
+                                    name="edit_progress_status">
+                                    <option value="On Progress">On Progress</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Delayed">Delayed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="cancel_project_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i>
+                    Confirmation</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="cancel_project_form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" name="cancel_id" id="cancel_id"
+                            aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1">Reason <span style="color:red" aria-hidden="true"
+                                class="required">*</span></label>
+                        <textarea placeholder="Enter Reason" rows="5" cols="50" class="form-control" name="reason"
+                            id="reason"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger delete-confirm1">Cancel Project <i
+                                class="fas fa-times-circle"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="delete_project_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i>
+                    Confirmation</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="delete_project_form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" name="delete_id" id="delete_id"
+                            aria-describedby="emailHelp">
+                        <h7>Are you sure you want to delete this project?</h7>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger delete-confirm">Yes, delete it! <i
+                                class="fas fa-times-circle"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script>
+    $(document).ready(function () {
+        var ajaxRequest, registrationStatus;
+        var today = new Date();
+        var value = $(this).val();
+        clearTimeout(ajaxRequest);
+        ajaxRequest = setTimeout(function (e) {
+            $.ajax({
+                url: '/projects/approved/',
+                type: "GET",
+                dataType: "JSON",
+                async: true,
+
+                success: function (data) {
+                    var project = data;
+
+                    for (var i = 0; i < project.length; i++) {
+                        if (project[i].progress_status == 'On Progress' && today >=
+                            new Date(project[i].end_date).getTime()) {
+                            progress_status = "Delayed";
+                            $.ajax({
+                                url: '/projects/auto_update/' + project[i].id,
+                                type: "PUT",
+                                data: {
+                                    progress_status: progress_status
+                                },
+                                dataType: "JSON",
+
+                                success: function (data) {
+                                    var project = data;
+                                    toastr.info(
+                                        'Successfully updated delayed project.'
+                                    )
+                                }
+                                // ajax closing tag
+                            })
+                        }
+                    }
+                    refresh();
+                }
+            });
+        }, 1000, value);
+    });
+
+    $('.select2bs4').select2()
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("start_date").setAttribute("min", today);
+    document.getElementById("end_date").setAttribute("min", today);
+
+    function project_table() {
+        projectsDataTable = $('#projects_table').DataTable({
+            ajax: {
+                url: "/projects/approved",
+                dataSrc: ""
+            },
+            "columns": [{
+                    data: "id"
+                },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return row.name + '<br>' + '<small class="text-muted">' + row.project_department
+                            .name + '</small>';
+                    }
+                },
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        var manager = row.project_user.profile.first_name + " " + row.project_user
+                            .profile.last_name;
+                        return manager
+                    }
+                },
+                {
+                    data: "type"
+                },
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        var cost = '₱' + meta.settings.fnFormatNumber(row.cost);
+                        return cost
+                    }
+                },
+                {
+                    data: "progress_status",
+                    render: function (data, type, row) {
+                        if (data == "On Progress") {
+                            return '<div class="badge badge-info p-2 w-100"><i class="fas fa-spinner"></i> ' +
+                                row
+                                .progress_status + '</div>';
+                        } else if (data == "Completed") {
+                            return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check"></i> ' +
+                                row
+                                .progress_status + '</div>';
+                        } else if (data == "Cancelled") {
+                            return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-times"></i> ' +
+                                row
+                                .progress_status + '</div>';
+                        } else {
+                            return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-redo"></i> ' +
+                                row
+                                .progress_status + '</div>';
+                        }
+                    }
+                },
+                {
+                    data: "created_at"
+                },
+                {
+                    data: "active_status",
+                    render: function (data, type, row) {
+                        if (data == "Active") {
+                            if (row.progress_status == "Cancelled") {
+                                return '<div class="text-center dropdown">' +
+                                    '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                    '<i class="fas fa-ellipsis-v"></i>' +
+                                    '</div>' +
+                                    '<div class="dropdown-menu dropdown-menu-right">' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-view">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-eye mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>View Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-edit">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-edit mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Edit Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-delete">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-trash-alt mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Delete Project</div>' +
+                                    '</button>'
+                            } else if (row.progress_status == "Completed") {
+                                return '<div class="text-center dropdown">' +
+                                    '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                    '<i class="fas fa-ellipsis-v"></i>' +
+                                    '</div>' +
+                                    '<div class="dropdown-menu dropdown-menu-right">' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-view">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-eye mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>View Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-edit">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-edit mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Edit Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-delete">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-trash-alt mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Delete Project</div>' +
+                                    '</button>'
+                            } else if (row.progress_status == "Delayed") {
+                                return '<div class="text-center dropdown">' +
+                                    '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                    '<i class="fas fa-ellipsis-v"></i>' +
+                                    '</div>' +
+                                    '<div class="dropdown-menu dropdown-menu-right">' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-view">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-eye mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>View Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-edit">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-edit mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Edit Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-delete">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-trash-alt mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Delete Project</div>' +
+                                    '</button>' +
+                                    '<div class="dropdown-divider"></div>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-cancel">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-times mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Cancel Project</div>' +
+                                    '</button>'
+                            } else {
+                                return '<div class="text-center dropdown">' +
+                                    '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                    '<i class="fas fa-ellipsis-v"></i>' +
+                                    '</div>' +
+                                    '<div class="dropdown-menu dropdown-menu-right">' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-view">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-eye mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>View Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-edit">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-edit mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Edit Project</div>' +
+                                    '</button>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-delete">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-trash-alt mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Delete Project</div>' +
+                                    '</button>' +
+                                    '<div class="dropdown-divider"></div>' +
+                                    '<button type="button" value="' + row.id +
+                                    '" class="dropdown-item d-flex btn-cancel">' +
+                                    '<div style="width: 2rem">' +
+                                    '<i class="fas fa-times mr-1"></i>' +
+                                    '</div>' +
+                                    '<div>Cancel Project</div>' +
+                                    '</button>'
+                            }
+                        }
+                    }
+                },
+            ],
+            "aoColumnDefs": [{
+                "bVisible": false,
+                "aTargets": [0, 6]
+            }],
+            "order": [
+                [6, "desc"]
+            ]
+        })
+    }
+
+    function get_all_department() {
+        $.ajax({
+            url: '/departments/',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var departments = data.data;
+
+                var html = "";
+
+                if (departments.length == 0) {
+                    var html = `<option>No Department</option>`;
+                } else {
+                    var html = "<option selected disabled>Select Department</option>";
+                }
+
+                for (var i = 0; i < departments.length; i++) {
+                    html += `<option value="${departments[i].id}">${departments[i].name}</option>`
+                }
+
+                if (departments.length == 0) {
+                    var html1 = `<option>No Department</option>`;
+                } else {
+                    var html1 = "<option disabled>Select Department</option>";
+                }
+
+                for (var i = 0; i < departments.length; i++) {
+                    html1 += `<option value="${departments[i].id}">${departments[i].name}</option>`
+                }
+
+                $('#department_id').html(html);
+                $('#edit_department_id').html(html1);
+            }
+        })
+    }
+
+    $("#department_id").change(function () {
+        get_all_users1();
+    });
+    $("#edit_department_id").change(function () {
+        get_all_users2();
+    });
+
+    function get_all_users1() {
+        var department_id = document.getElementById('department_id').value;
+
+        $.ajax({
+            url: '/users/department/' + department_id,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var users = data;
+                console.log(users)
+
+                var html = "";
+
+
+                for (var i = 0; i < users.length; i++) {
+                    html +=
+                        `<option value="${users[i].id}">${users[i].profile.first_name + ' ' + users[i].profile.last_name}</option>`
+                }
+
+                $('#manager_id').html(html);
+            },
+
+            error: function (detail) {
+                console.log(detail.responseJSON.detail)
+
+                var html = `<option selected disabled>${detail.responseJSON.detail}</option>`;
+
+                $('#manager_id').html(html);
+            }
+        })
+    }
+
+    function get_all_users2() {
+        var edit_department_id = document.getElementById('edit_department_id').value;
+
+        $.ajax({
+            url: '/users/department/' + edit_department_id,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                var users = data;
+                console.log(users)
+
+                var html = "";
+
+                for (var i = 0; i < users.length; i++) {
+                    html +=
+                        `<option value="${users[i].id}">${users[i].profile.first_name + ' ' + users[i].profile.last_name}</option>`
+                }
+
+                $('#edit_manager_id').html(html);
+            },
+
+            error: function (detail) {
+                console.log(detail.responseJSON.detail)
+
+                var html = `<option selected disabled>${detail.responseJSON.detail}</option>`;
+
+                $('#edit_manager_id').html(html);
+            }
+        })
+    }
+
+    function all_project() {
+        $.ajax({
+            url: '/projects/approved',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                if (data.length > 0) {
+                    if(data.length > 99){
+                        $('#all_project').html('99+');
+                    }
+                    else{
+                        $('#all_project').html(data.length);
+                    }
+                }
+            }
+        })
+    }
+
+    function on_progress_project() {
+        $.ajax({
+            url: '/projects/on_progress',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                if (data.length > 0) {
+                    if(data.length > 99){
+                        $('#on_progress_project').html('99+');
+                    }
+                    else{
+                        $('#on_progress_project').html(data.length);
+                    }
+                }
+            }
+        })
+    }
+
+    function completed_project() {
+        $.ajax({
+            url: '/projects/completed',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                if (data.length > 0) {
+                    if(data.length > 99){
+                        $('#completed_project').html('99+');
+                    }
+                    else{
+                        $('#completed_project').html(data.length);
+                    }
+                }
+            }
+        })
+    }
+
+    function cancelled_project() {
+        $.ajax({
+            url: '/projects/cancelled',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                if (data.length > 0) {
+                    if(data.length > 99){
+                        $('#cancelled_project').html('99+');
+                    }
+                    else{
+                        $('#cancelled_project').html(data.length);
+                    }
+                }
+            }
+        })
+    }
+
+    function delayed_project() {
+        $.ajax({
+            url: '/projects/delayed',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                if (data.length > 0) {
+                    if(data.length > 99){
+                        $('#delayed_project').html('99+');
+                    }
+                    else{
+                        $('#delayed_project').html(data.length);
+                    }
+                }
+            }
+        })
+    }
+
+    function on_hold_project() {
+        $.ajax({
+            url: '/projects/on_hold',
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                if (data.length > 0) {
+                    if(data.length > 99){
+                        $('#on_hold_project').html('99+');
+                    }
+                    else{
+                        $('#on_hold_project').html(data.length);
+                    }
+                }
+            }
+        })
+    }
+
+    all_project();
+    on_progress_project();
+    completed_project();
+    cancelled_project();
+    delayed_project();
+    on_hold_project();
+    get_all_department();
+    project_table();
+    $(function () {
+        $('#add_project_form').validate({
+            rules: {
+                department_id: {
+                    required: true,
+                },
+                name: {
+                    required: true,
+                },
+                cost: {
+                    required: true
+                },
+                manager_id: {
+                    required: true,
+                },
+                type: {
+                    required: true,
+                },
+                start_date: {
+                    required: true,
+                    date: true
+                },
+                end_date: {
+                    required: true,
+                    date: true
+                },
+                description: {
+                    required: true
+                },
+            },
+            messages: {
+                department_id: {
+                    required: "Please select department",
+                },
+                name: {
+                    required: "Please enter project name",
+                },
+                manager_id: {
+                    required: "Please select project manager",
+                },
+                type: {
+                    required: "Please select project type",
+                },
+                cost: {
+                    required: "Please enter project cost",
+                },
+                start_date: {
+                    required: "Please select start date",
+                },
+                end_date: {
+                    required: "Please select end date",
+                },
+                description: {
+                    required: "Please enter description",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+
+            submitHandler: function (form) {
+                // ADD PROJECT
+                var form = $('#add_project_form');
+
+                // ajax opening tag
+                $.ajax({
+                    url: '/projects/create_project',
+                    type: "POST",
+                    data: form.serialize(),
+                    dataType: "JSON",
+
+                    success: function (data) {
+                        refresh();
+                        toastr.success('Successfully added new project.')
+                        $("#add_project_form").trigger("reset");
+                        $("#modal-default").modal('hide');
+                        // End of Confirmation
+                    }
+                    // ajax closing tag
+                })
+            }
+        });
+
+        $('#edit_project_form').validate({
+            rules: {
+                edit_department_id: {
+                    required: true,
+                },
+                edit_name: {
+                    required: true,
+                },
+                edit_manager_id: {
+                    required: true
+                },
+                edit_type: {
+                    required: true
+                },
+                edit_cost: {
+                    required: true
+                },
+                edit_start_date: {
+                    required: true
+                },
+                edit_end_date: {
+                    required: true
+                },
+                edit_description: {
+                    required: true
+                },
+            },
+            messages: {
+                edit_department_id: {
+                    required: "Please select department",
+                },
+                edit_name: {
+                    required: "Please enter project name",
+                },
+                edit_cost: {
+                    required: "Please enter project cost",
+                },
+                edit_manager_id: {
+                    required: "Please select project manager",
+                },
+                edit_type: {
+                    required: "Please select project type",
+                },
+                edit_start_date: {
+                    required: "Please select start date",
+                },
+                edit_end_date: {
+                    required: "Please select end date",
+                },
+                edit_description: {
+                    required: "Please enter description",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+
+            submitHandler: function (form) {
+                // EDIT PROJECT
+                var id = document.getElementById("edit_id").value
+                var name = document.getElementById("edit_name").value
+                var description = document.getElementById("edit_description").value
+                var manager_id = document.getElementById("edit_manager_id").value
+                var department_id = document.getElementById("edit_department_id").value
+                var cost = document.getElementById("edit_cost").value
+                var type = document.getElementById("edit_type").value
+                var end_date = document.getElementById("edit_end_date").value
+                var start_date = document.getElementById("edit_start_date").value
+                var progress_status = document.getElementById("edit_progress_status").value
+                var form = $('#edit_project_form');
+
+                console.log(id)
+
+                $.ajax({
+                    url: '/projects/' + id,
+                    type: "PUT",
+                    data: {
+                        name: name,
+                        description: description,
+                        manager_id: manager_id,
+                        type: type,
+                        department_id: department_id,
+                        cost: cost,
+                        end_date: end_date,
+                        start_date: start_date,
+                        progress_status: progress_status
+                    },
+                    dataType: "JSON",
+
+                    success: function (data) {
+                        $("#edit_project_form_modal").modal('hide');
+                        toastr.info('Successfully updated project.')
+                        refresh();
+                    }
+                })
+            }
+        });
+
+        $('#cancel_project_form').validate({
+            rules: {
+                reason: {
+                    required: true,
+                },
+            },
+            messages: {
+                reason: {
+                    required: "Please enter reason",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            },
+
+            submitHandler: function (form) {
+                // CANCEL PROJECT
+                var id = document.getElementById("cancel_id").value
+                var remarks = document.getElementById("reason").value
+
+                $.ajax({
+                    url: '/projects/cancel/' + id,
+                    type: "PUT",
+                    data: {
+                        id: id,
+                        remarks: remarks
+                    },
+                    dataType: "JSON",
+
+                    success: function (data) {
+                        $("#cancel_project_form_modal").modal('hide');
+                        toastr.info('Successfully cancelled a project.')
+                        refresh();
+                    }
+                })
+            }
+        });
+    });
+
+    function refresh() {
+        var url = "/projects/approved";
+        projectsDataTable.ajax.url(url).load();
+    }
+
+    // VIEW PROJECT
+    $(document).on("click", ".btn-view", function () {
+        var id = this.value;
+        $.ajax({
+            url: '/projects/' + id,
+            type: "GET",
+            data: {
+                id: id
+            },
+            dataType: "JSON",
+
+            success: function (data) {
+                var project = data;
+                window.location.href = "http://127.0.0.1:8000/admin/project_details/" + project.id;
+            }
+        })
+    });
+
+    // $(document).on("click", ".btn-view", function(){
+    //   var id = this.value;
+    //   $("#view_project_form_modal").modal('show');
+
+    //   $.ajax({
+    //     url:'/projects/'+id,
+    //     type: "GET",
+    //     data: { id: id},
+    //     dataType: "JSON",
+
+    //     success: function(data){
+    //       var project = data.data;
+
+    //       $('#view_id').html(project.id);
+    //       $('#view_department_id').html(project.department_id);
+    //       $('#view_name').html(project.name);
+    //       $('#view_manager_id').html(project.manager_id);
+    //       $('#view_cost').html(project.cost);
+    //       $('#view_type').html(project.type);
+    //       $('#view_start_date').html(moment(project.start_date).format('LL'));
+    //       $('#view_end_date').html(moment(project.end_date).format('LL'));
+    //       $('#view_description').html(project.description);
+    //     }
+    //   })
+    // });
+
+    // EDIT PROJECT
+    $(document).on("click", ".btn-edit", function () {
+        var id = this.value;
+        $("#edit_project_form_modal").modal('show');
+
+        $.ajax({
+            url: '/projects/' + id,
+            type: "GET",
+            data: {
+                id: id
+            },
+            dataType: "JSON",
+
+            success: function (data) {
+                var project = data;
+
+                $('#edit_id').val(id);
+                $('#edit_name').val(project.name);
+                $('#edit_description').val(project.description);
+                $('#edit_manager_id').val(project.manager_id);
+                $('#edit_department_id').val(project.department_id);
+                $('#edit_cost').val(project.cost);
+                $('#edit_type').val(project.type);
+                $('#edit_start_date').val(moment(project.start_date).format('YYYY-MM-DD'));
+                $('#edit_end_date').val(moment(project.end_date).format('YYYY-MM-DD'));
+                $('#edit_progress_status').val(project.progress_status);
+            }
+        })
+    });
+
+    // DELETE PROJECT
+    $(document).on("click", ".btn-delete", function () {
+        var id = this.value;
+        $('#delete_project_form_modal').modal('show');
+
+        $.ajax({
+            url: '/projects/' + id,
+            type: "GET",
+            data: {
+                id: id
+            },
+            dataType: "JSON",
+
+            success: function (data) {
+                var project = data;
+                $('#delete_id').val(project.id);
+            }
+        })
+    });
+
+    // DELETE PROJECT
+    $('.delete-confirm').on('click', function (e) {
+        e.preventDefault();
+        $('#delete_project_form_modal').modal('show');
+        var id = document.getElementById("delete_id").value
+        var form = $('#delete_project_form');
+
+        // ajax opening tag
+        $.ajax({
+            url: '/projects/' + id,
+            type: "DELETE",
+            data: form.serialize(),
+            dataType: "JSON",
+
+            success: function (data) {
+                refresh();
+                toastr.info('Successfully deleted project.')
+                $('#delete_project_form_modal').modal('hide');
+            }
+            // ajax closing tag
+        })
+    });
+
+    // CANCEL PROJECT
+    $(document).on("click", ".btn-cancel", function () {
+        var id = this.value;
+        $("#cancel_project_form_modal").modal('show');
+
+        $.ajax({
+            url: '/projects/' + id,
+            type: "GET",
+            data: {
+                id: id
+            },
+            dataType: "JSON",
+
+            success: function (data) {
+                var project = data;
+
+                $('#cancel_id').val(id);
+                $('#reason').val(project.remarks);
+            }
+        })
+    });
+</script>
+{%endblock%}

@@ -1,0 +1,1471 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/department_head/includes/head.html' %}
+
+{% include './project_management/department_head/includes/navbar.html' %}
+
+{% include './project_management/department_head/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>General Tasks</h1>
+          <div class="text-muted">General Tasks to manage project progress</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Info Boxes -->
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-info"><i class="fas fa-tasks"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Total Tasks</span>
+            <span id="total" name="total" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-success"><i class="fas fa-check"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">On Track Tasks</span>
+            <span id="ontrack" name="ontrack" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-danger"><i class="fas fa-exclamation-triangle"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">At Risk Tasks</span>
+            <span id="atrisk" name="atrisk" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-secondary"><i class="fas fa-times"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text">Off Track Tasks</span>
+            <span id="offtrack" name="offtrack" class="info-box-number"></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <!-- / Info Boxes -->
+
+    <!-- Default box -->
+    <div class="card card-primary card-outline card-tabs">
+      <div class="card-header p-0 pt-1 pb-1">
+        <div class="card-title ml-4 mt-2">List of Tasks</div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+            <i class="fas fa-expand"></i>
+          </button>
+          <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary bg-solid-primary btn-sm"
+            type="button" id="new_task"><i class="fa fa-plus"></i> Add New Task</button>
+        </div>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="mb-3">
+          <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="custom-tabs-four-all-tab" data-toggle="pill" href="#custom-tabs-four-all"
+                role="tab" aria-controls="custom-tabs-four-all" aria-selected="true">All</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-four-on-progress-tab" data-toggle="pill"
+                href="#custom-tabs-four-on-track" role="tab" aria-controls="custom-tabs-four-on-track"
+                aria-selected="false">On Track</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-four-completed-tab" data-toggle="pill"
+                href="#custom-tabs-four-at-risk" role="tab" aria-controls="custom-tabs-four-at-risk"
+                aria-selected="false">At Risk</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="custom-tabs-four-cancelled-tab" data-toggle="pill"
+                href="#custom-tabs-four-off-track" role="tab" aria-controls="custom-tabs-four-off-track"
+                aria-selected="false">Off Track</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content" id="custom-tabs-four-tabContent">
+          <div class="tab-pane fade show active" id="custom-tabs-four-all" role="tabpanel"
+            aria-labelledby="custom-tabs-four-all-tab">
+            <table id="tasks_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Task</th>
+                  <th>Assigned</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-four-on-track" role="tabpanel"
+            aria-labelledby="custom-tabs-four-on-track-tab">
+            <table id="on_track_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Task</th>
+                  <th>Assigned</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-four-at-risk" role="tabpanel"
+            aria-labelledby="custom-tabs-four-at-risk-tab">
+            <table id="at_risk_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Task</th>
+                  <th>Assigned</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="custom-tabs-four-off-track" role="tabpanel"
+            aria-labelledby="custom-tabs-four-off-track-tab">
+            <table id="off_track_table" class="table table-bordered table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Task</th>
+                  <th>Assigned</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i> New Task</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add_task_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="exampleInputEmail1">Project <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="project_id" name="project_id">
+
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Task Name <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Task Name" type="text" class="form-control" name="name" id="name">
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Deadline <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Deadline" type="date" class="form-control" name="deadline" id="deadline">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Employee <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="employee_id" name="employee_id">
+                </select>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Priority <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="priority" name="priority">
+                  <option selected disabled value="">Select Priority</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <textarea placeholder="Enter Description" rows="7" cols="50" class="form-control" name="description"
+                  id="description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add Task <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="edit_task_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i> Edit Task</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit_task_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Project <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_project_id"
+                  name="edit_project_id">
+
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <input type="hidden" class="form-control" name="edit_id" id="edit_id">
+              <div class="form-group col-sm-12">
+                <label class="location" for="exampleInputPassword1">Task Name <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Task Name" type="text" class="form-control" name="edit_name" id="edit_name">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Employee <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_employee_id"
+                  name="edit_employee_id">
+                </select>
+              </div>
+              <div class="form-group col-sm-6">
+                <label class="location" for="exampleInputPassword1">Deadline <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <input placeholder="Enter Deadline" type="date" class="form-control" name="edit_deadline"
+                  id="edit_deadline">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Priority <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_priority" name="edit_priority">
+                  <option disabled value="">Select Priority</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Status <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_status" name="edit_status">
+                  <option disabled value="">Select Status</option>
+                  <option value="On Track">On Track</option>
+                  <option value="At Risk">At Risk</option>
+                  <option value="Off Track">Off Track</option>
+                </select>
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="location" for="exampleInputPassword1">Progress <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <select class="form-control select2bs4" style="width: 100%;" id="edit_progress_status"
+                  name="edit_progress_status">
+                  <option disabled value="">Select Progress</option>
+                  <option value="To Do">To Do</option>
+                  <option value="On Progress">On Progress</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                    class="required">*</span></label>
+                <textarea placeholder="Enter Description" rows="7" cols="50" class="form-control"
+                  name="edit_description" id="edit_description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="mark_task_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="mark_task_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="mark_id" id="mark_id" aria-describedby="emailHelp">
+            <input type="hidden" class="form-control" name="project_id" id="project_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to mark this as completed task?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success mark-confirm">Yes, mark it! <i
+                class="fas fa-check"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="delete_task_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation
+        </h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="delete_task_form">
+          <div class="modal-body">
+            <input type="hidden" class="form-control" name="delete_id" id="delete_id" aria-describedby="emailHelp">
+            <h7>Are you sure you want to delete this task?</h7>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger delete-confirm">Yes, delete it! <i
+                class="fas fa-times-circle"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/project_management/department_head/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head/department_head_notification.js')}}"></script>
+
+<script>
+  $('.select2bs4').select2()
+
+  function tasks_table() {
+    tasksDataTable = $('#tasks_table').DataTable({
+      ajax: {
+        url: "/task/department/" + sessionStorage.getItem("id"),
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.deadline).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.deadline).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "status",
+          render: function (data, type, row) {
+            if (data == "On Track") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else if (data == "Off Track") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-exclamation-triangle mr-1"></i> ' +
+                row.status + '</div>';
+            }
+          }
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            if (data == "To Do") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-clipboard-check mr-1"></i> ' +
+                row.progress_status + '</div>';
+            } else if (data == "On Progress") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .progress_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active" && row.progress_status == "On Progress") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            } else {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function on_track_table() {
+    onTrackDataTable = $('#on_track_table').DataTable({
+      ajax: {
+        url: "/task/department/status/On%20Track/" + sessionStorage.getItem("id"),
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.deadline).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.deadline).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "status",
+          render: function (data, type, row) {
+            if (data == "On Track") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else if (data == "Off Track") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-exclamation-triangle mr-1"></i> ' +
+                row.status + '</div>';
+            }
+          }
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            if (data == "To Do") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-clipboard-check mr-1"></i> ' +
+                row.progress_status + '</div>';
+            } else if (data == "On Progress") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .progress_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active" && row.progress_status == "On Progress") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            } else {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function at_risk_table() {
+    atRiskDataTable = $('#at_risk_table').DataTable({
+      ajax: {
+        url: "/task/department/status/At%20Risk/" + sessionStorage.getItem("id"),
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.deadline).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.deadline).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "status",
+          render: function (data, type, row) {
+            if (data == "On Track") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else if (data == "Off Track") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-exclamation-triangle mr-1"></i> ' +
+                row.status + '</div>';
+            }
+          }
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            if (data == "To Do") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-clipboard-check mr-1"></i> ' +
+                row.progress_status + '</div>';
+            } else if (data == "On Progress") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .progress_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active" && row.progress_status == "On Progress") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            } else {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function off_track_table() {
+    offTrackDataTable = $('#off_track_table').DataTable({
+      ajax: {
+        url: "/task/department/status/Off%20Track/" + sessionStorage.getItem("id"),
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.name;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
+              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.deadline).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.deadline).fromNow() + '</small>';
+          }
+        },
+        {
+          data: "status",
+          render: function (data, type, row) {
+            if (data == "On Track") {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else if (data == "Off Track") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-times mr-1"></i> ' + row
+                .status +
+                '</div>';
+            } else {
+              return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-exclamation-triangle mr-1"></i> ' +
+                row.status + '</div>';
+            }
+          }
+        },
+        {
+          data: "progress_status",
+          render: function (data, type, row) {
+            if (data == "To Do") {
+              return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-clipboard-check mr-1"></i> ' +
+                row.progress_status + '</div>';
+            } else if (data == "On Progress") {
+              return '<div class="badge badge-info p-2 w-100"><i class="fas fa-sync mr-1"></i> ' + row
+                .progress_status + '</div>';
+            } else {
+              return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+                .progress_status + '</div>';
+            }
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "active_status",
+          render: function (data, type, row) {
+            if (data == "Active" && row.progress_status == "On Progress") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-mark">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-check mr-1"></i>' +
+                '</div>' +
+                '<div>Mark as Completed</div>' +
+                '</button>' +
+                '<div class="dropdown-divider"></div>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            } else {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-edit">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-edit mr-1"></i>' +
+                '</div>' +
+                '<div>Edit Task</div>' +
+                '</button>' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-delete">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-trash-alt mr-1"></i>' +
+                '</div>' +
+                '<div>Delete Task</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 6]
+      }],
+      "order": [
+        [6, "desc"]
+      ]
+    })
+  }
+
+  function total_tasks() {
+    $.ajax({
+      url: '/task/department/' + sessionStorage.getItem("id"),
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var task = data;
+        var total = 0
+        var ontrack = 0
+        var atrisk = 0
+        var offtrack = 0
+
+        for (var i = 0; i < task.length; i++) {
+          if (task[i].status == "On Track") {
+            ontrack++
+          } else if (task[i].status == "At Risk") {
+            atrisk++;
+          } else if (task[i].status == "Off Track") {
+            offtrack++;
+          } else {
+            console.log(offtrack)
+          }
+        }
+
+        $('#total').html(task.length);
+        $('#ontrack').html(ontrack);
+        $('#offtrack').html(offtrack);
+        $('#atrisk').html(atrisk);
+      }
+    })
+  }
+
+  function get_all_projects() {
+    $.ajax({
+      url: '/projects/department/approval_status/Approved/'+sessionStorage.getItem("id"),
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var project = data;
+
+        var html = "";
+
+        if (project.length == 0) {
+          var html = `<option>No Projects</option>`;
+        } else {
+          var html = "<option selected disabled>Select Project</option>";
+        }
+
+        for (var i = 0; i < project.length; i++) {
+          html += `<option value="${project[i].id}">${project[i].name}</option>`
+        }
+
+        if (project.length == 0) {
+          var html1 = `<option>No Projects</option>`;
+        } else {
+          var html1 = "<option disabled>Select Project</option>";
+        }
+
+        for (var i = 0; i < project.length; i++) {
+          html1 += `<option value="${project[i].id}">${project[i].name}</option>`
+        }
+
+        $('#project_id').html(html);
+        $('#edit_project_id').html(html1);
+
+      }
+    })
+  }
+
+  function get_all_users() {
+    $.ajax({
+      url: '/employees/user/' + sessionStorage.getItem("id"),
+      type: "GET",
+      dataType: "JSON",
+
+      success: function (data) {
+        var department_id = data.department_id
+
+        $.ajax({
+          url: '/employees/department/' + department_id,
+          type: "GET",
+          dataType: "JSON",
+
+          success: function (data) {
+            var users = data;
+            console.log(users)
+
+            var html = "";
+
+            if (users.length == 0) {
+              var html = `<option>No Employee</option>`;
+            } else {
+              var html = "<option selected disabled>Select Employee</option>";
+            }
+
+            for (var i = 0; i < users.length; i++) {
+              html +=
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
+            }
+
+            $('#employee_id').html(html);
+            $('#edit_employee_id').html(html);
+          },
+
+          error: function (detail) {
+            console.log(detail.responseJSON.detail)
+
+            var html = `<option selected disabled>${detail.responseJSON.detail}</option>`;
+
+            $('#employee_id').html(html);
+          }
+        })
+      }
+    })
+  }
+
+  get_all_users();
+  total_tasks();
+  get_all_projects();
+  tasks_table();
+  on_track_table();
+  at_risk_table();
+  off_track_table();
+
+  $(function () {
+    $('#add_task_form').validate({
+      rules: {
+        project_id: {
+          required: true,
+        },
+        name: {
+          required: true,
+        },
+        priority: {
+          required: true,
+        },
+        employee_id: {
+          required: true,
+        },
+        deadline: {
+          required: true,
+        },
+        description: {
+          required: true
+        },
+      },
+      messages: {
+        project_id: {
+          required: "Please select project",
+        },
+        name: {
+          required: "Please enter task name",
+        },
+        priority: {
+          required: "Please select priority",
+        },
+        employee_id: {
+          required: "Please select employee",
+        },
+        deadline: {
+          required: "Please select deadline",
+        },
+        description: {
+          required: "Please enter description",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // ADD TASK
+        var form = $('#add_task_form');
+
+        // ajax opening tag
+        $.ajax({
+          url: '/task/',
+          type: "POST",
+          data: form.serialize(),
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#add_task_form").trigger("reset");
+            $("#modal-default").modal('hide');
+            toastr.success('Successfully added new task.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            total_tasks();
+            // End of Confirmation
+          }
+          // ajax closing tag
+        })
+      }
+    });
+
+    $('#edit_task_form').validate({
+      rules: {
+        edit_project_id: {
+          required: true,
+        },
+        edit_name: {
+          required: true,
+        },
+        edit_priority: {
+          required: true,
+        },
+        edit_deadline: {
+          required: true,
+        },
+        edit_employee_id: {
+          required: true,
+        },
+        edit_progress_status: {
+          required: true,
+        },
+        edit_description: {
+          required: true
+        },
+      },
+      messages: {
+        edit_project_id: {
+          required: "Please select project",
+        },
+        edit_name: {
+          required: "Please enter task name",
+        },
+        edit_priority: {
+          required: "Please select priority",
+        },
+        edit_progress_status: {
+          required: "Please select progress status",
+        },
+        edit_deadline: {
+          required: "Please select deadline",
+        },
+        edit_employee_id: {
+          required: "Please select employee",
+        },
+        edit_description: {
+          required: "Please enter description",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // EDIT TASK
+        var id = document.getElementById("edit_id").value
+        var project_id = document.getElementById("edit_project_id").value
+        var name = document.getElementById("edit_name").value
+        var priority = document.getElementById("edit_priority").value
+        var progress_status = document.getElementById("edit_progress_status").value
+        var status = document.getElementById("edit_status").value
+        var description = document.getElementById("edit_description").value
+        var deadline = document.getElementById("edit_deadline").value
+        var employee_id = document.getElementById("edit_employee_id").value
+        var form = $('#edit_department_form');
+
+        $.ajax({
+          url: '/task/' + id,
+          type: "PUT",
+          data: {
+            project_id: project_id,
+            name: name,
+            priority: priority,
+            status: status,
+            progress_status: progress_status,
+            description: description,
+            deadline: deadline,
+            employee_id: employee_id,
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#edit_task_form_modal").modal('hide');
+            toastr.info('Successfully updated task.')
+            refresh1();
+            refresh2();
+            refresh3();
+            refresh4();
+            total_tasks();
+          }
+        })
+      }
+    });
+  });
+
+  function refresh1() {
+    var url = "/task/department/" + sessionStorage.getItem("id");
+    tasksDataTable.ajax.url(url).load();
+  }
+
+  function refresh2() {
+    var url = "/task/department/status/On%20Track/" + sessionStorage.getItem("id");
+    onTrackDataTable.ajax.url(url).load();
+  }
+
+  function refresh3() {
+    var url = "/task/department/status/At%20Risk/" + sessionStorage.getItem("id");
+    atRiskDataTable.ajax.url(url).load();
+  }
+
+  function refresh4() {
+    var url = "/task/department/status/Off%20Track/" + sessionStorage.getItem("id");
+    offTrackDataTable.ajax.url(url).load();
+  }
+
+  // VIEW TASK
+  $(document).on("click", ".btn-view", function () {
+    var id = this.value;
+    $.ajax({
+      url: '/task/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var task = data;
+        window.location.href = "http://127.0.0.1:8000/project_management/department_head/task_details/" + task.id;
+      }
+    })
+  });
+
+  // MARK AS COMPLETED TASK
+  $(document).on("click", ".btn-mark", function () {
+    var id = this.value;
+    $('#mark_task_form_modal').modal('show');
+
+    $.ajax({
+      url: '/task/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var task = data;
+        $('#mark_id').val(task.id);
+        $('#project_id').val(task.project_id);
+      }
+    })
+  });
+
+  // MARK AS COMPLETED TASK
+  $('.mark-confirm').on('click', function (e) {
+    e.preventDefault();
+    $('#mark_task_form_modal').modal('show');
+    var id = document.getElementById("mark_id").value
+    var project_id = document.getElementById("project_id").value
+    var form = $('#mark_task_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/task/mark_completed/' + id,
+      type: "PUT",
+      data: {
+        project_id: project_id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        refresh1();
+        refresh2();
+        refresh3();
+        refresh4();
+        toastr.info('Successfully marked as completed task.')
+        $('#mark_task_form_modal').modal('hide');
+      }
+      // ajax closing tag
+    })
+  });
+
+  // EDIT TASK
+  $(document).on("click", ".btn-edit", function () {
+    var id = this.value;
+    $("#edit_task_form_modal").modal('show');
+
+    $.ajax({
+      url: '/task/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var task = data;
+
+        $('#edit_id').val(id);
+        $('#edit_project_id').val(task.project_id);
+        $('#edit_name').val(task.name);
+        $('#edit_priority').val(task.priority);
+        $('#edit_deadline').val(moment(task.deadline).format('YYYY-MM-DD'));
+        $('#edit_employee_id').val(task.employee_id);
+        $('#edit_status').val(task.status);
+        $('#edit_description').val(task.description);
+      }
+    })
+  });
+
+  // DELETE DEPARTMENT
+  $(document).on("click", ".btn-delete", function () {
+    var id = this.value;
+    $('#delete_task_form_modal').modal('show');
+
+    $.ajax({
+      url: '/task/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var user = data;
+        $('#delete_id').val(user.id);
+      }
+    })
+  });
+
+  $('.delete-confirm').on('click', function (e) {
+    e.preventDefault();
+    $('#delete_task_form_modal').modal('show');
+    var id = document.getElementById("delete_id").value
+    var form = $('#delete_task_form');
+
+    // ajax opening tag
+    $.ajax({
+      url: '/task/' + id,
+      type: "DELETE",
+      data: form.serialize(),
+      dataType: "JSON",
+
+      success: function (data) {
+        refresh1();
+        refresh2();
+        refresh3();
+        refresh4();
+        total_tasks();
+        toastr.info('Successfully deleted task.')
+        $('#delete_task_form_modal').modal('hide');
+      }
+      // ajax closing tag
+    })
+  });
+</script>
+{%endblock%}

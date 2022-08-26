@@ -1,0 +1,958 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/admin/includes/head.html' %}
+
+{% include './project_management/admin/includes/navbar.html' %}
+
+{% include './project_management/admin/includes/sidebar.html' %}
+{%endblock%}
+
+{%block sidebar%}
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+  <!-- Brand Logo -->
+  <a href="../../../index3.html" class="brand-link">
+    <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light">HoMIES</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <!-- Sidebar user (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+      </div>
+      <!-- User Full Name -->
+      <div class="info mr-1 w-100" id="userFullNameDisplay">
+                      
+        <!-- User Full Name -->
+        <a href="#" class="nav-item text-truncate" id="full_name"></a>
+
+        <!-- User Position -->
+        <div class="small text-secondary text-truncate" id="user_type"></div>
+        
+        <!-- User Department -->
+        <div class="small text-secondary text-truncate" id="department"></div>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
+        <li class="nav-header">CORE</li>
+        <li class="nav-item">
+          <a href="/project_management/admin/dashboard" {%if request.path == '/project_management/admin/dashboard'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-header">REQUESTS</li>
+        <li class="nav-item">
+          <a href="/project_management/admin/concept_paper_requisition" {%if request.path == '/project_management/admin/concept_paper_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-file-alt"></i>
+            <p>Concept Papers</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/project_management/admin/project_requisition" {%if request.path == '/project_management/admin/project_requisition'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-copy"></i>
+            <p>Proposals</p>
+          </a>
+        </li>
+        <li class="nav-header">PROJECTS</li>
+        <li class="nav-item">
+          <a href="/project_management/admin/project_lists" {%if request.path == '/project_management/admin/project_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-hammer"></i>
+            <p>Projects</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/project_management/admin/calendar" {%if request.path == '/project_management/admin/calendar'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-calendar"></i>
+            <p>Schedule</p>
+          </a>
+        </li>
+        <li class="nav-header">TASKS</li>
+        <li class="nav-item">
+          <a href="/project_management/admin/task_lists" class="nav-link active"{%if request.path == '/project_management/admin/task_lists'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>General Tasks</p>
+          </a>
+        </li>
+        <li class="nav-header">REPORTS</li>
+        <li class="nav-item">
+          <a href="/project_management/admin/reports" {%if request.path == '/project_management/admin/reports'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-file-signature"></i>
+            <p>Reports</p>
+          </a>
+        </li>
+        <li class="nav-header">TERMS OF REFERENCE</li>
+          <li class="nav-item">
+            <a href="/project_management/admin/terms_of_reference" {%if request.path == '/project_management/admin/terms_of_reference'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+              <i class="nav-icon fas fa-copy"></i>
+              <p>Terms of Reference</p>
+            </a>
+          </li>
+        <li class="nav-header">ARCHIVE</li>
+        <li class="nav-item">
+          <a href="/project_management/admin/archive" {%if request.path == '/project_management/admin/archive'%} class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-trash"></i>
+            <p>Archive</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+
+  </div>
+  <!-- /.sidebar -->
+
+  <!-- Sidebar Custom -->
+  <div class="sidebar-custom">
+    <form>
+      <a href="#" class="btn btn-sm btn-light"><i class="fas fa-cogs"></i></a>
+      <button type="button" class="btn btn-sm btn-danger hide-on-collapse pos-right btn-logouts">Log out <i
+          class="fas fa-sign-out-alt ml-1"></i></button>
+    </form>
+  </div>
+  <!-- /.sidebar-custom -->
+
+</aside>
+<!-- /.main-sidebar -->
+{%endblock%}
+
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Task Details</h1>
+          <div class="text-muted">Task Details to view additional details</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-8">
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <div class="card-tools">
+              <div class="text-center dropdown">
+                <button type="button" value="{{ data.project_id }}" class="btn btn-sm btn-secondary btn-project"><i class="fas fa-list mr-1"></i> View Project</button>
+              </div>
+            </div>
+            <h5>{{ data.name }}</h5>
+            <i class="fas fa-clock mr-1"></i> Deadline: <span>{{ data.deadline.strftime('%B %d, %Y') }}</span>
+          </div>
+          <div class="card-body">
+            <h6><i class="fas fa-user-circle"></i> Assigned</h6>
+            {{ data.task_employee.first_name }} {{ data.task_employee.last_name }} {{ data.task_employee.suffix_name }}
+            <div class="row invoice-info mt-3">
+              <div class="col-sm-4 invoice-col">
+                <address>
+                  <strong><i class="fas fa-exclamation-circle"></i> Priority</strong><br>
+                  {{ data.priority }}<br>
+                </address>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-4 invoice-col">
+                <address>
+                  <strong><i class="fas fa-question-circle"></i> Status</strong><br>
+                  {%if data.status == "On Track"%}
+                  <div class="badge badge-success p-1 w-50"><i class="fas fa-check mr-1"></i> {{ data.status }}</div><br>
+                  {%elif data.status == "Off Track"%}
+                  <div class="badge badge-secondary p-1 w-50"><i class="fas fa-times mr-1"></i> {{ data.status }}</div><br>
+                  {%else%}
+                  <div class="badge badge-danger p-1 w-50"><i class="fas fa-exclamation-triangle mr-1"></i> {{ data.status }}
+                  </div><br>
+                  {%endif%}
+                </address>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-4 invoice-col">
+                <address>
+                  <strong><i class="fas fa-sync-alt"></i> Progress</strong><br>
+                  {%if data.progress_status == "To Do"%}
+                  <div class="badge badge-secondary p-1 w-50"><i class="fas fa-clipboard-check mr-1"></i>
+                    {{ data.progress_status }}</div><br>
+                  {%elif data.progress_status == "Done"%}
+                  <div class="badge badge-success p-1 w-50"><i class="fas fa-check mr-1"></i> {{ data.progress_status }}
+                  </div><br>
+                  {%else%}
+                  <div class="badge badge-info p-1 w-50"><i class="fas fa-sync mr-1"></i> {{ data.progress_status }}</div>
+                  <br>
+                  {%endif%}
+                </address>
+              </div>
+              <!-- /.col -->
+            </div><br>
+            <h6><i class="fas fa-info-circle"></i> Description</h6>
+            {{ data.description }}
+          </div>
+        </div>
+      </div>
+      <!-- /.card -->
+      <div class="col-4">
+        <div class="card card-primary card-outline card-tab">
+          <div class="card-header">
+            <h3 class="card-title">Task Remarks</h3>
+            <!-- <div class="card-tools">
+              <button value="{{ data.id }}" class="btn btn-remarks btn-primary bg-solid-primary btn-sm" type="button"><i
+                  class="fa fa-plus"></i> Add Remarks</button>
+            </div> -->
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="info-box border shadow-none bg-default">
+                <div class="info-box-content">
+                  {%if data.remarks is not none%}
+                  <label for="inputEstimatedBudget">Remarks</label>
+                  {%if data.updated_at is not none%}
+                  <small class="text-muted">{{ data.updated_at.strftime('%A, %B %d, %Y') }}</small>
+                  {%else%}
+                  <small class="text-muted">{{ data.created_at.strftime('%A, %B %d, %Y') }}</small>
+                  {%endif%}
+                  <span>{{ data.remarks }}</span>
+                  {%else%}
+                  <label for="inputEstimatedBudget">Remarks</label>
+                  <span class="btn-link text-secondary font-italic">No posted remarks.</span>
+                  {%endif%}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <!-- /.card -->
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <!-- Default box -->
+        <div class="card card-primary card-outline">
+
+          <!-- Card Header -->
+          <div class="card-header">
+            <div class="card-title">Employees Progress/Activity</div>
+            <div class="card-tools">
+              <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+                <i class="fas fa-expand"></i>
+              </button>
+              <!-- <button data-toggle="modal" data-target="#modal-default" class="btn btn-primary bg-solid-primary btn-sm"
+                id="new_activity"><i class="fa fa-plus"></i> Add New Activity</button> -->
+            </div>
+          </div>
+          <!-- /.card-header -->
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <table id="activity_table" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Employee</th>
+                  <th>Subject</th>
+                  <th>Remarks</th>
+                  <th>Date</th>
+                  <th>Created At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+
+  </section>
+  <!-- /.content -->
+  <!-- /.content-wrapper -->
+
+  <!-- Default Modal -->
+  <div class="modal fade" id="add_remarks_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-md modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-secondary"><i class="fas fa-file-alt mr-2"></i> Task Remarks</h4>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="add_remarks_form">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <input type="hidden" class="form-control" name="remarks_id" id="remarks_id">
+                  <label for="exampleInputEmail1">Remarks <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <textarea placeholder="Enter Remarks" rows="5" cols="20" class="form-control" name="remarks"
+                    id="remarks"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add Remarks <i class="fas fa-check"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Default Modal -->
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-secondary"><i class="fa fa-plus mr-2"></i> New Activity</h4>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="add_activity_form">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="form-group col-sm-6">
+                  <input type="hidden" class="form-control" value="{{ data.project_id }}" name="project_id"
+                    id="project_id">
+                  <input type="hidden" class="form-control" value="{{ data.id }}" name="task_id" id="task_id">
+                  <label for="exampleInputEmail1">Employee <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <select class="form-control select2bs4" style="width: 100%;" id="employee_id" name="employee_id">
+
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-6">
+                  <label class="location" for="exampleInputPassword1">Subject <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <input type="text" class="form-control" name="subject" id="subject">
+                </div>
+                <div class="form-group col-sm-6">
+                  <label class="date" for="exampleInputPassword1">Date <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <input type="date" class="form-control" name="date" id="date">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <label for="exampleInputEmail1">Remarks <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <textarea rows="7" cols="50" class="form-control" name="remarks" id="remarks"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add Activity <i class="fas fa-check"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Default Modal -->
+  <div class="modal fade" id="view_activity_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-md modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-secondary"><i class="fas fa-file-alt mr-2"></i> Activity Details</h4>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="view_activity_form">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="form-group col-sm-4 border-bottom">
+                  <label for="exampleInputEmail1">Employee: </label>
+                </div>
+                <div class="form-group col-sm-8 border-bottom">
+                  <span name="view_employee" id="view_employee" aria-describedby="emailHelp"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-4 border-bottom">
+                  <label class="location" for="exampleInputPassword1">Subject: </label>
+                </div>
+                <div class="form-group col-sm-8 border-bottom">
+                  <span name="view_subject" id="view_subject" aria-describedby="emailHelp"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-4 border-bottom">
+                  <label for="exampleInputEmail1">Date: </label>
+                </div>
+                <div class="form-group col-sm-8 border-bottom">
+                  <span name="view_date" id="view_date" aria-describedby="emailHelp"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-4 border-bottom">
+                  <label for="exampleInputEmail1">Remarks: </label>
+                </div>
+                <div class="form-group col-sm-8 border-bottom">
+                  <span name="view_remarks" id="view_remarks" aria-describedby="emailHelp"></span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Default Modal -->
+  <div class="modal fade" id="edit_activity_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-lg modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-secondary"><i class="fas fa-edit mr-2"></i>Edit Activity</h4>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="edit_activity_form">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="form-group col-sm-6">
+                  <input type="hidden" class="form-control" name="edit_id" id="edit_id">
+                  <input type="hidden" class="form-control" value="{{ data.project_id }}" name="edit_project_id"
+                    id="edit_project_id">
+                  <input type="hidden" class="form-control" value="{{ data.id }}" name="edit_task_id" id="edit_task_id">
+                  <label for="exampleInputEmail1">Employee <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <select class="form-control select2bs4" style="width: 100%;" id="edit_employee_id"
+                    name="edit_employee_id">
+
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-6">
+                  <label class="location" for="exampleInputPassword1">Subject <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <input type="text" class="form-control" name="edit_subject" id="edit_subject">
+                </div>
+                <div class="form-group col-sm-6">
+                  <label class="date" for="exampleInputPassword1">Date <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <input type="date" class="form-control" name="edit_date" id="edit_date">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-12">
+                  <label for="exampleInputEmail1">Remarks <span style="color:red" aria-hidden="true"
+                      class="required">*</span></label>
+                  <textarea rows="7" cols="50" class="form-control" name="edit_remarks" id="edit_remarks"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-info">Update <i class="fas fa-check"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Default Modal -->
+  <div class="modal fade" id="delete_activity_form_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i> Confirmation</h4>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="delete_activity_form">
+            <div class="modal-body">
+              <input type="hidden" class="form-control" name="delete_id" id="delete_id" aria-describedby="emailHelp">
+              <h7>Are you sure you want to delete this activity?</h7>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger delete-confirm">Yes, delete it! <i class="fas fa-times-circle"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  {%endblock%}
+  <!-- /.content-wrapper -->
+
+  {%block scripts%}
+  <script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
+  <script src="{{url_for('static', path='/admin_restriction.js')}}"></script>
+  
+  <script>
+    $(function () {
+      $('.select2bs4').select2()
+
+      function loadtable() {
+        activityDataTable = $('#activity_table').DataTable({
+          ajax: {
+            url: "/activity/task/{{ data.id }}",
+            dataSrc: ""
+          },
+          "columns": [{
+              data: "id"
+            },
+            {
+              data: null,
+              render: function (data, type, row, meta) {
+                return row.activity_employee.first_name + " " + row.activity_employee
+                  .last_name + " " + row.activity_employee.suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
+              }
+            },
+            {
+              data: "subject"
+            },
+            {
+              data: null,
+              render: function(data){
+                if(data.remarks){
+                  return (data.remarks.length > 50)?data.remarks.substring(0, 50)+'...':data.remarks;
+                } else {
+                  return '';
+                }
+              },
+            },
+            {
+              data: null,
+              render: function (data, type, row, meta) {
+                return moment(row.date).format('LL')
+              }
+            },
+            {
+              data: "created_at"
+            },
+            {
+              data: "active_status",
+              render: function (data, type, row) {
+                if (data == "Active") {
+                  return '<div class="text-center dropdown">' +
+                    '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                    '<i class="fas fa-ellipsis-v"></i>' +
+                    '</div>' +
+                    '<div class="dropdown-menu dropdown-menu-right">' +
+                    '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                    '<div style="width: 2rem">' +
+                    '<i class="fas fa-list mr-1"></i>' +
+                    '</div>' +
+                    '<div>View Activity</div>' +
+                    '</button>'
+                }
+              }
+            },
+          ],
+          "aoColumnDefs": [{
+            "bVisible": false,
+            "aTargets": [0, 5]
+          }],
+          "order": [
+            [5, "desc"]
+          ]
+        })
+      }
+
+      loadtable();
+
+      function get_all_users() {
+
+        $.ajax({
+          url: '/employee/department/{{ data.task_project.department_id }}',
+          type: "GET",
+          dataType: "JSON",
+
+          success: function (data) {
+            var users = data;
+            console.log(users)
+
+            var html = "";
+
+            if (users.length == 0) {
+              var html = `<option>No Employee</option>`;
+            } else {
+              var html = "<option selected disabled>Select Employee</option>";
+            }
+
+            for (var i = 0; i < users.length; i++) {
+              html +=
+                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name + ' ' + users[i].suffix_name}</option>`
+            }
+
+            $('#employee_id').html(html);
+            $('#edit_employee_id').html(html);
+          },
+
+          error: function (detail) {
+            console.log(detail.responseJSON.detail)
+
+            var html = `<option selected disabled>${detail.responseJSON.detail}</option>`;
+
+            $('#employee_id').html(html);
+            $('#edit_employee_id').html(html);
+          }
+        })
+      }
+
+      get_all_users();
+
+      $('#add_activity_form').validate({
+        rules: {
+          user_id: {
+            required: true,
+          },
+          subject: {
+            required: true,
+          },
+          date: {
+            required: true
+          },
+          remarks: {
+            required: true
+          },
+        },
+        messages: {
+          user_id: {
+            required: "Please select employee",
+          },
+          subject: {
+            required: "Please enter subject",
+          },
+          date: {
+            required: "Please select date",
+          },
+          remarks: {
+            required: "Please enter remarks",
+          },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        },
+
+        submitHandler: function (form) {
+          // ADD JOB TITLE
+          var form = $('#add_activity_form');
+
+          // ajax opening tag
+          $.ajax({
+            url: '/activity/',
+            type: "POST",
+            data: form.serialize(),
+            dataType: "JSON",
+
+            success: function (data) {
+              refresh();
+              toastr.success('Successfully added new activity.')
+              $("#add_activity_form").trigger("reset");
+              $("#modal-default").modal('hide');
+              // End of Confirmation
+            }
+            // ajax closing tag
+          })
+        }
+      });
+
+      $('#edit_activity_form').validate({
+        rules: {
+          edit_employee_id: {
+            required: true,
+          },
+          edit_subject: {
+            required: true,
+          },
+          edit_date: {
+            required: true
+          },
+          edit_remarks: {
+            required: true
+          },
+        },
+        messages: {
+          edit_user_id: {
+            required: "Please select employee",
+          },
+          edit_subject: {
+            required: "Please enter subject",
+          },
+          edit_date: {
+            required: "Please select date",
+          },
+          edit_remarks: {
+            required: "Please enter remarks",
+          },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        },
+
+        submitHandler: function (form) {
+          // ADD JOB TITLE
+          var id = document.getElementById("edit_id").value
+
+          var employee_id = document.getElementById("edit_employee_id").value
+          var subject = document.getElementById("edit_subject").value
+          var remarks = document.getElementById("edit_remarks").value
+          var date = document.getElementById("edit_date").value
+
+          $.ajax({
+            url: '/activity/' + id,
+            type: "PUT",
+            data: {
+              employee_id: employee_id,
+              subject: subject,
+              remarks: remarks,
+              date: date
+            },
+            dataType: "JSON",
+
+            success: function (data) {
+              $("#edit_activity_form_modal").modal('hide');
+              toastr.info('Successfully updated activity.')
+              refresh();
+            }
+          })
+        }
+      });
+    });
+
+    $('#add_remarks_form').validate({
+      rules: {
+        remarks: {
+          required: true,
+        },
+      },
+      messages: {
+        remarks: {
+          required: "Please enter remarks",
+        },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+      },
+
+      submitHandler: function (form) {
+        // ADD REMARKS
+        var id = document.getElementById("remarks_id").value
+        var remarks = document.getElementById("remarks").value
+
+        $.ajax({
+          url: '/task/remarks/' + id,
+          type: "PUT",
+          data: {
+            remarks: remarks
+          },
+          dataType: "JSON",
+
+          success: function (data) {
+            $("#add_remarks_form_modal").modal('hide');
+            window.setTimeout(function () {
+              location.reload();
+            }, 1800);
+            toastr.info('Successfully updated task remarks.')
+          }
+        })
+      }
+    });
+
+    function refresh() {
+      var url = "/activity/task/{{ data.id }}";
+      activityDataTable.ajax.url(url).load();
+    }
+
+    // VIEW PROJECT
+    $(document).on("click", ".btn-project", function () {
+      var id = this.value;
+      window.location.href = "http://127.0.0.1:8000/admin/project_details/" + id;
+    });
+
+    // ADD REMARKS
+    $(document).on("click", ".btn-remarks", function () {
+      var id = this.value;
+      $("#add_remarks_form_modal").modal('show');
+
+      $.ajax({
+        url: '/task/' + id,
+        type: "GET",
+        data: {
+          id: id
+        },
+        dataType: "JSON",
+
+        success: function (data) {
+          var task = data;
+
+          $('#remarks_id').val(id);
+          $('#remarks').val(task.remarks);;
+        }
+      })
+    });
+
+    // VIEW ACTIVITY
+    $(document).on("click", ".btn-view", function () {
+      var id = this.value;
+      $("#view_activity_form_modal").modal('show');
+
+      $.ajax({
+        url: '/activity/' + id,
+        type: "GET",
+        data: {
+          id: id
+        },
+        dataType: "JSON",
+
+        success: function (data) {
+          var user = data;
+
+          $('#view_id').html(user.id);
+          $('#view_employee').html(user.activity_employee.first_name + " " + user.activity_employee
+            .last_name + " " + user.activity_employee.suffix_name);
+          $('#view_subject').html(user.subject);
+          $('#view_remarks').html(user.remarks);
+          $('#view_date').html(moment(user.date).format('LL'));
+        }
+      })
+    });
+
+    // EDIT ACTIVITY
+    $(document).on("click", ".btn-edit", function () {
+      var id = this.value;
+      $('#edit_activity_form_modal').modal('show');
+
+      $.ajax({
+        url: '/activity/' + id,
+        type: "GET",
+        data: {
+          id: id
+        },
+        dataType: "JSON",
+
+        success: function (data) {
+          var user = data;
+
+          $('#edit_id').val(user.id);
+          $('#edit_employee_id').val(user.employee_id);
+          $('#edit_subject').val(user.subject);
+          $('#edit_remarks').val(user.remarks);
+          $('#edit_date').val(moment(user.date).format('YYYY-MM-DD'));
+        }
+      })
+    });
+
+    // DELETE ACTIVITY
+    $(document).on("click", ".btn-delete", function () {
+      $('#delete_activity_form_modal').modal('show');
+
+      var id = this.value;
+
+      // ajax opening tag
+      $.ajax({
+        url: '/activity/' + id,
+        type: "GET",
+        data: {
+          id: id
+        },
+        dataType: "JSON",
+
+        success: function (data) {
+          $('#delete_id').val(id);
+        }
+        // ajax closing tag
+      })
+    });
+
+    $('.delete-confirm').on('click', function (e) {
+      e.preventDefault();
+      $('#delete_activity_form_modal').modal('show');
+      var id = document.getElementById("delete_id").value
+      var form = $('#delete_activity_form');
+
+      // ajax opening tag
+      $.ajax({
+        url: '/activity/' + id,
+        type: "DELETE",
+        data: form.serialize(),
+        dataType: "JSON",
+
+        success: function (data) {
+          refresh();
+          toastr.info('Successfully deleted activity.')
+          $('#delete_activity_form_modal').modal('hide');
+        }
+        // ajax closing tag
+      })
+    });
+  </script>
+  {%endblock%}

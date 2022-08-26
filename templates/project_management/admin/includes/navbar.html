@@ -1,0 +1,134 @@
+<!-- Top Navbar -->
+<nav class="main-header navbar navbar-expand-md navbar-white navbar-light">
+
+
+    <!-- Left navbar links togglers (for responsive) -->
+    <ul class="navbar-nav navbar-no-expand">
+
+        <!-- Sidebar Toggler -->
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <i style="margin-top: 4px;" class="fas fa-bars"></i>
+            </a>
+        </li>
+
+        <!-- Tobpar toggler -->
+        <li class="nav-item">
+            <button class="nav-link navbar-toggler border-0" type="button" data-toggle="collapse"
+                data-target="#navbarCollapse">
+                <i class="fas fa-caret-down"></i>
+            </button>
+        </li>
+    </ul>
+
+
+    <!-- Left navbar links -->
+    <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <ul class="navbar-nav">
+
+            <!-- Home -->
+            <li class="nav-item">
+                <a {%if request.path == '/admin/main_dashboard'%} class="nav-link text-primary" {%else%} class="nav-link" {%endif%} href="/admin/main_dashboard" role="button">
+                    <i style="margin-top: 4px;" class="fas fa-home"></i>
+                    <span class="d-inline-block d-md-none ml-1 ml-md-0">Home</span>
+                </a>
+            </li>
+
+            <!-- Hospital Core -->
+            <li class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Hospital Core</a>
+
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a href="#" class="dropdown-item">Patient Management</a></li>
+                    <li><a href="#" class="dropdown-item">Treatment Management</a></li>
+                    <li><a href="#" class="dropdown-item">Pharmacy</a></li>
+                    <li><a href="#" class="dropdown-item">Medical Record</a></li>
+                    <li><a href="#" class="dropdown-item">Doctors Management</a></li>
+                    <li><a href="#" class="dropdown-item">Visitors Management</a></li>
+                </ul>
+            </li>
+
+            <!-- Human Resource -->
+            <li class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Human Resource</a>
+
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a href="#" class="dropdown-item">Core Human Capital Management</a></li>
+                    <li><a href="#" class="dropdown-item">Recruitment Management</a></li>
+                    <li><a href="#" class="dropdown-item">Time & Attendance</a></li>
+                    <li><a href="#" class="dropdown-item">Performance Management</a></li>
+                </ul>
+            </li>
+
+            <!-- Finance -->
+            <li class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Finance</a>
+
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a href="#" class="dropdown-item">General Ledger</a></li>
+                    <li><a href="#" class="dropdown-item">Accounts Payable/Receivable</a></li>
+                    <li><a href="#" class="dropdown-item">Collection/Disbursement</a></li>
+                </ul>
+            </li>
+
+            <!-- Logistics -->
+            <li class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle">Logistics</a>
+
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a href="#" class="dropdown-item">Procurement Management</a></li>
+                    <li><a href="/warehousing/admin" class="dropdown-item">Warehousing Management</a></li>
+                    <li><a href="/asset_management/" class="dropdown-item">Asset Management</a></li>
+                    <li><a href="/project_management/admin/dashboard" class="dropdown-item">Project Management</a></li>
+                </ul>
+            </li>
+
+            <!-- System Administration -->
+            <li class="nav-item">
+                <a class="nav-link" href="/sysAdmin/users" role="button">
+                    <span>SysAdmin</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- Right navbar links -->
+    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+
+        <!-- Notifications Dropdown Menu -->
+        <!-- <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-bell"></i>
+                <span id="notification_number" class="badge badge-warning navbar-badge"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span id="notification_numbers" class="dropdown-item dropdown-header"></span>
+                <div class="dropdown-divider"></div>
+                <div id="notifications"></div>
+                <a href="/admin/project_lists" class="dropdown-item dropdown-footer">Go to Project Page</a>
+            </div>
+        </li> -->
+
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="far fa-user"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-user-circle mr-2"></i> Profile
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="fas fa-cog mr-2"></i> Settings
+                </a>
+                <div class="dropdown-divider"></div>
+                <form style="margin-bottom: 0px">
+                    <button type="button" class="dropdown-item btn-logout"><i class="fas fa-sign-out-alt mr-2"></i> Log
+                        out</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+    <!-- /.navbar-nav -->
+</nav>
+<!-- /.navbar -->

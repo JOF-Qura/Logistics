@@ -1,0 +1,541 @@
+{%extends 'base.html'%}
+
+{%block includes%}
+{% include './department_head/includes/head.html' %}
+
+{% include './department_head/includes/navbar.html' %}
+
+{% include './department_head/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Archive</h1>
+                    <div class="text-muted">Archive to restore deleted data</div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card card-primary card-outline">
+
+            <!-- Card Header -->
+            <div class="card-header">
+                <div class="card-title">Archive</div>
+            </div>
+            <!-- /.card-header -->
+
+            <!-- Card Body -->
+            <div class=" card-body">
+                <div class="mb-3">
+                    <ul class=" nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="custom-tabs-three-projects-tab" data-toggle="pill"
+                                href="#custom-tabs-three-projects" role="tab" aria-controls="custom-tabs-three-project"
+                                aria-selected="true">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-three-tasks-tab" data-toggle="pill"
+                                href="#custom-tabs-three-tasks" role="tab" aria-controls="custom-tabs-three-tasks"
+                                aria-selected="false">Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-three-activities-tab" data-toggle="pill"
+                                href="#custom-tabs-three-activities" role="tab"
+                                aria-controls="custom-tabs-three-activities" aria-selected="false">Activities</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+                    <div class="tab-pane fade show active" id="custom-tabs-three-projects" role="tabpanel"
+                        aria-labelledby="custom-tabs-three-projects-tab">
+                        <table id="projects_table" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Project Name</th>
+                                    <th>Manager</th>
+                                    <th>Type</th>
+                                    <th>Cost</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-tasks" role="tabpanel"
+                        aria-labelledby="custom-tabs-three-tasks-tab">
+                        <table id="tasks_table" class="table table-bordered table-hover" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Task</th>
+                                    <th>Priority</th>
+                                    <th>Status</th>
+                                    <th>Progress</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-activities" role="tabpanel"
+                        aria-labelledby="custom-tabs-three-activities-tab">
+                        <table id="activity_table" class="table table-bordered table-hover" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Employee</th>
+                                    <th>Subject</th>
+                                    <th>Remarks</th>
+                                    <th>Date</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="restore_project_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i>
+                    Confirmation</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="restore_project_form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" name="restore_project_id" id="restore_project_id"
+                            aria-describedby="emailHelp">
+                        <h7>Are you sure you want to restore this project?</h7>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary restore-project-confirm">Yes, restore it! <i
+                                class="fas fa-times-circle"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="restore_task_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i>
+                    Confirmation</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="restore_task_form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" name="restore_task_id" id="restore_task_id"
+                            aria-describedby="emailHelp">
+                        <h7>Are you sure you want to restore this task?</h7>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary restore-task-confirm">Yes, restore it! <i
+                                class="fas fa-times-circle"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="restore_activity_modal">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-secondary"><i class="fas fa-exclamation-triangle text-secondary"></i>
+                    Confirmation</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="restore_activity_form">
+                    <div class="modal-body">
+                        <input type="hidden" class="form-control" name="restore_activity_id" id="restore_activity_id"
+                            aria-describedby="emailHelp">
+                        <h7>Are you sure you want to restore this activity?</h7>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary restore-activity-confirm">Yes, restore it! <i
+                                class="fas fa-times-circle"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/department_head_notification.js')}}"></script>
+
+<script>
+    $(function () {
+        function project_table() {
+            projectsDataTable = $('#projects_table').DataTable({
+                ajax: {
+                    url: "/projects/deleted",
+                    dataSrc: ""
+                },
+                "columns": [{
+                        data: "id"
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return row.name + '<br>' + '<small class="text-muted">' + row
+                                .project_department.name + '</small>';
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row, meta) {
+                            var manager = row.project_user.first_name + " " + row
+                                .project_user.last_name;
+                            return manager
+                        }
+                    },
+                    {
+                        data: "type"
+                    },
+                    {
+                        data: "cost",
+                        render: $.fn.dataTable.render.number(',', '.', 2, '₱')
+                    },
+                    {
+                        data: "created_at"
+                    },
+                    {
+                        data: "active_status",
+                        render: function (data, type, row) {
+                            return '<div class="text-center dropdown">' +
+                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                '<i class="fas fa-ellipsis-v"></i>' +
+                                '</div>' +
+                                '<div class="dropdown-menu dropdown-menu-right">' +
+                                '<button type="button" value="' + row.id +
+                                '" class="dropdown-item d-flex btn-restore-project">' +
+                                '<div style="width: 2rem">' +
+                                '<i class="fas fa-trash-restore"></i>' +
+                                '</div>' +
+                                '<div>Restore Project</div>' +
+                                '</button>'
+                        }
+                    },
+                ],
+                "aoColumnDefs": [{
+                    "bVisible": false,
+                    "aTargets": [0, 5]
+                }],
+                "order": [
+                    [5, "desc"]
+                ]
+            })
+        }
+
+        function tasks_table() {
+            tasksDataTable = $('#tasks_table').DataTable({
+                ajax: {
+                    url: "/task/deleted",
+                    dataSrc: ""
+                },
+                "columns": [{
+                        data: "id"
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return row.name + '<br>' + '<small class="text-muted">Posted ' +
+                                moment(row.created_at).format(
+                                    'MMMM D, YYYY') + '</small>';
+                        }
+                    },
+                    {
+                        data: "priority"
+                    },
+                    {
+                        data: "status",
+                        render: function (data, type, row) {
+                            if (data == "On Track") {
+                                return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check"></i> ' +
+                                    row.status +
+                                    '</div>';
+                            } else if (data == "Off Track") {
+                                return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-times"></i> ' +
+                                    row.status +
+                                    '</div>';
+                            } else {
+                                return '<div class="badge badge-danger p-2 w-100"><i class="fas fa-exclamation-triangle"></i> ' +
+                                    row.status + '</div>';
+                            }
+                        }
+                    },
+                    {
+                        data: "progress_status",
+                        render: function (data, type, row) {
+                            if (data == "To Do") {
+                                return '<div class="badge badge-secondary p-2 w-100"><i class="fas fa-clipboard-check"></i> ' +
+                                    row.progress_status + '</div>';
+                            } else if (data == "On Progress") {
+                                return '<div class="badge badge-info p-2 w-100"><i class="fas fa-spinner"></i> ' +
+                                    row
+                                    .progress_status + '</div>';
+                            } else {
+                                return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check"></i> ' +
+                                    row
+                                    .progress_status + '</div>';
+                            }
+                        }
+                    },
+                    {
+                        data: "created_at"
+                    },
+                    {
+                        data: "active_status",
+                        render: function (data, type, row) {
+                            return '<div class="text-center dropdown">' +
+                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                '<i class="fas fa-ellipsis-v"></i>' +
+                                '</div>' +
+                                '<div class="dropdown-menu dropdown-menu-right">' +
+                                '<button type="button" value="' + row.id +
+                                '" class="dropdown-item d-flex btn-restore-task">' +
+                                '<div style="width: 2rem">' +
+                                '<i class="fas fa-trash-restore"></i>' +
+                                '</div>' +
+                                '<div>Restore Task</div>' +
+                                '</button>'
+                        }
+                    },
+                ],
+                "aoColumnDefs": [{
+                    "bVisible": false,
+                    "aTargets": [0, 5]
+                }],
+                "order": [
+                    [5, "desc"]
+                ]
+            })
+        }
+
+        function activity_table() {
+            activityDataTable = $('#activity_table').DataTable({
+                ajax: {
+                    url: "/activity/deleted",
+                    dataSrc: ""
+                },
+                "columns": [{
+                        data: "id"
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row, meta) {
+                            return row.activity_employee.first_name + " " + row
+                                .activity_employee
+                                .last_name + " " + row.activity_employee.suffix_name;
+                        }
+                    },
+                    {
+                        data: "subject"
+                    },
+                    {
+                        data: null,
+                        render: function (data) {
+                            if (data.remarks) {
+                                return (data.remarks.length > 50) ? data.remarks.substring(0,
+                                    50) + '...' : data.remarks;
+                            } else {
+                                return '';
+                            }
+                        },
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row, meta) {
+                            return moment(row.date).format('LL')
+                        }
+                    },
+                    {
+                        data: "created_at"
+                    },
+                    {
+                        data: "active_status",
+                        render: function (data, type, row) {
+                            return '<div class="text-center dropdown">' +
+                                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                                '<i class="fas fa-ellipsis-v"></i>' +
+                                '</div>' +
+                                '<div class="dropdown-menu dropdown-menu-right">' +
+                                '<button type="button" value="' + row.id +
+                                '" class="dropdown-item d-flex btn-restore-activity">' +
+                                '<div style="width: 2rem">' +
+                                '<i class="fas fa-trash-restore"></i>' +
+                                '</div>' +
+                                '<div>Restore Activity</div>' +
+                                '</button>'
+                        }
+                    },
+                ],
+                "aoColumnDefs": [{
+                    "bVisible": false,
+                    "aTargets": [0, 5]
+                }],
+                "order": [
+                    [5, "desc"]
+                ]
+            })
+        }
+
+        activity_table();
+        tasks_table();
+        project_table();
+    });
+
+    function refresh1() {
+        var url = "/projects/deleted";
+        projectsDataTable.ajax.url(url).load();
+    }
+
+    function refresh2() {
+        var url = "/task/deleted";
+        tasksDataTable.ajax.url(url).load();
+    }
+
+    function refresh3() {
+        var url = "/activity/deleted";
+        activityDataTable.ajax.url(url).load();
+    }
+
+    // RESTORE PROJECT
+    $(document).on("click", ".btn-restore-project", function () {
+        var id = this.value;
+        $('#restore_project_modal').modal('show');
+        $('#restore_project_id').val(id);
+    });
+
+    $(document).on("click", ".restore-project-confirm", function () {
+        var id = document.getElementById("restore_project_id").value
+
+        // ajax opening tag
+        $.ajax({
+            url: '/projects/restore/' + id,
+            type: "PUT",
+            dataType: "JSON",
+
+            success: function (data) {
+                $('#restore_project_modal').modal('hide');
+                toastr.info('Successfully restored project.')
+                refresh1();
+                // End of Confirmation
+            }
+            // ajax closing tag
+        })
+    });
+
+    // RESTORE PROJECT
+    $(document).on("click", ".btn-restore-task", function () {
+        var id = this.value;
+        $('#restore_task_modal').modal('show');
+        $('#restore_task_id').val(id);
+    });
+
+    $(document).on("click", ".restore-task-confirm", function () {
+        var id = document.getElementById("restore_task_id").value
+
+        // ajax opening tag
+        $.ajax({
+            url: '/task/restore/' + id,
+            type: "PUT",
+            dataType: "JSON",
+
+            success: function (data) {
+                $('#restore_task_modal').modal('hide');
+                toastr.info('Successfully restored task.')
+                refresh2();
+                // End of Confirmation
+            }
+            // ajax closing tag
+        })
+    });
+
+    // RESTORE PROJECT
+    $(document).on("click", ".btn-restore-activity", function () {
+        var id = this.value;
+        $('#restore_activity_modal').modal('show');
+        $('#restore_activity_id').val(id);
+    });
+
+    $(document).on("click", ".restore-activity-confirm", function () {
+        var id = document.getElementById("restore_activity_id").value
+        // ajax opening tag
+        $.ajax({
+            url: '/activity/restore/' + id,
+            type: "PUT",
+            dataType: "JSON",
+
+            success: function (data) {
+                $('#restore_activity_modal').modal('hide');
+                toastr.info('Successfully restored activity.')
+                refresh3();
+                // End of Confirmation
+            }
+            // ajax closing tag
+        })
+    });
+</script>
+{%endblock%}

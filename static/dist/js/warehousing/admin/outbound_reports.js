@@ -230,7 +230,7 @@ loadTable = () =>
                             '</div>';
                         }
                     }
-                    else if (USER_TYPE == "Manager")
+                    else if (USER_TYPE == "warehousing_Manager")
                     {
                         
                         if(aData["request_status"] == "Delivered")
@@ -326,7 +326,7 @@ loadTable = () =>
                             '</div>';
                         }
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -482,7 +482,7 @@ loadTable = () =>
                     '</div>';
                 }
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 if(aData["request_status"] == "Delivered")
                 {
@@ -577,7 +577,7 @@ loadTable = () =>
                     '</div>';
                 }
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -707,12 +707,12 @@ viewData = (request_id) =>
         window.location.replace(baseURL + 'admin/request_details?request_id='+request_id);
         console.log(request_id);
     }
-    else if(USER_TYPE == "Manager")
+    else if(USER_TYPE == "warehousing_Manager")
     {
         window.location.replace(baseURL + 'manager/request_details?request_id='+request_id);
         console.log(request_id);
     }
-    else if(USER_TYPE == "Staff")
+    else if(USER_TYPE == "warehousing_Staff")
     {
         window.location.replace(baseURL + 'staff/request_details?request_id='+request_id);
         console.log(request_id);

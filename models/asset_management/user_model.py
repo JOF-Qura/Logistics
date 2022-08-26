@@ -19,4 +19,7 @@ class User(Base):
     updated_at = Column(DateTime, onupdate=text('NOW()'))
     
     user_department = relationship('Department', foreign_keys=[department_id], lazy='joined')
+
+    #Relationship w/ Project Management
+    employee_user = relationship('Employees', back_populates='user_employee')
     

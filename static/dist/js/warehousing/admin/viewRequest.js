@@ -148,7 +148,7 @@ viewRequestDetails = () =>
              }
             $("#send_request_id").empty();
 
-        if (USER_TYPE == "Admin" || USER_TYPE == "Manager")
+        if (USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
         {
             if (data.request_type == "To Request")
             {
@@ -203,7 +203,7 @@ viewRequestDetails = () =>
                 $("#send_request_id").append(details);
             }
         }
-        else if (USER_TYPE == "Staff")
+        else if (USER_TYPE == "warehousing_Staff")
         {
             if (data.request_type == "To Request")
             {
@@ -980,7 +980,7 @@ loadTable = () =>
                             {
                                 console.log(request_id)
                                 let buttons = "";
-                                if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                                if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                                 {
                                     buttons +=
                                     '<button type="button" data-toggle="modal" data-target="#editing_supply_modal" onClick="return editSupply(\'' +
@@ -992,7 +992,7 @@ loadTable = () =>
                                         aData["request_details_id"] +
                                         '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                                 }
-                                else if (USER_TYPE == "Staff")
+                                else if (USER_TYPE == "warehousing_Staff")
                                 {
                                     buttons +=
                                         'N/A';
@@ -1012,7 +1012,7 @@ loadTable = () =>
                     {
                         console.log(aData)
                         let buttons = "";
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             buttons +=
                             '<button type="button" data-toggle="modal" data-target="#editing_supply_modal" onClick="return editSupply(\'' +
@@ -1024,7 +1024,7 @@ loadTable = () =>
                                 aData["request_details_id"] +
                                 '\')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Delete</i></button> ';
                         }
-                        else if (USER_TYPE == "Staff")
+                        else if (USER_TYPE == "warehousing_Staff")
                         {
                             buttons +=
                                 'N/A';
@@ -1044,7 +1044,7 @@ loadTable = () =>
                     },
                 });
 
-                if (USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                if (USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                 {
                     $('#add_supply_id').empty()
                     details = "";
@@ -1107,7 +1107,7 @@ loadTable = () =>
                             {
                                 console.log(request_id)
                                 let buttons = "";
-                                if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                                if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                                 {
                                     console.log(aData.status);
                                     if(data.request_type == "To Request")
@@ -1131,7 +1131,7 @@ loadTable = () =>
                                         }
                                     }
                                 }
-                                else if (USER_TYPE == "Staff")
+                                else if (USER_TYPE == "warehousing_Staff")
                                 {
                                     console.log(aData.status);
                                     if(data.request_type == "To Request")
@@ -1170,7 +1170,7 @@ loadTable = () =>
                     {
                         console.log(aData)
                         let buttons = "";
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             console.log(aData.status);
                             if(data.request_type == "To Request")
@@ -1194,7 +1194,7 @@ loadTable = () =>
                                 }
                             }
                         }
-                        else if (USER_TYPE == "Staff")
+                        else if (USER_TYPE == "warehousing_Staff")
                         {
                             console.log(aData.status);
                             if(data.request_type == "To Request")
@@ -1232,7 +1232,7 @@ loadTable = () =>
                         // $("#data-table").removeClass("dataTable");
                     },
                 });
-                if (USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                if (USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                 {
                     $('#add_supply_id').empty()
                     details = "";
@@ -1295,7 +1295,7 @@ loadTable = () =>
                             {
                                 console.log(request_id)
                                 let buttons = "";
-                                if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                                if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                                 {
                                     if(data.request_type == "To Request")
                                     {
@@ -1329,7 +1329,7 @@ loadTable = () =>
                                             'N/A';
                                     }
                                 }
-                                else if (USER_TYPE == "Staff")
+                                else if (USER_TYPE == "warehousing_Staff")
                                 {
                                     if (aData['status'] == "Complete/Good" || aData['status'] == "Incomplete/Damaged")
                                     {
@@ -1369,7 +1369,7 @@ loadTable = () =>
                     {
                         console.log(aData)
                         let buttons = "";
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             if(data.request_type == "To Request")
                             {
@@ -1403,7 +1403,7 @@ loadTable = () =>
                                     'N/A';
                             }
                         }
-                        else if (USER_TYPE == "Staff")
+                        else if (USER_TYPE == "warehousing_Staff")
                         {
                             if (aData['status'] == "Complete/Good" || aData['status'] == "Incomplete/Damaged")
                             {

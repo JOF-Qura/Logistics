@@ -1,5 +1,5 @@
 <!-- Apply layout from base.html -->
-{%extends 'asset_management/admin/sysAdmin/sysAdmin_base.html'%} 
+{%extends 'access/sysAdmin/sysAdmin_base.html'%} 
 
 {%block plugins_css%}
 <link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.min.css')}}">
@@ -81,8 +81,12 @@
                 <div class="form-group col-sm-6">
                     <label for="user_title">Title</label><label style="color: red;">*</label>
                     <select required name="user_title" id="user_title" class="form-control">
-                        <option>Equipment Manager</option>
-                        <option>Employee</option>
+                        <option value="asset_management_Equipment_Manager">(Asset Management) Equipment Manager</option>
+                        <option value="asset_management_Employee">(Asset Management) Employee</option>
+                        <option value="project_management_Department_Head">(Project Management) Department Head</option>
+                        <option value="project_management_Project_Officer">(Project Management) Project Officer</option>
+                        <option value="warehousing_Manager">(Warehousing) Manager</option>
+                        <option value="warehousing_Staff">(Warehousing) Staff</option>
                     </select>
                 </div>
             </div>
@@ -191,7 +195,7 @@
 $(document).ready(function () {
     $("#user_table").dataTable({
 
-        ajax: "/asset_management/api/Auth/",
+        ajax: "/auth/",
         columns: [
                 { data: "user_id"},
                 { data: "user_name"},
@@ -277,7 +281,7 @@ $("#addUserForm").on("submit", function(e){
     console.log(encoded)
 
         $.ajax({
-            url:'/asset_management/api/Auth/register',
+            url:'/auth/register',
             type: "POST",
             data: encoded,
             dataType: "JSON",
@@ -297,7 +301,7 @@ $("#addUserForm").on("submit", function(e){
       var id = this.id;
 
         $.ajax({
-            url: '/asset_management/api/Auth/' + id,
+            url: '/auth/' + id,
             type: "GET",
             data: { id: id },
             dataType: "JSON",
@@ -336,7 +340,7 @@ encoded = JSON.stringify(form)
 console.log(encoded)
 
     $.ajax({
-      url:'/asset_management/api/Auth/' + id,
+      url:'/auth/' + id,
       type: "PUT",
       data: encoded,
       dataType: "JSON",
@@ -360,7 +364,7 @@ $(document).on("click", ".btn_delete", function(){
   $(document).on("click", ".confirmed_delete", function(){
     
       $.ajax({
-        url: '/asset_management/api/Auth/' + id,
+        url: '/auth/' + id,
         type: "DELETE",
         data: { id: id },
         dataType: "JSON",

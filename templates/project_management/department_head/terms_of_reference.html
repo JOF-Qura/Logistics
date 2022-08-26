@@ -1,0 +1,316 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/department_head/includes/head.html' %}
+
+{% include './project_management/department_head/includes/navbar.html' %}
+
+{% include './project_management/department_head/includes/sidebar.html' %}
+{%endblock%}
+
+<!-- Content Wrapper. Contains page content -->
+{%block maincontent%}
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Terms of Reference</h1>
+          <div class="text-muted">Approved Terms of Reference of the Projects</div>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+
+    <!-- Default box -->
+    <div class="card card-primary card-outline">
+
+      <!-- Card Header -->
+      <div class="card-header">
+        <div class="card-title">List of Approved Terms of Reference</div>
+        <div class="card-tools">
+          <button type="button" class="btn btn-sm btn-default" data-card-widget="maximize">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+
+      <!-- Card Body -->
+      <div class="card-body">
+        <table id="tor_table" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Project</th>
+              <th>Vendor</th>
+              <th>Status</th>
+              <th>Created At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card -->
+
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Default Modal -->
+<div class="modal fade" id="view_tor_form_modal">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-dialog modal-xl modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-secondary"><i class="fas fa-file-alt mr-2"></i> Terms of Reference Details</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="view_tor_form">
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">TOR Number: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_title" id="view_title" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label for="exampleInputEmail1">Project: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_project" id="view_project" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Background: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_background" id="view_background" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Objective: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_objective" id="view_objective" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Scope of Service: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_scope_of_service" id="view_scope_of_service" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Deliverables: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_tor_deliverables" id="view_tor_deliverables" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Qualifications: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_qualifications" id="view_qualifications" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Reporting and Working Arrangments: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_reporting_and_working_arrangements" id="view_reporting_and_working_arrangements" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Annex Technical Specifications: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_tor_annex_technical_specifications" id="view_tor_annex_technical_specifications" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Annex Key Experts: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_tor_annex_key_experts" id="view_tor_annex_key_experts" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Annex Deliverables: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_tor_annex_deliverables" id="view_tor_annex_deliverables" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Annex Terms and Conditions: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_tor_annex_terms_conditions" id="view_tor_annex_terms_conditions" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Prepared By: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <span name="view_prepared_by" id="view_prepared_by" aria-describedby="emailHelp"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-4 border-bottom">
+                <label class="location" for="exampleInputPassword1">Vendor Information: </label>
+              </div>
+              <div class="form-group col-sm-8 border-bottom">
+                <b>Name: </b><span class="ml-1" name="view_vendor_name" id="view_vendor_name" aria-describedby="emailHelp"></span><br>
+                <b>Email: </b><span class="ml-1" name="view_email" id="view_email" aria-describedby="emailHelp"></span><br>
+                <b>Contact Number: </b><span class="ml-1" name="view_contact_no" id="view_contact_no" aria-describedby="emailHelp"></span><br>
+                <b>Organization Type: </b><span class="ml-1" name="view_organization_type" id="view_organization_type" aria-describedby="emailHelp"></span><br>
+                <b>Website: </b><span class="ml-1" name="view_vendor_website" id="view_vendor_website" aria-describedby="emailHelp"></span><br>
+                <b>Contact Person: </b><span class="ml-1" name="view_contact_person" id="view_contact_person" aria-describedby="emailHelp"></span><br>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/project_management/department_head/department_head_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/project_management/department_head/department_head_restriction.js')}}"></script>
+
+<script>
+  function loadtable() {
+    employeeDataTable = $('#tor_table').DataTable({
+      ajax: {
+        url: "/tor/department/"+sessionStorage.getItem("id"),
+        dataSrc: ""
+      },
+      "columns": [{
+          data: "id"
+        },
+        {
+          data: "tor_number"
+        },
+        {
+          data: "tor_project.name"
+        },
+        {
+          data: "tor_vendor.vendor_name"
+        },
+        {
+          data: "status",
+          render: function (data, type, row) {
+            return '<div class="badge badge-success p-2 w-100"><i class="fas fa-check mr-1"></i> ' + row
+              .status + '</div>';
+          }
+        },
+        {
+          data: "created_at"
+        },
+        {
+          data: "status",
+          render: function (data, type, row) {
+            if (data == "Approved") {
+              return '<div class="text-center dropdown">' +
+                '<div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                '<i class="fas fa-ellipsis-v"></i>' +
+                '</div>' +
+                '<div class="dropdown-menu dropdown-menu-right">' +
+                '<button type="button" value="' + row.id + '" class="dropdown-item d-flex btn-view">' +
+                '<div style="width: 2rem">' +
+                '<i class="fas fa-list mr-1"></i>' +
+                '</div>' +
+                '<div>View Terms of Reference</div>' +
+                '</button>'
+            }
+          }
+        },
+      ],
+      "aoColumnDefs": [{
+        "bVisible": false,
+        "aTargets": [0, 5]
+      }],
+      "order": [
+        [5, "desc"]
+      ]
+    })
+  }
+
+  loadtable();
+
+  // VIEW TOR
+  $(document).on("click", ".btn-view", function () {
+    var id = this.value;
+    $("#view_tor_form_modal").modal('show');
+
+    $.ajax({
+      url: '/tor/' + id,
+      type: "GET",
+      data: {
+        id: id
+      },
+      dataType: "JSON",
+
+      success: function (data) {
+        var tor = data;
+
+        $('#view_title').html(tor.tor_number);
+        $('#view_project').html(tor.tor_project.name);
+        $('#view_background').html(tor.background);
+        $('#view_objective').html(tor.objective);
+        $('#view_scope_of_service').html(tor.scope_of_service);
+        $('#view_tor_deliverables').html(tor.tor_deliverables);
+        $('#view_qualifications').html(tor.qualifications);
+        $('#view_reporting_and_working_arrangements').html(tor.reporting_and_working_arrangements);
+        $('#view_tor_annex_technical_specifications').html(tor.tor_annex_technical_specifications);
+        $('#view_tor_annex_key_experts').html(tor.tor_annex_key_experts);
+        $('#view_tor_annex_deliverables').html(tor.tor_annex_deliverables);
+        $('#view_tor_annex_terms_conditions').html(tor.tor_annex_terms_conditions);
+        $('#view_prepared_by').html(tor.prepared_by);
+        $('#view_vendor_name').html(tor.tor_vendor.vendor_name);
+        $('#view_email').html(tor.tor_vendor.email);
+        $('#view_contact_no').html(tor.tor_vendor.contact_no);
+        $('#view_organization_type').html(tor.tor_vendor.organization_type);
+        $('#view_vendor_website').html(tor.tor_vendor.vendor_website);
+        $('#view_contact_person').html(tor.tor_vendor.contact_person);
+      }
+    })
+  });
+</script>
+{%endblock%}

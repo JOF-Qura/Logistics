@@ -8,7 +8,8 @@ secret = 'a very shady secret'
 def get_token(token: str = Cookie('token')):
     try:
         user_email = jwt.decode(token, secret)
-        if user_email:
-            return user_email
+        email: str = user_email.get("user_email")
+        if email:
+            return email
     except JWTError:
         return HTTPException(401, 'Please Log In first')

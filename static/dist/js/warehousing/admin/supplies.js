@@ -228,7 +228,7 @@ loadTable = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Manager")
+                    else if (USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -274,7 +274,7 @@ loadTable = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if (USER_TYPE == "Staff")
+                    else if (USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -356,7 +356,7 @@ loadTable = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Manager")
+            else if (USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -402,7 +402,7 @@ loadTable = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if (USER_TYPE == "Staff")
+            else if (USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -545,12 +545,12 @@ viewData = (supply_id) =>
         window.location.replace(baseURL + 'admin/supplies_details?supply_id='+supply_id);
         console.log(supply_id);
     }
-    else if(USER_TYPE == "Manager")
+    else if(USER_TYPE == "warehousing_Manager")
     {
         window.location.replace(baseURL + 'manager/supplies_details?supply_id='+supply_id);
         console.log(supply_id);
     }
-    else if(USER_TYPE == "Staff")
+    else if(USER_TYPE == "warehousing_Staff")
     {
         window.location.replace(baseURL + 'staff/supplies_details?supply_id='+supply_id);
         console.log(supply_id);

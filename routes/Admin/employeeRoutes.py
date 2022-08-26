@@ -71,7 +71,7 @@ def datatable(request: Request, db: Session = Depends(get_db)):
 # GET all Employee
 @router.get('/')
 def get_all_employee(db: Session = Depends(get_db)):
-    emps = db.query(employeeModel.Employees).options(joinedload(employeeModel.Employees.employee_user)).all()
+    emps = db.query(employeeModel.Employees).options(joinedload(employeeModel.Employees.user_employee)).all()
     return {'Employees': emps}
 
 # GET Employee by ID
@@ -82,6 +82,25 @@ def get_one_employee(employee_id:str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Employee with the id {employee_id} is not available")
     return emp
+
+
+# PROJECT MANAGEMENT NEEDED ROUTES
+# GET ONE EMPLOYEE LOGIN
+@router.get('/user/{user_id}', status_code=status.HTTP_200_OK, response_model=employeeSchema.ShowEmployee)
+async def get_one_employee(user_id: str, db: Session = Depends(get_db)):
+    employee = db.query(Employees).filter(Employees.user_id == user_id).first()
+    if not employee:
+        raise HTTPException(404, 'Employee not found')
+    return employee
+
+# GET ALL DEPARTMENT EMPLOYEES
+@router.get('/department/{id}', status_code=status.HTTP_200_OK, response_model=List[employeeSchema.ShowEmployee])
+async def get_one_department_employee(id: str, db: Session = Depends(get_db)):
+    employee = db.query(Employees).filter(Employees.active_status == 'Active', Employees.department_id == id).all()
+    if not employee:
+        raise HTTPException(404, 'Employee not found')
+    return employee
+# PROJECT MANAGEMENT NEEDED ROUTES
 
 # Create Employee
 @router.post('/')
@@ -94,7 +113,9 @@ def create_employee(request: employeeSchema.CreateEmployee, db: Session = Depend
         employee_last_name = request.employee_last_name,
         employee_contact = request.employee_contact,
         employee_age = request.employee_age,
-        employee_address = request.employee_address
+        employee_address = request.employee_address,
+        job_id = request.job_id,
+        department_id = request.department_id
     )
     db.add(to_store)
     db.commit()

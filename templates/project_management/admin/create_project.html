@@ -1,0 +1,565 @@
+{%extends './project_management/admin/base.html'%}
+
+{%block includes%}
+{% include './project_management/admin/includes/head.html' %}
+
+{% include './project_management/admin/includes/navbar.html' %}
+
+{% include './project_management/admin/includes/sidebar.html' %}
+{%endblock%}
+
+{%block sidebar%}
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+
+    <!-- Brand Logo -->
+    <a href="../../../index3.html" class="brand-link">
+        <img src="../../../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle border"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light">HoMIES</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="../../../static/dist/img/user2-160x160.jpg" class="img-circle border" alt="User Image">
+            </div>
+            <!-- User Full Name -->
+            <div class="info mr-1 w-100" id="userFullNameDisplay">
+
+                <!-- User Full Name -->
+                <a href="#" class="nav-item text-truncate" id="full_name"></a>
+
+                <!-- User Position -->
+                <div class="small text-secondary text-truncate" id="user_type"></div>
+
+                <!-- User Department -->
+                <div class="small text-secondary text-truncate" id="department"></div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header font-weight-bold text-wrap">PROJECT MANAGEMENT SYSTEM</li>
+                <li class="nav-header">CORE</li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/dashboard" {%if request.path == '/project_management/admin/dashboard'%} class="nav-link active"
+                        {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-header">PROJECTS</li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/project_requisition" {%if request.path == '/project_management/admin/project_requisition'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>Requests</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/project_lists" class="nav-link active" {%if request.path == '/project_management/admin/project_lists'%}
+                        class="nav-link active" {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-hammer"></i>
+                        <p>Projects</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/calendar" {%if request.path == '/project_management/admin/calendar'%} class="nav-link active" {%else%}
+                        class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>Schedule</p>
+                    </a>
+                </li>
+                <li class="nav-header">TASKS</li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/task_lists" {%if request.path == '/project_management/admin/task_lists'%} class="nav-link active"
+                        {%else%} class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>Tasks</p>
+                    </a>
+                </li>
+                <li class="nav-header">REPORTS</li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/reports" {%if request.path == '/project_management/admin/reports'%} class="nav-link active" {%else%}
+                        class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-file-signature"></i>
+                        <p>Reports</p>
+                    </a>
+                </li>
+                <li class="nav-header">ARCHIVE</li>
+                <li class="nav-item">
+                    <a href="/project_management/admin/archive" {%if request.path == '/project_management/admin/archive'%} class="nav-link active" {%else%}
+                        class="nav-link" {%endif%}>
+                        <i class="nav-icon fas fa-trash"></i>
+                        <p>Archive</p>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
+          <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-phone"></i>
+              <p>
+              Logs
+              <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+              <a href="/logs" class="nav-link">
+                  <i class="nav-icon fas fa-phone-square"></i>
+                  <p>Call Logs</p>
+              </a>
+              </li>
+          </ul>
+        </li> -->
+                <!-- <li class="nav-header">USER MANAGEMENT</li>
+        <li
+          {%if request.path == '/admin/job_titles' or request.path == '/admin/user_type' or request.path == '/admin/users' or request.path == '/admin/user_profile' or request.path == '/admin/employees'%}
+          class="nav-item menu-open" {%else%} class="nav-item" {%endif%}>
+          <a href="#"
+            {%if request.path == '/admin/job_titles' or request.path == '/admin/user_type' or request.path == '/admin/users' or request.path == '/admin/user_profile' or request.path == '/admin/employees'%}
+            class="nav-link active" {%else%} class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              Users
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/admin/job_titles" {%if request.path == '/admin/job_titles'%} class="nav-link active" {%else%}
+                class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-briefcase"></i>
+                <p>Job Titles</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/user_type" {%if request.path == '/admin/user_type'%} class="nav-link active" {%else%}
+                class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-user-cog"></i>
+                <p>User Types</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/users" {%if request.path == '/admin/users'%} class="nav-link active" {%else%}
+                class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-user-friends"></i>
+                <p>Users List</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/user_profile" {%if request.path == '/admin/user_profile'%} class="nav-link active"
+                {%else%} class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-user"></i>
+                <p>User Profile</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/employees" {%if request.path == '/admin/employees'%} class="nav-link active" {%else%}
+                class="nav-link" {%endif%}>
+                <i class="nav-icon fas fa-user-tie"></i>
+                <p>Employees</p>
+              </a>
+            </li>
+          </ul>
+        <li class="nav-item">
+          <a href="/admin/departments" {%if request.path == '/admin/departments'%} class="nav-link active" {%else%}
+            class="nav-link" {%endif%}>
+            <i class="nav-icon fas fa-hospital"></i>
+            <p>Departments</p>
+          </a>
+        </li>
+        </li> -->
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+
+    </div>
+    <!-- /.sidebar -->
+
+    <!-- Sidebar Custom -->
+    <div class="sidebar-custom">
+        <form>
+            <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
+            <button type="button" class="btn btn-danger hide-on-collapse pos-right btn-logouts">Log out <i
+                    class="fas fa-sign-out-alt"></i></button>
+        </form>
+    </div>
+    <!-- /.sidebar-custom -->
+
+</aside>
+<!-- /.main-sidebar -->
+{%endblock%}
+
+
+{%block maincontent%}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create Project</h1>
+                    <div class="text-muted">Project to manage potential improvements</div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-outline card-tab">
+                    <div class="card-header">
+                        <h3 class="card-title">Create Project</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                              <!-- your steps here -->
+                              <div class="step" data-target="#details-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="details-part"
+                                  id="details-part-trigger">
+                                  <span class="bs-stepper-circle">1</span>
+                                  <span class="bs-stepper-label">Project Details</span>
+                                </button>
+                              </div>
+                              <div class="line"></div>
+                              <div class="step" data-target="#requirement-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="requirement-part"
+                                  id="requirement-part-trigger">
+                                  <span class="bs-stepper-circle">2</span>
+                                  <span class="bs-stepper-label">Budget Requirements</span>
+                                </button>
+                              </div>
+                              <div class="line"></div>
+                              <div class="step" data-target="#document-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="document-part"
+                                  id="document-part-trigger">
+                                  <span class="bs-stepper-circle">3</span>
+                                  <span class="bs-stepper-label">Term of Reference</span>
+                                </button>
+                              </div>
+                              <div class="line"></div>
+                              <div class="step" data-target="#stakeholder-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="stakeholder-part"
+                                  id="stakeholder-part-trigger">
+                                  <span class="bs-stepper-circle">4</span>
+                                  <span class="bs-stepper-label">Stakeholders</span>
+                                </button>
+                              </div>
+                              <div class="line"></div>
+                              <div class="step" data-target="#stakeholder-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="stakeholder-part"
+                                  id="stakeholder-part-trigger">
+                                  <span class="bs-stepper-circle">5</span>
+                                  <span class="bs-stepper-label">Team Members</span>
+                                </button>
+                              </div>
+                              <!-- <div class="line"></div>
+                              <div class="step" data-target="#risk-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="risk-part" id="risk-part-trigger">
+                                  <span class="bs-stepper-circle">5</span>
+                                  <span class="bs-stepper-label">Project Risks</span>
+                                </button>
+                              </div> -->
+                            </div>
+                            <div class="bs-stepper-content">
+                              <form id="add_project_form">
+                                <div id="details-part" class="content" role="tabpanel" aria-labelledby="details-part-trigger">
+                                  <div class="modal-body">
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-6">
+                                        <label for="exampleInputEmail1">Department <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <select class="form-control select2bs4" style="width: 100%;" id="department_id"
+                                          name="department_id">
+                  
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-4">
+                                        <label class="location" for="exampleInputPassword1">Project Name <span style="color:red"
+                                            aria-hidden="true" class="required">*</span></label>
+                                        <input placeholder="Enter Project Name" type="text" class="form-control" name="name" id="name">
+                                      </div>
+                                      <div class="form-group col-sm-4">
+                                        <label class="location" for="exampleInputPassword1">Project Manager <span style="color:red"
+                                            aria-hidden="true" class="required">*</span></label>
+                                        <select class="form-control select2bs4" style="width: 100%;" id="manager_id" name="manager_id">
+                  
+                                        </select>
+                                      </div>
+                                      <div class="form-group col-sm-4">
+                                        <label class="location" for="exampleInputPassword1">Project Type <span style="color:red"
+                                            aria-hidden="true" class="required">*</span></label>
+                                        <select class="form-control select2bs4" style="width: 100%;" id="type" name="type">
+                                          <option selected disabled value="">Select Type</option>
+                                          <option value="Administrative">Administrative</option>
+                                          <option value="Construction">Construction</option>
+                                          <option value="Computer Software Development">Computer Software Development</option>
+                                          <option value="Design of Plans">Design of Plans</option>
+                                          <option value="Equipment or System Installation">Equipment or System Installation</option>
+                                          <option value="Event or Relocation">Event or Relocation</option>
+                                          <option value="Maintenance of Process Industries">Maintenance of Process Industries</option>
+                                          <option value="New Product Development">New Product Development</option>
+                                          <option value="Research">Research</option>
+                                          <option value="Other">Other</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-4">
+                                        <label class="location" for="exampleInputPassword1">Estimated Cost <span style="color:red"
+                                            aria-hidden="true" class="required">*</span></label>
+                                        <input placeholder="Enter Cost" type="number" step="any" class="form-control" name="cost"
+                                          id="cost">
+                                      </div>
+                                      <div class="form-group col-sm-4">
+                                        <label class="start_date" for="exampleInputPassword1">Start Date <span style="color:red"
+                                            aria-hidden="true" class="required">*</span></label>
+                                        <input type="date" class="form-control" name="start_date" id="start_date">
+                                      </div>
+                                      <div class="form-group col-sm-4">
+                                        <label class="end_date" for="exampleInputPassword1">End Date <span style="color:red"
+                                            aria-hidden="true" class="required">*</span></label>
+                                        <input type="date" class="form-control" name="end_date" id="end_date">
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Background <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Background" rows="6" cols="50" class="form-control"
+                                          name="background" id="background"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Coverage <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Coverage" rows="6" cols="50" class="form-control" name="coverage"
+                                          id="coverage"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Assumption <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Assumption" rows="6" cols="50" class="form-control"
+                                          name="assumptions" id="assumptions"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Constraint <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Constraint" rows="6" cols="50" class="form-control"
+                                          name="constraints" id="constraints"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Target Beneficiary <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Target Beneficiary" rows="6" cols="50" class="form-control"
+                                          name="target_beneficiaries" id="target_beneficiaries"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Objectives <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Objectives" rows="6" cols="50" class="form-control"
+                                          name="objectives" id="objectives"></textarea>
+                                      </div>
+                                    </div>
+                                    <div class="form-row">
+                                      <div class="form-group col-sm-12">
+                                        <label for="exampleInputEmail1">Deliverables <span style="color:red" aria-hidden="true"
+                                            class="required">*</span></label>
+                                        <textarea placeholder="Enter Deliverables" rows="6" cols="50" class="form-control"
+                                          name="expected_output" id="expected_output"></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary float-right" onclick="stepper.next()">Next</button>
+                                  </div>
+                                </div>
+                  
+                                <div id="requirement-part" class="content" role="tabpanel" aria-labelledby="requirement-part-trigger">
+                                  <div class="card-tools ">
+                                    <button class="card-tools btn btn-primary" style="margin-left: 875px;" type="button"
+                                      name="add_requirement" id="add_requirement"><i class="fas fa-plus"></i> Add More</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <div id="requirement_form" name="requirement_form">
+                                        <div class="form-row">
+                                          <div class="form-group col-sm-6">
+                                            <label for="exampleInputEmail1">Task Name <span style="color:red" aria-hidden="true"
+                                                class="required">*</span></label>
+                                            <input type="text" placeholder="Enter Task Name" class="form-control name_list"
+                                              name="task_name[]" id="task_name[]">
+                                          </div>
+                                          <div class="form-group col-sm-6">
+                                            <label for="exampleInputEmail1">Estimated Cost <span style="color:red" aria-hidden="true"
+                                                class="required">*</span></label>
+                                            <input type="number" placeholder="Enter Cost" class="form-control" name="task_cost[]"
+                                              id="task_cost[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-row border-bottom">
+                                          <div class="form-group col-sm-12">
+                                            <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true"
+                                                class="required">*</span></label>
+                                            <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control"
+                                              name="task_description[]" id="task_description[]"></textarea>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default float-right"
+                                      onclick="stepper.previous()">Previous</button>
+                                    <button type="button" class="btn btn-primary float-right" onclick="stepper.next()">Next</button>
+                                  </div>
+                                </div>
+                  
+                                <div id="document-part" class="content" role="tabpanel" aria-labelledby="document-part-trigger">
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <label for="exampleInputFile">File input</label>
+                                      <div class="input-group">
+                                        <div class="custom-file">
+                                          <input type="file" class="custom-file-input" id="document" name="document">
+                                          <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default float-right"
+                                      onclick="stepper.previous()">Previous</button>
+                                    <button type="button" class="btn btn-primary float-right" onclick="stepper.next()">Next</button>
+                                  </div>
+                                </div>
+                  
+                                <div id="stakeholder-part" class="content" role="tabpanel" aria-labelledby="stakeholder-part-trigger">
+                                  <div class="card-tools ">
+                                    <button class="card-tools btn btn-primary" style="margin-left: 875px;" type="button"
+                                      name="add_stakeholder" id="add_stakeholder"><i class="fas fa-plus"></i> Add More</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <div id="stakeholder_form" name="stakeholder_form">
+                                        <div class="form-row">
+                                          <div class="form-group col-sm-6">
+                                            <label for="exampleInputEmail1">Stakeholder Name <span style="color:red" aria-hidden="true"
+                                                class="required">*</span></label>
+                                            <input type="text" placeholder="Enter Stakeholder Name" class="form-control name_list"
+                                              name="stakeholder_name[]" id="stakeholder_name[]">
+                                          </div>
+                                          <div class="form-group col-sm-6">
+                                            <label for="exampleInputEmail1">Role <span style="color:red" aria-hidden="true"
+                                                class="required">*</span></label>
+                                            <input type="text" placeholder="Enter Role" class="form-control" name="role[]" id="role[]">
+                                          </div>
+                                        </div>
+                                        <div class="form-row border-bottom">
+                                          <div class="form-group col-sm-12">
+                                            <label for="exampleInputEmail1">Expectation <span style="color:red" aria-hidden="true"
+                                                class="required">*</span></label>
+                                            <textarea placeholder="Enter Expectation" rows="5" cols="20" class="form-control"
+                                              name="expectation[]" id="expectation[]"></textarea>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default float-right" onclick="stepper.previous()">Previous</button>
+                                    <button type="submit" class="btn btn-primary">Create Project <i class="fas fa-check"></i></button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{%endblock%}
+<!-- /.content-wrapper -->
+
+{%block scripts%}
+<script src="{{url_for('static', path='/admin_footer_scripts.js')}}"></script>
+<script src="{{url_for('static', path='/admin_restriction.js')}}"></script>
+<script src="{{url_for('static', path='/admin_notification.js')}}"></script>
+
+<script>
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+
+    $('.select2bs4').select2()
+
+    var i = 1;
+    var k = 1;
+    $('#add_stakeholder').click(function () {
+      i++
+      $('#stakeholder_form').append('<div id="row-stakeholder' + i +
+        '"><br><button type="button" name="remove" id="' + i +
+        '" class="btn btn-danger btn-remove-stakeholder" style="margin-left:865px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Stakeholder Name <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Stakeholder Name" class="form-control" name="stakeholder_name[]" id="stakeholder_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Role <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Role" class="form-control" name="role[]" name="role[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Expectation <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Expectation" rows="5" cols="20" class="form-control" name="expectation[]" id="expectation[]"></textarea> </div></div>'
+      )
+    });
+
+    $(document).on('click', '.btn-remove-stakeholder', function () {
+      var button_id = $(this).attr("id");
+      $('#row-stakeholder' + button_id + '').remove();
+      $('#rows-stakeholder' + button_id + '').remove();
+    });
+
+    $('#add_requirement').click(function () {
+      k++
+      $('#requirement_form').append('<div id="row-requirement' + k +
+        '"><br><button type="button" name="remove" id="' + k +
+        '" class="btn btn-danger btn-remove-requirement" style="margin-left:865px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Task Name <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Task Name" class="form-control name_list" name="task_name[]" id="task_name[]"> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Estimated Cost <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="number" placeholder="Enter Cost" class="form-control" name="task_cost[]" id="task_cost[]"> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-12"> <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control" name="task_description[]" id="task_description[]"></textarea> </div> </div>'
+      )
+    });
+
+    $(document).on('click', '.btn-remove-requirement', function () {
+      var button_id = $(this).attr("id");
+      $('#row-requirement' + button_id + '').remove();
+      $('#rows-requirement' + button_id + '').remove();
+    });
+
+    $('#add_risk').click(function () {
+      k++
+      $('#risk_form').append('<div id="row-risk' + k + '"><br><button type="button" name="remove" id="' + k +
+        '" class="btn btn-danger btn-remove-risk" style="margin-left:865px;"><i class="fas fa-times-circle"></i> Remove</button><div class="form-row"> <div class="form-group col-sm-4"> <label for="exampleInputEmail1">Project Risk <span style="color:red" aria-hidden="true" class="required">*</span></label> <input type="text" placeholder="Enter Project Risk" class="form-control name_list" name="risk_name[]" id="risk_name[]"> </div> <div class="form-group col-sm-4"> <label for="exampleInputEmail1">Risk Occuring <span style="color:red" aria-hidden="true" class="required">*</span></label> <select class="form-control select2bs4" style="width: 100%;" id="occuring_possibility[]" name="occuring_possibility[]"> <option selected disabled value="">Select Risk Occuring</option> <option value="High">High</option> <option value="Medium">Medium</option> <option value="Low">Low</option> </select> </div> <div class="form-group col-sm-4"> <label for="exampleInputEmail1">Impact <span style="color:red" aria-hidden="true" class="required">*</span></label> <select class="form-control select2bs4" style="width: 100%;" id="impact[]" name="impact[]"> <option selected disabled value="">Select Impact</option> <option value="High">High</option> <option value="Medium">Medium</option> <option value="Low">Low</option> </select> </div> </div> <div class="form-row border-bottom"> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Description <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Description" rows="5" cols="20" class="form-control" name="risk_description[]" id="risk_description[]"></textarea> </div> <div class="form-group col-sm-6"> <label for="exampleInputEmail1">Mitigating Action <span style="color:red" aria-hidden="true" class="required">*</span></label> <textarea placeholder="Enter Mitigating Action" rows="5" cols="20" class="form-control" name="mitigating_action[]" id="mitigating_action[]"></textarea> </div> </div>'
+      )
+    });
+
+    $(document).on('click', '.btn-remove-risk', function () {
+      var button_id = $(this).attr("id");
+      $('#row-risk' + button_id + '').remove();
+      $('#rows-risk' + button_id + '').remove();
+    });
+</script>
+{%endblock%}

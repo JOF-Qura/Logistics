@@ -137,7 +137,7 @@ loadTable = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if(USER_TYPE == "Manager")
+                    else if(USER_TYPE == "warehousing_Manager")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -180,7 +180,7 @@ loadTable = () =>
                             '</div>'  +
                         '</div>';
                     }
-                    else if(USER_TYPE == "Staff")
+                    else if(USER_TYPE == "warehousing_Staff")
                     {
                         buttons +=
                         '<div class="text-center dropdown">' +
@@ -280,7 +280,7 @@ loadTable = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if(USER_TYPE == "Manager")
+            else if(USER_TYPE == "warehousing_Manager")
             {
                 buttons +=
                 '<div class="text-center dropdown">' +
@@ -323,7 +323,7 @@ loadTable = () =>
                     '</div>'  +
                 '</div>';
             }
-            else if(USER_TYPE == "Staff")
+            else if(USER_TYPE == "warehousing_Staff")
             {
                 buttons +=
                 'N/A';

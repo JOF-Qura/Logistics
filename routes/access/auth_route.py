@@ -4,8 +4,11 @@ from database import get_db
 from models.asset_management.user_model import User
 from schemas.asset_management.auth_schema import TokenData, AuthForm
 from schemas.asset_management.user_schema import CreateUser
+from schemas.Admin.employeeSchema import ShowEmployee
+from models.Admin.employeeModel import Employees
 from jose import jwt
 from passlib.context import CryptContext
+from typing import List
 
 secret = 'a very shady secret'
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -32,6 +35,16 @@ def read(id: str, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(404, 'user not found')
     return {'data': user}
+
+# PROJECT MANAGEMENT NEEDED ROUTE
+# GET ALL DEPARTMENT USER
+@router.get('/department/{department_id}', response_model = List[ShowEmployee])
+async def get_all_user_department(department_id: str, db: Session = Depends(get_db)):
+    user = db.query(Employees).filter(Employees.job.has(title="Project Officer"), Employees.department_id == department_id).all()
+    if not user:
+        raise HTTPException(404, 'No Project Officer')
+    return user
+# PROJECT MANAGEMENT NEEDED ROUTE
 
 @router.post('/register')
 def register(request: CreateUser, db: Session = Depends(get_db)):

@@ -256,7 +256,7 @@ loadTable = () =>
                                 '</div>'  +
                             '</div>';
                         // Delete
-                        if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
+                        if(USER_TYPE == "Admin" || USER_TYPE == "warehousing_Manager")
                         {
                             buttons +=
                                 '<div class="dropdown-divider"></div>' +
