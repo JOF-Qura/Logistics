@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,DateTime,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -22,10 +22,8 @@ class ReplacementRequest(Base):
     # return_id = Column(CHAR(36), ForeignKey("returns.id"), nullable=True)
     created_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
     updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)  
-    created_at = Column(DATETIME, default=func.current_timestamp())
-    updated_at = Column(DATETIME,
-                    default=func.current_timestamp(),
-                    onupdate=func.current_timestamp())
+    created_at = Column(DateTime, server_default=text('NOW()'))
+    updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
   
     # relation with returns
@@ -35,6 +33,6 @@ class ReplacementRequest(Base):
     # replacement_items = relationship("ReplacementItems", back_populates="replacement_request")
 
     # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
     

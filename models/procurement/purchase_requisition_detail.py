@@ -28,14 +28,14 @@ class PurchaseRequisitionDetail(Base):
                     onupdate=func.current_timestamp()) 
      
     # relation with product
-    product = relationship("Product", back_populates="purchase_requisition_detail")
+    # product = relationship("Product", back_populates="purchase_requisition_detail")
 
     # relation with purchase requisition
-    purchase_requisition = relationship("PurchaseRequisition", back_populates="purchase_requisition_detail")
+    # purchase_requisition = relationship("PurchaseRequisition", back_populates="purchase_requisition_detail")
 
     # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
     # users = relationship("User",back_populates="purchase_requisition_detail")
     # user = relationship("User",backref="purchase_order_detail")
 

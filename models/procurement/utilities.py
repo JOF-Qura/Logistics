@@ -14,7 +14,7 @@ class Utilities(Base):
     utility_amount = Column(String(255), nullable=False)
     due_date = Column(String(255), nullable=False)
     notes = Column(TEXT, nullable=True)
-    vendor_id = Column(CHAR(36), ForeignKey("vendor.id"), nullable=True)
+    vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
     status = Column(String(255), nullable=False,default="pending")
     created_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
     updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
@@ -24,11 +24,11 @@ class Utilities(Base):
                     onupdate=func.current_timestamp())
 
     # relation with vendor
-    vendor = relationship("Vendor", back_populates="utilities")
+    # vendor = relationship("Vendor", back_populates="utilities")
 
     # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
 
 

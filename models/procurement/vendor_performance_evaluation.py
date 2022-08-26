@@ -30,5 +30,5 @@ class VendorPerformanceEvaluation(Base):
     u_updated_by = relationship("User",foreign_keys=[updated_by])
 
   
-    # relation with purchase order
-    purchase_order = relationship("PurchaseOrder", back_populates="vendor_performance_evaluation")
+    # # relation with purchase order
+    # purchase_order = relationship("PurchaseOrder", back_populates="vendor_performance_evaluation")

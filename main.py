@@ -128,29 +128,29 @@ from models.asset_management.sell_asset_model import Sell_Asset
 # importing all procurement models
 
 # from models.procurement.vendor_blacklist import VendorBlacklist 
-# from models.procurement.budget_plan import BudgetPlan 
-# from models.procurement.category import Category 
-# from models.procurement.vendor import Vendor 
-# from models.procurement.vendor_performance_evaluation import VendorPerformanceEvaluation 
-# from models.procurement.purchase_order_detail import PurchaseOrderDetail 
-# from models.procurement.vendor_proposal import VendorProposals
-# from models.procurement.vendor_bidding_items import VendorBiddingItems
-# from models.procurement.product import Product 
+from models.procurement.vendor import VendorProcurement 
+from models.procurement.category import Category 
+from models.procurement.budget_plan import BudgetPlan 
+from models.procurement.vendor_performance_evaluation import VendorPerformanceEvaluation 
+from models.procurement.purchase_order_detail import PurchaseOrderDetail 
+from models.procurement.vendor_proposal import VendorProposals
+from models.procurement.vendor_bidding_items import VendorBiddingItems
+from models.procurement.product import Product 
 
-# from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
-# from models.procurement.vendor_audit_trail import VendorAuditTrail
-# from models.procurement.vendor_time_log import VendorTimeLog
-# from models.procurement.request_quotation import RequestQuotation
-# from models.procurement.notification import Notification
-# from models.procurement.purchase_order import PurchaseOrder 
-# from models.procurement.purchase_requisition import PurchaseRequisition 
-# from models.procurement.related_documents import RelatedDocuments
-# from models.procurement.payment_method import PaymentMethod
-# from models.procurement.payment_terms import PaymentTerms
-# from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
-# from models.procurement.utilities import Utilities
-# from models.procurement.rfq_vendor import RequestQuotationVendor
-# from models.procurement.replacement_request import ReplacementRequest
+from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
+from models.procurement.vendor_audit_trail import VendorAuditTrail
+from models.procurement.vendor_time_log import VendorTimeLog
+from models.procurement.request_quotation import RequestQuotation
+from models.procurement.notification import Notification
+from models.procurement.purchase_order import PurchaseOrder 
+from models.procurement.purchase_requisition import PurchaseRequisition 
+from models.procurement.related_documents import RelatedDocuments
+from models.procurement.payment_method import PaymentMethod
+from models.procurement.payment_terms import PaymentTerms
+from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
+from models.procurement.utilities import Utilities
+from models.procurement.rfq_vendor import RequestQuotationVendor
+from models.procurement.replacement_request import ReplacementRequest
 
 # importing all project management models
 from models.project_management.activity_model import Activity
@@ -166,7 +166,7 @@ from models.project_management.quotation_model import Quotation
 from models.project_management.stakeholders_model import Stakeholder
 from models.project_management.task_model import Task
 from models.project_management.tor_model import TermsOfReference
-from models.project_management.vendor_model import Vendor
+# from models.project_management.vendor_model import Vendor
 
 # importing all project management routes
 from routes.project_management import (activity_routes
@@ -189,10 +189,20 @@ from routes.project_management import (activity_routes
 # from .replacement_items import ReplacementItems
 
 # importing all procurement routes
-from routes.procurement import (purchase_order_invoice,product, category,budget_plan, vendor_performance_evaluation,vendor_proposal, vendor_login,
-purchase_order,purchase_requisition,purchase_requisition_detail,request_quotation,vendor, vendor_bidding_item, notif,
-vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor,payment_method,payment_terms,replacement_request)
-#return_details,project_request,returns,terms_of_reference,employee,employee_type,user,user_type,department
+from routes.procurement import (purchase_order_invoice
+,product, category
+,replacement_request
+,budget_plan, vendor_performance_evaluation,vendor_proposal, vendor_login
+,purchase_order,purchase_requisition,purchase_requisition_detail,request_quotation,vendor, vendor_bidding_item, notif
+,vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor
+,payment_method,payment_terms
+# , terms_of_reference
+# ,project_request
+# ,employee,employee_type
+# , department
+# ,returns,return_details
+# , user, login, user_type
+)
 
 
 
@@ -271,34 +281,6 @@ app.include_router(requestFilter.router)
 #Saling Pusa
 app.include_router(postRoutes.router)
 
-
-# Procurement Routes
-
-
-
-app.include_router(product.router)
-app.include_router(category.router)
-app.include_router(budget_plan.router)
-app.include_router(purchase_order.router)
-app.include_router(purchase_requisition.router)
-app.include_router(purchase_requisition_detail.router)
-app.include_router(request_quotation.router)
-# app.include_router(vendor_evaluation_schedules.router)
-app.include_router(vendor_performance_evaluation.router)
-app.include_router(vendor_proposal.router)
-app.include_router(vendor_bidding_item.router)
-app.include_router(vendor.router)
-app.include_router(vendor_login.router)
-app.include_router(notif.router)
-app.include_router(vendor_log_time.router)
-app.include_router(vendor_audit_trail.router)
-app.include_router(related_documents.router)
-app.include_router(purchase_order_invoice.router)
-app.include_router(utility.router)
-app.include_router(rfq_vendor.router)
-app.include_router(payment_terms.router)
-app.include_router(payment_method.router)
-app.include_router(replacement_request.router)
 
 # Register template folder
 template = Jinja2Templates('templates')

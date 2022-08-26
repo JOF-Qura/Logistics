@@ -11,7 +11,7 @@ class RequestQuotationVendor(Base):
     __tablename__ = "request_quotation_vendor"
 
         
-    vendor_id = Column(ForeignKey("vendor.id"), primary_key=True)
+    vendor_id = Column(ForeignKey("vendor_procurement.id"), primary_key=True)
     rfq_pr_id = Column(CHAR(36),ForeignKey("request_quotation.purchase_requisition_id"), nullable=True)
     rfq_status = Column(String(255), nullable=True,default="Pending")
     approver_name = Column(String(255), nullable=True)
@@ -27,11 +27,11 @@ class RequestQuotationVendor(Base):
     UniqueConstraint(vendor_id, rfq_pr_id) 
     
     # relation with related
-    vendor = relationship("Vendor", back_populates="request_quotation_vendor")
+    # vendor = relationship("Vendor", back_populates="request_quotation_vendor")
 
     # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
    
     

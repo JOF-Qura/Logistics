@@ -1,8 +1,8 @@
 
-from .vendor_blacklist import VendorBlacklist 
+# from .vendor_blacklist import VendorBlacklist 
+from .vendor import VendorProcurement
 from .budget_plan import BudgetPlan 
 from .category import Category 
-from .vendor import Vendor 
 from .vendor_performance_evaluation import VendorPerformanceEvaluation 
 from .purchase_order_detail import PurchaseOrderDetail 
 from .vendor_proposal import VendorProposals

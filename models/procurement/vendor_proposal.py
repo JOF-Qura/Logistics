@@ -38,20 +38,20 @@ class VendorProposals(Base):
     UniqueConstraint(created_by, request_quotation_id) 
 
     # relation with vendor bidding items
-    vendor_bidding_item = relationship("VendorBiddingItems", back_populates="vendor_proposal")
+    # vendor_bidding_item = relationship("VendorBiddingItems", back_populates="vendor_proposal")
 
-     # relation with vendor purchase order
-    purchase_order = relationship("PurchaseOrder", back_populates="vendor_proposal")
+    #  # relation with vendor purchase order
+    # purchase_order = relationship("PurchaseOrder", back_populates="vendor_proposal")
 
-    # relation with related documents
-    related_documents = relationship("RelatedDocuments", back_populates="vendor_proposal")
+    # # relation with related documents
+    # related_documents = relationship("RelatedDocuments", back_populates="vendor_proposal")
 
-    # relation with request quotation
-    request_quotation = relationship("RequestQuotation", back_populates="vendor_proposal")
+    # # relation with request quotation
+    # request_quotation = relationship("RequestQuotation", back_populates="vendor_proposal")
 
     # relation with vendor
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
 
 

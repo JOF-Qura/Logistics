@@ -12,8 +12,8 @@ class VendorTimeLog(Base):
     logged_date = Column(DATETIME, nullable=False)
     logged_type = Column(String(255), nullable=False)
     client_ip = Column(String(255), nullable=True)
-    vendor_id = Column(CHAR(36), ForeignKey("vendor.id"), nullable=False)
+    vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=False)
 
     # relation with vendor
-    vendor = relationship("Vendor", back_populates="vendor_time_log")
+    # vendor = relationship("Vendor", back_populates="vendor_time_log")
     

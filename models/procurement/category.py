@@ -22,16 +22,16 @@ class Category(Base):
                     onupdate=func.current_timestamp())
 
     # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
-    # relation with product
-    product = relationship("Product", back_populates="category")
+    # # relation with product
+    # product = relationship("Product", back_populates="category")
 
-    # relation with vendor items
-    vendor_bidding_item = relationship("VendorBiddingItems", back_populates="category")
+    # # relation with vendor items
+    # vendor_bidding_item = relationship("VendorBiddingItems", back_populates="category")
 
-     # relation with vendor
-    vendor = relationship("Vendor", back_populates="category")
+    #  # relation with vendor
+    # vendor = relationship("Vendor", back_populates="category")
 
 

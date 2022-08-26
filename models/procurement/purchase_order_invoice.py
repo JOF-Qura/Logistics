@@ -20,19 +20,19 @@ class PurchaseOrderInvoice(Base):
     billing_address = Column(String(255), nullable=False)
     amount_paid = Column(String(255), nullable=True,default=0)
     purchase_order_id = Column(CHAR(36), ForeignKey("purchase_order.id"), nullable=False)
-    created_by = Column(CHAR(36), ForeignKey("vendor.id"), nullable=True)
-    updated_by = Column(CHAR(36), ForeignKey("vendor.id"), nullable=True)
+    created_by = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
+    updated_by = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
     created_at = Column(DATETIME, default=func.current_timestamp())
     updated_at = Column(DATETIME,
                     default=func.current_timestamp(),
                     onupdate=func.current_timestamp())
     
-    UniqueConstraint(created_by,purchase_order_id)
+    # UniqueConstraint(created_by,purchase_order_id)
     # relation with purchase order
-    purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_invoice")
+    # purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_invoice")
 
     # relation with vendor - note: update to user
-    u_created_by = relationship("Vendor",foreign_keys=[created_by])
-    u_updated_by = relationship("Vendor",foreign_keys=[updated_by])
+    # u_created_by = relationship("Vendor",foreign_keys=[created_by])
+    # u_updated_by = relationship("Vendor",foreign_keys=[updated_by])
 
 

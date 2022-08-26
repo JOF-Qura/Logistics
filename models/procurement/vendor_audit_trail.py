@@ -13,8 +13,8 @@ class VendorAuditTrail(Base):
     client_ip = Column(String(255), nullable=True)
     table = Column(String(255), nullable=False)
     payload = Column(TEXT, nullable=True)
-    vendor_id = Column(CHAR(36), ForeignKey("vendor.id"), nullable=False)
+    vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=False)
     created_at = Column(DATETIME, default=func.current_timestamp())
 
     # relation with vendor
-    vendor = relationship("Vendor", back_populates="vendor_audit_trail")
+    # vendor = relationship("Vendor", back_populates="vendor_audit_trail")

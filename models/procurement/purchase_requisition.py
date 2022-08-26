@@ -33,14 +33,14 @@ class PurchaseRequisition(Base):
 
 
     # relation with department
-    department = relationship("Department", back_populates="purchase_requisition")
+    # department = relationship("Department", back_populates="purchase_requisition")
 
     # relation with purchase requisition detail
-    purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="purchase_requisition")
+    # purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="purchase_requisition")
 
     # relation with request quotation
-    request_quotation = relationship("RequestQuotation", back_populates="purchase_requisition")
+    # request_quotation = relationship("RequestQuotation", back_populates="purchase_requisition")
 
     # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])

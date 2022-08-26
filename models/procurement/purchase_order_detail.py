@@ -21,13 +21,13 @@ class PurchaseOrderDetail(Base):
                     default=func.current_timestamp(),
                     onupdate=func.current_timestamp())
     
-    # relation with purchase order
-    purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_detail")
+    # # relation with purchase order
+    # purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_detail")
 
-    #relation with returns 
-    return_details = relationship("ReturnDetail", back_populates="purchase_order_detail")
+    # #relation with returns 
+    # return_details = relationship("ReturnDetail", back_populates="purchase_order_detail")
 
 
-    # relation with user
-    user = relationship("User",backref="purchase_order_detail")
+    # # relation with user
+    # user = relationship("User",backref="purchase_order_detail")
    

@@ -20,10 +20,10 @@ class PaymentMethod(Base):
                     onupdate=func.current_timestamp())
 
     # relation with purchase order
-    purchase_order = relationship("PurchaseOrder", back_populates="payment_method")
+    # purchase_order = relationship("PurchaseOrder", back_populates="payment_method")
 
   
     # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
 

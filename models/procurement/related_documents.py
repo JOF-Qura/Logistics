@@ -21,14 +21,14 @@ class RelatedDocuments(Base):
                     onupdate=func.current_timestamp())
                     
     
-    # relation with terms of reference
-    terms_of_reference = relationship("TermsOfReference", back_populates="related_documents")
+    # # relation with terms of reference
+    # terms_of_reference = relationship("TermsOfReference", back_populates="related_documents")
 
-    # relation with request quotation
-    request_quotation = relationship("RequestQuotation", back_populates="related_documents")
+    # # relation with request quotation
+    # request_quotation = relationship("RequestQuotation", back_populates="related_documents")
   
-    # relation with vendor proposals
-    vendor_proposal = relationship("VendorProposals", back_populates="related_documents")
+    # # relation with vendor proposals
+    # vendor_proposal = relationship("VendorProposals", back_populates="related_documents")
 
  
      

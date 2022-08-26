@@ -25,21 +25,21 @@ class RequestQuotation(Base):
                     onupdate=func.current_timestamp())
 
 
-    # relation with related documents
-    related_documents = relationship("RelatedDocuments", back_populates="request_quotation")
+    # # relation with related documents
+    # related_documents = relationship("RelatedDocuments", back_populates="request_quotation")
 
-    # relation with request quotation vendor
-    request_quotation_vendor = relationship("RequestQuotationVendor",foreign_keys='[RequestQuotationVendor.request_quotation_id]')
+    # # relation with request quotation vendor
+    # request_quotation_vendor = relationship("RequestQuotationVendor",foreign_keys='[RequestQuotationVendor.request_quotation_id]')
     
-    # relation with purhcase requisition - ...?
-    purchase_requisition = relationship("PurchaseRequisition", back_populates="request_quotation")
+    # # relation with purhcase requisition - ...?
+    # purchase_requisition = relationship("PurchaseRequisition", back_populates="request_quotation")
 
-    #relation with vendor proposal    
-    vendor_proposal = relationship("VendorProposals", back_populates="request_quotation")
+    # #relation with vendor proposal    
+    # vendor_proposal = relationship("VendorProposals", back_populates="request_quotation")
 
-    # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+    # # relation with user
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
 
 
