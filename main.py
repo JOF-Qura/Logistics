@@ -194,6 +194,7 @@ from routes.project_management import (activity_routes
 # vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor,employee,employee_type,payment_method,payment_terms,returns,return_details,replacement_request)
 
 
+
 # creating all models
 Base.metadata.create_all(engine)
 
