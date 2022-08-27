@@ -23,7 +23,7 @@ class Product(Base):
                     onupdate=func.current_timestamp())
 
     # relation with category
-    # category = relationship("Category", back_populates="product")
+    category = relationship("Category", back_populates="product")
 
     # # relation with purchase requisition detail
     # purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="product")

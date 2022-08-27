@@ -26,7 +26,7 @@ class Category(Base):
     # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
     # # relation with product
-    # product = relationship("Product", back_populates="category")
+    product = relationship("Product", back_populates="category")
 
     # # relation with vendor items
     # vendor_bidding_item = relationship("VendorBiddingItems", back_populates="category")

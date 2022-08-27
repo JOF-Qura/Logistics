@@ -278,6 +278,36 @@ app.include_router(count_analytics.router)
 
 app.include_router(requestFilter.router)
 
+
+# routers procurement
+
+app.include_router(product.router)
+app.include_router(category.router)
+app.include_router(budget_plan.router)
+app.include_router(purchase_order.router)
+app.include_router(purchase_requisition.router)
+app.include_router(purchase_requisition_detail.router)
+app.include_router(request_quotation.router)
+# app.include_router(vendor_evaluation_schedules.router)
+app.include_router(vendor_performance_evaluation.router)
+app.include_router(vendor_proposal.router)
+app.include_router(vendor_bidding_item.router)
+app.include_router(vendor.router)
+app.include_router(vendor_login.router)
+app.include_router(notif.router)
+app.include_router(vendor_log_time.router)
+app.include_router(vendor_audit_trail.router)
+app.include_router(related_documents.router)
+
+app.include_router(purchase_order_invoice.router)
+app.include_router(utility.router)
+app.include_router(rfq_vendor.router)
+app.include_router(payment_terms.router)
+app.include_router(payment_method.router)
+
+app.include_router(replacement_request.router)
+
+
 #Saling Pusa
 app.include_router(postRoutes.router)
 
