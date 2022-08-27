@@ -17,4 +17,4 @@ class VendorAuditTrail(Base):
     created_at = Column(DATETIME, default=func.current_timestamp())
 
     # relation with vendor
-    # vendor = relationship("Vendor", back_populates="vendor_audit_trail")
+    vendor_procurement = relationship("VendorProcurement", back_populates="vendor_audit_trail")

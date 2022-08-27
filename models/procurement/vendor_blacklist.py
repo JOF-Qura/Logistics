@@ -9,7 +9,7 @@ import uuid
 class VendorBlacklist(Base):
     __tablename__ = "vendor_blacklist"
     id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
-    vendor_id = Column(String(255), ForeignKey("vendor.id"), nullable=False)
+    vendor_id = Column(String(255), ForeignKey("vendor_procurement.id"), nullable=False)
     vendor_name = Column(String(255), nullable=False)
     email = Column(String(255), nullable=False)
     remarks = Column(TEXT, nullable=False)
@@ -21,10 +21,9 @@ class VendorBlacklist(Base):
                     default=func.current_timestamp(),
                     onupdate=func.current_timestamp())
 
-    # relation with user
-    u_created_by = relationship("User",foreign_keys=[created_by])
-    u_updated_by = relationship("User",foreign_keys=[updated_by])
+
+
 
     
     # relation with vendor
-    vendor = relationship("Vendor", back_populates="vendor_blacklist")
+    vendor_procurement = relationship("VendorProcurement", back_populates="vendor_blacklist")

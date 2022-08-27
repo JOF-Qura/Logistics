@@ -25,10 +25,10 @@ class RelatedDocuments(Base):
     # terms_of_reference = relationship("TermsOfReference", back_populates="related_documents")
 
     # # relation with request quotation
-    # request_quotation = relationship("RequestQuotation", back_populates="related_documents")
+    request_quotation = relationship("RequestQuotation", back_populates="related_documents")
   
     # # relation with vendor proposals
-    # vendor_proposal = relationship("VendorProposals", back_populates="related_documents")
+    vendor_proposal = relationship("VendorProposals", back_populates="related_documents")
 
  
      

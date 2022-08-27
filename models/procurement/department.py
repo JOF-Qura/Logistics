@@ -8,16 +8,16 @@ import uuid
 
 
 
-class Department(Base):
-    __tablename__ = "department"
+class DepartmentProcurement(Base):
+    __tablename__ = "department_procurement"
 
     id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
     department_name = Column(String(255), nullable=False)
     department_head = Column(String(255), nullable=False)
     contact_no = Column(String(255), nullable=False)
     status = Column(String(255), nullable=False,default="active")
-    created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
-    updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
+    # created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
+    # updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
     created_at = Column(DATETIME, default=func.current_timestamp())
     updated_at = Column(DATETIME,
                     default=func.current_timestamp(),
@@ -31,10 +31,10 @@ class Department(Base):
     # u_updated_by = relationship("User",foreign_keys=[updated_by])
 
     # # relation with budget plan
-    # budget_plan = relationship("BudgetPlan", back_populates="department")
+    budget_plan = relationship("BudgetPlan", back_populates="department_procurement")
 
     # # relation with purchase requisition
-    # purchase_requisition = relationship("PurchaseRequisition", back_populates="department")
+    purchase_requisition = relationship("PurchaseRequisition", back_populates="department_procurement")
 
     #  # relation with notif
-    # notification = relationship("Notification", back_populates="department")
+    notification = relationship("Notification", back_populates="department_procurement")

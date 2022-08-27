@@ -27,7 +27,7 @@ class RequestQuotationVendor(Base):
     UniqueConstraint(vendor_id, rfq_pr_id) 
     
     # relation with related
-    # vendor = relationship("Vendor", back_populates="request_quotation_vendor")
+    vendor_procurement = relationship("VendorProcurement", back_populates="request_quotation_vendor")
 
     # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])

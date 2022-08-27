@@ -24,7 +24,7 @@ class Utilities(Base):
                     onupdate=func.current_timestamp())
 
     # relation with vendor
-    # vendor = relationship("Vendor", back_populates="utilities")
+    vendor_procurement = relationship("VendorProcurement", back_populates="utilities")
 
     # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])

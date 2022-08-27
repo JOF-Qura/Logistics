@@ -1,5 +1,5 @@
 
-# from .vendor_blacklist import VendorBlacklist 
+from .vendor_blacklist import VendorBlacklist 
 from .vendor import VendorProcurement
 from .budget_plan import BudgetPlan 
 from .category import Category 
@@ -8,6 +8,7 @@ from .purchase_order_detail import PurchaseOrderDetail
 from .vendor_proposal import VendorProposals
 from .vendor_bidding_items import VendorBiddingItems
 from .product import Product 
+from .department import DepartmentProcurement 
 
 from .purchase_requisition_detail import PurchaseRequisitionDetail 
 from .vendor_audit_trail import VendorAuditTrail

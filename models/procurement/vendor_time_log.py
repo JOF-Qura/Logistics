@@ -15,5 +15,5 @@ class VendorTimeLog(Base):
     vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=False)
 
     # relation with vendor
-    # vendor = relationship("Vendor", back_populates="vendor_time_log")
+    vendor_procurement = relationship("VendorProcurement", back_populates="vendor_time_log")
     

@@ -16,7 +16,7 @@ class PurchaseRequisition(Base):
     message = Column(TEXT, nullable=False)
     status = Column(String(255), nullable=False)
     date_approved = Column(DATETIME, nullable=True)
-    # department_id = Column(CHAR(36), ForeignKey("department.id"), nullable=False)
+    department_id = Column(CHAR(36), ForeignKey("department_procurement.id"), nullable=False)
     created_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
     updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)  
     created_at = Column(DATETIME, default=func.current_timestamp())
@@ -33,13 +33,13 @@ class PurchaseRequisition(Base):
 
 
     # relation with department
-    # department = relationship("Department", back_populates="purchase_requisition")
+    department_procurement = relationship("DepartmentProcurement", back_populates="purchase_requisition")
 
     # relation with purchase requisition detail
-    # purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="purchase_requisition")
+    purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="purchase_requisition")
 
     # relation with request quotation
-    # request_quotation = relationship("RequestQuotation", back_populates="purchase_requisition")
+    request_quotation = relationship("RequestQuotation", back_populates="purchase_requisition")
 
     # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])

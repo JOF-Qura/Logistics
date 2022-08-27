@@ -27,9 +27,9 @@ class PurchaseOrderInvoice(Base):
                     default=func.current_timestamp(),
                     onupdate=func.current_timestamp())
     
-    # UniqueConstraint(created_by,purchase_order_id)
+    UniqueConstraint(created_by,purchase_order_id)
     # relation with purchase order
-    # purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_invoice")
+    purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_invoice")
 
     # relation with vendor - note: update to user
     # u_created_by = relationship("Vendor",foreign_keys=[created_by])

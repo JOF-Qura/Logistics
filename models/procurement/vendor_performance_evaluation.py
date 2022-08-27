@@ -31,4 +31,4 @@ class VendorPerformanceEvaluation(Base):
 
   
     # # relation with purchase order
-    # purchase_order = relationship("PurchaseOrder", back_populates="vendor_performance_evaluation")
+    purchase_order = relationship("PurchaseOrder", back_populates="vendor_performance_evaluation")

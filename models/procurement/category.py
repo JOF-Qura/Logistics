@@ -29,9 +29,9 @@ class Category(Base):
     product = relationship("Product", back_populates="category")
 
     # # relation with vendor items
-    # vendor_bidding_item = relationship("VendorBiddingItems", back_populates="category")
+    vendor_bidding_item = relationship("VendorBiddingItems", back_populates="category")
 
     #  # relation with vendor
-    # vendor = relationship("Vendor", back_populates="category")
+    vendor_procurement = relationship("VendorProcurement", back_populates="category")
 
 

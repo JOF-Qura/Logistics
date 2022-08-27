@@ -26,7 +26,7 @@ class Product(Base):
     category = relationship("Category", back_populates="product")
 
     # # relation with purchase requisition detail
-    # purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="product")
+    purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="product")
 
     # # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])

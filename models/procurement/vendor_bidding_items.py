@@ -23,7 +23,7 @@ class VendorBiddingItems(Base):
                     onupdate=func.current_timestamp())
 
     # relation with category
-    # category = relationship("Category", back_populates="vendor_bidding_item") 
+    category = relationship("Category", back_populates="vendor_bidding_item") 
     
     # # relation with vendor proposal
-    # vendor_proposal = relationship("VendorProposals", back_populates="vendor_bidding_item")
+    vendor_proposal = relationship("VendorProposals", back_populates="vendor_bidding_item")

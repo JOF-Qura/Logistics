@@ -127,7 +127,7 @@ from models.asset_management.sell_asset_model import Sell_Asset
 
 # importing all procurement models
 
-# from models.procurement.vendor_blacklist import VendorBlacklist 
+from models.procurement.vendor_blacklist import VendorBlacklist 
 from models.procurement.vendor import VendorProcurement 
 from models.procurement.category import Category 
 from models.procurement.budget_plan import BudgetPlan 
@@ -136,6 +136,7 @@ from models.procurement.purchase_order_detail import PurchaseOrderDetail
 from models.procurement.vendor_proposal import VendorProposals
 from models.procurement.vendor_bidding_items import VendorBiddingItems
 from models.procurement.product import Product 
+from models.procurement.department import DepartmentProcurement 
 
 from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
 from models.procurement.vendor_audit_trail import VendorAuditTrail

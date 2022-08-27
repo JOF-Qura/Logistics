@@ -34,10 +34,10 @@ class VendorProcurement(Base):
                     onupdate=func.current_timestamp())
     
     # relationship with audit trail
-    # vendor_audit_trail = relationship("VendorAuditTrail", back_populates="vendor")
+    vendor_audit_trail = relationship("VendorAuditTrail", back_populates="vendor_procurement")
 
     # relationship with time log
-    # vendor_time_log = relationship("VendorTimeLog", back_populates="vendor")
+    vendor_time_log = relationship("VendorTimeLog", back_populates="vendor_procurement")
 
     # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])
@@ -46,24 +46,24 @@ class VendorProcurement(Base):
     
 
     # relation with terms of reference
-    # terms_of_reference = relationship("TermsOfReference", back_populates="vendor")
+    # terms_of_reference = relationship("TermsOfReference", back_populates="vendor_procurement")
 
     # relation wtih utilities
-    # utilities = relationship("Utilities", back_populates="vendor")
+    utilities = relationship("Utilities", back_populates="vendor_procurement")
 
     # relation with category
-    # category = relationship("Category", back_populates="vendor") 
+    category = relationship("Category", back_populates="vendor_procurement") 
     
     # relation with purchase order
-    # purchase_order = relationship("PurchaseOrder", back_populates="vendor")
+    purchase_order = relationship("PurchaseOrder", back_populates="vendor_procurement")
 
     # relation with notif
-    # notification = relationship("Notification", back_populates="vendor")
+    notification = relationship("Notification", back_populates="vendor_procurement")
 
     #relation with request quotation vendor 
-    # request_quotation_vendor = relationship("RequestQuotationVendor", back_populates="vendor")
+    request_quotation_vendor = relationship("RequestQuotationVendor", back_populates="vendor_procurement")
 
     # relation with blacklist
-    # vendor_blacklist = relationship("VendorBlacklist", back_populates="vendor")
+    vendor_blacklist = relationship("VendorBlacklist", back_populates="vendor_procurement")
 
   

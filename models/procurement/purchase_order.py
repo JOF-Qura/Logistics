@@ -32,26 +32,26 @@ class PurchaseOrder(Base):
 
 
     #relation with vendor performance evaluation 
-    # vendor_performance_evaluation = relationship("VendorPerformanceEvaluation", back_populates="purchase_order")
+    vendor_performance_evaluation = relationship("VendorPerformanceEvaluation", back_populates="purchase_order")
 
     # #relation with payment terms
-    # payment_terms = relationship("PaymentTerms", back_populates="purchase_order")
+    payment_terms = relationship("PaymentTerms", back_populates="purchase_order")
 
     # #relation with payment method
-    # payment_method = relationship("PaymentMethod", back_populates="purchase_order")
+    payment_method = relationship("PaymentMethod", back_populates="purchase_order")
 
     # #relation with purchase order invoice
-    # purchase_order_invoice = relationship("PurchaseOrderInvoice", back_populates="purchase_order")
+    purchase_order_invoice = relationship("PurchaseOrderInvoice", back_populates="purchase_order")
 
 
     # # relation with vendor
-    # vendor = relationship("Vendor", back_populates="purchase_order")
+    vendor_procurement = relationship("VendorProcurement", back_populates="purchase_order")
 
     # # relation with vendor proposals
-    # vendor_proposal = relationship("VendorProposals", back_populates="purchase_order")
+    vendor_proposal = relationship("VendorProposals", back_populates="purchase_order")
 
     # # relation with purchase order detail
-    # purchase_order_detail = relationship("PurchaseOrderDetail", back_populates="purchase_order")
+    purchase_order_detail = relationship("PurchaseOrderDetail", back_populates="purchase_order")
 
     #relation with user 
     # u_created_by = relationship("User",foreign_keys=[created_by])

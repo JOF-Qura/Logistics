@@ -22,7 +22,7 @@ class PurchaseOrderDetail(Base):
                     onupdate=func.current_timestamp())
     
     # # relation with purchase order
-    # purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_detail")
+    purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_detail")
 
     # #relation with returns 
     # return_details = relationship("ReturnDetail", back_populates="purchase_order_detail")

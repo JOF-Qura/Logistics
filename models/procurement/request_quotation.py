@@ -26,16 +26,16 @@ class RequestQuotation(Base):
 
 
     # # relation with related documents
-    # related_documents = relationship("RelatedDocuments", back_populates="request_quotation")
+    related_documents = relationship("RelatedDocuments", back_populates="request_quotation")
 
     # # relation with request quotation vendor
-    # request_quotation_vendor = relationship("RequestQuotationVendor",foreign_keys='[RequestQuotationVendor.request_quotation_id]')
+    request_quotation_vendor = relationship("RequestQuotationVendor",foreign_keys='[RequestQuotationVendor.request_quotation_id]')
     
     # # relation with purhcase requisition - ...?
-    # purchase_requisition = relationship("PurchaseRequisition", back_populates="request_quotation")
+    purchase_requisition = relationship("PurchaseRequisition", back_populates="request_quotation")
 
     # #relation with vendor proposal    
-    # vendor_proposal = relationship("VendorProposals", back_populates="request_quotation")
+    vendor_proposal = relationship("VendorProposals", back_populates="request_quotation")
 
     # # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])
