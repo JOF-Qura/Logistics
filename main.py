@@ -1709,3 +1709,22 @@ def project_lists(request: Request, db: Session = Depends(get_db)):
     return template.TemplateResponse('project_management/error_page.html', {
         'request': request,
     })
+
+
+
+# ---------------------------- PROCUREMENT Template ------------------------------ #
+from pages_routers.procurement.p_manager_pages import p_manager_user_pages
+from pages_routers.procurement.p_officer_pages import p_officer_user_pages
+from pages_routers.procurement.dept_user_pages import dept_user_pages
+from pages_routers.procurement.vendor_pages import vendor_user_pages
+from pages_routers.procurement.admin import admin_user_pages
+from pages_routers.general.general import general_user_pages
+
+
+# web pages
+app.include_router(p_manager_user_pages)
+app.include_router(p_officer_user_pages)
+app.include_router(dept_user_pages)
+app.include_router(vendor_user_pages)
+app.include_router(admin_user_pages)
+app.include_router(general_user_pages)

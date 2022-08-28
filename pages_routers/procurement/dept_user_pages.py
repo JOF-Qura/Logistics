@@ -14,11 +14,11 @@ dept_user_pages = APIRouter()
 # dashboard for department users
 @dept_user_pages.get('/procurement/dashboard1', response_class=HTMLResponse,tags=["Web Pages"])
 async def dashboard(request: Request):
-    return templates.TemplateResponse('internal/pr_users/dashboard1.html',{"request": request})
+    return templates.TemplateResponse('procurement/internal/pr_users/dashboard1.html',{"request": request})
 
 @dept_user_pages.get('/procurement/purchase-request/', response_class=HTMLResponse,tags=["Web Pages"])
 async def purchase_request(request: Request):
-    return templates.TemplateResponse('internal/pr_users/purchase_request.html',{"request": request})
+    return templates.TemplateResponse('procurement/internal/pr_users/purchase_request.html',{"request": request})
 
 
 # @dept_user_pages.get('/procurement/terms-of-reference/', response_class=HTMLResponse,tags=["Web Pages"])
@@ -34,7 +34,7 @@ async def purchase_request(request: Request):
 
 @dept_user_pages.get('/procurement/request-list/', response_class=HTMLResponse,tags=["Web Pages"])
 async def request_list(request: Request):
-    return templates.TemplateResponse('internal/pr_users/request_list.html',{"request": request})
+    return templates.TemplateResponse('procurement/internal/pr_users/request_list.html',{"request": request})
 
 # @app.get('/procurement/vendor-evaluation/', response_class=HTMLResponse,tags=["Web Pages"])
 # async def purchase_request(request: Request):
@@ -43,4 +43,4 @@ async def request_list(request: Request):
 
 @dept_user_pages.get('/procurement/our-budget/', response_class=HTMLResponse,tags=["Web Pages"])
 async def dept_budget(request: Request):
-    return templates.TemplateResponse('internal/pr_users/dept_budegts.html',{"request": request})
+    return templates.TemplateResponse('procurement/internal/pr_users/dept_budegts.html',{"request": request})

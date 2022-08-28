@@ -6,7 +6,6 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm.session import Session
 from fastapi import FastAPI, Request, Depends
-from ... import database
 
 templates = Jinja2Templates(directory="templates")
 
@@ -33,9 +32,9 @@ async def login(request: Request):
 
 
 @general_user_pages.get('/', response_class=HTMLResponse,tags=["Web Pages"])
-async def index(request: Request,db: Session = Depends(database.get_db)):
+async def index(request: Request):
     return templates.TemplateResponse('public/index.html',{"request": request})
 
 @general_user_pages.get('/find-doctor', response_class=HTMLResponse,tags=["Web Pages"])
-async def find_doctor(request: Request,db: Session = Depends(database.get_db)):
+async def find_doctor(request: Request):
     return templates.TemplateResponse('public/find_doctor.html',{"request": request})
