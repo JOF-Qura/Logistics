@@ -239,6 +239,20 @@
                     {
                       window.location.replace(apiURL + 'project_management/department_head/dashboard');
                     }
+
+                    // PROCUREMENT
+                    else if (user.user_type == "Procurement Officer")
+                    {
+                        window.location.replace(apiURL + 'project_management/project_officer/dashboard');
+                    }
+                    else if (user.user_type == "Procurement Manager")
+                    {
+                      window.location.replace(apiURL + 'project_management/department_head/dashboard');
+                    }
+                    else if (user.user_type == "Departments")
+                    {
+                      window.location.replace(apiURL + 'project_management/department_head/dashboard');
+                    }
                 }
               },
               error: function ({ responseJSON }) 
