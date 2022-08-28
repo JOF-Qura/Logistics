@@ -159,18 +159,22 @@
             <!-- {{ 'nav-link dropdown-toggle text-primary' if active_module == 'procurement' else 'nav-link dropdown-toggle' }} -->
 
             <ul class="dropdown-menu dropdown-menu-left">
-              <!-- {{ 'dropdown-item active' if active_module == 'procurement' else 'dropdown-item' }} -->
-
-
-
-              <li><a id="href_link" href="#" class="dropdown-item">Procurement Management</a></li>
-         
-
-
-              <li><a href="#" class="dropdown-item">Warehousing Management</a></li>
-              <li><a href="#" class="dropdown-item">Asset Management</a></li>
-              <li><a href="#" class="dropdown-item">Project Management</a></li>
-            </ul>
+              <li><a href="/procurement/dashboard3" id="procurement_topnav" class="dropdown-item">Procurement Management</a></li>
+              <li><a href="./warehousing/admin/" id="warehousing_topnav" class="dropdown-item">Warehousing Management</a></li>
+              <li><a href="/asset_management/" id="asset_management_topnav" class="dropdown-item">Asset Management</a></li>
+              <li><a href="/project_management/admin/dashboard" id="project_management_topnav" class="dropdown-item">Project Management</a></li>
+              <script>
+                if( window.location.pathname.includes("/procurement/dashboard3")){
+                  document.getElementById("procurement_topnav").classList.add('text-primary')}
+                else if( window.location.pathname.includes("/warehousing/admin/")){
+                  document.getElementById("warehousing_topnav").classList.add('text-primary')}
+                else if( window.location.pathname.includes("/asset_management/")){
+                  document.getElementById("logistics_topnav").classList.add('text-primary')
+                  document.getElementById("asset_management_topnav").classList.add('text-primary')}
+                else if( window.location.pathname.includes("/project_management/admin/dashboard")){
+                  document.getElementById("project_management_topnav").classList.add('text-primary')}
+              </script>
+          </ul>
           </li>
 
 

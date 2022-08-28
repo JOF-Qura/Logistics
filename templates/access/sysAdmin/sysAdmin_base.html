@@ -143,10 +143,24 @@ filter_user()
                 >Logistics</a>
                 
                 <ul class="dropdown-menu dropdown-menu-left">
-                    <li><a href="./submodule.html" class="dropdown-item">Procurement Management</a></li>
-                    <li><a href="./warehousing/admin/" class="dropdown-item">Warehousing Management</a></li>
-                    <li><a href="/asset_management/" class="dropdown-item">Asset Management</a></li>
-                    <li><a href="/project_management/admin/dashboard" class="dropdown-item">Project Management</a></li>
+                  <li><a href="/procurement/sysadmin/" id="procurement_topnav" class="dropdown-item">Procurement Management</a></li>
+                  <li><a href="./warehousing/admin/" id="warehousing_topnav" class="dropdown-item">Warehousing Management</a></li>
+                  <li><a href="/asset_management/" id="asset_management_topnav" class="dropdown-item">Asset Management</a></li>
+                  <li><a href="/project_management/admin/dashboard" id="project_management_topnav" class="dropdown-item">Project Management</a></li>
+                  <script>
+                    if( window.location.pathname.includes("/procurement/sysadmin/")){
+                    document.getElementById("logistics_topnav").classList.add('text-primary')
+                    document.getElementById("procurement_topnav").classList.add('text-primary')}
+                    else if( window.location.pathname.includes("/warehousing/admin/")){
+                    document.getElementById("logistics_topnav").classList.add('text-primary')
+                    document.getElementById("warehousing_topnav").classList.add('text-primary')}
+                    else if( window.location.pathname.includes("/asset_management/")){
+                    document.getElementById("logistics_topnav").classList.add('text-primary')
+                    document.getElementById("asset_management_topnav").classList.add('text-primary')}
+                    else if( window.location.pathname.includes("/project_management/admin/dashboard")){
+                    document.getElementById("logistics_topnav").classList.add('text-primary')
+                    document.getElementById("project_management_topnav").classList.add('text-primary')}
+                  </script>
                 </ul>
             </li>
 
@@ -260,15 +274,15 @@ filter_user()
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header font-weight-bold text-wrap">SYSTEM MANAGEMENT</li>
             <li class="nav-item">
-              <a href="/asset_management/sysAdmin/users" class="nav-link" id="user_sidebar">
+              <a href="/sysAdmin/users" class="nav-link" id="user_sidebar">
                 <script>if(window.location.pathname == '/asset_management/sysAdmin/users'){document.getElementById("user_sidebar").classList.add('active')}</script>
                 <i class="nav-icon fas fa-chart-line"></i>
                 <p>Users</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="/asset_management/sysAdmin/department" class="nav-link" id="department_sidebar">
-                <script>if(window.location.pathname == '/asset_management/sysAdmin/department'){document.getElementById("department_sidebar").classList.add('active')}</script>
+              <a href="/sysAdmin/department" class="nav-link" id="department_sidebar">
+                <script>if(window.location.pathname == '/sysAdmin/department'){document.getElementById("department_sidebar").classList.add('active')}</script>
                 <i class="nav-icon fas fa-chart-line"></i>
                 <p>Departments</p>
               </a>
