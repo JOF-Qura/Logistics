@@ -122,23 +122,23 @@ $.ajaxSetup({
   },
 });
 
-$(function () {
+// $(function () {
 
-localStorageArr.push(localStorage.getItem("TOKEN"));
-// localStorageArr.push($.cookie("TOKEN"));
-localStorageArr.push(localStorage.getItem("ID"));
-if (localStorage.getItem("TOKEN") == null  ||localStorage.getItem("DEPARTMENTNAME") == null ) {
-    window.location.replace(baseURL+"login");
-}
+// localStorageArr.push(localStorage.getItem("TOKEN"));
+// // localStorageArr.push($.cookie("TOKEN"));
+// localStorageArr.push(localStorage.getItem("ID"));
+// if (localStorage.getItem("TOKEN") == null  ||localStorage.getItem("DEPARTMENTNAME") == null ) {
+//     window.location.replace(baseURL+"login");
+// }
 
-$("#userFullName").text(localStorage.getItem("FIRSTNAME") + " "+ localStorage.getItem("LASTNAME"))
-$("#userPosition").text(localStorage.getItem("EMPLOYEETYPE"))
-$("#userDepartment").text(localStorage.getItem("DEPARTMENTNAME"))
-
-
+// $("#userFullName").text(localStorage.getItem("FIRSTNAME") + " "+ localStorage.getItem("LASTNAME"))
+// $("#userPosition").text(localStorage.getItem("EMPLOYEETYPE"))
+// $("#userDepartment").text(localStorage.getItem("DEPARTMENTNAME"))
 
 
-});
+
+
+// });
 
 // convert string to '...' if length is greater that the given limit
 trimString =(string, length) => {

@@ -79,8 +79,9 @@ def verify(form: AuthForm, response: Response, db: Session = Depends(get_db)):
                                 user_id = user.user_id,
                                 user_type = user.user_type)
                 token = jwt.encode(dict(data), secret)
+                access_token = jwt.encode(dict(data), secret)
                 response.set_cookie('token', token, httponly=True)
-                return {'user':user, 'message': 'Log In Success!'}
+                return {'user':user, 'token': token, 'access_token': access_token, 'message': 'Log In Success!'}
         
         return {'message': 'User not found.'}
     except Exception as e:

@@ -139,7 +139,8 @@ filter_user()
                 <a 
                     href="#" 
                     data-toggle="dropdown" 
-                    class="nav-link dropdown-toggle"
+                    class="nav-link dropdown-toggle text-primary"
+                    id="index_topnav"
                 >Logistics</a>
                 
                 <ul class="dropdown-menu dropdown-menu-left">
@@ -148,6 +149,7 @@ filter_user()
                   <li><a href="/asset_management/" id="asset_management_topnav" class="dropdown-item">Asset Management</a></li>
                   <li><a href="/project_management/admin/dashboard" id="project_management_topnav" class="dropdown-item">Project Management</a></li>
                   <script>
+                    if(window.location.pathname.includes("/index/")){document.getElementById("index_topnav").classList.add('text-primary')}
                     if( window.location.pathname.includes("/procurement/dashboard3")){
                     document.getElementById("logistics_topnav").classList.add('text-primary')
                     document.getElementById("procurement_topnav").classList.add('text-primary')}

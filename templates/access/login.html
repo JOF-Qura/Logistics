@@ -162,6 +162,9 @@
                   sessionStorage.setItem('TOKEN', data.token);
                   sessionStorage.setItem('USER_EMAIL', user.user_email);
                   sessionStorage.setItem('USER_TYPE', user.user_type);
+                  sessionStorage.setItem('EMPLOYEETYPE', user.user_type);
+                  sessionStorage.setItem('DEPARTMENTID', user.department_id);
+                  sessionStorage.setItem('DEPARTMENTNAME', user.user_department.department_name);
                   sessionStorage.setItem('token', data.access_token)
                   sessionStorage.setItem('user_id', user.user_id)
                   sessionStorage.setItem('user_type', user.user_type)
@@ -172,14 +175,17 @@
                   console.log(sessionStorage.getItem("type"))
 
                   let session_data = "";
-                      session_data += 'token=' + user.token;
+                      session_data += 'token=' + data.token;
                       session_data += '&user_email=' + user.user_email;
                       session_data += '&user_type=' + user.user_type;
                   
                   const sessionData = 
-                      'token='      +   user.access_token +
+                      'token='      +   data.access_token +
                       '&user_id='   +   user.user_id;
                       // '&employee_id='      +  data.employee.id;
+
+                  console.log(user)
+                  console.log(data)
 
                       
 
@@ -243,15 +249,15 @@
                     // PROCUREMENT
                     else if (user.user_type == "Procurement Officer")
                     {
-                        window.location.replace(apiURL + 'project_management/project_officer/dashboard');
+                        window.location.replace(apiURL + 'procurement/dashboard2');
                     }
                     else if (user.user_type == "Procurement Manager")
                     {
-                      window.location.replace(apiURL + 'project_management/department_head/dashboard');
+                      window.location.replace(apiURL + 'procurement/dashboard3');
                     }
                     else if (user.user_type == "Departments")
                     {
-                      window.location.replace(apiURL + 'project_management/department_head/dashboard');
+                      window.location.replace(apiURL + 'procurement/dashboard1');
                     }
                 }
               },
