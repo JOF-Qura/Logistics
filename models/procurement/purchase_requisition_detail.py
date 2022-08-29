@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -9,7 +9,7 @@ import uuid
 class PurchaseRequisitionDetail(Base):
     __tablename__ = "purchase_requisition_detail"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     quantity = Column(Integer, nullable=False)
     description = Column(TEXT, nullable=True)
     new_category = Column(String(255), nullable=True)

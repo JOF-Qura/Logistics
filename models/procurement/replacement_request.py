@@ -8,7 +8,7 @@ import uuid
 class ReplacementRequest(Base):
     __tablename__ = "replacement_request"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     message = Column(TEXT, nullable=False)
     replacement_request_date = Column(DATETIME, nullable=False)
     request_type = Column(String(255), nullable=False)

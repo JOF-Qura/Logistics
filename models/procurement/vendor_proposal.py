@@ -1,5 +1,5 @@
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -11,7 +11,7 @@ import uuid
 class VendorProposals(Base):
     __tablename__ = "vendor_proposal"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     proposal_number = Column(Integer, unique=True)
 
     subtotal = Column(Float, nullable=False)

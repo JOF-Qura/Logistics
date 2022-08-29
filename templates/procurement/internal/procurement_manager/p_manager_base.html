@@ -250,7 +250,7 @@
           <div class="info mr-1 w-100" id="userFullNameDisplay">
 
             <!-- User Full Name -->
-            <a href="#" class="nav-item text-truncate" id="userFullName">Juan S. Dela Cruz</a>
+            <a href="#" class="nav-item text-truncate" id="userFullName"></a>
 
             <!-- User Position -->
             <div class="small text-secondary text-truncate" id="userPosition"></div>
@@ -314,7 +314,7 @@
 
             <li class="nav-header">BUDGET SETUP</li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a href="/procurement/department-setup/"
                 class="{{ 'nav-link active' if active_page == 'department' else 'nav-link' }}">
                 <i class="nav-icon fas fa-door-closed"></i>
@@ -323,7 +323,7 @@
 
                 </p>
               </a>
-            </li>
+            </li> -->
 
             
             <li class="nav-item">
@@ -523,7 +523,7 @@
   {% block scripts %}
 
   <script>
-//     if(localStorage.getItem("EMPLOYEETYPE") != "Procurement Manager"){
+//     if(sessionStorage.getItem("EMPLOYEETYPE") != "Procurement Manager"){
 //       // window.location.replace(baseURL+"login");
  
 // }
@@ -531,9 +531,9 @@
 
 const loadNotif = () => {
   $.ajax({
-    url: apiURL + "notification/procurement/procurement_manager/"+localStorage.getItem("DEPARTMENTID"),
+    url: apiURL + "notification/procurement/procurement_manager/"+sessionStorage.getItem("DEPARTMENTID"),
     type: "GET",
-    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
     success: (data) => {
       
       $("#notif_body").empty();
@@ -579,7 +579,7 @@ loadNotif()
 $(document).ready(function() {
 $('#notif_dropdown').click(function(){
   $.ajax({
-    url: apiURL + "notification/procurement/procurement_manager/"+localStorage.getItem("DEPARTMENTID"),
+    url: apiURL + "notification/procurement/procurement_manager/"+sessionStorage.getItem("DEPARTMENTID"),
     type: "PUT",
     contentType: "application/json",
     dataType: "json",
@@ -589,7 +589,7 @@ $('#notif_dropdown').click(function(){
     data: JSON.stringify({
       status: "read"
     }),
-    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
     success: (data) => {
       // console.log("success")
       loadNotif()

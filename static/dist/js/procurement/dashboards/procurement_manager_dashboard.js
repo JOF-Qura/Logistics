@@ -189,9 +189,10 @@ loadTable = () => {
         width: "20%",
         render: function (aData, type, row) {
           return (
-            aData.u_created_by.employees.first_name +
-            " " +
-            aData.u_created_by.employees.last_name
+            // aData.u_created_by.employees.first_name +
+            // " " +
+            // aData.u_created_by.employees.last_name
+            "employee name"
           );
         },
       },

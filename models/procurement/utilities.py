@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -8,7 +8,7 @@ import uuid
 class Utilities(Base):
     __tablename__ = "utilities"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     utility_type = Column(String(255), nullable=False)
     attachment = Column(String(255), nullable=False)
     utility_amount = Column(String(255), nullable=False)

@@ -25,7 +25,7 @@ loadTable = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -38,7 +38,7 @@ loadTable = () => {
       url:
         apiURL +
         "purchase-requisition/datatable/" +
-        localStorage.getItem("DEPARTMENTID"),
+        sessionStorage.getItem("DEPARTMENTID"),
       dataSrc: "",
     },
 
@@ -62,7 +62,8 @@ loadTable = () => {
         width: "20%",
         // className: "dtr-control",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          return "name"
         }
       },
 
@@ -157,7 +158,7 @@ loadTablePending = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -168,7 +169,7 @@ loadTablePending = () => {
   $("#data-table-pending").DataTable({
     ajax: {
       //should be dynamic onchange
-      url: apiURL + "purchase-requisition/pending-cancelled/"+localStorage.getItem("DEPARTMENTID"),
+      url: apiURL + "purchase-requisition/pending-cancelled/"+sessionStorage.getItem("DEPARTMENTID"),
       dataSrc: "",
     },
 
@@ -191,7 +192,9 @@ loadTablePending = () => {
         searchable: true,
         width: "20%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          return "name"
+
         }
         // className: "dtr-control",
       },
@@ -292,7 +295,7 @@ loadTableApproved = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -302,7 +305,7 @@ loadTableApproved = () => {
   $("#data-table-approved").dataTable().fnDestroy();
   $("#data-table-approved").DataTable({
     ajax: {
-      url: apiURL + "purchase-requisition/approved/"+localStorage.getItem("DEPARTMENTID"),
+      url: apiURL + "purchase-requisition/approved/"+sessionStorage.getItem("DEPARTMENTID"),
       dataSrc: "",
     },
 
@@ -325,7 +328,9 @@ loadTableApproved = () => {
         searchable: true,
         width: "20%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          return "name"
+
         }
         // className: "dtr-control",
       },
@@ -426,7 +431,7 @@ loadTableRejected = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -436,7 +441,7 @@ loadTableRejected = () => {
   $("#data-table-rejected").dataTable().fnDestroy();
   $("#data-table-rejected").DataTable({
     ajax: {
-      url: apiURL + "purchase-requisition/rejected/"+localStorage.getItem("DEPARTMENTID"),
+      url: apiURL + "purchase-requisition/rejected/"+sessionStorage.getItem("DEPARTMENTID"),
       dataSrc: "",
     },
 
@@ -459,7 +464,9 @@ loadTableRejected = () => {
         searchable: true,
         width: "20%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          return "name"
+
         }
         // className: "dtr-control",
       },
@@ -719,8 +726,11 @@ dataInfo = (id, type) => {
         );
         console.log(data)
         $("#status").html(data["status"]);
-        $("#department").html(data.u_created_by.employees.department["department_name"]);
-        $("#requested_by").html(data.u_created_by.employees.first_name + " " +data.u_created_by.employees.last_name);
+        // $("#department").html(data.u_created_by.employees.department["department_name"]);
+        $("#department").html("dept name");
+
+        // $("#requested_by").html(data.u_created_by.employees.first_name + " " +data.u_created_by.employees.last_name);
+        $("#requested_by").html("employee name");
     
         $("#purpose").html(data["purpose"]);
         $("#date_requested").html(
@@ -888,7 +898,7 @@ changeStatus = () => {
     cache: false,
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
     },
     success: function (data) {
       if (data) {

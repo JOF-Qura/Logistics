@@ -122,7 +122,7 @@ $.ajaxSetup({
   },
 });
 
-// $(function () {
+$(function () {
 
 // localStorageArr.push(localStorage.getItem("TOKEN"));
 // // localStorageArr.push($.cookie("TOKEN"));
@@ -132,12 +132,11 @@ $.ajaxSetup({
 // }
 
 // $("#userFullName").text(localStorage.getItem("FIRSTNAME") + " "+ localStorage.getItem("LASTNAME"))
-// $("#userPosition").text(localStorage.getItem("EMPLOYEETYPE"))
+$("#userFullName").html(sessionStorage.getItem("USER_TYPE"))
 // $("#userDepartment").text(localStorage.getItem("DEPARTMENTNAME"))
 
 
-
-
+})
 // });
 
 // convert string to '...' if length is greater that the given limit

@@ -10,7 +10,7 @@ import uuid
 class BudgetPlan(Base):
     __tablename__ = "budget_plan"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     given_budget = Column(Float, nullable=False)
     total_spent = Column(Float, nullable=False,default=0)
     year = Column(String(255), nullable=False)

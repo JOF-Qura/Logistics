@@ -25,7 +25,7 @@ loadTable = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -55,7 +55,8 @@ loadTable = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          // return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          return "name";
         },
       },
 
@@ -148,7 +149,7 @@ loadTablePending = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -178,7 +179,8 @@ loadTablePending = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          // return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          return "name"
         },
       },
 
@@ -267,7 +269,7 @@ loadTableApproved = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -297,7 +299,8 @@ loadTableApproved = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          // return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          return "name";
         },
       },
 
@@ -364,7 +367,7 @@ loadTableRejected = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -394,7 +397,8 @@ loadTableRejected = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          // return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
+          return "name"
         },
       },
 
@@ -491,8 +495,12 @@ dataInfo = (id, type) => {
 
         $("#pr_uuid").val(data["id"]);
         $("#status").html(data["status"]);
-        $("#department").html(data.u_created_by.employees.department["department_name"]);
-        $("#requested_by").html(data.u_created_by.employees["first_name"] + " "+data.u_created_by.employees["last_name"] );
+        // $("#department").html(data.u_created_by.employees.department["department_name"]);
+        $("#department").html("dept name");
+
+        // $("#requested_by").html(data.u_created_by.employees["first_name"] + " "+data.u_created_by.employees["last_name"] );
+        $("#requested_by").html("name");
+
         $("#purpose").html(data["purpose"]);
         $("#message").html(data["message"]);
         $("#estimated_total").html( "\u20B1" +numberWithCommas(data["estimated_amount"]));
@@ -652,7 +660,8 @@ approvalData = (id, type) => {
     $(".reason-row").hide();
     $("#approve").show();
     $("#approved_by").val(
-      localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")
+      // sessionStorage.getItem("FIRSTNAME") + " " + sessionStorage.getItem("LASTNAME")
+      "approver name"
     ); //should be foreign key to users
     // $("#approved_by").val();
     $("#uuid").val(id);
@@ -665,7 +674,10 @@ approvalData = (id, type) => {
       '<i class="text-secondary fas fa-exclamation-triangle mr-2"></i>' +
         "Reject Purchase Request"
     );
-    $("#approved_by").val(localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")); 
+    $("#approved_by").val(
+      // sessionStorage.getItem("FIRSTNAME") + " " + sessionStorage.getItem("LASTNAME")
+      "approver name"
+      ); 
 
     $("#approve").hide();
     $(".reason-row").show();
@@ -740,7 +752,7 @@ approvalData = (id, type) => {
           cache: false,
           headers: {
             Accept: "application/json",
-            Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+            Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
           },
           success: function (data) {
             if (data) {
@@ -759,7 +771,7 @@ approvalData = (id, type) => {
                   cache: false,
                   headers: {
                     Accept: "application/json",
-                    Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+                    Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
                   },
                   success: function (data) {
                 

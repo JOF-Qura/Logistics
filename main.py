@@ -152,6 +152,10 @@ from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
 from models.procurement.utilities import Utilities
 from models.procurement.rfq_vendor import RequestQuotationVendor
 from models.procurement.replacement_request import ReplacementRequest
+from models.procurement.project_request import ProjectRequest
+
+# from models.procurement.terms_of_reference import TermsOfReference
+
 
 # importing all project management models
 from models.project_management.activity_model import Activity
@@ -315,6 +319,19 @@ app.include_router(postRoutes.router)
 
 # Register template folder
 template = Jinja2Templates('templates')
+
+
+from fastapi.middleware.cors import CORSMiddleware
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #Template
 # @app.get('/', response_class=HTMLResponse)

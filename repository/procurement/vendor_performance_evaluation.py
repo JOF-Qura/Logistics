@@ -102,9 +102,9 @@ def get_ratings( category_id,db : Session ):
     count_dct = defaultdict(int)
     
     if category_id != "none":
-        vendor = db.query(models.Vendor).filter(models.Vendor.category_id == category_id).all()
+        vendor = db.query(models.VendorProcurement).filter(models.VendorProcurement.category_id == category_id).all()
     else:
-        vendor = db.query(models.Vendor).all()
+        vendor = db.query(models.VendorProcurement).all()
 
     for vendor_idx in range(len(vendor)):
         
@@ -232,7 +232,7 @@ def get_total_orders( db : Session ):
 
     for vendor_po_idx in range(len(vendor_po)):
         # print(vendor_po[vendor_po_idx].vendor_id)
-        vendor_id = db.query(models.Vendor).filter(models.Vendor.id == vendor_po[vendor_po_idx].vendor_id).first()
+        vendor_id = db.query(models.VendorProcurement).filter(models.VendorProcurement.id == vendor_po[vendor_po_idx].vendor_id).first()
         vendor_orders = db.query(models.PurchaseOrder).filter(models.PurchaseOrder.vendor_id == vendor_po[vendor_po_idx].vendor_id).count()
 
         count_dct[vendor_id.vendor_name] += 1

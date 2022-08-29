@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -8,7 +8,7 @@ import uuid
 class PaymentMethod(Base):
     __tablename__ = "payment_method"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     method_name = Column(String(255), nullable=False)
     description = Column(String(255), nullable=True)
     status = Column(String(255), nullable=False,default="Active")

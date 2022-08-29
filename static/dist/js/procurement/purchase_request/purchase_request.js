@@ -36,9 +36,9 @@ $(function () {
   formReset("hide");
 
   // set department name
-  $("#department").val(localStorage.getItem("DEPARTMENTNAME"));
+  $("#department").val(sessionStorage.getItem("DEPARTMENTNAME"));
   $("#requested_by").val(
-    localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")
+    "Mike Jackson"
   );
 
   // ADD EDIT
@@ -98,7 +98,7 @@ $(function () {
           ".product_quantity_of_manual_item"
         );
 
-        formData["department_id"] = localStorage.getItem("DEPARTMENTID");
+        formData["department_id"] = sessionStorage.getItem("DEPARTMENTID");
         formData["date_requested"] = Date.now();
         formData["purpose"] = $("#purpose").val();
         formData["message"] = $("#message").val();
@@ -136,7 +136,7 @@ $(function () {
               cache: false,
               headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+                Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
               },
               success: function (data) {
                 if (data) {
@@ -371,7 +371,7 @@ productTable = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -482,7 +482,7 @@ addProduct = () => {
       dataType: "json",
       headers: {
         Accept: "application/json",
-        Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+        Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       },
       success: function (responseData) {
         if (responseData) {
@@ -716,7 +716,7 @@ loadTable = () => {
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -728,7 +728,7 @@ loadTable = () => {
       url:
         apiURL +
         "purchase-requisition/datatable/drafts/" +
-        localStorage.getItem("DEPARTMENTID"),
+        sessionStorage.getItem("DEPARTMENTID"),
       dataSrc: "",
     },
     aLengthMenu: [5, 10, 20, 30, 50, 100],
@@ -751,7 +751,9 @@ loadTable = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          return "name"
+
         }
       },
       {
@@ -842,7 +844,9 @@ editData = (id, type) => {
         $("#generated_pr").html(
           formatPurchaseRequestNo(data["purchase_requisition_number"])
         );
-        $("#requested_by").val(data.u_created_by.employees["first_name"]);
+        // $("#requested_by").val(data.u_created_by.employees["first_name"]);
+        $("#requested_by").val("employee name");
+
         $("#purpose").val(data["purpose"]);
         $("#message").summernote("code", data["message"]);
         $("#estimated_total").val(data["estimated_amount"]);

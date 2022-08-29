@@ -14,14 +14,19 @@ def get( db : Session):
 
 # create
 def create(request: Category, db : Session):
-    category = models.Category(
+
+    try:
+        category = models.Category(
         category_name=request.category_name,
         description=request.description,
         )
-    db.add(category)
-    db.commit()
-    db.refresh(category)
-    return category
+        db.add(category)
+        db.commit()
+        db.refresh(category)
+        return {'message': 'category created successfully.'}
+    except Exception as e:
+        print(e)
+  
 
 
 

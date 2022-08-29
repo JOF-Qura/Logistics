@@ -508,16 +508,16 @@
 
   
   <script>
-    if(localStorage.getItem("EMPLOYEETYPE") != "Procurement Officer"){
+    if(sessionStorage.getItem("EMPLOYEETYPE") != "Procurement Officer"){
       window.location.replace(baseURL+"login");
  
 }
 
 const loadNotif = () => {
   $.ajax({
-    url: apiURL + "notification/procurement/procurement_officer/"+localStorage.getItem("DEPARTMENTID"),
+    url: apiURL + "notification/procurement/procurement_officer/"+sessionStorage.getItem("DEPARTMENTID"),
     type: "GET",
-    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
     success: (data) => {
       
       $("#notif_body").empty();
@@ -574,7 +574,7 @@ $(document).ready(function() {
   
 $('#notif_dropdown').click(function(){
   $.ajax({
-    url: apiURL + "notification/procurement/procurement_officer/"+localStorage.getItem("DEPARTMENTID"),
+    url: apiURL + "notification/procurement/procurement_officer/"+sessionStorage.getItem("DEPARTMENTID"),
     type: "PUT",
     contentType: "application/json",
     dataType: "json",
@@ -584,7 +584,7 @@ $('#notif_dropdown').click(function(){
     data: JSON.stringify({
       status: "read"
     }),
-    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
     success: (data) => {
       // console.log("success")
       loadNotif()

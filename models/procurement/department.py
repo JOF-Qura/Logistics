@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -11,7 +11,7 @@ import uuid
 class DepartmentProcurement(Base):
     __tablename__ = "department_procurement"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     department_name = Column(String(255), nullable=False)
     department_head = Column(String(255), nullable=False)
     contact_no = Column(String(255), nullable=False)

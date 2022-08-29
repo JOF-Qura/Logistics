@@ -203,11 +203,11 @@ def get_po_total(db : Session):
     # return "{:.2f}".format(round(purchase_order))
     try:
         round(purchase_order)
+        return round(purchase_order)
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'No purchase order found')
 
 
-    return round(purchase_order)
 
 
 

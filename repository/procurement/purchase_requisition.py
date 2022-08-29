@@ -48,58 +48,60 @@ def random_integer( db : Session):
 
 
 # create purchase requisition
-def create(request: PurchaseRequisition, db : Session, current_user):#
+def create(request: PurchaseRequisition, db : Session):#
+    # try:
+    #     if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
+    #         filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == request.department_id)).scalar() < request.estimated_amount:
+    #             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You have not enough budget for this request")
+    # except:
+    #     raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="You have not enough budget for this request")
+
     try:
-        if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
-            filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == request.department_id)).scalar() < request.estimated_amount:
-                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You have not enough budget for this request")
-    except:
-        raise HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE, detail="You have not enough budget for this request")
-
-    new_pr = models.PurchaseRequisition(
-        purpose=request.purpose,
-        message=request.message,
-        estimated_amount=request.estimated_amount,
-        purchase_requisition_number = random_integer(db),
-        status=request.status,
-        # created_at=request.created_at,
-        department_id=request.department_id,
-        created_by = current_user
-        )
-    db.add(new_pr)
-    db.commit()
-    for i in range(len(request.pr_detail)):
-        new_pr_detail = models.PurchaseRequisitionDetail(
-            quantity=request.pr_detail[i].quantity,
-            product_id=request.pr_detail[i].product_id,
-            new_category=request.pr_detail[i].new_category,
-            new_product_name=request.pr_detail[i].new_product_name,
-            estimated_price=request.pr_detail[i].estimated_price,
-            description=request.pr_detail[i].description,
-            purchase_requisition_id=new_pr.id,
-            # created_by = current_user
-                )
-        db.add(new_pr_detail)
+        new_pr = models.PurchaseRequisition(
+            purpose=request.purpose,
+            message=request.message,
+            estimated_amount=request.estimated_amount,
+            purchase_requisition_number = random_integer(db),
+            status=request.status,
+            # created_at=request.created_at,
+            department_id=request.department_id,
+            )
+        db.add(new_pr)
         db.commit()
+        for i in range(len(request.pr_detail)):
+            new_pr_detail = models.PurchaseRequisitionDetail(
+                quantity=request.pr_detail[i].quantity,
+                product_id=request.pr_detail[i].product_id,
+                new_category=request.pr_detail[i].new_category,
+                new_product_name=request.pr_detail[i].new_product_name,
+                estimated_price=request.pr_detail[i].estimated_price,
+                description=request.pr_detail[i].description,
+                purchase_requisition_id=new_pr.id,
+                # created_by = current_user
+                    )
+            db.add(new_pr_detail)
+            db.commit()
 
-    results = {new_pr,new_pr_detail}  
-    db.refresh(new_pr)
-    db.refresh(new_pr_detail)
+        results = {new_pr,new_pr_detail}  
+        db.refresh(new_pr)
+        db.refresh(new_pr_detail)
 
-    #create notification 
-    new_notif = models.Notification(
-    notif_to="procurement_manager",
-    title="Purchase Requisition",
-    department_id=request.department_id,
-    description ="New Purchase Request",
-    status="unread",
+        #create notification 
+        new_notif = models.Notification(
+        notif_to="procurement_manager",
+        title="Purchase Requisition",
+        department_id=request.department_id,
+        description ="New Purchase Request",
+        status="unread",
 
-        )
-    db.add(new_notif)
-    db.commit()
-    db.refresh(new_notif)
+            )
+        db.add(new_notif)
+        db.commit()
+        db.refresh(new_notif)
 
-    return results
+        return results
+    except Exception as e:
+        print(e)
 
 # delete purchase requisition
 def delete(id,db : Session):
@@ -113,55 +115,56 @@ def delete(id,db : Session):
     return "Deleted Successsfully"
 
 # update purchase requisition
-def update(id, request: PurchaseRequisition, db : Session, current_user):
-    if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
-        filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == request.department_id)).scalar() < request.estimated_amount:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You have not enough budget for this request")
-    purchase_request = db.query(models.PurchaseRequisition).filter(models.PurchaseRequisition.id == id)
-    purchase_request_all = db.query(models.PurchaseRequisitionDetail).filter(models.PurchaseRequisitionDetail.purchase_requisition_id == id).all()
-    item_arr = []
-    for x in range(len(purchase_request_all)):
-        item_arr.append(purchase_request_all[x].product_id)
+def update(id, request: PurchaseRequisition, db : Session):
+    # if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
+    #     filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == request.department_id)).scalar() < request.estimated_amount:
+    #         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You have not enough budget for this request")
+    try:
+        purchase_request = db.query(models.PurchaseRequisition).filter(models.PurchaseRequisition.id == id)
+        purchase_request_all = db.query(models.PurchaseRequisitionDetail).filter(models.PurchaseRequisitionDetail.purchase_requisition_id == id).all()
+        item_arr = []
+        for x in range(len(purchase_request_all)):
+            item_arr.append(purchase_request_all[x].product_id)
 
-    print(item_arr)
-    if not purchase_request.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-        detail=f'Purchase Request with the {id} is not found')
-    purchase_request.update(
-       {
-        'purpose' : request.purpose,
-        'message' : request.message,
-        'estimated_amount':request.estimated_amount,
+        print(item_arr)
+        if not purchase_request.first():
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+            detail=f'Purchase Request with the {id} is not found')
+        purchase_request.update(
+        {
+            'purpose' : request.purpose,
+            'message' : request.message,
+            'estimated_amount':request.estimated_amount,
 
-        'department_id':request.department_id,
-        'updated_by': current_user,
-        'status' : request.status,
-        # 'created_at' : request.created_at,
-       }
-    )
-    
-    # add if there are new purchase request items on update
-    for y in range(len(request.pr_detail)):
-        if(request.pr_detail[y].product_id not in item_arr or request.pr_detail[y].product_id == None ):
-            # print(request.pr_detail[y].product_id)
-            # print(request.pr_detail[y].new_product_name)
-            new_pr_detail = models.PurchaseRequisitionDetail(
-                quantity=request.pr_detail[y].quantity,
-                product_id=request.pr_detail[y].product_id,
-                new_category=request.pr_detail[y].new_category,
-                new_product_name=request.pr_detail[y].new_product_name,
-                estimated_price=request.pr_detail[y].estimated_price,
-                description=request.pr_detail[y].description,
-                purchase_requisition_id=id,
-                    )
-            db.add(new_pr_detail)
-            db.commit()
-            db.refresh(new_pr_detail)
-        else:
-            print("false")
-            # pass
+            'status' : request.status,
+            # 'created_at' : request.created_at,
+        }
+        )
+        
+        # add if there are new purchase request items on update
+        for y in range(len(request.pr_detail)):
+            if(request.pr_detail[y].product_id not in item_arr or request.pr_detail[y].product_id == None ):
+                # print(request.pr_detail[y].product_id)
+                # print(request.pr_detail[y].new_product_name)
+                new_pr_detail = models.PurchaseRequisitionDetail(
+                    quantity=request.pr_detail[y].quantity,
+                    product_id=request.pr_detail[y].product_id,
+                    new_category=request.pr_detail[y].new_category,
+                    new_product_name=request.pr_detail[y].new_product_name,
+                    estimated_price=request.pr_detail[y].estimated_price,
+                    description=request.pr_detail[y].description,
+                    purchase_requisition_id=id,
+                        )
+                db.add(new_pr_detail)
+                db.commit()
+                db.refresh(new_pr_detail)
+            else:
+                print("false")
+                # pass
 
-    return request
+        return request
+    except Exception as e:
+        print(e)
 
 
 # delete purchase requistion detail
@@ -192,17 +195,17 @@ def update_status(id, request: PurchaseRequisitionStatus, db : Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         detail=f'Purchase Request with the {id} is not found')
 
-    if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
-        filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == purchase_request.first().department_id)).scalar() < purchase_request.first().estimated_amount:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Budget is not enough for this request")
+    # if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
+    #     filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == purchase_request.first().department_id)).scalar() < purchase_request.first().estimated_amount:
+    #         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Budget is not enough for this request")
 
-    if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
-        filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == purchase_request.first().department_id)).scalar() < request.given_budget:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="This Department have not enough budget for this request")
+    # if db.query(models.BudgetPlan.given_budget - models.BudgetPlan.total_spent).\
+    #     filter(and_(models.BudgetPlan.year == todays_date.year,models.BudgetPlan.department_id == purchase_request.first().department_id)).scalar() < request.given_budget:
+    #         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="This Department have not enough budget for this request")
 
-    if request.status == "Approved":
-        if purchase_request.first().estimated_amount > request.given_budget:
-                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Given Budget is not enough")
+    # if request.status == "Approved":
+    #     if purchase_request.first().estimated_amount > request.given_budget:
+    #             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Given Budget is not enough")
 
     purchase_request.update(
        {

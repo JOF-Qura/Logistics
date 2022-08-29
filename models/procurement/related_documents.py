@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.functions import func
 from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
@@ -9,7 +9,7 @@ import uuid
 class RelatedDocuments(Base):
     __tablename__ = "related_documents"
 
-    id = Column(CHAR(36), primary_key=True, default=uuid.uuid4)
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
     attachment = Column(String(255), nullable=False)
     request_quotation_id = Column(CHAR(36), ForeignKey("request_quotation.id"), nullable=True)
     # terms_of_reference_id = Column(CHAR(36), ForeignKey("terms_of_reference.id"), nullable=True)
