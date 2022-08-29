@@ -26,6 +26,6 @@ class ShowUtilities(BaseModel):
     due_date:date
     notes:str
     status:str
-    vendor:vendor.ShowVendor
+    vendor_procurement:vendor.ShowVendor
     class Config():
         orm_mode = True

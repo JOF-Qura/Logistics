@@ -32,27 +32,30 @@ def get( db : Session):
 
 # create
 def create(utility_type:str,utility_amount:float,due_date:date,vendor_id:str,notes:str,attachment:UploadFile,db : Session):
-    new_utility = models.Utilities(
-        utility_type=utility_type,
-        attachment=attachment.filename,
-        utility_amount =utility_amount,
-        due_date =due_date,
-        notes =notes,
-        vendor_id =vendor_id,
-
-
-
-
-        )
-    db.add(new_utility)
-    db.commit()
-    db.refresh(new_utility)
     
-    with open(f"{dirname}/media/utilities/"+attachment.filename, "wb+") as image:
-        # shutil.copyfileobj(file.file, image)
-        image.write(attachment.file.read())
-    return new_utility
+    try:
+        new_utility = models.Utilities(
+            utility_type=utility_type,
+            attachment=attachment.filename,
+            utility_amount =utility_amount,
+            due_date =due_date,
+            notes =notes,
+            vendor_id =vendor_id,
 
+
+
+
+            )
+        db.add(new_utility)
+        db.commit()
+        db.refresh(new_utility)
+        
+        with open(f"{dirname}/media/utilities/"+attachment.filename, "wb+") as image:
+            # shutil.copyfileobj(file.file, image)
+            image.write(attachment.file.read())
+        return new_utility
+    except Exception as e:
+        print(e)
 
 # delete
 def delete(id,db : Session):

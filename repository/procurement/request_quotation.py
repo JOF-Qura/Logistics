@@ -31,7 +31,7 @@ def random_integer( db : Session):
 
 
 # create request for quotation
-def create_rfq( request: RequestQuotation, db : Session,current_user ):#
+def create_rfq( request: RequestQuotation, db : Session ):#
  
     new_rq = models.RequestQuotation(
         # vendor_id=request.vendor_id,
@@ -40,7 +40,6 @@ def create_rfq( request: RequestQuotation, db : Session,current_user ):#
         prepared_by = request.prepared_by,
         quotation_code = request.quotation_code,
         due_date = request.due_date,
-        created_by = current_user,
         request_quotation_number = random_integer(db),
         rfq_type = request.rfq_type,
         purchase_requisition_id=request.purchase_requisition_id,
@@ -76,9 +75,11 @@ def get_filtered_rfq_reports(start_date,end_date, rfq_status, db : Session):
 
 # get all request for quotation that equal to rfq_type
 def get(rfq_type, db : Session ):
-    request_quotation = db.query(models.RequestQuotation).filter(models.RequestQuotation.rfq_type == rfq_type).all()
-    return request_quotation
-
+    try:
+        request_quotation = db.query(models.RequestQuotation).filter(models.RequestQuotation.rfq_type == rfq_type).all()
+        return request_quotation
+    except Exception as e:
+        print(e)
 
 
 
@@ -145,11 +146,12 @@ def get_one_vendor_rfq(vendor_id,id, db : Session):
 
 
 # update status of request for quotation
-def update_status(id, request:RequestQuotationStatus, db : Session,current_user ):
+def update_status(id, request:RequestQuotationStatus, db : Session ):
     request_quotation = db.query(models.RequestQuotation).filter(models.RequestQuotation.id == id)
     if not request_quotation:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         detail=f'Request Quotation with the {id} is not found')
+   
     request_quotation.update (
        {
         'status' : request.status,

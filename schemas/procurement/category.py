@@ -18,7 +18,7 @@ class ShowCategory(BaseModel):
     category_name: str
     description: str
     status:str
-    vendor: Optional[List[vendor.ShowVendor]]
+    vendor_procurement: Optional[List[vendor.ShowVendor]]
     class Config():
         orm_mode = True
 

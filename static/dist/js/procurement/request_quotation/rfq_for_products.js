@@ -355,9 +355,12 @@ $("#purchase_requisition_id").on("change", function () {
         );
         $("#status").html(data["status"]);
         $("#department").html(
-          data.u_created_by.employees.department["department_name"]
+          // data.u_created_by.employees.department["department_name"]
+          "dept name"
         );
-        $("#requested_by").html(data.u_created_by.employees["first_name"]);
+        // $("#requested_by").html(data.u_created_by.employees["first_name"]);
+        $("#requested_by").html("requestor name");
+
         $("#purpose").html(data["purpose"]);
         $("#budget").val(data["given_budget"]);
 
@@ -478,18 +481,18 @@ loadTableCategory = () => {
             '<div class="card-body">' +
             '<div class="container">' +
             '<div class="row">';
-          if (dataOptions.vendor != "") {
-            for (let k = 0; k < dataOptions.vendor.length; k++) {
+          if (dataOptions.vendor_procurement != "") {
+            for (let k = 0; k < dataOptions.vendor_procurement.length; k++) {
               vendor_list +=
                 '<div class="col-md-2">' +
                 '<input type="checkbox" style="max-width: 25px; max-height: 25px;" id="' +
-                dataOptions.vendor[k].vendor_name.replace(/\s/g, '') +
+                dataOptions.vendor_procurement[k].vendor_name.replace(/\s/g, '') +
                 '" class="form-control vendors" value = "' +
-                dataOptions.vendor[k].id +
+                dataOptions.vendor_procurement[k].id +
                 '"></div>' +
                 '<div class="col-md-10">' +
                 "<h6>" +
-                dataOptions.vendor[k].vendor_name +
+                dataOptions.vendor_procurement[k].vendor_name +
                 "</h6>" +
                 "</div>";
             }
@@ -603,9 +606,10 @@ loadTable = () => {
         width: "10%",
         render: function (aData, type, row) {
           return (
-            aData.u_created_by.employees.first_name +
-            " " +
-            aData.u_created_by.employees.last_name
+            // aData.u_created_by.employees.first_name +
+            // " " +
+            // aData.u_created_by.employees.last_name
+            "name"
           );
         },
       },
@@ -729,7 +733,7 @@ editData = (id, type) => {
         let vendor_involved = "";
         for (let i in data.request_quotation_vendor) {
           // console.log(data.request_quotation_vendor[i])
-          vendor_involved += '<li class="list-group-item">'+data.request_quotation_vendor[i].vendor.vendor_name+'<br>'+
+          vendor_involved += '<li class="list-group-item">'+data.request_quotation_vendor[i].vendor_procurement.vendor_name+'<br>'+
           '<strong >Status: </strong>'+data.request_quotation_vendor[i].rfq_status+'<br></li>'
           
           // $("#" + (data.request_quotation_vendor[i].vendor.vendor_name).replace(/\s/g, '')).trigger(
@@ -743,14 +747,14 @@ editData = (id, type) => {
         // formDataRFQ["vendor_id"] = "";
         // $("#status").val();
         $("#purchase_requisition_id")
-          .val(data.purchase_requisition["id"])
+          .val(data.purchase_requisition_id)
           .trigger("change");
         $("#request_quotation_id").val(data["id"]);
         $("#message").val(data["message"]);
         $("#due_date").val(data["due_date"]);
         $("#quotation_code").val(data["quotation_code"]);
         $("#prepared_by").val(data["prepared_by"]);
-        $("#budget").val(data.purchase_requisition["given_budget"]);
+        // $("#budget").val(data.purchase_requisition["given_budget"]);
         // $("#background").val(data.terms_of_reference["background"]);
         // $("#objectives").val(data.terms_of_reference["objective"]);
         // $("#scope_of_services").val(
@@ -1007,7 +1011,8 @@ formReset = (action = "hide") => {
 
     // show
     $("#prepared_by").val(
-      localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")
+      // localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")
+      "name"
     );
     $("#div_form").show();
     $("#rfq_tor").html("Request For Quotation");

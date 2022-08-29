@@ -447,16 +447,16 @@ loadTableCategory = () => {
             '<div class="card-body">' +
             '<div class="container">' +
             '<div class="row">';
-          if (dataOptions.vendor != "") {
-            for (let k = 0; k < dataOptions.vendor.length; k++) {
+          if (dataOptions.vendor_procurement != "") {
+            for (let k = 0; k < dataOptions.vendor_procurement.length; k++) {
               vendor_list +=
                 '<div class="col-md-2">' +
                 '<input type="checkbox" style="max-width: 25px; max-height: 25px;" class="form-control vendors" value = "' +
-                dataOptions.vendor[k].id +
+                dataOptions.vendor_procurement[k].id +
                 '"></div>' +
                 '<div class="col-md-10">' +
                 "<h6>" +
-                dataOptions.vendor[k].vendor_name +
+                dataOptions.vendor_procurement[k].vendor_name +
                 "</h6>" +
                 "</div>";
             }
@@ -686,8 +686,8 @@ editData = (id, type) => {
           '<li>' + '<a href="#modal-file" data-toggle="modal" onClick="return showFileModal(this,1,\'' + data.related_documents[i].attachment + '\')" data-id="'+data.related_documents[i].attachment+'" class="btn-link text-dark"><i class="far fa-fw fa-file-word"></i> '+data.related_documents[i].attachment+'</a>' 
           + '</li></div>'
         }
-console.log(data.project_request["id"])
-        $('#project_request_id').val(data.project_request["id"]).trigger("change")
+console.log(project_request_id)
+        $('#project_request_id').val(project_request_id).trigger("change")
         
         $("#related_files_body").append(related_files_body)
         // formDataRFQ["vendor_id"] = "";
@@ -697,7 +697,9 @@ console.log(data.project_request["id"])
         $("#message").val(data["message"]);
         $("#due_date").val(data["due_date"]);
  
-        $("#prepared_by").val(data["prepared_by"]);
+        // $("#prepared_by").val(data["prepared_by"]);
+        $("#prepared_by").val("prepared by");
+
         $("#background_div").append(data["background"]);
 
         $("#deliverables_div").append(data["tor_deliverables"]);
@@ -932,7 +934,8 @@ formReset = (action = "hide") => {
 
     // show
     $("#prepared_by").val(
-      localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")
+      // localStorage.getItem("FIRSTNAME") + " " + localStorage.getItem("LASTNAME")
+      "Prepared by"
     );
     $("#div_form").show();
     // $("#rfq_tor").html("Request For Quotation");
