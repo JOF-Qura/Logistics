@@ -26,7 +26,7 @@ class UpdateHospitalDepartment(BaseModel):
     contact_no: Optional[str]
 
 class ShowDepartment(DepartmentBase):
-    id: str
+    department_id: str
     # manager: Optional[employeeSchema.ShowEmployee]
     class Config():
         orm_mode = True
