@@ -19,6 +19,7 @@ async def datatable(request: Request, db: Session = Depends(get_db)):
         def perform_search(queryset, user_input):
             return queryset.filter(
                 or_(
+                    Department.department_id.like('%' + user_input + '%'),
                     Department.department_name.like('%' + user_input + '%'),
                     Department.department_location.like('%' + user_input + '%'),
                     Department.department_description.like('%' + user_input + '%'),
@@ -28,6 +29,7 @@ async def datatable(request: Request, db: Session = Depends(get_db)):
             )
 
         table = DataTable(dict(request.query_params), Department, db.query(Department), [
+            'department_id',
             'department_name',
             'department_location',
             'department_description',

@@ -9,8 +9,8 @@
             <div class="row mb-2">
                 <!-- Title -->
                 <div class="col-sm-6">
-                    <h1>Hospital Departments</h1>
-                    <p class="text-muted">Create Hospital Department Here</p>
+                    <h1>Departments</h1>
+                    <p class="text-muted">Create Department Here</p>
                 </div>
 
                 <!-- Breadcrumb -->
@@ -19,8 +19,8 @@
                         <li class="breadcrumb-item " id ="dashboard_nav"><a href="/warehousing/admin/dashboard">Home </a></li>
                         <li>&nbsp; / &nbsp;</li>
                         <script>if(window.location.pathname == '/warehousing/admin/dashboard/'){document.getElementById("dashboard_nav").classList.add('active')}</script>
-                        <li class="breadcrumb-item" id ="hospital_departments_nav">Hospital Departments</li>
-                        <script>if(window.location.pathname == '/warehousing/admin/hospital_departments/'){document.getElementById("hospital_departments_nav").classList.add('active')}</script>
+                        <li class="breadcrumb-item" id ="departments_nav">Departments</li>
+                        <script>if(window.location.pathname == '/warehousing/admin/departments/'){document.getElementById("departments_nav").classList.add('active')}</script>
                     </ol>
                 </div> -->
                 <!-- / breadcrumb -->
@@ -28,7 +28,7 @@
             <div class="row">     
                 <!-- Button -->
                 <!-- <div class="col-sm-6">
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#adding_modal">Add New Hospital Department</a>
+                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#adding_modal">Add New Department</a>
                 </div> -->
                 <!-- / Button -->
             </div>
@@ -65,11 +65,11 @@
                         <div class="card-header">
                             <div class="row"> 
                                 <div class="col-md-6">
-                                    <h3 class="card-title">Hospital Departments</h3>
+                                    <h3 class="card-title">Departments</h3>
                                 </div>
                                 <!-- Button -->
                                 <div class="col-md-6">
-                                    <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#adding_modal">Add New Hospital Department <i class="fas fa-plus"></i></button>
+                                    <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#adding_modal">Add New Department <i class="fas fa-plus"></i></button>
                                     <!-- <input type="submit" value="Create new Project" class="btn btn-success float-right"> -->
                                 </div>
                                 <!-- / Button -->
@@ -83,8 +83,10 @@
                                 <thead>
                                     <tr>
                                         <th>Department Name</th>
-                                        <th>Hospital Manager ID</th>
+                                        <th>Department Head</th>
                                         <th>Description</th>
+                                        <th>Location</th>
+                                        <th>Contact No.</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -103,14 +105,14 @@
     </section>
     <!-- /.content -->
 
-    <!-- Adding Hospital Department Modal -->
+    <!-- Adding Department Modal -->
     <div class="modal fade" id="adding_modal">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
                         <i class= "fas fa-file-alt"></i>
-                        Hospital Department Form</h4>
+                        Department Form</h4>
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="fas fa-times"></i></span>
                     </button>
@@ -123,29 +125,45 @@
                                 <input type="hidden" name="uuid" id="uuid" value="" />
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="hospital_manager_id" id="hospital_manager_idLabel">Hospital Department Manager</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="hospital_manager_id" name="hospital_manager_id">
-                                        </select>
+                                        <label for="department_head" id="department_headLabel">Department Manager</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="department_head" placeholder="Department Head" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="hospital_department_name" id="hospital_department_nameLabel">Hospital Department Name</label> <span class="required-field"> </span>
-                                        <input type="input" class="form-control" id="hospital_department_name" placeholder="Hospital Department Name" required>
+                                        <label for="department_name" id="department_nameLabel">Department Name</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="department_name" placeholder="Department Name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="hospital_department_description" id="hospital_department_descriptionLabel">Description </label> <span class="required-field"> </span>
-                                        <input type="input" class="form-control" id="hospital_department_description" placeholder="Enter Description Description" required>
+                                        <label for="department_description" id="department_descriptionLabel">Description </label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="department_description" placeholder="Enter Description Description" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="department_location" id="department_locationLabel">Location </label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="department_location" placeholder="Enter Departmetn Location" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="department_contact_no" id="department_contact_noLabel">Contact No. </label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="department_contact_no" placeholder="Enter Department Contact No." required>
                                     </div>
                                 </div>
                             </div>
                             
+
                             <!-- BUTTONS -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -158,16 +176,16 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </div>
-    <!-- END Adding Hospital Department Modal -->
+    <!-- END Adding Department Modal -->
 
-    <!-- Editing Hospital Department Modal -->
+    <!-- Editing Department Modal -->
     <div class="modal fade" id="editing_modal">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">
                         <i class= "fas fa-file-alt"></i>
-                        Edit Hospital Department</h4>
+                        Edit Department</h4>
                     <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><i class="fas fa-times"></i></span>
                     </button>
@@ -180,28 +198,44 @@
                                 <input type="hidden" name="e_uuid" id="e_uuid" value="" />
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="e_hospital_manager_id" id="e_hospital_manager_idLabel">Hospital Department Manager</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="e_hospital_manager_id" name="e_hospital_manager_id">
-                                        </select>
+                                        <label for="e_department_head" id="e_department_headLabel">Department Manager</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_department_head" placeholder="Department Head" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="e_hospital_department_name" id="e_hospital_department_nameLabel">Hospital Department Name</label> <span class="required-field"> </span>
-                                        <input type="input" class="form-control" id="e_hospital_department_name" placeholder="Hospital Department Name" required>
+                                        <label for="e_department_name" id="e_department_nameLabel">Department Name</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_department_name" placeholder="Department Name" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="e_hospital_department_description" id="e_hospital_department_descriptionLabel">Description </label> <span class="required-field"> </span>
-                                        <input type="input" class="form-control" id="e_hospital_department_description" placeholder="Enter Description Description" required>
+                                        <label for="e_department_description" id="e_department_descriptionLabel">Description </label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_department_description" placeholder="Enter Description Description" required>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_department_location" id="e_department_locationLabel">Location </label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_department_location" placeholder="Enter Location" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_department_contact_no" id="e_department_contact_noLabel">Contact No. </label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_department_contact_no" placeholder="Enter Contact No." required>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             
                             <!-- BUTTONS -->
                             <div class="modal-footer">
@@ -215,7 +249,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     </div>
-    <!-- END Editing Hospital Department Modal -->
+    <!-- END Editing Department Modal -->
 
     <!-- Delete Modal -->
     <div class="modal fade" id="delete_modal">
