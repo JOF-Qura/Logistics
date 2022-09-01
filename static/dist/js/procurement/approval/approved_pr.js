@@ -45,7 +45,8 @@ loadTableApproved = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return aData.u_created_by.employees.first_name+" "+aData.u_created_by.employees.last_name;
+          // return aData.u_created_by.employees.first_name+" "+aData.u_created_by.employees.last_name;
+          return "name"
         
         }
       },
@@ -143,8 +144,12 @@ dataInfo = (id, type) => {
           formatPurchaseRequestNo(data["purchase_requisition_number"])
         );
         $("#status").html(data["status"]);
-        $("#department").html(data.u_created_by.employees.department["department_name"]);
-        $("#requested_by").html(data.u_created_by.employees["first_name"]);
+        // $("#department").html(data.u_created_by.employees.department["department_name"]);
+        $("#department").html("dept name");
+
+        // $("#requested_by").html(data.u_created_by.employees["first_name"]);
+        $("#requested_by").html("requestor name");
+
         $("#purpose").html(data["purpose"]);
         $("#date_requested").html(
           moment(data["created_at"]).format("MMMM D, YYYY")

@@ -152,9 +152,13 @@ from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
 from models.procurement.utilities import Utilities
 from models.procurement.rfq_vendor import RequestQuotationVendor
 from models.procurement.replacement_request import ReplacementRequest
-from models.procurement.project_request import ProjectRequest
+from models.procurement.project_request import ProjectRequestProcurement
+from models.procurement.return_details import ReturnDetailProcurement
+from models.procurement.returns import ReturnProcurement
 
-# from models.procurement.terms_of_reference import TermsOfReference
+
+
+from models.procurement.terms_of_reference import TermsOfReferenceProcurement
 
 
 # importing all project management models
@@ -201,11 +205,11 @@ from routes.procurement import (purchase_order_invoice
 ,purchase_order,purchase_requisition,purchase_requisition_detail,request_quotation,vendor, vendor_bidding_item, notif
 ,vendor_log_time,vendor_audit_trail,related_documents, utility,rfq_vendor
 ,payment_method,payment_terms
-# , terms_of_reference
-# ,project_request
+, terms_of_reference
+,project_request
 # ,employee,employee_type
 # , department
-# ,returns,return_details
+,returns,return_details
 # , user, login, user_type
 )
 
@@ -309,6 +313,10 @@ app.include_router(utility.router)
 app.include_router(rfq_vendor.router)
 app.include_router(payment_terms.router)
 app.include_router(payment_method.router)
+app.include_router(project_request.router)
+app.include_router(terms_of_reference.router)
+app.include_router(returns.router)
+app.include_router(return_details.router)
 
 app.include_router(replacement_request.router)
 

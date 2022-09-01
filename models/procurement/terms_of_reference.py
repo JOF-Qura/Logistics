@@ -5,8 +5,8 @@ from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,C
 from database import Base
 import uuid
 
-class TermsOfReference(Base):
-    __tablename__ = "terms_of_reference"
+class TermsOfReferenceProcurement(Base):
+    __tablename__ = "terms_of_reference_procurement"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     tor_number =Column(Integer, nullable=True, unique=True)
@@ -26,22 +26,22 @@ class TermsOfReference(Base):
     approver_name = Column(String(255), nullable=True)
     approval_date = Column(DATE, nullable=True)
     reject_reason = Column(String(255), nullable=True)
-    project_request_id = Column(CHAR(36), ForeignKey("project_request.id"), nullable=True)
-    vendor_id = Column(CHAR(36), ForeignKey("vendor.id"), nullable=True)
-    created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
-    updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True) 
+    project_request_id = Column(CHAR(36), ForeignKey("project_request_procurement.id"), nullable=True)
+    vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
+    # created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
+    # updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True) 
     created_at = Column(DATETIME, default=func.current_timestamp())
     updated_at = Column(DATETIME,
                     default=func.current_timestamp(),
                     onupdate=func.current_timestamp())
 
     #  relation with project request
-    # project_request = relationship("ProjectRequest", back_populates="terms_of_reference")
+    project_request_procurement = relationship("ProjectRequestProcurement", back_populates="terms_of_reference_procurement")
 
     # relation with related documents
     # related_documents = relationship("RelatedDocuments", back_populates="terms_of_reference")
 
     # relation with vendor
-    vendor_procurement = relationship("VendorProcurement", back_populates="terms_of_reference")
+    vendor_procurement = relationship("VendorProcurement", back_populates="terms_of_reference_procurement")
 
 

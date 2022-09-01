@@ -5,8 +5,8 @@ from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,C
 from database import Base
 import uuid
 
-class ProjectRequest(Base):
-    __tablename__ = "project_request"
+class ProjectRequestProcurement(Base):
+    __tablename__ = "project_request_procurement"
 
     id = Column(String(36), primary_key=True, default=text('UUID()'))
     name = Column(String(255), nullable=False)
@@ -32,7 +32,7 @@ class ProjectRequest(Base):
 
 
     # relation with terms of reference
-    # terms_of_reference = relationship("TermsOfReference", back_populates="project_request")
+    terms_of_reference_procurement = relationship("TermsOfReferenceProcurement", back_populates="project_request_procurement")
 
 
 

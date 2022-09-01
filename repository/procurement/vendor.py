@@ -91,14 +91,14 @@ def create( vendor_name:str, vendor_website:str, region:str,
         print(e)
 
 # blacklist vendor
-def blacklist(request: BlacklistVendor,db : Session,current_user ):
+def blacklist(request: BlacklistVendor,db : Session ):
     # vendor.delete(synchronize_session=False)
     blacklist_vendor = models.VendorBlacklist(
         vendor_name=request.vendor_name,
         email=request.vendor_email,
         remarks=request.remarks,
         vendor_id=request.vendor_id,
-        created_by =current_user
+        # created_by =current_user
         )
     db.add(blacklist_vendor)
     db.commit()

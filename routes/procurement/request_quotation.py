@@ -61,10 +61,12 @@ def get_filtered_rfq_reports( start_date,end_date,rfq_status,db : Session = Depe
 
 
 # get all request for quotation that equal to rfq_type
-@router.get('/status/{rfq_type}', response_model=List[ShowRequestQuotation])
+@router.get('/status/{rfq_type}')
 def get(rfq_type, db : Session = Depends(get_db)):
-    return request_quotation.get(rfq_type,db)
-
+    try:
+        return request_quotation.get(rfq_type,db)
+    except Exception as e:
+        print(e)
 
 
 # delete request for quotation
@@ -86,7 +88,7 @@ def update_status(id, request: RequestQuotationStatus, db : Session = Depends(ge
 
 
 # get one request for quotation
-@router.get('/{id}', status_code=status.HTTP_200_OK, response_model=ShowRequestQuotation)#
+@router.get('/{id}', status_code=status.HTTP_200_OK)#
 def get_one(id, db : Session = Depends(get_db)):
     return request_quotation.get_one(id, db)
 

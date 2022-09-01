@@ -1,5 +1,4 @@
 from datetime import datetime
-from statistics import mode
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
 from models import procurement as models
@@ -18,12 +17,15 @@ def get_one(id,db : Session):
 
 # get all
 def get( db : Session):
-    replacement_request = db.query(models.ReplacementRequest).all()
-    return replacement_request
-
+    try:
+        replacement_request = db.query(models.ReplacementRequest).all()
+        return replacement_request
+    except Exception as e:
+        print(e)
+  
 def get_replacement_vendor( vendor_id,db : Session):
-    replacement_request = db.query(models.ReplacementRequest).filter(models.ReplacementRequest.return_id == models.Return.id).\
-    filter(models.Return.id == models.ReturnDetail.return_id).filter(models.ReturnDetail.purchase_order_detail_id == models.PurchaseOrderDetail.id).\
+    replacement_request = db.query(models.ReplacementRequest).filter(models.ReplacementRequest.return_id == models.ReturnProcurement.id).\
+    filter(models.ReturnProcurement.id == models.ReturnDetailProcurement.return_id).filter(models.ReturnDetailProcurement.purchase_order_detail_id == models.PurchaseOrderDetail.id).\
         filter(models.PurchaseOrderDetail.purchase_order_id == models.PurchaseOrder.id).\
            filter(models.PurchaseOrder.vendor_id == vendor_id).all()
     return replacement_request
@@ -58,7 +60,7 @@ def create(request: ReplacementRequest, db : Session):
     # db.commit()
     # db.refresh(new_notif)
     try:
-        returns = db.query(models.Return).filter(models.Return.id == request.return_id)
+        returns = db.query(models.ReturnProcurement).filter(models.ReturnProcurement.id == request.return_id)
         returns.update({'return_status': 'Requested to Vendor'})
     except Exception as e:
         print(e)

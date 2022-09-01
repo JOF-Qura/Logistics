@@ -9,8 +9,8 @@ from .vendor_proposal import VendorProposals
 from .vendor_bidding_items import VendorBiddingItems
 from .product import Product 
 from .department import DepartmentProcurement 
-# from .terms_of_reference import TermsOfReference
-from .project_request import ProjectRequest
+from .terms_of_reference import TermsOfReferenceProcurement
+from .project_request import ProjectRequestProcurement
 
 from .purchase_requisition_detail import PurchaseRequisitionDetail 
 from .vendor_audit_trail import VendorAuditTrail
@@ -26,4 +26,5 @@ from .purchase_order_invoice import PurchaseOrderInvoice
 from .utilities import Utilities
 from .rfq_vendor import RequestQuotationVendor
 from .replacement_request import ReplacementRequest
-# from .replacement_items import ReplacementItems
+from .return_details import ReturnDetailProcurement
+from .returns import ReturnProcurement

@@ -25,7 +25,7 @@ class PurchaseOrderDetail(Base):
     purchase_order = relationship("PurchaseOrder", back_populates="purchase_order_detail")
 
     # #relation with returns 
-    # return_details = relationship("ReturnDetail", back_populates="purchase_order_detail")
+    return_details_procurement = relationship("ReturnDetailProcurement", back_populates="purchase_order_detail")
 
 
     # # relation with user
