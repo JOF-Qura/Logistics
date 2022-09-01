@@ -8,7 +8,7 @@ from repository.procurement import vendor
 from database import get_db
 
 from schemas.procurement.vendor import Vendor,ShowVendor,BlacklistVendor,ShowBlacklistVendor, VendorStatus
-import aiohttp
+# import aiohttp
 #dotenv
 from dotenv import dotenv_values
 # Email credentials 

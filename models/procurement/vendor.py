@@ -46,7 +46,7 @@ class VendorProcurement(Base):
     
 
     # relation with terms of reference
-    # terms_of_reference = relationship("TermsOfReference", back_populates="vendor_procurement")
+    terms_of_reference = relationship("TermsOfReference", back_populates="vendor_procurement")
 
     # relation wtih utilities
     utilities = relationship("Utilities", back_populates="vendor_procurement")

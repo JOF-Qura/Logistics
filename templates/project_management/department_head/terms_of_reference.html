@@ -228,10 +228,10 @@
           data: "tor_number"
         },
         {
-          data: "tor_project.name"
+          data: "project_request.name"
         },
         {
-          data: "tor_vendor.vendor_name"
+          data: "vendor_procurement.vendor_name"
         },
         {
           data: "status",
@@ -291,7 +291,7 @@
         var tor = data;
 
         $('#view_title').html(tor.tor_number);
-        $('#view_project').html(tor.tor_project.name);
+        $('#view_project').html(tor.project_request.name);
         $('#view_background').html(tor.background);
         $('#view_objective').html(tor.objective);
         $('#view_scope_of_service').html(tor.scope_of_service);
@@ -303,12 +303,12 @@
         $('#view_tor_annex_deliverables').html(tor.tor_annex_deliverables);
         $('#view_tor_annex_terms_conditions').html(tor.tor_annex_terms_conditions);
         $('#view_prepared_by').html(tor.prepared_by);
-        $('#view_vendor_name').html(tor.tor_vendor.vendor_name);
-        $('#view_email').html(tor.tor_vendor.email);
-        $('#view_contact_no').html(tor.tor_vendor.contact_no);
-        $('#view_organization_type').html(tor.tor_vendor.organization_type);
-        $('#view_vendor_website').html(tor.tor_vendor.vendor_website);
-        $('#view_contact_person').html(tor.tor_vendor.contact_person);
+        $('#view_vendor_name').html(tor.vendor_procurement.vendor_name);
+        $('#view_email').html(tor.vendor_procurement.email);
+        $('#view_contact_no').html(tor.vendor_procurement.contact_no);
+        $('#view_organization_type').html(tor.vendor_procurement.organization_type);
+        $('#view_vendor_website').html(tor.vendor_procurement.vendor_website);
+        $('#view_contact_person').html(tor.vendor_procurement.contact_person);
       }
     })
   });

@@ -441,8 +441,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -546,8 +545,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -651,8 +649,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.first_name + " " + row.task_employee.last_name + " " + row.task_employee
-              .suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -754,7 +751,17 @@
           }
         },
         {
-          data: "priority"
+          data: null,
+          render: function (data, type, row) {
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return moment(row.deadline).format('MMMM D, YYYY') + '<br>' + '<small class="text-muted">' +
+              moment(row.deadline).fromNow() + '</small>';
+          }
         },
         {
           data: "status",
@@ -1098,7 +1105,7 @@
 
       success: function (data) {
         var task = data;
-        window.location.href = "http://127.0.0.1:8000/admin/task_details/" + task.id;
+        window.location.href = "http://127.0.0.1:8000/project_management/admin/task_details/" + task.id;
       }
     })
   });

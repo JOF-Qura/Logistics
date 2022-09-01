@@ -26,17 +26,17 @@ class TermsOfReference(Base):
     approver_name = Column(String(255), nullable=True)
     approval_date = Column(DATE, nullable=True)
     reject_reason = Column(String(255), nullable=True)
-    project_request_id = Column(CHAR(36), ForeignKey("project_request.id"), nullable=True)
-    vendor_id = Column(CHAR(36), ForeignKey("vendor.id"), nullable=True)
-    created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
-    updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True) 
+    project_request_id = Column(CHAR(36), ForeignKey("projects.id"), nullable=True)
+    vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
+    created_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
+    updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True) 
     created_at = Column(DATETIME, default=func.current_timestamp())
     updated_at = Column(DATETIME,
                     default=func.current_timestamp(),
                     onupdate=func.current_timestamp())
 
     #  relation with project request
-    # project_request = relationship("ProjectRequest", back_populates="terms_of_reference")
+    project_request = relationship("Project", back_populates="terms_of_reference")
 
     # relation with related documents
     # related_documents = relationship("RelatedDocuments", back_populates="terms_of_reference")
