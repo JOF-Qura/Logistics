@@ -300,8 +300,8 @@
                     {
                         data: null,
                         render: function (data, type, row, meta) {
-                            var manager = row.project_user.first_name + " " + row
-                                .project_user.last_name;
+                            var manager = row.project_user.employee_first_name + " " + row
+                                .project_user.employee_last_name;
                             return manager
                         }
                     },
@@ -440,9 +440,9 @@
                     {
                         data: null,
                         render: function (data, type, row, meta) {
-                            return row.activity_employee.first_name + " " + row
+                            return row.activity_employee.employee_first_name + " " + row
                                 .activity_employee
-                                .last_name + " " + row.activity_employee.suffix_name;
+                                .employee_last_name;
                         }
                     },
                     {

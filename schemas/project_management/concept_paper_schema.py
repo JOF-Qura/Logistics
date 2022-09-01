@@ -2,7 +2,7 @@ from datetime import datetime as dt
 from pydantic import BaseModel
 from typing import Optional, List
 from schemas.project_management.budget_requirements_schema import ShowBudgetRequirements
-from schemas.project_management.department_schema import ShowDepartment
+from schemas.asset_management.department_schema import ShowDepartment
 from schemas.Admin.employeeSchema import ShowEmployee
 
 class ConceptPaperBase(BaseModel):

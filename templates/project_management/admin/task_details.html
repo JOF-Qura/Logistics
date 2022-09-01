@@ -547,8 +547,8 @@
             {
               data: null,
               render: function (data, type, row, meta) {
-                return row.activity_employee.first_name + " " + row.activity_employee
-                  .last_name + " " + row.activity_employee.suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
+                return row.activity_employee.employee_first_name + " " + row.activity_employee
+                  .employee_last_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
               }
             },
             {
@@ -607,7 +607,7 @@
       function get_all_users() {
 
         $.ajax({
-          url: '/employee/department/{{ data.task_project.department_id }}',
+          url: '/employees/department/{{ data.task_project.department_id }}',
           type: "GET",
           dataType: "JSON",
 
@@ -625,7 +625,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].id}">${users[i].first_name + ' ' + users[i].last_name + ' ' + users[i].suffix_name}</option>`
+                `<option value="${users[i].id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name}</option>`
             }
 
             $('#employee_id').html(html);
@@ -835,7 +835,7 @@
     // VIEW PROJECT
     $(document).on("click", ".btn-project", function () {
       var id = this.value;
-      window.location.href = "http://127.0.0.1:8000/admin/project_details/" + id;
+      window.location.href = "http://127.0.0.1:8000/project_management/admin/project_details/" + id;
     });
 
     // ADD REMARKS
@@ -877,8 +877,8 @@
           var user = data;
 
           $('#view_id').html(user.id);
-          $('#view_employee').html(user.activity_employee.first_name + " " + user.activity_employee
-            .last_name + " " + user.activity_employee.suffix_name);
+          $('#view_employee').html(user.activity_employee.employee_first_name + " " + user.activity_employee
+            .employee_last_name);
           $('#view_subject').html(user.subject);
           $('#view_remarks').html(user.remarks);
           $('#view_date').html(moment(user.date).format('LL'));

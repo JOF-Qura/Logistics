@@ -65,7 +65,7 @@
               <tbody>
                 {%for project in project%}
                 <tr>
-                  <td>{{ project.project_department.name }}</td>
+                  <td>{{ project.project_department.department_name }}</td>
                   <td>{{ project.name }}</td>
                   <td>{{ project.project_user.first_name }} {{ project.project_user.last_name }}
                     {{ project.project_user.suffix_name }}</td>
@@ -134,7 +134,7 @@
               <tbody>
                 {%for paper in paper%}
                 <tr>
-                  <td>{{ paper.concept_department.name }}</td>
+                  <td>{{ paper.concept_department.department_name }}</td>
                   <td>{{ paper.name }}</td>
                   <td>{{ paper.concept_employee.first_name }} {{ paper.concept_employee.last_name }}
                     {{ paper.concept_employee.suffix_name }}</td>
@@ -1277,7 +1277,7 @@
 
         $('#project_names').html(data.name)
         $('#project_types').html(data.type)
-        $('#project_departments').html(data.project_department.name)
+        $('#project_departments').html(data.project_department.department_name)
         if (data.updated_at) {
           $('#date_createds').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
@@ -1412,7 +1412,7 @@
 
         $('#paper_names').html(data.name)
         $('#paper_types').html(data.type)
-        $('#paper_departments').html(data.concept_department.name)
+        $('#paper_departments').html(data.concept_department.department_name)
         if (data.updated_at) {
           $('#paper_date_createds').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
@@ -1502,7 +1502,7 @@
 
         $('#project_name').html(data.name)
         $('#project_type').html(data.type)
-        $('#project_department').html(data.project_department.name)
+        $('#project_department').html(data.project_department.department_name)
         if (data.updated_at) {
           $('#date_created').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
@@ -1625,7 +1625,7 @@
 
         $('#paper_name').html(data.name)
         $('#paper_type').html(data.type)
-        $('#paper_department').html(data.concept_department.name)
+        $('#paper_department').html(data.concept_department.department_name)
         if (data.updated_at) {
           $('#paper_date_created').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {

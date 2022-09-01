@@ -2,7 +2,6 @@ from typing import Optional
 from datetime import datetime as dt
 from pydantic import BaseModel
 from typing import List, Optional
-from schemas.Admin import employeeSchema
 
 class DepartmentBase(BaseModel):
     department_name: str
@@ -26,7 +25,7 @@ class UpdateHospitalDepartment(BaseModel):
     contact_no: Optional[str]
 
 class ShowDepartment(DepartmentBase):
-    id: str
+    department_id: str
     # manager: Optional[employeeSchema.ShowEmployee]
     class Config():
         orm_mode = True

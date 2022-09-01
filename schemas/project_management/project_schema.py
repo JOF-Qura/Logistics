@@ -3,7 +3,7 @@ from schemas.project_management.document_schema import ShowDocument
 from schemas.Admin.employeeSchema import ShowEmployee
 from pydantic import BaseModel
 from typing import Optional, List
-from schemas.project_management.department_schema import ShowDepartment
+from schemas.asset_management.department_schema import ShowDepartment
 from schemas.project_management.activity_schema import ShowActivity
 from schemas.project_management.milestone_schema import ShowMilestone
 from schemas.project_management.budget_requirements_schema import ShowBudgetRequirements
