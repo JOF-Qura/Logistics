@@ -161,7 +161,7 @@
           </div>
           <div class="card-body">
             <h6><i class="fas fa-user-circle"></i> Assigned</h6>
-            {{ data.task_employee.employee_first_name }} {{ data.task_employee.employee_last_name }} {{ data.task_employee.employee_suffix_name }}
+            {{ data.task_employee.employee_first_name }} {{ data.task_employee.employee_last_name }}
             <div class="row invoice-info mt-3">
               <div class="col-sm-4 invoice-col">
                 <address>
@@ -515,7 +515,7 @@
               data: null,
               render: function (data, type, row, meta) {
                 return row.activity_employee.employee_first_name + " " + row.activity_employee
-                  .employee_last_name + " " + row.activity_employee.employee_suffix_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
+                  .employee_last_name + '<br>' + '<small class="text-muted">' + row.activity_employee.job.title + '</small>';
               }
             },
             {
@@ -606,7 +606,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name}</option>`
             }
 
             $('#employee_id').html(html);
@@ -790,7 +790,7 @@
 
           $('#view_id').html(user.id);
           $('#view_employee').html(user.activity_employee.employee_first_name + " " + user.activity_employee
-            .employee_last_name + " " + user.activity_employee.employee_suffix_name);
+            .employee_last_name);
           $('#view_subject').html(user.subject);
           $('#view_remarks').html(user.remarks);
           $('#view_date').html(moment(user.date).format('LL'));

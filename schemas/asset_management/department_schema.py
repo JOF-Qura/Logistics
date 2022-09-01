@@ -2,7 +2,6 @@ from typing import Optional
 from datetime import datetime as dt
 from pydantic import BaseModel
 from typing import List, Optional
-from schemas.Admin import employeeSchema
 
 class DepartmentBase(BaseModel):
     department_name: str

@@ -472,8 +472,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
-              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -608,8 +607,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
-              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -744,8 +742,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
-              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -880,8 +877,7 @@
         {
           data: null,
           render: function (data, type, row) {
-            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + " " + row.task_employee
-              .employee_suffix_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
+            return row.task_employee.employee_first_name + " " + row.task_employee.employee_last_name + '<br>' + '<small class="text-muted">' + row.task_employee.job.title + '</small>';;
           }
         },
         {
@@ -1097,7 +1093,7 @@
 
             for (var i = 0; i < users.length; i++) {
               html +=
-                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name + ' ' + users[i].employee_suffix_name}</option>`
+                `<option value="${users[i].employee_id}">${users[i].employee_first_name + ' ' + users[i].employee_last_name}</option>`
             }
 
             $('#employee_id').html(html);

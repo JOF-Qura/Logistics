@@ -65,10 +65,9 @@
               <tbody>
                 {%for project in project%}
                 <tr>
-                  <td>{{ project.project_department.name }}</td>
+                  <td>{{ project.project_department.department_name }}</td>
                   <td>{{ project.name }}</td>
-                  <td>{{ project.project_user.first_name }} {{ project.project_user.last_name }}
-                    {{ project.project_user.suffix_name }}</td>
+                  <td>{{ project.project_user.employee_first_name }} {{ project.project_user.employee_last_name }}</td>
                   <td>{{ project.type }}</td>
                   {%if project.progress_status == "Completed"%}
                   <td>
@@ -134,10 +133,9 @@
               <tbody>
                 {%for paper in paper%}
                 <tr>
-                  <td>{{ paper.concept_department.name }}</td>
+                  <td>{{ paper.concept_department.department_name }}</td>
                   <td>{{ paper.name }}</td>
-                  <td>{{ paper.concept_employee.first_name }} {{ paper.concept_employee.last_name }}
-                    {{ paper.concept_employee.suffix_name }}</td>
+                  <td>{{ paper.concept_employee.employee_first_name }} {{ paper.concept_employee.employee_last_name }}</td>
                   <td>{{ paper.type }}</td>
                   {%if paper.approval_status == "Approved"%}
                   <td>
@@ -1276,15 +1274,15 @@
 
         $('#project_names').html(data.name)
         $('#project_types').html(data.type)
-        $('#project_departments').html(data.project_department.name)
+        $('#project_departments').html(data.project_department.department_name)
         if (data.updated_at) {
           $('#date_createds').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
           $('#date_createds').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#project_progresss').html(data.progress_status);
-        $('#project_managers').html(data.project_user.first_name + ' ' + data.project_user
-          .last_name + ' ' + data.project_user.suffix_name)
+        $('#project_managers').html(data.project_user.employee_first_name + ' ' + data.project_user
+          .employee_last_name)
         $('#project_backgrounds').html(data.background)
         $('#project_coverages').html(data.coverage)
         $('#project_objectives').html(data.objectives)
@@ -1411,15 +1409,15 @@
 
         $('#paper_names').html(data.name)
         $('#paper_types').html(data.type)
-        $('#paper_departments').html(data.concept_department.name)
+        $('#paper_departments').html(data.concept_department.department_name)
         if (data.updated_at) {
           $('#paper_date_createds').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
           $('#paper_date_createds').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#paper_progresss').html(data.progress_status);
-        $('#paper_managers').html(data.concept_employee.first_name + ' ' + data.concept_employee
-          .last_name + ' ' + data.concept_employee.suffix_name)
+        $('#paper_managers').html(data.concept_employee.employee_first_name + ' ' + data.concept_employee
+          .employee_last_name)
         $('#paper_backgrounds').html(data.background)
         $('#paper_coverages').html(data.coverage)
         $('#paper_objectives').html(data.objectives)
@@ -1501,15 +1499,15 @@
 
         $('#project_name').html(data.name)
         $('#project_type').html(data.type)
-        $('#project_department').html(data.project_department.name)
+        $('#project_department').html(data.project_department.department_name)
         if (data.updated_at) {
           $('#date_created').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
           $('#date_created').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#project_progress').html(data.progress_status);
-        $('#project_manager').html(data.project_user.first_name + ' ' + data.project_user
-          .last_name + ' ' + data.project_user.suffix_name)
+        $('#project_manager').html(data.project_user.employee_first_name + ' ' + data.project_user
+          .employee_last_name)
 
         $('#project_background').html(data.background)
         $('#project_coverage').html(data.coverage)
@@ -1624,15 +1622,15 @@
 
         $('#paper_name').html(data.name)
         $('#paper_type').html(data.type)
-        $('#paper_department').html(data.concept_department.name)
+        $('#paper_department').html(data.concept_department.department_name)
         if (data.updated_at) {
           $('#paper_date_created').html(moment(data.updated_at).format('MMMM D, YYYY'))
         } else {
           $('#paper_date_created').html(moment(data.created_at).format('MMMM D, YYYY'))
         }
         $('#paper_progress').html(data.progress_status);
-        $('#paper_manager').html(data.concept_employee.first_name + ' ' + data.concept_employee
-          .last_name + ' ' + data.concept_employee.suffix_name)
+        $('#paper_manager').html(data.concept_employee.employee_first_name + ' ' + data.concept_employee
+          .employee_last_name)
         $('#paper_background').html(data.background)
         $('#paper_coverage').html(data.coverage)
         $('#paper_objective').html(data.objectives)

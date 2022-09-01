@@ -2,7 +2,7 @@ from datetime import datetime as dt
 from pydantic import BaseModel
 from typing import List, Optional
 from schemas.Admin import userSchema
-from schemas.project_management.department_schema import ShowDepartment
+from schemas.asset_management.department_schema import ShowDepartment
 from schemas.project_management.job_schema import ShowJob
 
 #================================ Employees Table =================================#
