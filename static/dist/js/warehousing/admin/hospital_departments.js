@@ -50,6 +50,24 @@ $(function()
     $('#button_add').prop('disabled', false)
 });
 
+// type = error, warning, success, info
+// title - string
+// message = string
+const notification = (type, title, message) => 
+{
+    return toastr[type](message, title);
+};
+
+// trim input fields except file, select, textarea
+trimInputFields = () => 
+{
+	var allInputs = $("input:not(:file())");
+	allInputs.each(function () 
+    {
+		$(this).val($.trim($(this).val()));
+	});
+};
+
 //    $.ajaxSetup(
 //     {
 // 		headers: 

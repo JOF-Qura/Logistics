@@ -1,5 +1,11 @@
 $(function() 
 {
+
+    // set department name
+    $("#department").val(sessionStorage.getItem("DEPARTMENTNAME"));
+    $("#requested_by").val(
+        "Mike Jackson"
+    );
     // if(USER_TYPE == "Admin" || USER_TYPE == "Manager")
     // {
     //     loadTable();
