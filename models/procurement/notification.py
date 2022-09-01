@@ -15,7 +15,7 @@ class Notification(Base):
     description = Column(String(255), nullable=True)
     status = Column(String(255), nullable=False)
     vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
-    department_id = Column(CHAR(36), ForeignKey("department_procurement.id"), nullable=True)
+    department_id = Column(CHAR(36), ForeignKey("department.department_id"), nullable=True)
 
     created_at = Column(DATETIME, default=func.current_timestamp())
     updated_at = Column(DATETIME,
@@ -26,5 +26,5 @@ class Notification(Base):
     # relation with vendor
     vendor_procurement = relationship("VendorProcurement", back_populates="notification")
 
-    department_procurement = relationship("DepartmentProcurement", back_populates="notification")
+    department_procurement = relationship("Department", back_populates="notification")
 

@@ -22,16 +22,22 @@ async def datatable(request: Request, db: Session = Depends(get_db)):
         def perform_search(queryset, user_input):
             return queryset.filter(
                 or_(
-                    Departments.name.like('%' + user_input + '%'),
-                    Departments.location.like('%' + user_input + '%'),
-                    Departments.description.like('%' + user_input + '%')
+                    Departments.department_name.like('%' + user_input + '%'),
+                    Departments.department_location.like('%' + user_input + '%'),
+                    Departments.department_description.like('%' + user_input + '%'),
+                    Departments.department_head.like('%' + user_input + '%'),
+                    Departments.contact_no.like('%' + user_input + '%'),
+                    Departments.department_manager_id.like('%' + user_input + '%')
                 )
             )
 
         table = DataTable(dict(request.query_params), Departments, db.query(Departments), [
-            'name',
-            'location',
-            'description'
+            'department_name',
+            'department_location',
+            'department_description',
+            'department_head',
+            'contact_no',
+            'department_manager_id'
         ])
 
         table.searchable(lambda queryset, user_input: perform_search(queryset, user_input))
@@ -56,11 +62,20 @@ async def get_one_department(id: str, db: Session = Depends(get_db)):
 
 # CREATE DEPARTMENT
 @router.post('/', status_code=status.HTTP_201_CREATED)
-async def create_department(name: str = Form(...), description: str = Form(...), location: str = Form(...), db: Session = Depends(get_db)):
+async def create_department(department_nname: str = Form(...), 
+                            department_description: str = Form(...), 
+                            department_location: str = Form(...), 
+                            department_head: str = Form(...), 
+                            contact_no: str = Form(...), 
+                            department_manager_id: str = Form(...), 
+                            db: Session = Depends(get_db)):
     to_store = Departments(
-        name = name,
-        description = description,
-        location = location,
+        department_name = department_nname,
+        department_description = department_description,
+        department_location = department_location,
+        department_head = department_head,
+        contact_no = contact_no,
+        department_manager_id = department_manager_id,
         active_status = "Active"
     )
     db.add(to_store)
@@ -69,11 +84,20 @@ async def create_department(name: str = Form(...), description: str = Form(...),
 
 # UPDATE DEPARTMENT
 @router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
-async def update_department(id: str, name: str = Form(...), description: str = Form(...), location: str = Form(...), db: Session = Depends(get_db)): 
+async def update_department(id: str, department_name: str = Form(...), 
+                            department_description: str = Form(...), 
+                            department_location: str = Form(...), 
+                            department_head: str = Form(...), 
+                            contact_no: str = Form(...), 
+                            department_manager_id: str = Form(...),  
+                            db: Session = Depends(get_db)): 
     if not db.query(Departments).filter(Departments.id == id).update({
-        'name': name,
-        'description': description,
-        'location': location,
+        'department_name': department_name,
+        'department_description': department_description,
+        'department_location': department_location,
+        'department_head': department_head,
+        'contact_no': contact_no,
+        'department_manager_id': department_manager_id,
         'updated_at' : dt.utcnow()
     }):
         raise HTTPException(404, 'Department to update is not found')

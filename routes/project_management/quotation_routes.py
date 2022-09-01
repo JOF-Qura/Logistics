@@ -6,7 +6,7 @@ from sqlalchemy.sql.expression import desc
 from sqlalchemy.sql.functions import user
 from schemas.project_management.quotation_schema import ShowQuotation
 from models.project_management.quotation_model import Quotation
-from models.project_management.department_model import Departments
+from models.asset_management.department_model import Department
 from database import get_db
 from typing import List
 from controllers.encryption import Hash

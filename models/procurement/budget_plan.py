@@ -17,7 +17,7 @@ class BudgetPlan(Base):
     date_from = Column(DATE, nullable=False)
     date_to = Column(DATE, nullable=False)
     status = Column(String(255), nullable=False,default="active")
-    department_id = Column(CHAR(36), ForeignKey("department_procurement.id"), nullable=False)
+    department_id = Column(CHAR(36), ForeignKey("department.department_id"), nullable=False)
     # created_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
     # updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)   
     created_at = Column(DateTime, server_default=text('NOW()'))
@@ -25,7 +25,7 @@ class BudgetPlan(Base):
     UniqueConstraint(department_id, year) 
 
     # relation with deparment
-    department_procurement = relationship("DepartmentProcurement", back_populates="budget_plan")
+    department_procurement = relationship("Department", back_populates="budget_plan")
 
     # relation with user
     # u_created_by = relationship("User",foreign_keys=[created_by])

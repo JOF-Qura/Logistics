@@ -24,7 +24,7 @@ class Project(Base):
     remarks = Column(Text(255), nullable=True)
     concept_paper_id = Column(String(36), ForeignKey('concept_papers.id'), nullable=True)
     manager_id = Column(String(36), ForeignKey('employees.employee_id'), nullable=False)
-    department_id = Column(String(36), ForeignKey('departments.id'), nullable=False)
+    department_id = Column(String(36), ForeignKey('department.department_id'), nullable=False)
     approval_status = Column(String(255), server_default='Pending', nullable=False)
     progress_status = Column(String(255), server_default='', nullable=True)
     notification = Column(String(255), nullable=True)
@@ -33,7 +33,7 @@ class Project(Base):
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
     project_user = relationship('Employees', back_populates='projects')
-    project_department = relationship('Departments', back_populates='department_projects')
+    project_department = relationship('Department', back_populates='department_projects')
     project_task = relationship('Task', back_populates='task_project')
     project_quotation = relationship('Quotation', back_populates='quotation_project')
     project_activity = relationship('Activity', back_populates='activity_project')

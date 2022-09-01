@@ -23,7 +23,7 @@ class Employees(Base):
 
     # Column for Project Management
     job_id = Column(String(36), ForeignKey('jobs.id'), nullable=True)
-    department_id = Column(String(36), ForeignKey('departments.id'), nullable=True)
+    department_id = Column(String(36), ForeignKey('department.department_id'), nullable=True)
 
     created_at              = Column(DateTime, default=text('NOW()'))
     updated_at              = Column(DateTime, onupdate=text('NOW()'))
@@ -40,13 +40,13 @@ class Employees(Base):
     or_employeeFK = relationship("Outbound_Reports", back_populates="employee")
     ir_employeeFK = relationship("Inbound_Reports", back_populates="emp")
     w_employeeFK = relationship("Warehouses", back_populates="manager")
-    hd_employeeFK = relationship("Hospital_Departments", back_populates="manager")
+    # hd_employeeFK = relationship("Departments", back_populates="manager")
 
 #Relationship w/ Project Management
     user_employee = relationship('User', back_populates='employee_user')
     job = relationship('Job', back_populates='employee')
     projects = relationship('Project', back_populates='project_user')
-    departments = relationship('Departments', back_populates='department_employee')
+    departments = relationship('Department', back_populates='department_employee')
     employee_concept = relationship('ConceptPaper', back_populates='concept_employee')
     employee_task = relationship('Task', back_populates='task_employee')
     employee_activity = relationship('Activity', back_populates='activity_employee')

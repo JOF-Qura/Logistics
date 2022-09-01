@@ -9,7 +9,9 @@ from dependencies import get_token
 
 from routes.asset_management import asset_route, asset_type_route, asset_provider_route, maintenance_provider_route, maintenance_route, event_route
 from routes.asset_management import missing_asset_route, asset_request_route, sell_asset_route, dispose_asset_route, broken_asset_route, repair_asset_route
-from routes.asset_management import department_route, maintenance_report_route, check_out_route, check_in_route, asset_warranty_route
+from routes.asset_management import (maintenance_report_route, check_out_route, check_in_route, asset_warranty_route,
+                                    department_route
+                                    )
 from routes.access import auth_route
 
 # importing all admin routes
@@ -17,7 +19,7 @@ from routes.Admin import (#authRoutes
                     employeeRoutes
                     , supplyRoutes
                     , postRoutes 
-                    , hospital_departmentRoutes
+                    # , hospital_departmentRoutes
                     , inbound_reportRoutes
                     , inventory_locationRoutes
                     , inventoryRoutes
@@ -51,7 +53,7 @@ from models.Admin import (
                     , warehouseModel
                     , supplierModel
                     , inventoryModel
-                    , hospital_departmentModel
+                    # , hospital_departmentModel
                     , inbound_reportModel
                     , inventory_locationModel
                     , outbound_report_detailModel
@@ -99,7 +101,7 @@ from models.Admin.outbound_report_detailModel import Outbound_Report_Details
 from models.Admin.inbound_reportModel import Inbound_Reports
 from models.Admin.supplierModel import Suppliers
 from models.Admin.warehouseModel import Warehouses
-from models.Admin.hospital_departmentModel import Hospital_Departments
+# from models.Admin.hospital_departmentModel import Hospital_Departments
 from models.Admin.employeeModel import Employees
 from models.Admin.notifModel import Notifications
 from models.Admin.postModel import Post
@@ -136,7 +138,7 @@ from models.procurement.purchase_order_detail import PurchaseOrderDetail
 from models.procurement.vendor_proposal import VendorProposals
 from models.procurement.vendor_bidding_items import VendorBiddingItems
 from models.procurement.product import Product 
-from models.procurement.department import DepartmentProcurement 
+# from models.procurement.department import DepartmentProcurement 
 
 from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail 
 from models.procurement.vendor_audit_trail import VendorAuditTrail
@@ -165,7 +167,7 @@ from models.procurement.terms_of_reference import TermsOfReferenceProcurement
 from models.project_management.activity_model import Activity
 from models.project_management.budget_requirements_model import BudgetRequirements
 from models.project_management.concept_paper_model import ConceptPaper
-from models.project_management.department_model import Departments
+# from models.project_management.department_model import Departments
 from models.project_management.document_model import Document
 from models.project_management.history_model import ProjectHistory
 from models.project_management.job_model import Job
@@ -181,7 +183,7 @@ from models.project_management.tor_model import TermsOfReference
 from routes.project_management import (activity_routes
                     , budget_requirements_routes
                     , concept_paper_routes
-                    , department_routes
+                    # , department_routes
                     , document_routes 
                     , history_routes
                     , job_routes
@@ -226,7 +228,7 @@ app.mount('/static', StaticFiles(directory='static'), name='static')
 # app.include_router(authRoutes.router)
 app.include_router(employeeRoutes.router)
 app.include_router(supplyRoutes.router)
-app.include_router(hospital_departmentRoutes.router)
+# app.include_router(hospital_departmentRoutes.router)
 app.include_router(inbound_reportRoutes.router)
 app.include_router(inventory_locationRoutes.router)
 app.include_router(inventoryRoutes.router)
@@ -265,7 +267,7 @@ app.include_router(asset_warranty_route.router)
 app.include_router(activity_routes.router)
 app.include_router(budget_requirements_routes.router)
 app.include_router(concept_paper_routes.router)
-app.include_router(department_routes.router)
+# app.include_router(department_routes.router)
 app.include_router(document_routes.router)
 app.include_router(history_routes.router)
 app.include_router(job_routes.router)
@@ -557,7 +559,7 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
 @app.get('/warehousing/admin/hospital_departments/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
-        hospital_departments = db.query(Hospital_Departments).all()
+        hospital_departments = db.query(Department).all()
         return template.TemplateResponse('warehousing/admin/content/hospital_departments.html', 
         {
             'request': request,

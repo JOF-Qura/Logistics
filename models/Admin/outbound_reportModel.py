@@ -20,12 +20,12 @@ class Outbound_Reports(Base):
     updated_at                  = Column(DateTime, onupdate=text('NOW()'))
 
     #Foreignkey
-    hospital_department_id      = Column(String(36), ForeignKey('hospital_departments.hospital_department_id'), nullable=True)
+    hospital_department_id      = Column(String(36), ForeignKey('department.department_id'), nullable=True)
     employee_id                 = Column(String(36), ForeignKey('employees.employee_id'), nullable=True)
 
 #Relationship/s
     #Relationship/s of this Table
-    hospital_department = relationship('Hospital_Departments', back_populates='or_hospital_departmentFK')
+    hospital_department = relationship('Department', back_populates='or_hospital_departmentFK')
     employee = relationship('Employees', back_populates='or_employeeFK')
 
     #Relationship/s of this Table to other Table/s

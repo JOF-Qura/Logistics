@@ -23,7 +23,7 @@ class ConceptPaper(Base):
     end_date = Column(DateTime, nullable=False)
     remarks = Column(Text(255), nullable=True)
     manager_id = Column(String(36), ForeignKey('employees.employee_id'), nullable=False)
-    department_id = Column(String(36), ForeignKey('departments.id'), nullable=False)
+    department_id = Column(String(36), ForeignKey('department.department_id'), nullable=False)
     approval_status = Column(String(255), server_default='Pending', nullable=False)
     notification = Column(String(255), nullable=True)
     active_status = Column(String(255), server_default='Active', nullable=False)
@@ -31,6 +31,6 @@ class ConceptPaper(Base):
     updated_at = Column(DateTime, server_onupdate=text('NOW()'))
 
     concept_employee = relationship('Employees', back_populates='employee_concept')
-    concept_department = relationship('Departments', back_populates='department_concept')
+    concept_department = relationship('Department', back_populates='department_concept')
     concept_budget = relationship('BudgetRequirements', back_populates='budget_concept')
     concept_project = relationship('Project', back_populates='project_concept')

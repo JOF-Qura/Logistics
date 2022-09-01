@@ -4,7 +4,7 @@ from datatables import DataTable
 
 # importing models one by one
 from models.Admin.outbound_reportModel import Outbound_Reports
-from models.Admin.hospital_departmentModel import Hospital_Departments
+from models.asset_management.department_model import Department
 from models.Admin.employeeModel import Employees
 
 from models.Admin import outbound_reportModel
