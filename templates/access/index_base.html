@@ -144,13 +144,13 @@ filter_user()
                 >Logistics</a>
                 
                 <ul class="dropdown-menu dropdown-menu-left">
-                  <li><a href="/procurement/dashboard3" id="procurement_topnav" class="dropdown-item">Procurement Management</a></li>
+                  <li><a href="/procurement/sysadmin/" id="procurement_topnav" class="dropdown-item">Procurement Management</a></li>
                   <li><a href="./warehousing/admin/" id="warehousing_topnav" class="dropdown-item">Warehousing Management</a></li>
                   <li><a href="/asset_management/" id="asset_management_topnav" class="dropdown-item">Asset Management</a></li>
                   <li><a href="/project_management/admin/dashboard" id="project_management_topnav" class="dropdown-item">Project Management</a></li>
                   <script>
                     if(window.location.pathname.includes("/index/")){document.getElementById("index_topnav").classList.add('text-primary')}
-                    if( window.location.pathname.includes("/procurement/dashboard3")){
+                    if( window.location.pathname.includes("/procurement/sysadmin/")){
                     document.getElementById("logistics_topnav").classList.add('text-primary')
                     document.getElementById("procurement_topnav").classList.add('text-primary')}
                     else if( window.location.pathname.includes("/warehousing/admin/")){
