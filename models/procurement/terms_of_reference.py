@@ -26,7 +26,7 @@ class TermsOfReferenceProcurement(Base):
     approver_name = Column(String(255), nullable=True)
     approval_date = Column(DATE, nullable=True)
     reject_reason = Column(String(255), nullable=True)
-    project_request_id = Column(CHAR(36), ForeignKey("project_request_procurement.id"), nullable=True)
+    project_request_id = Column(CHAR(36), ForeignKey("projects.id"), nullable=True)
     vendor_id = Column(CHAR(36), ForeignKey("vendor_procurement.id"), nullable=True)
     # created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
     # updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True) 
@@ -36,7 +36,7 @@ class TermsOfReferenceProcurement(Base):
                     onupdate=func.current_timestamp())
 
     #  relation with project request
-    project_request_procurement = relationship("ProjectRequestProcurement", back_populates="terms_of_reference_procurement")
+    project_request_procurement = relationship("Project", back_populates="terms_of_reference_procurement")
 
     # relation with related documents
     # related_documents = relationship("RelatedDocuments", back_populates="terms_of_reference")

@@ -43,4 +43,6 @@ class Project(Base):
     project_budget = relationship('BudgetRequirements', back_populates='budget_project')
     project_stakeholder = relationship('Stakeholder', back_populates='stakeholder_project')
     project_concept = relationship('ConceptPaper', back_populates='concept_project')
-    project_tor = relationship('TermsOfReference', back_populates='tor_project')
+    
+    # relation with terms of reference
+    terms_of_reference_procurement = relationship("TermsOfReferenceProcurement", back_populates="project_request_procurement")

@@ -154,7 +154,7 @@ from models.procurement.purchase_order_invoice import PurchaseOrderInvoice
 from models.procurement.utilities import Utilities
 from models.procurement.rfq_vendor import RequestQuotationVendor
 from models.procurement.replacement_request import ReplacementRequest
-from models.procurement.project_request import ProjectRequestProcurement
+# from models.procurement.project_request import ProjectRequestProcurement
 from models.procurement.return_details import ReturnDetailProcurement
 from models.procurement.returns import ReturnProcurement
 
@@ -176,7 +176,7 @@ from models.project_management.project_model import Project
 from models.project_management.quotation_model import Quotation
 from models.project_management.stakeholders_model import Stakeholder
 from models.project_management.task_model import Task
-from models.project_management.tor_model import TermsOfReference
+# from models.project_management.tor_model import TermsOfReference
 # from models.project_management.vendor_model import Vendor
 
 # importing all project management routes
