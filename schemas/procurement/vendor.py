@@ -26,7 +26,7 @@ class ShowVendor(BaseModel):
     id:str
     vendor_logo:str
     vendor_name: str
-    contact_no: int
+    contact_no: str
     contact_person: str
     vendor_website: str
     email: str

@@ -217,9 +217,8 @@
                 </li>
                 {%endif%}
                 <li class="nav-item">
-                  <a class="nav-link" id="custom-tabs-six-tor-tab" data-toggle="pill"
-                    href="#custom-tabs-six-tor" role="tab" aria-controls="custom-tabs-six-tor"
-                    aria-selected="false">Term of Reference</a>
+                  <a class="nav-link" id="custom-tabs-six-tor-tab" data-toggle="pill" href="#custom-tabs-six-tor"
+                    role="tab" aria-controls="custom-tabs-six-tor" aria-selected="false">Terms of Reference</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-six-milestones-tab" data-toggle="pill"
@@ -251,9 +250,9 @@
                       <div class="info-box border shadow-none bg-default">
                         <div class="info-box-content">
                           <label class="info-box-text" for="inputName">Project Manager</label>
-                          <span>{{ data.project_user.first_name }} {{ data.project_user.last_name}}
+                          <span>{{ data.project_user.employee_first_name }} {{ data.project_user.employee_last_name}}
                             {{ data.project_user.suffix_name}}</span>
-                          <small class="text-muted"> {{ data.project_department.name }} </small>
+                          <small class="text-muted"> {{ data.project_department.department_name }} </small>
                         </div>
                       </div>
                     </div>
@@ -349,65 +348,159 @@
                 </div>
               </div>
 
-              <div class="tab-pane fade" id="custom-tabs-five-tor" role="tabpanel"
-                aria-labelledby="custom-tabs-five-tor-tab">
+              {%if data.concept_paper_id is not none%}
+              <div class="tab-pane fade" id="custom-tabs-six-paper" role="tabpanel"
+                aria-labelledby="custom-tabs-six-paper-tab">
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-12 col-sm-4">
+                      <div class="info-box border shadow-none bg-default">
+                        <div class="info-box-content">
+                          <label class="info-box-text" for="inputName">Project Name</label>
+                          <span>{{ data.project_concept.name }}</span>
+                          <small class="text-muted"> {{ data.project_concept.type }} </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                      <div class="info-box border shadow-none bg-default">
+                        <div class="info-box-content">
+                          <label class="info-box-text" for="inputName">Project Manager</label>
+                          <span>{{ data.project_concept.concept_employee.first_name }} {{ data.project_concept.concept_employee.last_name}}
+                            {{ data.project_concept.concept_employee.suffix_name}}</span>
+                          <small class="text-muted"> {{ data.project_concept.concept_department.department_name }} </small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                      <div class="info-box border shadow-none bg-default">
+                        <div class="info-box-content">
+                          <label class="info-box-text" for="inputName">Project Cost</label>
+                          <span>{{ "₱{:,.2f}".format(data.project_concept.cost) }}</span>
+                          <small class="text-muted">{{ data.project_concept.start_date.strftime('%b %d, %Y') }} -
+                            {{ data.project_concept.end_date.strftime('%b %d, %Y') }}</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">I. Project Duration</label><br>
+                  <p id="duration1" class="ml-3"></p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">II. Project Background</label><br>
+                  <p class="ml-3">{{ data.project_concept.background }}</p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">III. Project Coverage</label><br>
+                  <p class="ml-3">{{ data.project_concept.coverage }}</p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">IV. Objectives</label><br>
+                  <p class="ml-3">{{ data.project_concept.objectives }}</p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">V. Project Assumptions</label><br>
+                  <p class="ml-3">{{ data.project_concept.assumptions }}</p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">VI. Project Constraints</label><br>
+                  <p class="ml-3">{{ data.project_concept.constraints }}</p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">VII. Budgetary Requirements</label><br>
+                  <table id="on_hold_table" class="table table-bordered" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Activities / Resources</th>
+                        <th>Cost</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%for budget in data.project_concept.concept_budget%}
+                      {%if budget.active_status == "Active"%}
+                      <tr>
+                        <td>{{ budget.name }}</td>
+                        <td>{{ "₱{:,.2f}".format(budget.cost) }}</td>
+                        <td>{{ budget.description }}</td>
+                      </tr>
+                      {%endif%}
+                      {%endfor%}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">VIII. Target Beneficiaries</label><br>
+                  <p class="ml-3">{{ data.project_concept.target_beneficiaries }}</p>
+                </div>
+                <div class="form-group">
+                  <label for="inputDescription">X. Deliverables</label><br>
+                  <p class="ml-3">{{ data.project_concept.expected_output }}</p>
+                </div>
+              </div>
+              {%endif%}
+
+              <div class="tab-pane fade" id="custom-tabs-six-tor" role="tabpanel"
+                aria-labelledby="custom-tabs-six-tor-tab">
                 <label class="ml-3 mt-4" for="inputDescription">Terms of Reference</label><br>
-                {%for tor in data.project_tor%}
+                {%for tor in data.terms_of_reference_procurement%}
                 <div class="form-group">
                   <label class="ml-3 mt-3" for="inputDescription">I. Title</label><br>
                   <p class="ml-3">{{ tor.tor_number }}</p>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">II. Background</label><br>
-                  <p class="ml-3">{{ tor.background }}</p>
+                  <div class="ml-3">{{ tor.background|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">III. Objective</label><br>
-                  <p class="ml-3">{{ tor.objective }}</p>
+                  <div class="ml-3">{{ tor.objective|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">IV. Scope of Service</label><br>
-                  <p class="ml-3">{{ tor.scope_of_service }}</p>
+                  <div class="ml-3">{{ tor.scope_of_service|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">V. Deliverables</label><br>
-                  <p class="ml-3">{{ tor.tor_deliverables }}</p>
+                  <div class="ml-3">{{ tor.tor_deliverables|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">VI. Qualifications</label><br>
-                  <p class="ml-3">{{ tor.qualifications }}</p>
+                  <div class="ml-3">{{ tor.qualifications|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">VII. Reporting and Working Arrangements</label><br>
-                  <p class="ml-3">{{ tor.reporting_and_working_arrangements }}</p>
+                  <div class="ml-3">{{ tor.reporting_and_working_arrangements|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">VIII. Annex and Technical Specifications</label><br>
-                  <p class="ml-3">{{ tor.tor_annex_technical_specifications }}</p>
+                  <div class="ml-3">{{ tor.tor_annex_technical_specifications|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">IX. Annex Key Experts</label><br>
-                  <p class="ml-3">{{ tor.tor_annex_key_experts }}</p>
+                  <div class="ml-3">{{ tor.tor_annex_key_experts|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">X. Annex Deliverables</label><br>
-                  <p class="ml-3">{{ tor.tor_annex_deliverables }}</p>
+                  <div class="ml-3">{{ tor.tor_annex_deliverables|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">XI. Annex Terms and Conditions</label><br>
-                  <p class="ml-3">{{ tor.tor_annex_terms_conditions }}</p>
+                  <div class="ml-3">{{ tor.tor_annex_terms_conditions|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">XII. Prepared By</label><br>
-                  <p class="ml-3">{{ tor.prepared_by }}</p>
+                  <div class="ml-3">{{ tor.prepared_by|safe }}</div>
                 </div>
                 <div class="form-group">
                   <label class="ml-3" for="inputDescription">XIII. Vendor Information</label><br>
-                  <p class="ml-3"><i><b>Name:</b></i> {{ tor.tor_vendor.vendor_name }}</p>
-                  <p class="ml-3"><i><b>Email:</b></i> {{ tor.tor_vendor.email }}</p>
-                  <p class="ml-3"><i><b>Contact Number:</b></i> {{ tor.tor_vendor.contact_no }}</p>
-                  <p class="ml-3"><i><b>Website:</b></i> {{ tor.tor_vendor.vendor_website }}</p>
-                  <p class="ml-3"><i><b>Contact Person:</b></i> {{ tor.tor_vendor.contact_person }}</p>
+                  <p class="ml-3"><i><b>Name:</b></i> {{ tor.vendor_procurement.vendor_name }}</p>
+                  <p class="ml-3"><i><b>Email:</b></i> {{ tor.vendor_procurement.email }}</p>
+                  <p class="ml-3"><i><b>Contact Number:</b></i> {{ tor.vendor_procurement.contact_no }}</p>
+                  <p class="ml-3"><i><b>Website:</b></i> {{ tor.vendor_procurement.vendor_website }}</p>
+                  <p class="ml-3"><i><b>Contact Person:</b></i> {{ tor.vendor_procurement.contact_person }}</p>
                 </div>
                 {%else%}
                 <p class="ml-3 text-secondary font-italic">No Approved Terms of Reference yet.</p>

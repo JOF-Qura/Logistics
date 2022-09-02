@@ -240,7 +240,7 @@ $(function () {
 // all approved project request
 loadProjectRequisition = () => {
   $.ajax({
-    url: apiURL + "project-request/status/approved/",
+    url: "/projects/approval_status/Approved",
     type: "GET",
     dataType: "json",
     headers: {

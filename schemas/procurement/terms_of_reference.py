@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import Optional, Text, List
 from datetime import datetime, date, time, timedelta
 from . import product,vendor,related_documents,project_request
+from schemas.project_management.project_schema import ShowProject
 
 
 
@@ -45,7 +46,7 @@ class ShowTermsOfReference(BaseModel):
     reporting_and_working_arrangements: str
     tor_deliverables: str
     vendor_procurement:vendor.ShowVendor
-    project_request_procurement:project_request.ShowProjectRequest
+    project_request_procurement:ShowProject
     project_request_id:str
     related_documents: Optional[List[related_documents.ShowRelatedDocuments]]
     tor_annex_technical_specifications: Optional[str]

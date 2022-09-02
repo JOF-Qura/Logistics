@@ -9,7 +9,7 @@ from .vendor_bidding_items import VendorBiddingItems
 from .product import Product 
 # from .department import DepartmentProcurement 
 from .terms_of_reference import TermsOfReferenceProcurement
-from .project_request import ProjectRequestProcurement
+# from .project_request import ProjectRequestProcurement
 
 from .purchase_requisition_detail import PurchaseRequisitionDetail 
 from .vendor_audit_trail import VendorAuditTrail
