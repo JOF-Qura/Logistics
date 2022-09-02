@@ -19,7 +19,7 @@ class Return_Details(Base):
 
     #Foreignkey
     return_id                   = Column(String(36), ForeignKey('return.return_id'), nullable=True)
-    supply_id                   = Column(String(36), ForeignKey('supplies.supply_id'), nullable=True)
+    supply_id                   = Column(String(36), ForeignKey('supplies.id'), nullable=True)
 
 #Relationship/s
     #Relationship/s of this Table

@@ -20,7 +20,7 @@ $(function()
         //     {
                 $.ajax(
                 {
-                    url: apiURL + "auth/logout",
+                    url: "http://localhost:8000/" + "auth/logout",
                     type: "POST",
                     success: function (data)
                     {
@@ -30,7 +30,7 @@ $(function()
                         sessionStorage.clear();
                         localStorage.clear();
                         
-                        window.location.replace(apiURL + 'homies');
+                        window.location.replace(apiURL);
                     }
                 });
     //         }

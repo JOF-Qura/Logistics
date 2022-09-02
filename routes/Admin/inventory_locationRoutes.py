@@ -4,7 +4,7 @@ from datatables import DataTable
 
 # importing models one by one
 from models.Admin.inventory_locationModel import Inventory_Locations
-from models.Admin.supply_categoryModel import Supply_Categories
+from models.procurement.category import Category
 
 from models.Admin import inventory_locationModel
 from schemas.Admin import inventory_locationSchema
@@ -32,7 +32,7 @@ def datatable(request: Request, db: Session = Depends(get_db)):
                 (
                     Inventory_Locations.inventory_location_id.like('%' + user_input + '%'),
                     Inventory_Locations.inventory_location_name.like('%' + user_input + '%'),
-                    Supply_Categories.supply_category_name.like('%' + user_input + '%'),
+                    Category.category_name.like('%' + user_input + '%'),
                     Inventory_Locations.created_at.like('%' + user_input + '%'),
                     Inventory_Locations.updated_at.like('%' + user_input + '%'),
                 )

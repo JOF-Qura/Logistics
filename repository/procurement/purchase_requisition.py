@@ -72,6 +72,7 @@ def create(request: PurchaseRequisition, db : Session):#
             new_pr_detail = models.PurchaseRequisitionDetail(
                 quantity=request.pr_detail[i].quantity,
                 product_id=request.pr_detail[i].product_id,
+                supply_id=request.pr_detail[i].supply_id,
                 new_category=request.pr_detail[i].new_category,
                 new_product_name=request.pr_detail[i].new_product_name,
                 estimated_price=request.pr_detail[i].estimated_price,

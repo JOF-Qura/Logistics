@@ -18,7 +18,7 @@ class Notifications(Base):
     updated_at                      = Column(DateTime, onupdate=text('NOW()'))
 
     #Foreignkey
-    supply_id                       = Column(String(36), ForeignKey('supplies.supply_id'), nullable=True, unique=True)
+    supply_id                       = Column(String(36), ForeignKey('supplies.id'), nullable=True, unique=True)
     request_id                      = Column(String(36), ForeignKey('request.request_id'), nullable=True, unique=True)
     return_id                       = Column(String(36), ForeignKey('return.return_id'), nullable=True, unique=True)
 

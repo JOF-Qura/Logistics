@@ -475,8 +475,10 @@ dataInfo = (id, type) => {
     type: "GET",
     dataType: "json",
     success: function (data) {
+      console.log(data.purchase_requisition_detail)
       if (data) {
         console.log(data);
+
 
         let visibility = "";
         if(data.status == "Pending"){
@@ -519,6 +521,7 @@ dataInfo = (id, type) => {
 
         // Loop here
         for (let pr_item in data.purchase_requisition_detail) {
+          console.log(data.purchase_requisition_detail[pr_item])
           if (data.purchase_requisition_detail[pr_item].status == "active") {
             bg_color = "primary";
             fas_status = "trash";
@@ -533,7 +536,8 @@ dataInfo = (id, type) => {
 
           }
 
-          if (data.purchase_requisition_detail[pr_item].product_id === null) {
+          if (data.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition_detail[pr_item].supply_id === null) {
+            console.log("Dito PRODUCT ID wala")
             prd_table.row
               .add([
                 data.purchase_requisition_detail[pr_item].new_category,
@@ -571,7 +575,47 @@ dataInfo = (id, type) => {
                   "</div></div>",
               ])
               .draw();
-          } else {
+          } else if (data.purchase_requisition_detail[pr_item].supply_id != null) {
+            console.log("Dito Supply ID meron")
+            prd_table.row
+              .add([
+                data.purchase_requisition_detail[pr_item].supply.category
+                  .category_name,
+                data.purchase_requisition_detail[pr_item].supply.product_name,
+                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].supply
+                  .estimated_price),
+
+                data.purchase_requisition_detail[pr_item].quantity,
+                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].supply
+                .estimated_price *  data.purchase_requisition_detail[pr_item].quantity),
+                '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
+                data.purchase_requisition_detail[pr_item].status +
+                '</label>',
+
+                //action
+                '<div class="text center dropdown"> <div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+                  '<i class="fas fa-ellipsis-v"></i></div> <div class="dropdown-menu dropdown-menu-right">' +
+                  // // view
+                  '<div class="dropdown-item d-flex" role="button" data-toggle="modal" onClick="return editPrDetail( \'' +
+                  data.purchase_requisition_detail[pr_item].id +
+                  '\');"><div style="width: 2rem"> <i class="fas fa-eye mr-1"></i></div><div> View</div></div>' +
+                  // remove
+                  '<div class="dropdown-item '+visibility+'" role="button" data-toggle="modal" onClick="return removePrDetail(this.parentNode.parentNode.parentNode.parentNode, \'' +
+                  data.id +
+                  "', '" +
+                  data.purchase_requisition_detail[pr_item].id +
+                  "', '" +
+                  data.purchase_requisition_detail[pr_item].status +
+                  '\');"><div style="width: 2rem"> <i class="fas fa-' +
+                  fas_status +
+                  ' mr-1"></i></div><div>' +
+                  status_text +
+                  "</div></div>" +
+                  "</div></div>",
+              ])
+              .draw();
+          }else if (data.purchase_requisition_detail[pr_item].product_id != null && data.purchase_requisition_detail[pr_item].supply_id === null) {
+            console.log("Dito PRODUCT ID at SUPPLY ID wala")
             prd_table.row
               .add([
                 data.purchase_requisition_detail[pr_item].product.category
@@ -837,7 +881,7 @@ editPrDetail = (id, tr) => {
 
       if (data) {
         console.log(data);
-        if (data["product_id"] == null) {
+        if (data["product_id"] == null && data["supply_id"] == null) {
           $("#item_uuid").val(data["id"]);
           $("#item_category").val(data["new_category"]);
           $("#item_name").val(data["new_product_name"]);
@@ -845,7 +889,15 @@ editPrDetail = (id, tr) => {
 
           $("#item_description").val(data["description"]);
           $("#item_quantity").val(data["quantity"]);
-        } else {
+        } else if (data["supply_id"] != null) {
+          $("#item_uuid").val(data["id"]);
+          $("#item_category").val(data.supply.category["category_name"]);
+          $("#item_name").val(data.supply["product_name"]);
+          $("#estimated_price").val( "\u20B1" +numberWithCommas(data.supply["estimated_price"]));
+
+          $("#item_description").val(data.supply["description"]);
+          $("#item_quantity").val(data["quantity"]);
+        } else if (data["product_id"] != null && data["supply_id"] == null) {
           $("#item_uuid").val(data["id"]);
           $("#item_category").val(data.product.category["category_name"]);
           $("#item_name").val(data.product["product_name"]);

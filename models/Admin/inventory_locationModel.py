@@ -17,11 +17,12 @@ class Inventory_Locations(Base):
     updated_at                      = Column(DateTime, onupdate=text('NOW()'))
 
     #Foreignkey
-    supply_category_id              = Column(String(36), ForeignKey('supply_categories.supply_category_id'), nullable=False)
+    # supply_category_id              = Column(String(36), ForeignKey('supply_categories.supply_category_id'), nullable=False)
+    supply_category_id              = Column(String(36), ForeignKey('category.id'), nullable=False)
 
 #Relationship/s
     #Relationship/s of this Table
-    inventory_location_category = relationship("Supply_Categories", back_populates="il_supply_categoryFK")
+    inventory_location_category = relationship("Category", back_populates="il_supply_categoryFK")
 
     #Relationship/s of this Table to other Table/s
     inventory_ilFK = relationship("Inventories", back_populates="inventory_location")

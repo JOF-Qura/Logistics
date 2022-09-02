@@ -7,11 +7,15 @@ $(function()
     {
         e.preventDefault();
         trimInputFields();
-        var supply_category_id = $("#uuid").val();
-        var supply_category_name = $("#supply_category_name").val()
-        var supply_category_description = $("#supply_category_description").val();
+        // var supply_category_id = $("#uuid").val();
+        // var supply_category_name = $("#supply_category_name").val()
+        // var supply_category_description = $("#supply_category_description").val();
+        var id = $("#uuid").val();
+        var category_name = $("#category_name").val()
+        var description = $("#description").val();
 
-        if (supply_category_id == "")
+        // if (supply_category_id == "")
+        if (id == "")
         {
             $.ajax(
             {
@@ -19,8 +23,10 @@ $(function()
                 type: "POST",
                 data: JSON.stringify(
                 {		
-                    "supply_category_name": supply_category_name,
-                    "supply_category_description": supply_category_description,
+                    // "supply_category_name": supply_category_name,
+                    // "supply_category_description": supply_category_description,
+                    "category_name": category_name,
+                    "description": description,
                 }),
                 dataType: "JSON",
                 contentType: 'application/json',
@@ -74,16 +80,30 @@ loadTable = () =>
             { sClass: "text-center" },
         ],
         columns: [
+            // {
+            //     data: "supply_category_name",
+            //     name: "supply_category_name",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
+            // {
+            //     data: "supply_category_description",
+            //     name: "supply_category_description",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
             {
-                data: "supply_category_name",
-                name: "supply_category_name",
+                data: "category_name",
+                name: "category_name",
                 searchable: true,
                 // width: "6.66%",
                 className: "dtr-control",
             },
             {
-                data: "supply_category_description",
-                name: "supply_category_description",
+                data: "description",
+                name: "description",
                 searchable: true,
                 // width: "6.66%",
                 className: "dtr-control",
@@ -121,7 +141,8 @@ loadTable = () =>
                                 // '</div>'  +
                             // Edit
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                                aData["supply_category_id"] +
+                                // aData["supply_category_id"] +
+                                aData["id"] +
                                 '\',1)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-edit mr-1"></i>'  +
@@ -133,7 +154,8 @@ loadTable = () =>
                             // Delete
                                 '<div class="dropdown-divider"></div>' +
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                                aData["supply_category_id"] + 
+                                // aData["supply_category_id"] +
+                                aData["id"] + 
                                 '\')">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-trash-alt mr-1"></i>'  +
@@ -155,7 +177,7 @@ loadTable = () =>
                             '<div class="dropdown-menu dropdown-menu-right">'  +
                             //Info
                                 // '<div class="dropdown-item d-flex" role="button"onClick="return viewData(\'' +
-                        //     aData["supply_category_id"] +
+                            // aData["supply_category_id"] +
                         //     '\',0)>'  +
                                 //     '<div style="width: 2rem">' +
                                 //         '<i class="fas fa-eye mr-1"></i>'  +
@@ -164,7 +186,8 @@ loadTable = () =>
                                 // '</div>'  +
                             // Edit
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                                aData["supply_category_id"] +
+                                // aData["supply_category_id"] +
+                                aData["id"] +
                                 '\',1)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-edit mr-1"></i>'  +
@@ -176,7 +199,8 @@ loadTable = () =>
                             // Delete
                                 '<div class="dropdown-divider"></div>' +
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                                aData["supply_category_id"] + 
+                                // aData["supply_category_id"] +
+                                aData["id"] + 
                                 '\')">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-trash-alt mr-1"></i>'  +
@@ -263,7 +287,8 @@ loadTable = () =>
                         // '</div>'  +
                     // Edit
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                        aData["supply_category_id"] +
+                        // aData["supply_category_id"] +
+                        aData["id"] +
                         '\',1)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-edit mr-1"></i>'  +
@@ -275,7 +300,8 @@ loadTable = () =>
                     // Delete
                         '<div class="dropdown-divider"></div>' +
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                        aData["supply_category_id"] + 
+                        // aData["supply_category_id"] +
+                        aData["id"] + 
                         '\')">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-trash-alt mr-1"></i>'  +
@@ -306,7 +332,8 @@ loadTable = () =>
                         // '</div>'  +
                     // Edit
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                        aData["supply_category_id"] +
+                        // aData["supply_category_id"] +
+                        aData["id"] +
                         '\',1)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-edit mr-1"></i>'  +
@@ -318,7 +345,8 @@ loadTable = () =>
                     // Delete
                         '<div class="dropdown-divider"></div>' +
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                        aData["supply_category_id"] + 
+                        // aData["supply_category_id"] +
+                        aData["id"] + 
                         '\')">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-trash-alt mr-1"></i>'  +
@@ -337,19 +365,31 @@ loadTable = () =>
             }
 
 
-            var supply_category_id = ""
+            // var supply_category_id = ""
 
-            if(aData["supply_category_id"] == null)
+            // if(aData["supply_category_id"] == null)
+            // {
+            //     supply_category_id = "null"
+            // }
+            // else
+            // {
+            //     supply_category_id = aData["supply_category_id"]
+            // }
+            var id = ""
+
+            if(aData["id"] == null)
             {
-                supply_category_id = "null"
+                id = "null"
             }
             else
             {
-                supply_category_id = aData["supply_category_id"]
+                id = aData["id"]
             }
 
-            $("td:eq(0)", nRow).html(aData["supply_category_name"]);
-            $("td:eq(1)", nRow).html(aData["supply_category_description"]);
+            // $("td:eq(0)", nRow).html(aData["supply_category_name"]);
+            // $("td:eq(1)", nRow).html(aData["supply_category_description"]);
+            $("td:eq(0)", nRow).html(aData["category_name"]);
+            $("td:eq(1)", nRow).html(aData["description"]);
 
             var date_created = aData["created_at"]
             var moment_date_created = moment(aData["created_at"]).format("MMMM D, YYYY <br> hh:mm:ss");
@@ -374,21 +414,25 @@ loadTable = () =>
 };
 
 // function to edit data
-editData = (supply_category_id, type) => 
+// editData = (supply_category_id, type) => 
+editData = (id, type) => 
 {
     $("#e_form_id")[0].reset();
 	$.ajax(
 		{
-		url: apiURL + "supply_categories/" + supply_category_id,
+		url: apiURL + "supply_categories/" + id,
 		type: "GET",
 		dataType: "json",
 		success: function (data) 
 		{
             if (type == 1) 
             {
-                $("#e_uuid").val(data["supply_category_id"]);
-                s = $("#e_supply_category_name").val(data["supply_category_name"]);
-                $("#e_supply_category_description").val(data["supply_category_description"]);
+                // $("#e_uuid").val(data["supply_category_id"]);
+                // s = $("#e_supply_category_name").val(data["supply_category_name"]);
+                // $("#e_supply_category_description").val(data["supply_category_description"]);
+                $("#e_uuid").val(data["id"]);
+                s = $("#e_category_name").val(data["category_name"]);
+                $("#e_description").val(data["description"]);
 
                 console.log(s)
                 
@@ -396,19 +440,25 @@ editData = (supply_category_id, type) =>
                 {
                     e.preventDefault();
                     trimInputFields();
-                    var supply_category_id = $("#e_uuid").val();
-                    var supply_category_name = $("#e_supply_category_name").val()
-                    var supply_category_description = $("#e_supply_category_description").val()
+                    // var supply_category_id = $("#e_uuid").val();
+                    // var supply_category_name = $("#e_supply_category_name").val()
+                    // var supply_category_description = $("#e_supply_category_description").val()
+                    var id = $("#e_uuid").val();
+                    var category_name = $("#e_category_name").val()
+                    var description = $("#e_description").val()
                     
 
                     $.ajax(
                     {
-                        url: apiURL + "supply_categories/" + supply_category_id,
+                        // url: apiURL + "supply_categories/" + supply_category_id,
+                        url: apiURL + "supply_categories/" + id,
                         type: "PUT",
                         data: JSON.stringify(
                         {		
-                            "supply_category_name": supply_category_name,
-                            "supply_category_description": supply_category_description,
+                            // "supply_category_name": supply_category_name,
+                            // "supply_category_description": supply_category_description,
+                            "category_name": category_name,
+                            "description": description,
                         }),
                         dataType: "JSON",
                         contentType: 'application/json',
@@ -466,9 +516,11 @@ editData = (supply_category_id, type) =>
 // 	});
 // };
 
-deleteData = (supply_category_id) => 
+// deleteData = (supply_category_id) => 
+deleteData = (id) => 
 {
-    $("#d_uuid").val(supply_category_id);
+    // $("#d_uuid").val(supply_category_id);
+    $("#d_uuid").val(id);
 
     $("#d_form_id").on("submit", function (e)
     {
@@ -476,7 +528,8 @@ deleteData = (supply_category_id) =>
         trimInputFields();
         $.ajax(
             {
-            url: apiURL + "supply_categories/" + supply_category_id,
+            // url: apiURL + "supply_categories/" + supply_category_id,
+            url: apiURL + "supply_categories/" + id,
             type: "DELETE",
             dataType: "json",
             success: function (data) 

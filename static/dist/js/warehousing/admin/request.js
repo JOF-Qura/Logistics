@@ -57,7 +57,12 @@ addData = () =>
     {
         e.preventDefault();
         trimInputFields();
+        
         var request_id = $("#uuid").val();
+        var department_id = sessionStorage.getItem("DEPARTMENTID");
+        var purpose = $("#purpose").val()
+        var message = $("#message").val()
+
         var requestor = $("#requestor").val()
         var request_date = $("#request_date").val();
         var request_type = $("#request_type").val();
@@ -76,14 +81,15 @@ addData = () =>
         {
             $.ajax(
             {
-                url: apiURL + "request/",
+                url: apiURL + "api/v1/purchase-requisition/",
                 type: "POST",
                 data: JSON.stringify(
                 {		
-                    "requestor": requestor,
-                    "request_date": date_request,
-                    "request_type": request_type,
-                    "request_status": "Pending"
+                    "department_id": department_id,
+                    "date_requested": date_request,
+                    "purpose": purpose,
+                    "message": message,
+                    "status": request_status
                 }),
                 dataType: "JSON",
                 contentType: 'application/json',
@@ -91,11 +97,40 @@ addData = () =>
                 cache: false,
                 success: function (data) 
                 {
-                    $('#form_id').trigger("reset")
-                    // $('#button_add').prop('disabled', false)
-                    notification("success", "Success!", data.message);
-                    loadTable();
-                    $("#adding_modal").modal('hide')
+                    console.log(data)
+                    // $.ajax(
+                    // {
+                    //     url: apiURL + "request/",
+                    //     type: "POST",
+                    //     data: JSON.stringify(
+                    //     {		
+                    //         "request_date": request_date,
+                    //         "requestor": requestor,
+                    //         "request_type": request_type,
+                    //         "request_status": request_status
+                    //     }),
+                    //     dataType: "JSON",
+                    //     contentType: 'application/json',
+                    //     processData: false,
+                    //     cache: false,
+                    //     success: function (data) 
+                    //     {
+                    //         $('#form_id').trigger("reset")
+                    //         // $('#button_add').prop('disabled', false)
+                    //         notification("success", "Success!", data.message);
+                    //         loadTable();
+                    //         $("#adding_modal").modal('hide')
+                    //     },
+                    //     error: function ({ responseJSON }) 
+                    //     {
+                            
+                    //     },
+                    // });
+                    // $('#form_id').trigger("reset")
+                    // // $('#button_add').prop('disabled', false)
+                    // notification("success", "Success!", data.message);
+                    // loadTable();
+                    // $("#adding_modal").modal('hide')
                 },
                 error: function ({ responseJSON }) 
                 {

@@ -18,6 +18,8 @@ class PurchaseRequisitionDetail(Base):
     purchase_requisition_id = Column(CHAR(36), ForeignKey("purchase_requisition.id"), nullable=False)
     # for product catalog
     product_id = Column(CHAR(36), ForeignKey("product.id"), nullable=True)
+    # for supply catalog (Warehousing)
+    supply_id = Column(CHAR(36), ForeignKey("supplies.id"), nullable=True)
     # -----
     # created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
     updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
@@ -29,6 +31,9 @@ class PurchaseRequisitionDetail(Base):
      
     # relation with product
     product = relationship("Product", back_populates="purchase_requisition_detail")
+
+    # relation with product
+    supply = relationship("Supplies", back_populates="purchase_requisition_detail")
 
     # relation with purchase requisition
     purchase_requisition = relationship("PurchaseRequisition", back_populates="purchase_requisition_detail")

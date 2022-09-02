@@ -4,7 +4,8 @@ from datatables import DataTable
 
 # importing models one by one
 from models.Admin.supplyModel import Supplies
-from models.Admin.supply_categoryModel import Supply_Categories
+# from models.Admin.supply_categoryModel import Supply_Categories
+from models.procurement.category import Category
 from models.Admin.supplierModel import Suppliers
 
 from models.Admin import supplyModel

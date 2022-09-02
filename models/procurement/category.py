@@ -28,6 +28,10 @@ class Category(Base):
     # # relation with product
     product = relationship("Product", back_populates="category")
 
+    #Relationship/s of this Table to other Table/s (WAREHOUSING)
+    il_supply_categoryFK = relationship('Inventory_Locations', back_populates='inventory_location_category')
+    supply = relationship("Supplies", back_populates="category")
+
     # # relation with vendor items
     vendor_bidding_item = relationship("VendorBiddingItems", back_populates="category")
 

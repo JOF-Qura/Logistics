@@ -1,257 +1,361 @@
 <!-- Apply layout from base.html -->
-{%extends 'warehousing/manager/default/base.html'%} 
+{%extends 'warehousing/manager/default/request_base.html'%} 
 
-<!-- Enter content for block 'content' -->
-{%block content%}
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <!-- Title -->
-                <div class="col-sm-6">
-                    <h1>Request</h1>
-                    <p class="text-muted">All Request (in both Procurement and Hospital Department) in this Warehouse</p>
-                </div>
-
-                <!-- Breadcrumb -->
-                <!-- <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item " id ="dashboard_nav"><a href="/warehousing/manager/dashboard">Home </a></li>
-                        <li>&nbsp; / &nbsp;</li>
-                        <script>if(window.location.pathname == '/warehousing/manager/dashboard/'){document.getElementById("dashboard_nav").classList.add('active')}</script>
-                        <li class="breadcrumb-item" id ="request_nav">Request </li>
-                        <script>if(window.location.pathname == '/warehousing/manager/request/'){document.getElementById("request_nav").classList.add('active')}</script>
-                    </ol>
-                </div> -->
-                <!-- / breadcrumb -->
+{% block content %}
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <!-- Title -->
+            <div class="col-sm-6">
+                <h1>Request </h1>
+                <p class="text-muted">All Request (To Procurement) in this Warehouse</p>
             </div>
-            <div class="row">     
-                <!-- Button -->
-                <!-- <div class="col-sm-6">
-                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#adding_modal" onClick="return addData()">Add New Request</a>
-                </div> -->
-                <!-- / Button -->
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content-header -->
 
-
-    <!-- For TESTING -->
-    <!-- <div class="row align-items-center justify-content-center"> -->
-        <!-- Python conditional statement -->
-        <!-- {%for user in users%}
-            <div class="card card-outline card-primary w-75">
-                <div class="card-header">
-                    <div class="h3">ID: {{user.user_id}}</div>
-                    <div class="subtitle">Email: {{user.user_email}}</div>
-                </div>
-                <div class="card-body">
-                    <div>Date Created: {{user.created_at}}</div>
-                </div>
-            </div>
-        {%else%}
-            <h3>No users to show.</h3>
-        {%endfor%}
-    </div> -->
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <button class="btn btn-success mr-2 ml-2" onclick="loadTable()">All Requestor</button>
-                <button class="btn btn-warning mr-2" onclick="loadTableFilterToProcurement()">Procurement</button>
-                <button class="btn btn-info mr-2" onclick="loadTableFilterToHD()">Hospital Department</button>
-                <button class="btn btn-secondary mr-2" onclick="loadTableFilterToWarehouse()">Warehouse</button>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Card -->
-                    <div class="card card-primary card-outline">
-                        <!-- Card Header -->
-                        <div class="card-header">
-                            <div class="row"> 
-                                <div class="col-md-6">
-                                    <h3 class="card-title">Requests</h3>
-                                </div>
-                                <!-- Button -->
-                                <div class="col-md-6">
-                                    <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#adding_modal" onClick="return addData()">Add New Request <i class="fas fa-plus"></i></button>
-                                    <!-- <input type="submit" value="Create new Project" class="btn btn-success float-right"> -->
-                                </div>
-                                <!-- / Button -->
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            <table id="data-table" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th width="20%">Request ID</th>
-                                        <th width="15%">Request Date</th>
-                                        <th width="15%">Requestor</th>
-                                        <th width="15%">Request Type</th>
-                                        <th width="20%">Status</th>
-                                        <!-- <th class="hide">Created Date</th> -->
-                                        <th width="15%" class="text-center">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-            </div>
-            <!-- /.row -->
+            <!-- Breadcrumb -->
+            <!-- <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item " id ="dashboard_nav"><a href="/warehousing/manager/dashboard">Home </a></li>
+                    <li>&nbsp; / &nbsp;</li>
+                    <script>if(window.location.pathname == '/warehousing/manager/dashboard/'){document.getElementById("dashboard_nav").classList.add('active')}</script>
+                    <li class="breadcrumb-item" id ="request_nav">Request </li>
+                    <script>if(window.location.pathname == '/warehousing/manager/request/'){document.getElementById("request_nav").classList.add('active')}</script>
+                </ol>
+            </div> -->
+            <!-- / breadcrumb -->
         </div>
-        <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+        <div class="row">     
+            <!-- Button -->
+            <!-- <div class="col-sm-6">
+                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#adding_modal" onClick="return addData()">Add New Request</a>
+            </div> -->
+            <!-- / Button -->
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
 
-    <!-- Adding Supply to the Request Modal -->
-    <div class="modal fade" id="adding_modal">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Request Form</h4>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- CONTENT -->
-                    <form id="form_id" name="form_id" enctype="multipart/form_data">
-                        <div class="card-body">
-                            <input type="hidden" name="uuid" id="uuid" value="" />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="request_date" id="request_dateLabel">Request Date</label> <span class="required-field"> </span>
-                                        <input type="date" class="form-control" id="request_date" placeholder="Enter email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="requestor">Requestor</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="requestor" name="requestor">
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Procurement">Procurement</option>
-                                            <option value="Hospital Department">Hospital Department</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="request_type">Request type</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="request_type" name="request_type">
-                                            <option value="For Request">For Request</option>
-                                            <option value="To Request">To Request</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="request_status" id="request_statusLabel">Request Status</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="request_status" name="request_status">
-                                            <option value="Pending">Pending</option>
-                                            <option value="For Delivery">For Delivery</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- BUTTONS -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="Submit" class="btn btn-primary" id="button_add">Submit</button>
-                            </div>
-                            <!-- END BUTTONS -->
-                        </div>
-                    </form> <!-- END CONTENT -->
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+    <!-- Timelime example  -->
+    <div class="row" id="div_timeline">
+      <div class="col-md-12">
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title" id=timeline_pr_number></h3>
+
+          </div>
+          <div class="card-body">
+       <!-- The time line -->
+       <div class="timeline" id="timeline_body">
+
+      </div>
+          </div>
+
+          <div class="card-footer">
+
+            <div class="row">
+              <div class="col-md-12 text-right set-btn">
+                <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+                <button type="button" class="btn btn-default bg-default"
+                  onClick="$('#div_timeline').hide()">Close</button>
+
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+ 
+      </div>
+      <!-- /.col -->
     </div>
-    <!-- END Adding Supply to the Request Modal -->
 
-    <!-- editing Request Modal -->
-    <div class="modal fade" id="editing_modal">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Request Form</h4>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
+      
+      <div class="row">
+        <div class="col-md-12 col-sm-6">
+          <div class="card card-primary card-outline card-tabs">
+            <div class="card-header p-0 pt-1 border-bottom-0">
+              <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="tab" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="tab" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Pending</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="tab" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">Approved</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-settings-tab" data-toggle="tab" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Rejected</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-three-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                  <table id="data-table-all" class="table table-hover table-bordered" width="100%">
+                    <thead>
+                      <tr>
+                        <th>PR No.</th>
+    
+                        <th>Requested By</th>
+                        <th>Date Requested</th>
+                        
+                        <th>Status</th>
+                        <th>Action</th>  
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+
                 </div>
-                <div class="modal-body">
-                    <!-- CONTENT -->
-                    <form id="e_form_id" name="e_form_id" enctype="multipart/form_data">
-                        <div class="card-body">
-                            <input type="hidden" name="e_uuid" id="e_uuid" value="" />
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="e_requestor">Requestor</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="e_requestor" name="e_requestor">
-                                            <option value="Warehouse">Warehouse</option>
-                                            <option value="Procurement">Procurement</option>
-                                            <option value="Hospital Department">Hospital Department</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="e_request_type">Request type</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="e_request_type" name="e_request_type">
-                                            <option value="For Request">For Request</option>
-                                            <option value="To Request">To Request</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="e_request_status" id="e_request_statusLabel">Request Status</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="e_request_status" name="e_request_status">
-                                            <option value="Pending">Pending</option>
-                                            <option value="For Delivery">For Delivery</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- BUTTONS -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="Submit" class="btn btn-primary" id="button_save">Save</button>
-                            </div>
-                            <!-- END BUTTONS -->
-                        </div>
-                    </form> <!-- END CONTENT -->
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+
+                  <table id="data-table-pending" class="table table-hover table-bordered" width="100%">
+                    <thead>
+                      <tr>
+                        <th>PR No.</th>
+    
+                        <th>Requested By</th>
+                        <th>Date Ordered</th>
+                        
+                        <th>Status</th>
+                        <th>Action</th>  
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+
+                  <table id="data-table-approved" class="table table-hover table-bordered" width="100%">
+                    <thead>
+                      <tr>
+                        <th>PR No.</th>
+    
+                        <th>Requested By</th>
+                        <th>Date Ordered</th>
+                        
+                        <th>Status</th>
+                        <th>Action</th>  
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+
+
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-three-settings" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
+                  <table id="data-table-rejected" class="table table-hover table-bordered" width="100%">
+                    <thead>
+                      <tr>
+                        <th>PR No.</th>
+    
+                        <th>Requested By</th>
+                        <th>Date Ordered</th>
+                        
+                        <th>Status</th>
+                        <th>Action</th>  
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+
+
+                </div>
+              </div>
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+      </div>
+
+      
     </div>
-    <!-- END editing Request Modal -->
-
-{%endblock%}
-
-{%block scripts%}
-<script src="{{url_for('static', path='/dist/js/warehousing/admin/request.js')}}"></script>
-{%endblock%}
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
 
+<script src="{{ url_for('static', path='/dist/js/warehousing/admin/list_of_request.js') }}"></script>
+
+
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-xl">
+  <div class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Request</div>
+        </div>
+        <!-- <h4 class="modal-title">Purchase Request</h4> -->
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <!-- <div class="modal-body-wrapper"> -->
+      <div class="modal-body p-5">
+        <div class="modal-print">
+
+
+        <div class="form-group row m-t-10">
+          <div class="col-md-7">
+              <label>PR Number</label>
+             <p id="pr_number"></p>
+          </div>
+          <div class="col-md-4">
+              <label>Status</label>
+              <p id="status"></p>
+          </div>
+      </div>
+
+      <div class="form-group row"> 
+          <div class="col-md-7">
+              <label>Department</label>
+              <p id="department"></p>
+            </div>  
+          <div class="col-md-4">
+              <label>Requested By</label>
+              <p id="requested_by"></p>
+          </div>    
+
+
+      </div>
+
+      <div class="form-group row">
+
+        <div class="col-md-7">
+          <label>Date Requested</label>
+          <p id="date_requested"></p>
+        </div>
+
+        <div class="col-md-4">
+          <label>Date Approved/Rejected</label>
+          <p id="date_approved"></p>
+        </div>
+
+     
+      </div>
+
+      <div class="form-group row mb-5">
+        <div class="col-md-7">
+          <label>Purpose</label>
+          <p id="purpose"></p>
+        </div>
+
+        <div class="col-md-4">
+          <label>Approver</label>
+          <p id="approved_by"></p>
+        </div>
+      </div>
+
+      <label class="h5">Item Details</label class="h5">
+
+        <table id="pr-detail-table" class="table table-hover table-bordered" style="width: 100%;">
+          <thead>
+              <tr>
+                <!-- <th></th> -->
+                <th>Category</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Estimated Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+
+                <th>Status</th>
+
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+
+
+      <div class="form-group row my-5 when_approved">
+        <div class="col-md-7">
+          <label>Estimated Amount</label>
+          <p id="estimated_amount"></p>
+        </div>
+
+        <div class="col-md-4">
+          <label>Given Budget</label>
+          <p id="given_budget"></p>
+        </div>
+      </div>
+
+      <div class="form-group row my-5 when_rejected">
+        <div class="col-md-7">
+          <label>Reason</label>
+          <p id="reason"></p>
+        </div>
+
+     
+      </div>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary print">
+          Print
+          <i class="fas fa-print ml-1"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+<!-- Default Modal For updating and deleting -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title cancel-request"> Request</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <p class="request-modal-body"> </p>
+        
+        <input type="hidden" id="uuid" name="uuid">
+
+     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-info" onclick="changeStatus()" id="changeStatus">Cancel Request <i class="fas fa-times-circle ml-1"></i></button>
+
+      </div>
+  
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+{% endblock %}

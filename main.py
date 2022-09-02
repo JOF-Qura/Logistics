@@ -28,7 +28,7 @@ from routes.Admin import (#authRoutes
                     , request_detailRoutes
                     , requestRoutes
                     , supplierRoutes 
-                    , supply_categoriesRoutes 
+                    # , supply_categoriesRoutes 
                     , return_detailRoutes
                     , returnRoutes 
                     , notifRoutes
@@ -60,7 +60,7 @@ from models.Admin import (
                     , outbound_reportModel
                     , request_detailModel
                     , requestModel
-                    , supply_categoryModel
+                    # , supply_categoryModel
                     , supplyModel 
                     , postModel
                     , returnModel
@@ -89,7 +89,7 @@ from models.asset_management import (user_model
 # importing models one by one
 #from models.Admin.userModel import User
 from models.Admin.supplyModel import Supplies
-from models.Admin.supply_categoryModel import Supply_Categories
+# from models.Admin.supply_categoryModel import Supply_Categories
 from models.Admin.inventoryModel import Inventories
 from models.Admin.inventory_locationModel import Inventory_Locations
 from models.Admin.requestModel import Request as RequestModel
@@ -239,7 +239,7 @@ app.include_router(returnRoutes.router)
 app.include_router(request_detailRoutes.router)
 app.include_router(return_detailRoutes.router)
 app.include_router(supplierRoutes.router)
-app.include_router(supply_categoriesRoutes.router)
+# app.include_router(supply_categoriesRoutes.router)
 app.include_router(warehouseRoutes.router)
 app.include_router(notifRoutes.router)
 
@@ -408,6 +408,11 @@ def dashboard(request: Request,):
 def dashboard(request: Request,):
     return template.TemplateResponse("access/sysAdmin/department.html", {"request": request})
 
+@app.get("/sysAdmin/category", response_class=HTMLResponse)
+def dashboard(request: Request,):
+    return template.TemplateResponse("access/sysAdmin/category.html", {"request": request})
+
+    
 # ---------------------------- Warehousing Admin Template ------------------------------ #
 @app.get('/warehousing/admin/', response_class=HTMLResponse)
 def dashhboard(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
@@ -450,7 +455,8 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
 @app.get('/warehousing/admin/supply_categories/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
-        supply_categories = db.query(Supply_Categories).all()
+        # supply_categories = db.query(Supply_Categories).all()
+        supply_categories = db.query(Category).all()
         return template.TemplateResponse('warehousing/admin/content/supply_categories.html', 
         {
             'request': request,
@@ -686,10 +692,22 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
     except Exception as e:
         print(e)
 
+# @app.get('/warehousing/manager/supply_categories/', response_class=HTMLResponse)
+# def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
+#     try:
+#         supply_categories = db.query(Supply_Categories).all()
+#         return template.TemplateResponse('warehousing/manager/content/supply_categories.html', 
+#         {
+#             'request': request,
+#             'supply_categories': supply_categories
+#         })
+#     except Exception as e:
+#         print(e)
+
 @app.get('/warehousing/manager/supply_categories/', response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
-        supply_categories = db.query(Supply_Categories).all()
+        supply_categories = db.query(Category).all()
         return template.TemplateResponse('warehousing/manager/content/supply_categories.html', 
         {
             'request': request,
@@ -728,6 +746,18 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
     try:
         request_model = db.query(RequestModel).all()
         return template.TemplateResponse('warehousing/manager/content/request.html', 
+        {
+            'request': request,
+            'request_model': request_model
+        })
+    except Exception as e:
+        print(e)
+
+@app.get('/warehousing/manager/request_drafts/', response_class=HTMLResponse)
+def index(request: Request, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
+    try:
+        request_model = db.query(RequestModel).all()
+        return template.TemplateResponse('warehousing/manager/content/request_drafts.html', 
         {
             'request': request,
             'request_model': request_model

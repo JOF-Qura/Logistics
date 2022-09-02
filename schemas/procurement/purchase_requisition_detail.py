@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional, Text, List
 # from . import user
 from . import product
+from ..Admin import supplySchema
 
 
 
@@ -10,6 +11,7 @@ from . import product
 class PurchaseRequisitionDetail(BaseModel):
     quantity: int
     product_id: Optional[str]
+    supply_id: Optional[str]
     new_category: Optional[str]
     new_product_name: Optional[str]
     estimated_price: Optional[str]
@@ -21,7 +23,9 @@ class ShowPurchaseRequisitionDetail(BaseModel):
     id:str
     quantity: int
     product: Optional[product.ShowProduct]
+    supply: Optional[supplySchema.ShowSupply]
     product_id:Optional[str]
+    supply_id:Optional[str]
     new_category: Optional[str]
     new_product_name: Optional[str]
     estimated_price: Optional[str]

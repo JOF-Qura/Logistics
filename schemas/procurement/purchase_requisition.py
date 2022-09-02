@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional, Text, List
 from datetime import datetime, date, time, timedelta
 from . import product, purchase_requisition_detail #user, 
+from ..asset_management import department_schema
 
 
 
@@ -39,6 +40,8 @@ class ShowPurchaseRequisition(BaseModel):
     created_at: Optional[datetime] 
 
     purchase_requisition_detail: List[purchase_requisition_detail.ShowPurchaseRequisitionDetail] 
+
+    department_procurement: Optional[department_schema.ShowDepartment]
 
     class Config():
         orm_mode = True

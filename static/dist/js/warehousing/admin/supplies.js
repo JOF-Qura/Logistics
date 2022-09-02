@@ -9,21 +9,28 @@ $(function()
     {
         e.preventDefault();
         trimInputFields();
-        var supply_id = $("#uuid").val();
-        var supplier_id = $("#supplier_id").val()
-        var supply_category_id = $("#supply_category_id").val();
-        var supply_name = $("#supply_name").val();
+        // var supply_id = $("#uuid").val();
+        var id = $("#uuid").val();
+        // var supplier_id = $("#supplier_id").val()
+        // var supply_category_id = $("#supply_category_id").val();
+        var category_id = $("#category_id").val();
+        // var supply_name = $("#supply_name").val();
+        var product_name = $("#product_name").val();
         var supply_quantity = $("#supply_quantity").val();
         var supply_unit_type = $("#supply_unit_type").val();
-        var supply_unit_cost = $("#supply_unit_cost").val();
-        var supply_description = $("#supply_description").val();
+        // var supply_unit_cost = $("#supply_unit_cost").val();
+        var estimated_price = $("#estimated_price").val();
+        // var supply_description = $("#supply_description").val();
+        var description = $("#description").val();
         var supply_reorder_interval = $("#supply_reorder_interval").val();
         var supply_expiration = $("#supply_expiration").val();
         var supply_status = "Good";
+        var status = "active";
 
         var date_expired = supply_expiration + "T00:00:00.000Z"
 
-        if (supply_id == "")
+        // if (supply_id == "")
+        if (id == "")
         {
             $.ajax(
             {
@@ -31,14 +38,24 @@ $(function()
                 type: "POST",
                 data: JSON.stringify(
                 {		
-                    "supplier_id": supplier_id,
-                    "supply_category_id": supply_category_id,
-                    "supply_name": supply_name,
+                    // "supplier_id": supplier_id,
+                    // "supply_category_id": supply_category_id,
+                    // "supply_name": supply_name,
+                    // "supply_quantity": supply_quantity,
+                    // "supply_unit_type": supply_unit_type,
+                    // "supply_unit_cost": supply_unit_cost,
+                    // "supply_status": "Good",
+                    // "supply_description": supply_description,
+                    // "supply_reorder_interval": supply_reorder_interval,
+                    // "supply_expiration": date_expired,
+                    "category_id": category_id,
+                    "product_name": product_name,
                     "supply_quantity": supply_quantity,
                     "supply_unit_type": supply_unit_type,
-                    "supply_unit_cost": supply_unit_cost,
+                    "estimated_price": estimated_price,
                     "supply_status": "Good",
-                    "supply_description": supply_description,
+                    "status": "active",
+                    "description": description,
                     "supply_reorder_interval": supply_reorder_interval,
                     "supply_expiration": date_expired,
                 }),
@@ -100,7 +117,7 @@ loadTable = () =>
         ],
         aaColumns: [
             { sClass: "text-left" },
-            { sClass: "text-left" },
+            // { sClass: "text-left" },
             { sClass: "text-left" },
             { sClass: "text-left" },
             { sClass: "text-left" },
@@ -111,27 +128,41 @@ loadTable = () =>
             { sClass: "text-center" },
         ],
         columns: [
+            // {
+            //     data: "supply_name",
+            //     name: "supply_name",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
             {
-                data: "supply_name",
-                name: "supply_name",
+                data: "product_name",
+                name: "product_name",
                 searchable: true,
                 // width: "6.66%",
                 className: "dtr-control",
             },
+            // {
+            //     data: "supply_category_id",
+            //     name: "supply_category_id",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
             {
-                data: "supply_category_id",
-                name: "supply_category_id",
+                data: "category_id",
+                name: "category_id",
                 searchable: true,
                 // width: "6.66%",
                 className: "dtr-control",
             },
-            {
-                data: "supplier_id",
-                name: "supplier_id",
-                searchable: true,
-                // width: "6.66%",
-                className: "dtr-control",
-            },
+            // {
+            //     data: "supplier_id",
+            //     name: "supplier_id",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
             {
                 data: "supply_quantity",
                 name: "supply_quantity",
@@ -146,16 +177,30 @@ loadTable = () =>
                 // width: "6.66%",
                 className: "dtr-control",
             },
+            // {
+            //     data: "supply_unit_cost",
+            //     name: "supply_unit_cost",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
             {
-                data: "supply_unit_cost",
-                name: "supply_unit_cost",
+                data: "estimated_price",
+                name: "estimated_price",
                 searchable: true,
                 // width: "6.66%",
                 className: "dtr-control",
             },
+            // {
+            //     data: "supply_description",
+            //     name: "supply_description",
+            //     searchable: true,
+            //     // width: "6.66%",
+            //     className: "dtr-control",
+            // },
             {
-                data: "supply_description",
-                name: "supply_description",
+                data: "description",
+                name: "description",
                 searchable: true,
                 // width: "6.66%",
                 className: "dtr-control",
@@ -192,7 +237,8 @@ loadTable = () =>
                             '<div class="dropdown-menu dropdown-menu-right">'  +
                             //Info
                                 '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
-                                aData["supply_id"] + 
+                                // aData["supply_id"] + 
+                                aData["id"] + 
                                 '\', 0)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-eye mr-1"></i>'  +
@@ -204,7 +250,8 @@ loadTable = () =>
                             // Edit
                                 '<div class="dropdown-divider"></div>' +
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                                aData["supply_id"] +
+                                // aData["supply_id"] +
+                                aData["id"] +
                                 '\',1)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-edit mr-1"></i>'  +
@@ -216,7 +263,8 @@ loadTable = () =>
                             // Delete
                                 '<div class="dropdown-divider"></div>' +
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                                aData["supply_id"] + 
+                                // aData["supply_id"] +
+                                aData["id"] +
                                 '\')">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-trash-alt mr-1"></i>'  +
@@ -238,7 +286,8 @@ loadTable = () =>
                             '<div class="dropdown-menu dropdown-menu-right">'  +
                             //Info
                                 '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
-                                aData["supply_id"] + 
+                                // aData["supply_id"] +
+                                aData["id"] +  
                                 '\', 0)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-eye mr-1"></i>'  +
@@ -250,7 +299,8 @@ loadTable = () =>
                             // Edit
                                 '<div class="dropdown-divider"></div>' +
                                 '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                                aData["supply_id"] +
+                                // aData["supply_id"] +
+                                aData["id"] + 
                                 '\',1)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-edit mr-1"></i>'  +
@@ -284,7 +334,8 @@ loadTable = () =>
                             '<div class="dropdown-menu dropdown-menu-right">'  +
                             //Info
                                 '<div class="dropdown-item d-flex" role="button" onClick="return sendRequest(\'' + 
-                                aData["supply_id"] + 
+                                // aData["supply_id"] +
+                                aData["id"] +  
                                 '\', 0)">'  +
                                     '<div style="width: 2rem">' +
                                         '<i class="fas fa-share-square mr-1"></i>'  +
@@ -305,9 +356,11 @@ loadTable = () =>
             url: '/supplies/datatable',
             type: "GET",
             ContentType: "application/x-www-form-urlencoded",
+            // dataSrc: "",
         },
         fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) 
         {
+            console.log(aData)
             console.log(USER_TYPE)
             let buttons = "";
             if(USER_TYPE == "Admin")
@@ -320,7 +373,8 @@ loadTable = () =>
                     '<div class="dropdown-menu dropdown-menu-right">'  +
                     //Info
                         '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
-                        aData["supply_id"] + 
+                        // aData["supply_id"] +
+                        aData["id"] +  
                         '\', 0)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-eye mr-1"></i>'  +
@@ -332,7 +386,8 @@ loadTable = () =>
                     // Edit
                         '<div class="dropdown-divider"></div>' +
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                        aData["supply_id"] +
+                        // aData["supply_id"] +
+                        aData["id"] + 
                         '\',1)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-edit mr-1"></i>'  +
@@ -344,7 +399,8 @@ loadTable = () =>
                     // Delete
                         '<div class="dropdown-divider"></div>' +
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#delete_modal" onClick="return deleteData(\'' + 
-                        aData["supply_id"] + 
+                        // aData["supply_id"] +
+                        aData["id"] +  
                         '\')">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-trash-alt mr-1"></i>'  +
@@ -366,7 +422,8 @@ loadTable = () =>
                     '<div class="dropdown-menu dropdown-menu-right">'  +
                     //Info
                         '<div class="dropdown-item d-flex" role="button" onClick="return viewData(\'' + 
-                        aData["supply_id"] + 
+                        // aData["supply_id"] +
+                        aData["id"] +  
                         '\', 0)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-eye mr-1"></i>'  +
@@ -378,7 +435,8 @@ loadTable = () =>
                     // Edit
                         '<div class="dropdown-divider"></div>' +
                         '<div class="dropdown-item d-flex" role="button" data-toggle="modal" data-target="#editing_modal" onClick="return editData(\'' +
-                        aData["supply_id"] +
+                        // aData["supply_id"] +
+                        aData["id"] + 
                         '\',1)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-edit mr-1"></i>'  +
@@ -412,7 +470,8 @@ loadTable = () =>
                     '<div class="dropdown-menu dropdown-menu-right">'  +
                     //Info
                         '<div class="dropdown-item d-flex" role="button" onClick="return sendRequest(\'' + 
-                        aData["supply_id"] + 
+                        // aData["supply_id"] +
+                        aData["id"] +  
                         '\', 0)">'  +
                             '<div style="width: 2rem">' +
                                 '<i class="fas fa-share-square mr-1"></i>'  +
@@ -426,34 +485,46 @@ loadTable = () =>
             }
             var supply_id = ""
 
-            if(aData["supply_id"] == null)
+            // if(aData["supply_id"] == null)
+            // {
+            //     supply_id = "null"
+            // }
+            // else
+            // {
+            //     supply_id = aData["supply_id"]
+            // }
+            if(aData["id"] == null)
             {
-                supply_id = "null"
+                id = "null"
             }
             else
             {
-                supply_id = aData["supply_id"]
+                id = aData["id"]
             }
             function intToFloat(num, decPlaces) { return num.toFixed(decPlaces); }
 
-            var unit_cost = intToFloat(aData["supply_unit_cost"], 2);
+            // var unit_cost = intToFloat(aData["supply_unit_cost"], 2);
+            var unit_cost = intToFloat(aData["estimated_price"], 2);
 
-            $("td:eq(0)", nRow).html(aData["supply_name"]);
-            $("td:eq(1)", nRow).html(aData["supply_category_id"]);
-            $("td:eq(2)", nRow).html(aData["supplier_id"]);
+            // $("td:eq(0)", nRow).html(aData["supply_name"]);
+            $("td:eq(0)", nRow).html(aData["product_name"]);
+            // $("td:eq(1)", nRow).html(aData["supply_category_id"]);
+            $("td:eq(1)", nRow).html(aData["category_id"]);
+            // $("td:eq(2)", nRow).html(aData["supplier_id"]);
             if (aData["supply_quantity"] < 100)
             {
-                $("td:eq(3)", nRow).html('<b style="color:Red !important;">!! '+ aData["supply_quantity"] + '</b>');
+                $("td:eq(2)", nRow).html('<b style="color:Red !important;">!! '+ aData["supply_quantity"] + '</b>');
             }
             else
             {
-                $("td:eq(3)", nRow).html(aData["supply_quantity"]);
+                $("td:eq(2)", nRow).html(aData["supply_quantity"]);
             }
             // $("td:eq(3)", nRow).html(aData["supply_quantity"]);
-            $("td:eq(4)", nRow).html(aData["supply_unit_type"]);
-            $("td:eq(5)", nRow).html("₱" + unit_cost);
-            $("td:eq(6)", nRow).html(aData["supply_description"]);
-            $("td:eq(7)", nRow).html(aData["supply_reorder_interval"]);
+            $("td:eq(3)", nRow).html(aData["supply_unit_type"]);
+            $("td:eq(4)", nRow).html("₱" + unit_cost);
+            // $("td:eq(5)", nRow).html(aData["supply_description"]);
+            $("td:eq(5)", nRow).html(aData["description"]);
+            $("td:eq(6)", nRow).html(aData["supply_reorder_interval"]);
 
 
             var exp_date = aData["supply_expiration"]
@@ -469,8 +540,8 @@ loadTable = () =>
             {
                 exp_date = moment_exp_date
             }
-            $("td:eq(8)", nRow).html(exp_date);
-            $("td:eq(9)", nRow).html(buttons);
+            $("td:eq(7)", nRow).html(exp_date);
+            $("td:eq(8)", nRow).html(buttons);
         },
         drawCallback: function (settings) {
             // $("#data-table").removeClass("dataTable");
@@ -481,9 +552,11 @@ loadTable = () =>
 
 
 
-sendRequest = (supply_id) =>
+// sendRequest = (supply_id) =>
+sendRequest = (id) =>
 {
-    var sup_id = supply_id;
+    // var sup_id = supply_id;
+    var sup_id = id;
     var description = "We need a restocking for this supply!";
     var status = "Pending"
 
@@ -511,7 +584,8 @@ sendRequest = (supply_id) =>
                     type: "POST",
                     data: JSON.stringify(
                         {
-                            "supply_id": sup_id,
+                            // "supply_id": sup_id,
+                            "id": sup_id,
                             "description": description,
                             "status": status,
                             "request_id": null,
@@ -538,79 +612,102 @@ sendRequest = (supply_id) =>
 }
 
 
-viewData = (supply_id) => 
+// viewData = (supply_id) => 
+// {
+//     if(USER_TYPE == "Admin")
+//     {
+//         window.location.replace(baseURL + 'admin/supplies_details?supply_id='+supply_id);
+//         console.log(supply_id);
+//     }
+//     else if(USER_TYPE == "warehousing_Manager")
+//     {
+//         window.location.replace(baseURL + 'manager/supplies_details?supply_id='+supply_id);
+//         console.log(supply_id);
+//     }
+//     else if(USER_TYPE == "warehousing_Staff")
+//     {
+//         window.location.replace(baseURL + 'staff/supplies_details?supply_id='+supply_id);
+//         console.log(supply_id);
+//     }
+// }
+
+viewData = (id) => 
 {
     if(USER_TYPE == "Admin")
     {
-        window.location.replace(baseURL + 'admin/supplies_details?supply_id='+supply_id);
-        console.log(supply_id);
+        window.location.replace(baseURL + 'admin/supplies_details?id='+id);
+        console.log(id);
     }
     else if(USER_TYPE == "warehousing_Manager")
     {
-        window.location.replace(baseURL + 'manager/supplies_details?supply_id='+supply_id);
-        console.log(supply_id);
+        window.location.replace(baseURL + 'manager/supplies_details?id='+id);
+        console.log(id);
     }
     else if(USER_TYPE == "warehousing_Staff")
     {
-        window.location.replace(baseURL + 'staff/supplies_details?supply_id='+supply_id);
-        console.log(supply_id);
+        window.location.replace(baseURL + 'staff/supplies_details?id='+id);
+        console.log(id);
     }
 }
 
-// viewData = (supply_id) => 
-// {
-//     window.location.replace(baseURL + 'admin/supplies/'+supply_id);
-//     console.log(supply_id);
-// }
+// loadSuppliers = () => {
+//     $.ajax({
+//         url: apiURL + "suppliers",
+//         type: "GET",
+//         dataType: "json",
+//         success: function (responseData) 
+//         { 
+//             $.each(responseData.Suppliers, function (i, dataOptions) 
+//             {
+//                 var options = "";
 
-loadSuppliers = () => {
-    $.ajax({
-        url: apiURL + "suppliers",
-        type: "GET",
-        dataType: "json",
-        success: function (responseData) 
-        { 
-            $.each(responseData.Suppliers, function (i, dataOptions) 
-            {
-                var options = "";
+//                 options =
+//                     "<option value='" +
+//                     dataOptions.supplier_id +
+//                     "'>" +
+//                     dataOptions.supplier_name +
+//                     "</option>";
 
-                options =
-                    "<option value='" +
-                    dataOptions.supplier_id +
-                    "'>" +
-                    dataOptions.supplier_name +
-                    "</option>";
-
-                $("#supplier_id").append(options);
-                $("#e_supplier_id").append(options);
-            });
+//                 $("#supplier_id").append(options);
+//                 $("#e_supplier_id").append(options);
+//             });
             
-        },
-        error: function ({ responseJSON }) {},
-    });
-};
-loadSuppliers();
+//         },
+//         error: function ({ responseJSON }) {},
+//     });
+// };
+// loadSuppliers();
 
 loadSupplyCategories = () => {
     $.ajax({
-        url: apiURL + "supply_categories",
+        url: "http://localhost:8000/api/v1/" + "category",
         type: "GET",
         dataType: "json",
         success: function (responseData) 
         { 
-            $.each(responseData.Supply_Categories, function (i, dataOptions) 
+            console.log(responseData)
+            $.each(responseData, function (i, dataOptions) 
             {
                 var options = "";
 
+                // options =
+                //     "<option value='" +
+                //     dataOptions.supply_category_id +
+                //     "'>" +
+                //     dataOptions.supply_category_name +
+                //     "</option>";
+
                 options =
                     "<option value='" +
-                    dataOptions.supply_category_id +
+                    dataOptions.id +
                     "'>" +
-                    dataOptions.supply_category_name +
+                    dataOptions.category_name +
                     "</option>";
 
-                $("#supply_category_id").append(options);
-                $("#e_supply_category_id").append(options);
+                // $("#supply_category_id").append(options);
+                // $("#e_supply_category_id").append(options);
+                $("#category_id").append(options);
+                $("#e_category_id").append(options);
             });
             
         },
@@ -620,59 +717,82 @@ loadSupplyCategories = () => {
 loadSupplyCategories();
 
 // function to edit data
-editData = (supply_id, type) => 
+// editData = (supply_id, type) => 
+editData = (id, type) => 
 {
 	$.ajax(
 		{
-		url: apiURL + "supplies/" + supply_id,
+		// url: apiURL + "supplies/" + supply_id,
+        url: apiURL + "supplies/" + id,
 		type: "GET",
 		dataType: "json",
 		success: function (data) 
 		{
             if (type == 1) 
             {
-                $("#e_uuid").val(data["supply_id"]);
-                $("#e_supply_name").val(data["supply_name"]);
-                $("#e_supplier_id").val(data["supplier_id"]).trigger("change");
-                $("#e_supply_category_id").val(data["supply_category_id"]).trigger("change");
+                // $("#e_uuid").val(data["supply_id"]);
+                $("#e_uuid").val(data["id"]);
+                // $("#e_supply_name").val(data["supply_name"]);
+                $("#e_product_name").val(data["product_name"]);
+                // $("#e_supplier_id").val(data["supplier_id"]).trigger("change");
+                // $("#e_supply_category_id").val(data["supply_category_id"]).trigger("change");
+                $("#e_category_id").val(data["category_id"]).trigger("change");
                 $("#e_supply_quantity").val(data["supply_quantity"]);
                 $("#e_supply_unit_type").val(data["supply_unit_type"]);
-                $("#e_supply_unit_cost").val(data["supply_unit_cost"]);
-                $("#e_supply_description").val(data["supply_description"]);
+                // $("#e_supply_unit_cost").val(data["supply_unit_cost"]);
+                $("#e_estimated_price").val(data["estimated_price"]);
+                // $("#e_supply_description").val(data["supply_description"]);
+                $("#e_description").val(data["description"]);
                 $("#e_supply_reorder_interval").val(data["supply_reorder_interval"]).trigger("change");
                 $("#e_supply_expiration").val(data["supply_expiration"]);
+                // $("#e_supply_status").val(data["supply_status"]).trigger("change");
                 $("#e_supply_status").val(data["supply_status"]).trigger("change");
                
                 $("#e_form_id").on("submit", function (e)
                 {
                     e.preventDefault();
                     trimInputFields();
-                    var supply_id = $("#e_uuid").val();
-                    var supplier_id = $("#e_supplier_id").val()
-                    var supply_category_id = $("#e_supply_category_id").val();
-                    var supply_name = $("#e_supply_name").val();
+                    // var supply_id = $("#e_uuid").val();
+                    var id = $("#e_uuid").val();
+                    // var supplier_id = $("#e_supplier_id").val()
+                    // var supply_category_id = $("#e_supply_category_id").val();
+                    var category_id = $("#e_category_id").val();
+                    // var supply_name = $("#e_supply_name").val();
+                    var product_name = $("#e_product_name").val();
                     var supply_quantity = $("#e_supply_quantity").val();
                     var supply_unit_type = $("#e_supply_unit_type").val();
-                    var supply_unit_cost = $("#e_supply_unit_cost").val();
-                    var supply_description = $("#e_supply_description").val();
+                    // var supply_unit_cost = $("#e_supply_unit_cost").val();
+                    var estimated_price = $("#e_estimated_price").val();
+                    // var supply_description = $("#e_supply_description").val();
+                    var description = $("#e_description").val();
                     var supply_reorder_interval = $("#e_supply_reorder_interval").val();
                     var supply_expiration = "2021-08-28T04:29:33.292Z"
                     var supply_status = $("#e_supply_status").val();
 
                     $.ajax(
                     {
-                        url: apiURL + "supplies/" + supply_id,
+                        // url: apiURL + "supplies/" + supply_id,
+                        url: apiURL + "supplies/" + id,
                         type: "PUT",
                         data: JSON.stringify(
                         {		
-                            "supplier_id": supplier_id,
-                            "supply_category_id": supply_category_id,
-                            "supply_name": supply_name,
+                            // "supplier_id": supplier_id,
+                            // "supply_category_id": supply_category_id,
+                            // "supply_name": supply_name,
+                            // "supply_quantity": supply_quantity,
+                            // "supply_unit_type": supply_unit_type,
+                            // "supply_unit_cost": supply_unit_cost,
+                            // "supply_status": supply_status,
+                            // "supply_description": supply_description,
+                            // "supply_reorder_interval": supply_reorder_interval,
+                            // "supply_expiration": supply_expiration,
+                            "category_id": category_id,
+                            "product_name": product_name,
                             "supply_quantity": supply_quantity,
                             "supply_unit_type": supply_unit_type,
-                            "supply_unit_cost": supply_unit_cost,
+                            "estimated_price": estimated_price,
                             "supply_status": supply_status,
-                            "supply_description": supply_description,
+                            "description": description,
                             "supply_reorder_interval": supply_reorder_interval,
                             "supply_expiration": supply_expiration,
                         }),
@@ -738,17 +858,19 @@ editData = (supply_id, type) =>
 
 
 
-deleteData = (supply_id) => 
+// deleteData = (supply_id) => 
+deleteData = (id) => 
 {
-    $("#d_uuid").val(supply_id);
-
+    // $("#d_uuid").val(supply_id);
+    $("#d_uuid").val(id);
     $("#d_form_id").on("submit", function (e)
     {
         e.preventDefault();
         trimInputFields();
         $.ajax(
             {
-            url: apiURL + "supplies/" + supply_id,
+            // url: apiURL + "supplies/" + supply_id,
+            url: apiURL + "supplies/" + id,
             type: "DELETE",
             dataType: "json",
             success: function (data) 

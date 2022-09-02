@@ -17,7 +17,7 @@ class Inventories(Base):
 
     #Foreignkey
     inventory_location_id           = Column(String(36), ForeignKey('inventory_locations.inventory_location_id'), nullable=True)
-    supply_id                       = Column(String(36), ForeignKey('supplies.supply_id'), nullable=True, unique=True)
+    supply_id                       = Column(String(36), ForeignKey('supplies.id'), nullable=True, unique=True)
     
 #Relationship/s
     #Relationship/s of this Table

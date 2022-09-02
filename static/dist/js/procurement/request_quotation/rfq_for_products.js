@@ -356,10 +356,10 @@ $("#purchase_requisition_id").on("change", function () {
         $("#status").html(data["status"]);
         $("#department").html(
           // data.u_created_by.employees.department["department_name"]
-          "dept name"
+          data.department_procurement['department_name']
         );
         // $("#requested_by").html(data.u_created_by.employees["first_name"]);
-        $("#requested_by").html("requestor name");
+        $("#requested_by").html(data.department_procurement['department_head']);
 
         $("#purpose").html(data["purpose"]);
         $("#budget").val(data["given_budget"]);
@@ -383,7 +383,7 @@ $("#purchase_requisition_id").on("change", function () {
         prd_table.clear().draw();
 
         for (let pr_item in data.purchase_requisition_detail) {
-          if (data.purchase_requisition_detail[pr_item].product_id === null) {
+          if (data.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition_detail[pr_item].supply_id === null) {
             $("#quotation_code").val(
               data.purchase_requisition_detail[pr_item].new_category
                 .slice(0, 2)
@@ -408,7 +408,37 @@ $("#purchase_requisition_id").on("change", function () {
                   ),
               ])
               .draw();
-          } else {
+          } else if (data.purchase_requisition_detail[pr_item].supply_id != null){
+            $("#quotation_code").val(
+              data.purchase_requisition_detail[
+                pr_item
+              ].supply.category.category_name
+                .slice(0, 2)
+                .toUpperCase() +
+                " - " +
+                data["purchase_requisition_number"]
+            );
+            prd_table.row
+              .add([
+                data.purchase_requisition_detail[pr_item].supply.category
+                  .category_name,
+                data.purchase_requisition_detail[pr_item].supply.product_name,
+                data.purchase_requisition_detail[pr_item].supply.description,
+                "\u20B1" +
+                  numberWithCommas(
+                    data.purchase_requisition_detail[pr_item].supply
+                      .estimated_price
+                  ),
+                data.purchase_requisition_detail[pr_item].quantity,
+                "\u20B1" +
+                  numberWithCommas(
+                    data.purchase_requisition_detail[pr_item].quantity *
+                      data.purchase_requisition_detail[pr_item].supply
+                        .estimated_price
+                  ),
+              ])
+              .draw();
+          }else if (data.purchase_requisition_detail[pr_item].product_id != null && data.purchase_requisition_detail[pr_item].supply_id === null){
             $("#quotation_code").val(
               data.purchase_requisition_detail[
                 pr_item

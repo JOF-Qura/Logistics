@@ -29,7 +29,8 @@ from schemas.Admin import inbound_reportSchema
 
 # importing models one by one
 from models.Admin.supplyModel import Supplies
-from models.Admin.supply_categoryModel import Supply_Categories
+# from models.Admin.supply_categoryModel import Supply_Categories
+from models.procurement.category import Category
 from models.Admin.supplierModel import Suppliers
 from models.Admin import supplyModel
 from schemas.Admin import supplySchema
@@ -100,24 +101,24 @@ def count_return_per_month(db: Session = Depends(get_db)):
 
 @router.get('/most_requested')
 def count_most_requested(db: Session = Depends(get_db)):
-    query = db.query(Supplies.supply_name, func.count(Request_Details.supply_id)
-        ).join(Supplies, Supplies.supply_id == Request_Details.supply_id, isouter = True
+    query = db.query(Supplies.product_name, func.count(Request_Details.id)
+        ).join(Supplies, Supplies.id == Request_Details.id, isouter = True
         ).join(Request_M, Request_M.request_id == Request_Details.request_id, isouter = True
         ).filter(requestModel.Request.request_type == "To Request"
-        ).order_by(desc(func.count(Request_Details.supply_id))
-        ).group_by(Request_Details.supply_id
+        ).order_by(desc(func.count(Request_Details.id))
+        ).group_by(Request_Details.id
         ).limit(5)
 
     return query
 
 @router.get('/most_ordered')
 def count_most_requested(db: Session = Depends(get_db)):
-    query = db.query(Supplies.supply_name, func.count(Request_Details.supply_id)
-        ).join(Supplies, Supplies.supply_id == Request_Details.supply_id, isouter = True
+    query = db.query(Supplies.product_name, func.count(Request_Details.id)
+        ).join(Supplies, Supplies.id == Request_Details.id, isouter = True
         ).join(Request_M, Request_M.request_id == Request_Details.request_id, isouter = True
         ).filter(requestModel.Request.request_type == "For Request"
-        ).order_by(desc(func.count(Request_Details.supply_id))
-        ).group_by(Request_Details.supply_id
+        ).order_by(desc(func.count(Request_Details.id))
+        ).group_by(Request_Details.id
         ).limit(5)
 
     return query
@@ -125,7 +126,7 @@ def count_most_requested(db: Session = Depends(get_db)):
 # GET all request detail
 @router.get('/')
 def get_all_request_detail(db: Session = Depends(get_db)):
-    rd = db.query(request_detailModel.Request_Details, func.count(Request_Details.supply_id)).options(joinedload(request_detailModel.Request_Details.request)
+    rd = db.query(request_detailModel.Request_Details, func.count(Request_Details.id)).options(joinedload(request_detailModel.Request_Details.request)
                                                                 , joinedload(request_detailModel.Request_Details.supply)).all()
     return {'Request_Details': rd}
 

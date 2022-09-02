@@ -77,12 +77,13 @@
                             <table id="data-table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th width="10%">Supply Name</th>
+                                        <th width="10%">Name</th>
                                         <th width="10%">Category</th>
-                                        <th width="10%">Supplier</th>  
+                                        <!-- <th width="10%">Supplier</th>   -->
                                         <th width="5%">Qty.</th>
                                         <th width="5%">Unit Type</th>
-                                        <th width="10%">Unit Cost</th>
+                                        <!-- <th width="10%">Unit Cost</th> -->
+                                        <th width="10%">Estimated Price</th>
                                         <th width="10%">Description</th>
                                         <th width="5%">Reorder Interval</th>
                                         <th width="10%">Expiration Date</th>
@@ -122,14 +123,20 @@
                         <div class="card-body">
                             <div class="row">
                                 <input type="hidden" name="uuid" id="uuid" value="" />
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="supply_name" id="supply_nameLabel">Supply Name</label> <span class="required-field"> </span>
                                         <input type="input" class="form-control" id="supply_name" placeholder="Enter Supply Name" required>
                                     </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="product_name" id="product_nameLabel">Product Name</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="product_name" placeholder="Enter Product Name" required>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="supplier_id">Supplier</label> <span class="required-field"> </span>
@@ -138,12 +145,22 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
+                            </div> -->
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="supply_category_id">Supply Category</label> <span class="required-field"> </span>
                                         <select class="form-control js-example-basic-single" id="supply_category_id" name="supply_category_id" required>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="category_id">Product Category</label> <span class="required-field"> </span>
+                                        <select class="form-control js-example-basic-single" id="category_id" name="category_id" required>
                                             
                                         </select>
                                     </div>
@@ -168,19 +185,35 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="supply_unit_cost" id="supply_unit_costLabel">Supply Unit Cost</label> <span class="required-field"> </span>
                                         <input type="number" class="form-control" id="supply_unit_cost" placeholder="Enter Cost per Unit" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="estimated_price" id="estimated_priceLabel">Estimated Cost</label> <span class="required-field"> </span>
+                                        <input type="number" class="form-control" id="estimated_price" placeholder="Enter Estimated Cost required">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="supply_description" id="supply_descriptionLabel">Supply Descrription</label> <span class="required-field"> </span>
                                         <input type="input" class="form-control" id="supply_description" placeholder="Enter Description">
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="description" id="descriptionLabel">Product Descrription</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="description" placeholder="Enter Description">
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +279,7 @@
                     <!-- CONTENT -->
                     <form id="e_form_id" name="e_form_id" enctype="multipart/form_data">
                         <div class="card-body">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <input type="hidden" name="e_uuid" id="e_uuid" value="" />
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -254,8 +287,17 @@
                                         <input type="input" class="form-control" id="e_supply_name" placeholder="Enter Supply Name" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
+                                <input type="hidden" name="e_uuid" id="e_uuid" value="" />
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_product_name" id="e_product_nameLabel">Product Name</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_product_name" placeholder="Enter Product Name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="e_supplier_id">Supplier</label> <span class="required-field"> </span>
@@ -264,12 +306,22 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
+                            </div> -->
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="e_supply_category_id">Supply Category</label> <span class="required-field"> </span>
                                         <select class="form-control js-example-basic-single" id="e_supply_category_id" name="e_supply_category_id" required>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_category_id">Product Category</label> <span class="required-field"> </span>
+                                        <select class="form-control js-example-basic-single" id="e_category_id" name="e_category_id" required>
                                             
                                         </select>
                                     </div>
@@ -294,19 +346,35 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="e_supply_unit_cost" id="e_supply_unit_costLabel">Supply Unit Cost</label> <span class="required-field"> </span>
                                         <input type="number" class="form-control" id="e_supply_unit_cost" placeholder="Enter Cost per Unit" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_estimated_price" id="e_estimated_priceLabel">Estimated Price</label> <span class="required-field"> </span>
+                                        <input type="number" class="form-control" id="e_estimated_price" placeholder="Enter Estimated Price" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="e_supply_description" id="e_supply_descriptionLabel">Supply Descrription</label> <span class="required-field"> </span>
                                         <input type="input" class="form-control" id="e_supply_description" placeholder="Enter Description">
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="e_description" id="e_descriptionLabel">Product Descrription</label> <span class="required-field"> </span>
+                                        <input type="input" class="form-control" id="e_description" placeholder="Enter Description">
                                     </div>
                                 </div>
                             </div>

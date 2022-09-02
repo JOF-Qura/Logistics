@@ -139,16 +139,17 @@ dataInfo = (id, type) => {
     type: "GET",
     dataType: "json",
     success: function (data) {
+      console.log(data)
       if (data) {
         $("#pr_number").html(
           formatPurchaseRequestNo(data["purchase_requisition_number"])
         );
         $("#status").html(data["status"]);
         // $("#department").html(data.u_created_by.employees.department["department_name"]);
-        $("#department").html("dept name");
+        $("#department").html(data.department_procurement['department_name']);
 
         // $("#requested_by").html(data.u_created_by.employees["first_name"]);
-        $("#requested_by").html("requestor name");
+        $("#requested_by").html(data.department_procurement['department_head']);
 
         $("#purpose").html(data["purpose"]);
         $("#date_requested").html(
@@ -168,7 +169,7 @@ dataInfo = (id, type) => {
 
         for (let pr_item in data.purchase_requisition_detail) {
           if(data.purchase_requisition_detail[pr_item].status == "active"){
-          if (data.purchase_requisition_detail[pr_item].product_id === null) {
+          if (data.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition_detail[pr_item].supply_id === null) {
             prd_table.row
               .add([
                 data.purchase_requisition_detail[pr_item].new_category,
@@ -181,7 +182,20 @@ dataInfo = (id, type) => {
             
               ])
               .draw();
-          } else {
+          } else if (data.purchase_requisition_detail[pr_item].supply_id != null) {
+            prd_table.row
+              .add([
+                data.purchase_requisition_detail[pr_item].supply.category
+                .category_name,
+              data.purchase_requisition_detail[pr_item].supply.product_name,
+              data.purchase_requisition_detail[pr_item].supply.description,
+              "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].supply.estimated_price),
+              data.purchase_requisition_detail[pr_item].quantity,
+              "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].supply.estimated_price),
+           
+              ])
+              .draw();
+          }else if (data.purchase_requisition_detail[pr_item].product_id != null && data.purchase_requisition_detail[pr_item].supply_id === null) {
             prd_table.row
               .add([
                 data.purchase_requisition_detail[pr_item].product.category

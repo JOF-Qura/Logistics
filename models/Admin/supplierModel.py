@@ -17,7 +17,7 @@ class Suppliers(Base):
     updated_at                      = Column(DateTime, onupdate=text('NOW()'))
 
     #Relationship/s
-    s_supplierFK = relationship("Supplies", back_populates="supply_supplier")
+    # s_supplierFK = relationship("Supplies", back_populates="supply_supplier")
 
 
 
