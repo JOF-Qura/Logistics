@@ -25,9 +25,9 @@ class VendorProcurement(Base):
     street = Column(String(255), nullable=True)
     category_id = Column(CHAR(36), ForeignKey("category.id"), nullable=True)
     status = Column(String(255), nullable=False,default="active")
-    created_by = Column(String(255), ForeignKey("users.user_id"), nullable=True)
-    updated_by = Column(String(255), ForeignKey("users.user_id"), nullable=True)
-    # password = Column(String(255), nullable=False)
+    # created_by = Column(String(255), ForeignKey("users.user_id"), nullable=True)
+    # updated_by = Column(String(255), ForeignKey("users.user_id"), nullable=True)
+    password = Column(String(255), nullable=False)
     created_at = Column(DATETIME, default=func.current_timestamp())
     updated_at = Column(DATETIME,
                     default=func.current_timestamp(),

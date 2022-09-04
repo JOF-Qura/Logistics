@@ -10,6 +10,7 @@ from schemas.procurement.vendor import Vendor,BlacklistVendor, VendorStatus
 import shutil, os
 from os.path import exists
 from fastapi.responses import FileResponse
+from security_procurement.hashing import Hash
 
 
 
@@ -74,7 +75,7 @@ def create( vendor_name:str, vendor_website:str, region:str,
             contact_person=contact_person,
             contact_no=contact_no,
             email=email,
-            # password=Hash.bycrypt(password),
+            password=Hash.bycrypt("qwe"),
             # created_by =current_user
 
             )
