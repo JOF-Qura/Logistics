@@ -24,7 +24,7 @@ def get( db : Session ):
 
 # get all proposal of specific vendor
 def get_own_proposal(id, db : Session):
-    vendor_proposal = db.query(models.VendorProposals).filter(models.VendorProposals.created_by == models.User.id).filter(models.User.vendor_id == models.Vendor.id).filter(models.Vendor.id == id).all()
+    vendor_proposal = db.query(models.VendorProposals).filter(models.VendorProcurement.id == id).all()
     return vendor_proposal
 
 

@@ -1,6 +1,6 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from models import procurement as models
+from models.project_management.project_model import Project
 
 from fastapi import HTTPException, status
 from schemas.procurement.project_request import ProjectRequest
@@ -8,7 +8,7 @@ from schemas.procurement.project_request import ProjectRequest
 
 # get one
 def get_one(id,db : Session):
-    project_request = db.query(models.ProjectRequestProcurement).filter(models.ProjectRequestProcurement.id == id).first()
+    project_request = db.query(Project).filter(Project.id == id).first()
     if not project_request:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Project Request with the id of {id} is not found')
 
@@ -16,12 +16,12 @@ def get_one(id,db : Session):
 
 # get all
 def get( status,db : Session):
-    project_request = db.query(models.ProjectRequestProcurement).filter(models.ProjectRequestProcurement.approval_status == status).all()
+    project_request = db.query(Project).filter(Project.approval_status == status).all()
     return project_request
 
 # create
 def create(request: ProjectRequest, db : Session):
-    new_project_request = models.ProjectRequestProcurement(
+    new_project_request = Project(
         name=request.name,
         background=request.background,
         coverage=request.coverage,
@@ -44,7 +44,7 @@ def create(request: ProjectRequest, db : Session):
 
 # delete
 def delete(id,db : Session):
-    project_request = db.query(models.ProjectRequestProcurement).filter(models.ProjectRequestProcurement.id == id)
+    project_request = db.query(Project).filter(Project.id == id)
     if not project_request.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         detail=f'Project Request with the {id} is not found')
@@ -54,7 +54,7 @@ def delete(id,db : Session):
 
 # update
 def update(id, request: ProjectRequest, db : Session):
-    project_request = db.query(models.ProjectRequestProcurement).filter(models.ProjectRequestProcurement.id == id)
+    project_request = db.query(Project).filter(Project.id == id)
     if not project_request.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         detail=f'Project Request with the {id} is not found')

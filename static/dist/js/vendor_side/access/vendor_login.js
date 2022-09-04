@@ -70,10 +70,10 @@ $(function () {
             if (data.access_token) {
               console.log(data)
               localStorage.setItem("TOKEN", data.access_token);
-              localStorage.setItem("ID", data.id);
+              localStorage.setItem("ID", data.data.id);
               // localStorage.setItem("USERID", data.data.id);
 
-              localStorage.setItem("VENDORNAME", data.vendor_name);
+              localStorage.setItem("VENDORNAME", data.data.vendor_name);
               // localStorage.setItem("INDUSTRY", data.vendor.industry);
               localStorage.setItem("VENDORSTATUS", data.status);
 
