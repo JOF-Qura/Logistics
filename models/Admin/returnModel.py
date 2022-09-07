@@ -1,28 +1,34 @@
-from sqlalchemy import Integer, String, DateTime, text, Text as Desc
-from sqlalchemy.sql.schema import Column, ForeignKey
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String,text
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.functions import func
+from sqlalchemy.sql.sqltypes import BLOB, DATE, DATETIME, DECIMAL, TEXT, Float,CHAR
 from database import Base
+import uuid
 
-#--------------- Return Table ------------------#
 class Return(Base):
-#Table Name
-    __tablename__ = 'return'
+    __tablename__ = "return"
 
-#Column
-    return_id                   = Column(String(36), primary_key=True, default=text('UUID()'))
-    return_date                 = Column(DateTime(255), nullable=False)
-    returner                    = Column(String(255), nullable=False)
-    return_type                 = Column(String(255), nullable=False)
-    return_status               = Column(String(255), nullable=False, default="Pending")
+    id = Column(String(36), primary_key=True, default=text('UUID()'))
+    return_date = Column(DATE, nullable=False)
+    return_status = Column(String(255), nullable=False)
+    return_type = Column(String(255), nullable=False)
+    returner = Column(String(255), nullable=False)
+    # created_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
+    # updated_by = Column(CHAR(36), ForeignKey("users.id"), nullable=True)
+    created_at = Column(DATETIME, default=func.current_timestamp())
+    updated_at = Column(DATETIME,
+                    default=func.current_timestamp(),
+                    onupdate=func.current_timestamp())
 
-    created_at                  = Column(DateTime, default=text('NOW()'))
-    updated_at                  = Column(DateTime, onupdate=text('NOW()'))
 
-#Relationship/s
-    #Relationship/s of this Table to other Table/s
-    retd_returnFK = relationship('Return_Details', back_populates='returns')
+    # relation with replacement request
+    replacement_request = relationship("ReplacementRequest", back_populates="returns")
+
+    # relationship with return details
+    return_details = relationship("Return_Details", back_populates="returns")
+
     notif_returnFK = relationship("Notifications", back_populates="return_notif")
 
-
-
-
+    # relation with user
+    # u_created_by = relationship("User",foreign_keys=[created_by])
+    # u_updated_by = relationship("User",foreign_keys=[updated_by])

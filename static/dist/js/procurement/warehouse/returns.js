@@ -6,7 +6,78 @@ $(function () {
 
   // load datatable of return details/items
   return_detail_table();
+
+    // function to save/update record
+    $("#adding_return_form_id").on("submit", function (e)
+    {
+        e.preventDefault();
+        trimInputFields();
+        var return_id = $("#uuid").val();
+        var returner = $("#returner").val()
+        var return_date = $("#return_date").val();
+        var return_type = $("#return_type").val();
+        var return_status = $("#return_status").val();
+
+        var date = return_date
+
+        console.log(date)
+
+        if (return_id == "")
+        {
+            $.ajax(
+            {
+                url: apiURL + "returns/",
+                type: "POST",
+                data: JSON.stringify(
+                {		
+                    "returner": returner,
+                    "return_date": date,
+                    "return_type": return_type,
+                    "return_status": return_status
+                    
+                }),
+                dataType: "JSON",
+                contentType: 'application/json',
+                processData: false,
+                cache: false,
+                success: function (data) 
+                {
+                    $('#form_id').trigger("reset")
+                    // $('#button_add').prop('disabled', false)
+                    notification("success", "Success!", data.message);
+                    loadTableReturns();
+                    $("#adding_modal").modal('hide')
+                },
+                error: function ({ responseJSON }) 
+                {
+                    
+                },
+            });
+        }
+    });
 });
+
+// To set the minimum of date picker.....
+FilterPastDate = () =>
+{
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+    
+    if (dd < 10) {
+       dd = '0' + dd;
+    }
+    
+    if (mm < 10) {
+       mm = '0' + mm;
+    } 
+        
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("return_date").setAttribute("min", today); // "min" or "max"
+    document.getElementById("return_date").setAttribute("max", today); // "min" or "max"
+}
+FilterPastDate();
 
 // all replacement request
 loadTableReplacementRequest = () => {

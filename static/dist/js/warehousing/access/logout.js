@@ -30,7 +30,7 @@ $(function()
                         sessionStorage.clear();
                         localStorage.clear();
                         
-                        window.location.replace(apiURL);
+                        window.location.replace("http://localhost:8000/");
                     }
                 });
     //         }

@@ -1,38 +1,45 @@
-from datetime import datetime as dt
+from datetime import date
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional, Text, List
+
+from ..procurement import purchase_order
 
 
-#================================ Return Table =================================#
+# ReturnDetails
+class ReturnDetails(BaseModel):
+    quantity: int
+    # status: str
+    purchase_order_detail_id:str
+    return_id:str
 
-class ReturnBase(BaseModel):
-    return_id: Optional[str]
-    return_date: Optional[dt]
-    returner: Optional[str]
-    return_type: Optional[str]
-    return_status: Optional[str]
-    
-    class Config:
+
+
+class ShowReturnDetails(BaseModel):
+    id: str
+    quantity: str
+    status: str
+    purchase_order_detail:purchase_order.ShowPurchaseOrderDetailReturns
+    return_id:str
+    class Config():
         orm_mode = True
-    
-# Schema for Return body
-class CreateReturn(ReturnBase):
-    pass
-
-class UpdateReturn(BaseModel):
-    # return_date: Optional[dt]
-    returner: Optional[str]
-    return_type: Optional[str]
-    return_status: Optional[str]
 
 
-# Schema for response body
-class ShowReturn(ReturnBase):
-    return_id: str
-
-    created_at: Optional[dt] = None
-    updated_at: Optional[dt] = None
+# Returns
+class Returns(BaseModel):
+    return_date: date
+    returner: str
+    return_status:str
+    return_type:str
 
     class Config():
         orm_mode = True
 
+class ShowReturns(BaseModel):
+    id: str
+    return_date: date
+    returner: str
+    return_status:str
+    return_type:str
+    return_details: List[ShowReturnDetails]
+    class Config():
+        orm_mode = True

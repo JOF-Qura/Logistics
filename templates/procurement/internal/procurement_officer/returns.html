@@ -120,6 +120,79 @@
 </div>
 <!-- /.content-wrapper -->
 
+  <!-- Adding/Updating Return Modal -->
+  <div class="modal fade" id="adding_modal">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Return Form</h4>
+                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- CONTENT -->
+                <form id="adding_return_form_id" name="adding_return_form_id" enctype="multipart/form_data">
+                    <div class="card-body">
+                        <div class="row">
+                            <input type="hidden" name="uuid" id="uuid" value="" />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="return_date" id="return_dateLabel">Return Date</label> <span class="required-field"> </span>
+                                    <input type="date" class="form-control" id="return_date" placeholder="Enter Date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="returner">Returner</label> <span class="required-field"> </span>
+                                    <select class="form-control js-example-basic-single" id="returner" name="returner">
+                                        <option value="Warehouse">Warehouse</option>
+                                        <option value="Procurement">Procurement</option>
+                                        <option value="Hospital Department">Hospital Department</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="return_type">Return type</label> <span class="required-field"> </span>
+                                    <select class="form-control js-example-basic-single" id="return_type" name="return_type">
+                                        <option value="For Return">For Return</option>
+                                        <option value="To Return">To Return</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="status_return">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="return_status" id="return_statusLabel">Return Status</label> <span class="required-field"> </span>
+                                        <select class="form-control js-example-basic-single" id="return_status" name="return_status">
+                                            <option value="Pending">Pending</option>
+                                            <option value="For Delivery">For Delivery</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- BUTTONS -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="Submit" class="btn btn-primary" id="button_add">Submit</button>
+                        </div>
+                        <!-- END BUTTONS -->
+                    </div>
+                </form> <!-- END CONTENT -->
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+<!-- END Adding Return Modal -->
+
 
 
 <script src="{{ url_for('static', path='/dist/js/procurement/warehouse/returns.js') }}"></script>

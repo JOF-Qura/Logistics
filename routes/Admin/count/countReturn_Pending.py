@@ -21,7 +21,7 @@ router = APIRouter(
 
 #================================ Return Table =================================#
 
-@router.get('/', response_model=List[returnSchema.ShowReturn])
+@router.get('/', response_model=List[returnSchema.ShowReturns])
 def count_response(db: Session = Depends(get_db)):
     query = db.query(returnModel.Return).filter(returnModel.Return.return_status == "Pending").all()
     if not query:

@@ -1,6 +1,7 @@
 from fastapi import status, HTTPException
 from sqlalchemy.orm import Session
-from models import procurement as models
+# from models import procurement as models
+from models.Admin.returnModel import Return as ReturnsModel
 
 from fastapi import HTTPException, status
 from schemas.procurement.returns import Returns
@@ -8,7 +9,7 @@ from schemas.procurement.returns import Returns
 
 # get one
 def get_one(id,db : Session):
-    returns = db.query(models.ReturnProcurement).filter(models.ReturnProcurement.id == id).first()
+    returns = db.query(ReturnsModel).filter(ReturnsModel.id == id).first()
     if not returns:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Returns with the id of {id} is not found')
 
@@ -16,12 +17,12 @@ def get_one(id,db : Session):
 
 # get all
 def get( db : Session):
-    returns = db.query(models.ReturnProcurement).all()
+    returns = db.query(ReturnsModel).all()
     return returns
 
 # create
 def create(request: Returns, db : Session):
-    new_returns = models.ReturnProcurement(
+    new_returns = ReturnsModel(
         return_date=request.return_date,
         returner=request.returner,
         return_type=request.return_type,
@@ -37,7 +38,7 @@ def create(request: Returns, db : Session):
 
 # delete
 def delete(id,db : Session):
-    returns = db.query(models.ReturnProcurement).filter(models.ReturnProcurement.id == id)
+    returns = db.query(ReturnsModel).filter(ReturnsModel.id == id)
     if not returns.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         detail=f'Returns with the {id} is not found')
@@ -47,7 +48,7 @@ def delete(id,db : Session):
 
 # update
 def update(id, request: Returns, db : Session):
-    returns = db.query(models.ReturnProcurement).filter(models.ReturnProcurement.id == id)
+    returns = db.query(ReturnsModel).filter(ReturnsModel.id == id)
     if not returns.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
         detail=f'Returns with the {id} is not found')

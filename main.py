@@ -155,8 +155,8 @@ from models.procurement.utilities import Utilities
 from models.procurement.rfq_vendor import RequestQuotationVendor
 from models.procurement.replacement_request import ReplacementRequest
 # from models.procurement.project_request import ProjectRequestProcurement
-from models.procurement.return_details import ReturnDetailProcurement
-from models.procurement.returns import ReturnProcurement
+# from models.procurement.return_details import ReturnDetailProcurement
+# from models.procurement.returns import ReturnProcurement
 
 
 
@@ -211,7 +211,7 @@ from routes.procurement import (purchase_order_invoice
 ,project_request
 # ,employee,employee_type
 # , department
-,returns,return_details
+# ,returns,return_details
 # , user, login, user_type
 )
 
@@ -317,8 +317,8 @@ app.include_router(payment_terms.router)
 app.include_router(payment_method.router)
 app.include_router(project_request.router)
 app.include_router(terms_of_reference.router)
-app.include_router(returns.router)
-app.include_router(return_details.router)
+# app.include_router(returns.router)
+# app.include_router(return_details.router)
 
 app.include_router(replacement_request.router)
 

@@ -19,7 +19,7 @@ class ReturnDetailProcurement(Base):
                     onupdate=func.current_timestamp())
 
     # relation with purchase order detail
-    purchase_order_detail = relationship("PurchaseOrderDetail", back_populates="return_details_procurement")
+    # purchase_order_detail = relationship("PurchaseOrderDetail", back_populates="return_details_procurement")
   
     # relation with returns
     returns_procurement = relationship("ReturnProcurement", back_populates="return_details_procurement")

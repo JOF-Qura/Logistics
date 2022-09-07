@@ -49,7 +49,7 @@ class Supplies(Base):
     inventory_suppliesFK = relationship("Inventories", back_populates="inventory_supply")
     notif_supplesFK = relationship("Notifications", back_populates="supply_notif")
     rd_suppliesFK = relationship("Request_Details", back_populates="supply")
-    retd_suppliesFK = relationship("Return_Details", back_populates="return_supply")
+    # retd_suppliesFK = relationship("Return_Details", back_populates="return_supply")
 
     # # relation with purchase requisition detail
     purchase_requisition_detail = relationship("PurchaseRequisitionDetail", back_populates="supply")

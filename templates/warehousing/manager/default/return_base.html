@@ -1,0 +1,619 @@
+<script>
+    var TOKEN = sessionStorage.getItem('TOKEN')
+    var USER_EMAIL = sessionStorage.getItem('USER_EMAIL')
+    var USER_TYPE = sessionStorage.getItem('USER_TYPE')
+    // var LocalTOKEN = localStorage.getItem('TOKEN')
+    
+    if(TOKEN == null || TOKEN == "")
+    {
+        window.location.replace("http://localhost:8000/warehousing/");
+    }
+
+</script>
+
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<!-- ============================================================================== -->
+<!-- START HEADERRRRRRRRRRRR -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Warehousing | Hospital Management System</title>
+
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/select2/css/select2.css')}}"/>
+    
+    <!-- jQuery -->
+    <script src="{{url_for('static', path='/plugins/jquery/jquery.min.js')}}"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/fontawesome-free/css/all.min.css')}}">
+    
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{url_for('static', path='/dist/css/adminlte.min.css')}}">
+
+    <!-- Additional CSS -->
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/toastr/toastr.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', path='/plugins/sweetalert2/sweetalert2.css')}}">
+      
+        <!-- BS Stepper -->
+        <link rel="stylesheet" href="{{ url_for('static', path='/plugins/bs-stepper/css/bs-stepper.min.css') }}" />
+
+
+    <!-- Common JS -->
+    <script src="{{ url_for('static', path='/dist/js/procurement/common.js') }}"></script>
+
+
+
+    <!-- BLOCK FOR PLUGINS STYLESHEET -->
+    {%block plugins_css%}
+    {%endblock%}
+
+    <!-- BLOCK FOR EXTRA STYLES -->
+    {%block styles%}
+    {%endblock%}
+
+    <script>
+        base_url = "localhost:8000/warehousing"
+    </script>
+
+<style>
+.required-field::after {
+  content: "*";
+  color: red;
+  margin-left:2px
+}
+
+.select2-container {
+    width: 100% !important;
+    padding: 0;
+    
+}
+</style>
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed user-select-none">
+
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
+        <div class="spinner-border text-primary" role="status" style="width: 2.5rem; height: 2.5rem;"></div>
+    </div> -->
+  
+    <!-- Top Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                
+        <!-- Left navbar links toggler (for responsive) -->
+        <button class="nav-link navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Left navbar links -->
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <ul class="navbar-nav">
+        
+                <!-- Sidebar Toggler -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+
+                 <!-- Home -->
+                 <li class="nav-item">
+                    <a class="nav-link text-primary" href="./index.html" role="button">
+                        <i class="fas fa-home"></i>
+                        <span class="d-inline-block d-md-none ml-1 ml-md-0">Home</span>
+                    </a>
+                </li>
+        
+                <!-- Hospital Core -->
+                <!-- <li class="nav-item dropdown">
+                    <a 
+                        href="#" 
+                        data-toggle="dropdown" 
+                        class="nav-link dropdown-toggle"
+                    >Hospital Core</a>
+                    
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li><a href="#" class="dropdown-item">Patient Management</a></li>
+                        <li><a href="#" class="dropdown-item">Treatment Management</a></li>
+                        <li><a href="#" class="dropdown-item">Pharmacy</a></li>
+                        <li><a href="#" class="dropdown-item">Medical Record</a></li>
+                        <li><a href="#" class="dropdown-item">Doctors Management</a></li>
+                        <li><a href="#" class="dropdown-item">Visitors Management</a></li>
+                    </ul>
+                </li> -->
+        
+                <!-- Human Resource -->
+                <!-- <li class="nav-item dropdown">
+                    <a 
+                        href="#" 
+                        data-toggle="dropdown" 
+                        class="nav-link dropdown-toggle"
+                    >Human Resource</a>
+                    
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li><a href="#" class="dropdown-item">Core Human Capital Management</a></li>
+                        <li><a href="#" class="dropdown-item">Recruitment Management</a></li>
+                        <li><a href="#" class="dropdown-item">Time & Attendance</a></li>
+                        <li><a href="#" class="dropdown-item">Performance Management</a></li>
+                    </ul>
+                </li> -->
+        
+                <!-- Finance -->
+                <!-- <li class="nav-item dropdown">
+                    <a 
+                        href="#" 
+                        data-toggle="dropdown" 
+                        class="nav-link dropdown-toggle"
+                    >Finance</a>
+                    
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li><a href="#" class="dropdown-item">General Ledger</a></li>
+                        <li><a href="#" class="dropdown-item">Accounts Payable/Receivable</a></li>
+                        <li><a href="#" class="dropdown-item">Collection/Disbursement</a></li>
+                    </ul>
+                </li> -->
+        
+                <!-- Logistics -->
+                <!-- <li class="nav-item dropdown">
+                    <a 
+                        href="#" 
+                        data-toggle="dropdown" 
+                        class="nav-link dropdown-toggle text-primary"
+                    >Logistics</a>
+                    
+                    <ul class="dropdown-menu dropdown-menu-left">
+                        <li><a href="#" class="dropdown-item">Procurement Management</a></li>
+                        <li><a href="#" class="dropdown-item active">Warehousing Management</a></li>
+                        <li><a href="#" class="dropdown-item">Asset Management</a></li>
+                        <li><a href="#" class="dropdown-item">Project Management</a></li>
+                    </ul>
+                </li> -->
+            </ul>
+        </div>  
+        
+        <!-- Right navbar links -->
+        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge" id="notif_number"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header" id="how_many_notif">0 Supply Notification</span>
+                        <div id="notifications">
+                            
+                        </div>
+                    <div class="dropdown-divider"></div>
+                    <span class="dropdown-item dropdown-header" id="how_many_staff_notif">0 Notification from Staff</span>
+                        <div id="staff_notif">
+                            
+                        </div>
+                    <div class="dropdown-divider" style="background-color: gray; height: 2px; width:100%;"></div>
+                    <span class="dropdown-item dropdown-header" id="how_many_hospital_notif">0 Notification from Hospital</span>
+                    <div id="hospital_notif">
+                        
+                    </div>
+
+                    <div class="dropdown-divider" style="background-color: gray; height: 2px; width:100%;"></div>
+                    <span class="dropdown-item dropdown-header" id="how_many_procurement_notif">0 Notification from Procurement</span>
+                    <div id="procurement_notif">
+                        
+                    </div>
+                    <div class="dropdown-divider" style="background-color: gray; height: 2px; width:100%;"></div>
+
+                    <div id="see_all_notif">
+
+                    </div>
+                </div>
+            </li>
+        
+            <!-- User Menu -->
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                    <i class="fas fa-user-circle"></i>
+                    <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+                </a>
+        
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="#" class="dropdown-item d-flex align-items-center">
+                        <div class="mr-3" style="width: 1.25rem">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" class="dropdown-item d-flex align-items-center">
+                        <div class="mr-3" style="width: 1.25rem">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <span>Settings</span>
+                    </a>
+        
+                    <div class="dropdown-divider"></div>
+                    
+                    <a
+                        href="#"
+                        role="button" 
+                        class="dropdown-item d-flex align-items-center" 
+                        data-toggle="modal" 
+                        data-target="#logout_modal"
+                    >
+                        <div class="mr-3" style="width: 1.25rem">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <span>Log out</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+<!-- END HEADERRRRRRRRRRRR -->
+<!-- ============================================================================== -->
+
+<!-- ============================================================================== -->
+<!-- START SIDEBARRRRRRRRR -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar main-sidebar-custom sidebar-light-primary">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+            <img src="{{url_for('static', path='/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle border" style="opacity: .8">
+            <span class="brand-text font-weight-light">HoMIES</span>
+        </a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <!-- Sidebar user -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+                <!-- User Image -->
+                <div class="image">
+                    <img 
+                        src="{{url_for('static', path='/dist/img/user2-160x160.jpg')}}" 
+                        class="img-circle border" 
+                        alt="User Image"
+                    >
+                </div>
+                
+                <!-- User Full Name -->
+                <div class="info mr-1 w-100" id="userFullNameDisplay">
+                    
+                    <!-- User Full Name -->
+                    <a href="#" class="nav-item text-truncate" id="userFullName">Juan S. Dela Cruz</a>
+
+                    <!-- User Position -->
+                    <div class="small text-secondary text-truncate" id="userPosition">Manager</div>
+                    
+                    <!-- User Department -->
+                    <div class="small text-secondary text-truncate" id="userDepartment">Warehousing Department</div>
+                </div>
+            </div>
+
+            <!-- SidebarSearch Form -->
+            <!-- <div class="form-inline">
+                <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                    <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+                </div>
+            </div> -->
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <!-- Sidebar Menu -->       
+
+                    <!-- Module Name -->
+                    <li class="nav-header font-weight-bold text-wrap">WAREHOUSING SYSTEM</li>
+                    
+
+
+                    <li class="nav-header"><b>Dashboard</b></li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/dashboard" class="nav-link" id="dashboard_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/dashboard' || window.location.pathname == '/warehousing/manager/'){document.getElementById("dashboard_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-chart-line"></i>
+                        <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <!-- Inventory -->
+                    <li class="nav-header"><b>Inventory</b></li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/supplies" class="nav-link" id="supply_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/supplies/'){document.getElementById("supply_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-boxes"> </i>
+                            <p> Supplies </p>
+                        </a>
+                    </li>
+                    <li class="nav-item"> 
+                        <a href="/warehousing/manager/supply_categories" class="nav-link" id="supply_categoy_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/supply_categories/'){document.getElementById("supply_categoy_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-clipboard-list"></i>
+                            <p> Supply Categories </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/inventories" class="nav-link" id="inventory_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/inventories/'){document.getElementById("inventory_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-dolly-flatbed"></i>
+                            <p> Inventories </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/inventory_locations" class="nav-link" id="inventory_location_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/inventory_locations/'){document.getElementById("inventory_location_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-pallet"></i>
+                            <p> Inventory Location </p>
+                        </a>
+                    </li>
+                    <!-- Reports -->
+                    <li class="nav-header"><b>Request and Return</b></li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/request" class="nav-link" id="request_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/request/'){document.getElementById("request_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-envelope-open-text"></i>
+                            <p> List of Request </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/request_drafts" class="nav-link" id="request_draft_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/request_drafts/'){document.getElementById("request_draft_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-envelope-open-text"></i>
+                            <p> Request </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/return" class="nav-link" id="return_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/return/'){document.getElementById("return_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-envelope-open-text"></i>
+                            <p> Return </p>
+                        </a>
+                    </li>
+                    <li class="nav-header"><b>Reports</b></li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/outbound_reports"  class="nav-link" id="outbound_report_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/outbound_reports/'){document.getElementById("outbound_report_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-poll"></i>
+                            <p> Outbound Reports </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/inbound_reports" class="nav-link" id="inbound_report_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/inbound_reports/'){document.getElementById("inbound_report_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-poll-h"></i>
+                            <p> Inbound Reports </p>
+                        </a>
+                    </li>
+                    <!-- Supplier -->
+                    <li class="nav-header"><b>Supplier</b></li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/suppliers" class="nav-link" id="supplier_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/suppliers/'){document.getElementById("supplier_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-truck"></i>
+                            <p> Suppliers </p>
+                        </a>
+                    </li>
+                    <!-- Others -->
+                    <li class="nav-header"><b>Others</b></li>
+                    <li class="nav-item">
+                        <a href="/warehousing/manager/employees" class="nav-link" id="employee_sidebar">
+                            <script>if(window.location.pathname == '/warehousing/manager/employees/'){document.getElementById("employee_sidebar").classList.add('active')}</script>
+                            <i class="nav-icon fas fa-people-carry"></i>
+                            <p> Employees</p>
+                        </a>
+                    </li>
+                    <!-- End Sidebar Menu -->
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+
+        <!-- Sidebar Custom -->
+        <div class="sidebar-custom">
+            <!-- <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>  -->
+            <button class="btn btn-danger hide-on-collapse pos-right" onClick="return logout()">Log out</button>
+        </div>
+        <!-- /.sidebar-custom -->
+    </aside>
+    <!-- /.main-sidebar -->
+
+<!-- END SIDEBARRRRRRRRR -->
+<!-- ============================================================================== -->
+
+<!-- ============================================================================== -->
+<!-- START BODYYYYYY/CONTENTTTTTT -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- BLOCK FOR MAIN CONTENT -->
+        {%block content%}{%endblock%}
+    </div>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logout_modal">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class= "fas fa-sign-out-alt"></i>
+                        Log out</h4>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal_viewing">
+                    <!-- CONTENT -->
+                    <form id="e_form_id" name="e_form_id" enctype="multipart/form_data">
+                        <div class="card-body">
+                            Are you sure you want to Log out?
+                            <!-- BUTTONS -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="Submit" class="btn btn-danger" id="button_logout" onClick="return logout()">Log out<i class= "fas fa-sign-out-alt"></i></button>
+                            </div>
+                            <!-- END BUTTONS -->
+                        </div>
+                    </form> <!-- END CONTENT -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- END Logout Modal -->
+
+<!-- END BODYYYYYY/CONTENTTTTTT -->
+<!-- ============================================================================== -->
+
+<!-- START FOOTERRRRRRRRRRRRRR -->
+
+  <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 3.1.0
+        </div>
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    </footer>
+    <!-- /.main-footer -->
+</div>
+<!-- ./wrapper -->
+
+<script src="{{url_for('static', path='/plugins/select2/js/select2.min.js')}}"></script>
+
+<!-- Bootstrap 4 -->
+<script src="{{url_for('static', path='/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- overlayScrollbars -->
+<script src="{{url_for('static', path='/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{url_for('static', path='/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url_for('static', path='/dist/js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{url_for('static', path='/dist/js/demo.js')}}"></script>
+
+
+<!-- Additional JS -->
+<script src="{{url_for('static', path='/plugins/toastr/toastr.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/moment/moment.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<script src="{{url_for('static', path='/dist/js/warehousing/access/logout.js')}}"></script>
+
+<!-- jquery-validation -->
+<script src="{{ url_for('static', path='/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ url_for('static', path='/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+
+<!-- BS-Stepper -->
+<script src="{{ url_for('static', path='/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+
+<!-- QRCODE -->
+<script src="{{url_for('static', path='/plugins/qrcode/js/qrcode.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+<!-- ChartJS -->
+<script src="{{url_for('static', path='/plugins/chart.js/Chart.min.js')}}"></script>
+<!-- Sparkline -->
+<script src="{{url_for('static', path='/plugins/sparklines/sparkline.js')}}"></script>
+<!-- JQVMap -->
+<script src="{{url_for('static', path='/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{url_for('static', path='/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{url_for('static', path='/plugins/moment/moment.min.js')}}"></script>
+<script src="{{url_for('static', path='/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{url_for('static', path='/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+<!-- Summernote -->
+<script src="{{url_for('static', path='/plugins/summernote/summernote-bs4.min.js')}}"></script>
+
+<script src="//cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="//cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+
+
+
+
+<!-- <script src="{{url_for('static', path='/dist/js/warehousing/manager/baseManager.js')}}"></script> -->
+
+
+
+<script>
+  $(() => {
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () 
+    {
+        'use strict'
+    
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+    
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+<!-- BLOCK FOR PLUGINS JAVASCRIPT -->
+{%block plugins_js%}
+{%endblock%}
+
+<!-- BLOCK FOR EXTRA SCRIPTS -->
+{%block scripts%}
+{%endblock%}
+
+</body>
+
+</html>

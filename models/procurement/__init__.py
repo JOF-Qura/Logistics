@@ -25,5 +25,5 @@ from .purchase_order_invoice import PurchaseOrderInvoice
 from .utilities import Utilities
 from .rfq_vendor import RequestQuotationVendor
 from .replacement_request import ReplacementRequest
-from .return_details import ReturnDetailProcurement
-from .returns import ReturnProcurement
+# from .return_details import ReturnDetailProcurement
+# from .returns import ReturnProcurement

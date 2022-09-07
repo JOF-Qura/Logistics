@@ -19,7 +19,7 @@ class ReplacementRequest(Base):
     confirmed_by = Column(String(255), nullable=True)#vendor
     reason = Column(String(255), nullable=True)# if rejected
 
-    return_id = Column(CHAR(36), ForeignKey("returns_procurement.id"), nullable=True)
+    return_id = Column(CHAR(36), ForeignKey("return.id"), nullable=True)
     created_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)
     updated_by = Column(CHAR(36), ForeignKey("users.user_id"), nullable=True)  
     created_at = Column(DateTime, server_default=text('NOW()'))
@@ -27,7 +27,7 @@ class ReplacementRequest(Base):
 
   
     # relation with returns
-    returns_procurement = relationship("ReturnProcurement", back_populates="replacement_request")
+    returns = relationship("Return", back_populates="replacement_request")
 
     # relation with replacement items
     # replacement_items = relationship("ReplacementItems", back_populates="replacement_request")
