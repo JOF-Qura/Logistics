@@ -41,6 +41,11 @@ def get_approved(department_id, db : Session = Depends(get_db)):
 def get_rejected(department_id, db : Session = Depends(get_db)):
     return purchase_requisition.get_rejected(department_id,db)
 
+# delivered
+@router.get('/delivered/{department_id}', response_model=List[ShowPurchaseRequisition])
+def get_delivered(department_id, db : Session = Depends(get_db)):
+    return purchase_requisition.get_delivered(department_id,db)
+
 
 ####
 

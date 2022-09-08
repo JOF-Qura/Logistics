@@ -5,7 +5,7 @@ from repository.procurement import purchase_requisition_detail, purchase_requisi
 
 from database import get_db
 
-from schemas.procurement.purchase_requisition_detail import PurchaseRequestItemsStatus, PurchaseRequisitionDetail, ShowPurchaseRequisitionDetail
+from schemas.procurement.purchase_requisition_detail import PurchaseRequestItemsStatus, PurchaseRequisitionDetail, ShowPurchaseRequisitionDetail, PurchaseRequisitionDetailStatus
 # from schemas.procurement.user import User
 
 
@@ -24,6 +24,12 @@ router = APIRouter(
 @router.get('/', response_model=List[ShowPurchaseRequisitionDetail])
 def get( db : Session = Depends(get_db)):
     return purchase_requisition_detail.get(db)
+
+
+# update status of purchase requisition
+@router.put('/status/{id}',status_code=status.HTTP_202_ACCEPTED)
+def update_status(id, request: PurchaseRequisitionDetailStatus, db : Session = Depends(get_db)):
+    return purchase_requisition_detail.update_status(id,request, db)
 
 
 

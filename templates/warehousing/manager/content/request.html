@@ -92,6 +92,9 @@
                 <li class="nav-item">
                   <a class="nav-link" id="custom-tabs-three-settings-tab" data-toggle="tab" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Rejected</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-delivered-tab" data-toggle="tab" href="#custom-tabs-three-delivered" role="tab" aria-controls="custom-tabs-three-delivered" aria-selected="false">Delivered</a>
+                </li>
               </ul>
             </div>
             <div class="card-body">
@@ -152,6 +155,24 @@
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-three-settings" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
                   <table id="data-table-rejected" class="table table-hover table-bordered" width="100%">
+                    <thead>
+                      <tr>
+                        <th>PR No.</th>
+    
+                        <th>Requested By</th>
+                        <th>Date Ordered</th>
+                        
+                        <th>Status</th>
+                        <th>Action</th>  
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+
+
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-three-delivered" role="tabpanel" aria-labelledby="custom-tabs-three-delivered-tab">
+                  <table id="data-table-delivered" class="table table-hover table-bordered" width="100%">
                     <thead>
                       <tr>
                         <th>PR No.</th>
@@ -275,8 +296,8 @@
                 <th>Estimated Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
-
                 <th>Status</th>
+                <th>Action</th>
 
               </tr>
           </thead>

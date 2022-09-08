@@ -85,3 +85,7 @@ class ShowSupplies(BaseModel):
 
     class Config():
         orm_mode = True
+
+
+class UpdateSupplyQty(BaseModel):
+    supply_quantity: Optional[int]

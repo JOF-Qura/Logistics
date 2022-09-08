@@ -30,6 +30,8 @@ class ShowPurchaseRequisitionDetail(BaseModel):
     new_product_name: Optional[str]
     estimated_price: Optional[str]
     status:str
+    purchase_requisition_id:str
+    # purchase_requisition:Optional
 
     description: Optional[str]
     class Config:
@@ -40,4 +42,9 @@ class ShowPurchaseRequisitionDetail(BaseModel):
 class PurchaseRequestItemsStatus(BaseModel):
     status: str
     estimated_amount: Optional[float]
+
+class PurchaseRequisitionDetailStatus(BaseModel):
+    status:str
+
+
     

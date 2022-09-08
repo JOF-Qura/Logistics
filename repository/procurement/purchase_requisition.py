@@ -298,6 +298,13 @@ def get_rejected(department_id,db : Session):
     else: 
         purchase_request = db.query(models.PurchaseRequisition).filter(models.PurchaseRequisition.status == "Rejected").all()
     return purchase_request
+
+def get_delivered(department_id,db : Session):
+    if department_id != "none":
+        purchase_request = db.query(models.PurchaseRequisition).filter(models.PurchaseRequisition.status == "Delivered").filter(models.PurchaseRequisition.department_id == department_id).all()
+    else: 
+        purchase_request = db.query(models.PurchaseRequisition).filter(models.PurchaseRequisition.status == "Delivered").all()
+    return purchase_request
 # ---------------
 
 

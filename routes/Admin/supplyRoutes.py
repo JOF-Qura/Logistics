@@ -96,7 +96,7 @@ def get_active( db : Session = Depends(get_db)):
 # GET all Supplies
 @router.get('/')
 def get_all_supply(db: Session = Depends(get_db)):
-    supplies = db.query(supplyModel.Supplies).options(joinedload(supplyModel.Supplies.supply_category)
+    supplies = db.query(supplyModel.Supplies).options(joinedload(supplyModel.Supplies.category)
                                                     # , joinedload(supplyModel.Supplies.supply_supplier)
                                                     ).all()
     return {'Supplies': supplies}
@@ -138,9 +138,9 @@ def create_supply(request: supplySchema.CreateSupply, db: Session = Depends(get_
 # UPDATE Supply
 @router.put('/{supply_id}')
 # def update_supply(supply_id: str, Supply: supplySchema.UpdateSupply, db: Session = Depends(get_db)): 
-def update_supply(id: str, Supply: supplySchema.UpdateSupply, db: Session = Depends(get_db)): 
+def update_supply(supply_id: str, Supply: supplySchema.UpdateSupply, db: Session = Depends(get_db)): 
     # if not db.query(supplyModel.Supplies).filter(supplyModel.Supplies.supply_id == supply_id).update({
-    if not db.query(supplyModel.Supplies).filter(supplyModel.Supplies.id == id).update({
+    if not db.query(supplyModel.Supplies).filter(supplyModel.Supplies.id == supply_id).update({
         # 'supply_name': Supply.supply_name,
         'product_name': Supply.product_name,
         'supply_quantity': Supply.supply_quantity,

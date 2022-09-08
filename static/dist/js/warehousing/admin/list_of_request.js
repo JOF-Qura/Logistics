@@ -15,6 +15,9 @@ $(function () {
   // load datatable rejected request
   loadTableRejected();
 
+  // load datatable delivered request
+  loadTableDelivered();
+
   // load purchase request items table
   pr_detail_table();
 });
@@ -52,7 +55,7 @@ loadTable = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          console.log(aData)
+          // console.log(aData)
           return formatPurchaseRequestNo(aData.purchase_requisition_number);
         },
       },
@@ -95,6 +98,12 @@ loadTable = () => {
               aData.status +
               "</label> ";
             return status;
+          } else if (aData.status === "Delivered") {
+            let status =
+              '<label class="text-left badge badge-info p-2 w-50" > ' +
+              aData.status +
+              "</label> ";
+            return status;
           } else {
             let status =
               '<label class="text-left badge badge-danger p-2 w-50" style="font-size:12px;"> ' +
@@ -108,6 +117,7 @@ loadTable = () => {
         data: null,
         width: "10%",
         render: function (aData, type, row) {
+          // console.log(aData)
           let buttons = "";
           // info
           buttons +=
@@ -127,6 +137,15 @@ loadTable = () => {
             "',0)\">" +
             '<div style="width: 2rem"> <i class= "fas fa-file-alt mr-1"></i></div>' +
             "<div> View</div></div>";
+          if (aData.status == "Approved") {
+            //delivered
+            buttons +=
+              '<div class="dropdown-item d-flex role="button" onClick="return delivered(\'' +
+              aData["id"] +
+              "',0)\">" +
+              '<div style="width: 2rem"> <i class= "fas fa-truck mr-1"></i></div>' +
+              "<div> Delivered</div></div>";
+          }
           if (aData.status == "Pending") {
             //cancel
             buttons +=
@@ -153,6 +172,71 @@ loadTable = () => {
     ],
   });
 };
+
+delivered = (id) =>
+{
+    Swal.fire(
+    {
+        title: "Are you sure you?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: !0,
+        confirmButtonColor: "#34c38f",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "Yes!",
+    })
+    .then(function (t) 
+    {
+        // if user clickes yes, it will change the active status to "Not Active".
+        if (t.value) 
+        {
+            $.ajax(
+            {
+                url: apiURL + "purchase-requisition/" + id,
+                type: "GET",
+                dataType: "json",
+                success: function (data) 
+                {
+                    
+                    var reason = data["reason"]
+                    var approved_by = data["approved_by"]
+                    var given_budget = data["given_budget"]
+                    var status = "Delivered"
+                    console.log(data)
+        
+                    $.ajax(
+                    {
+                        url: apiURL + "purchase-requisition/status/" + id,
+                        type: "PUT",
+                        data: JSON.stringify(
+                        {		
+                          'status' : status,
+                          'reason' : reason,
+                          'approved_by' : approved_by,
+                          'given_budget' : given_budget,
+                        }),
+                        dataType: "JSON",
+                        contentType: 'application/json',
+                        processData: false,
+                        cache: false,
+                        success: function (data) 
+                        {
+                            loadTable();
+                            notification("success", "Success!", "Delivered");
+                            // viewRequestDetails();
+                            
+                        },
+                        error: function ({ responseJSON }) 
+                        {
+                            
+                        },
+                    }); 
+                },
+                error: function (data) {},
+            });
+        }
+    });
+}
 
 // all pending request
 loadTablePending = () => {
@@ -563,6 +647,148 @@ loadTableRejected = () => {
     ],
   });
 };
+// all delivered request
+loadTableDelivered = () => {
+  $.ajaxSetup({
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
+      ContentType: "application/x-www-form-urlencoded",
+    },
+  });
+  // '+status+'
+  $("#data-table-delivered").dataTable().fnClearTable();
+  $("#data-table-delivered").dataTable().fnDraw();
+  $("#data-table-delivered").dataTable().fnDestroy();
+  $("#data-table-delivered").DataTable({
+    ajax: {
+      url: apiURL + "purchase-requisition/delivered/"+sessionStorage.getItem("DEPARTMENTID"),
+      dataSrc: "",
+    },
+
+    responsive: true,
+    serverSide: false,
+    dataType: "json",
+    type: "GET",
+    columns: [
+      {
+        data: null,
+        searchable: true,
+        width: "10%",
+        render: function (aData, type, row) {
+          return formatPurchaseRequestNo(aData.purchase_requisition_number);
+        },
+      },
+      {
+        data: null,
+        name: null,
+        searchable: true,
+        width: "20%",
+        render: function (aData, type, row) {
+          // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
+          return aData.department_procurement.department_name
+
+        }
+        // className: "dtr-control",
+      },
+
+      // {
+      //   data: "created_at",
+      //   name: "created_at",
+      //   searchable: true,
+      //   width: "20%",
+      // },
+      {
+        data: null,
+        name: null,
+        searchable: true,
+        width: "20%",
+        render: function (aData, type, row) {
+          return moment(aData["created_at"]).format("MMMM D, YYYY");
+        },
+      },
+      {
+        data: null,
+        name: null,
+        searchable: true,
+        width: "20%",
+        render: function (aData, type, row) {
+          if (aData.status === "Pending") {
+            let status =
+              '<label class="text-left badge badge-warning p-2 w-50"> ' +
+              aData.status +
+              "</label> ";
+            return status;
+          } else if (aData.status === "Approved") {
+            let status =
+              '<label class="text-left badge badge-primary p-2 w-50" > ' +
+              aData.status +
+              "</label> ";
+            return status;
+          } else if (aData.status === "Delivered") {
+            let status =
+              '<label class="text-left badge badge-info p-2 w-50" > ' +
+              aData.status +
+              "</label> ";
+            return status;
+          } else if (aData.status === "Rejected") {
+            let status =
+              '<label class="text-left badge badge-danger p-2 w-50" style="font-size:12px;"> ' +
+              aData.status +
+              "</label> ";
+            return status;
+          }
+        },
+      },
+      {
+        data: null,
+        width: "10%",
+        render: function (aData, type, row) {
+          let buttons = "";
+          // info
+          buttons +=
+            '<div class="text center dropdown"><div class="btn btn-sm btn-default" data-toggle="dropdown" role="button">' +
+            '<i class="fas fa-ellipsis-v"></i></div><div class="dropdown-menu dropdown-menu-right">';
+          //timeline
+          buttons +=
+            '<div class="dropdown-item d-flex role="button" onClick="return Timeline(\'' +
+            aData["id"] +
+            "',0)\">" +
+            '<div style="width: 2rem"><i class="fas fa-tasks mr-1"></i></div>' +
+            "<div> Timeline</div></div>";
+          //view
+          buttons +=
+            '<div class="dropdown-item d-flex role="button" onClick="return dataInfo(\'' +
+            aData["id"] +
+            "',0)\">" +
+            '<div style="width: 2rem"> <i class= "fas fa-file-alt mr-1"></i></div>' +
+            "<div> View</div></div>";
+          if (aData.status == "Pending") {
+            //cancel
+            buttons +=
+              '<div class="dropdown-item d-flex role="button" onClick="return redoData(\'' +
+              aData["id"] +
+              "',1)\">" +
+              '<div style="width: 2rem"> <i class= "fas fa-times mr-1"></i></div>' +
+              "<div> Cancel</div></div>";
+          }
+          if (aData.status == "Cancelled") {
+            //resend
+            buttons +=
+              '<div class="dropdown-item d-flex role="button" onClick="return redoData(\'' +
+              aData["id"] +
+              "',2)\">" +
+              '<div style="width: 2rem"> <i class= "fas fa-redo mr-1"></i></div>' +
+              "<div> Resend</div></div>";
+          }
+          buttons += "</div></div>";
+
+          return buttons; // same class in i element removed it from a element
+        },
+      },
+    ],
+  });
+};
 
 
 // view timeline
@@ -660,8 +886,8 @@ Timeline = (id) => {
               '<i class="fas fa-copy text-light bg-primary"></i>'+
               '<div class="timeline-item">' +
               '<span class="time"><i class="fas fa-clock"></i>'+moment(data.rfq_date).format("hh:mm A")+'</span>'+
-              '<h3 class="timeline-header">Request For Quotation</h3>'+
-              '<div class="timeline-body">Request Quotation has been sent to the vendor</div>'+
+              '<h3 class="timeline-header">Request For Quotation sent to the vendor</h3>'+
+              '<div class="timeline-body">Your Request is in process, and be ready for the delivery.</div>'+
               // '<div class="timeline-footer">'+ +'</div>'+
               '</div>'+
               '</div>';
@@ -715,137 +941,294 @@ Timeline = (id) => {
 dataInfo = (id, type) => {
   $("#modal-xl").modal("show");
 
-  //   console.log(id);
+  dataInfoID = id
+
+    console.log(dataInfoID);
   $.ajax({
     url: apiURL + "purchase-requisition/" + id,
     type: "GET",
     dataType: "json",
     success: function (data) {
       console.log(data)
-      var department = data.department_procurement.department_name
-      var requested_by = data.department_procurement.department_head
-      console.log(data)
-      if (data) {
-        $("#pr_number").html(
-          formatPurchaseRequestNo(data["purchase_requisition_number"])
-        );
-        console.log(data)
-        $("#status").html(data["status"]);
-        // $("#department").html(data.u_created_by.employees.department["department_name"]);
-        $("#department").html(department);
+        var department = data.department_procurement.department_name
+        var requested_by = data.department_procurement.department_head
 
-        // $("#requested_by").html(data.u_created_by.employees.first_name + " " +data.u_created_by.employees.last_name);
-        $("#requested_by").html(requested_by);
+        let buttons = "";
+
+        if (data) {
+          $("#pr_number").html(
+            formatPurchaseRequestNo(data["purchase_requisition_number"])
+          );
+          console.log(data)
+          $("#status").html(data["status"]);
+          // $("#department").html(data.u_created_by.employees.department["department_name"]);
+          $("#department").html(department);
+
+          // $("#requested_by").html(data.u_created_by.employees.first_name + " " +data.u_created_by.employees.last_name);
+          $("#requested_by").html(requested_by);
+      
+          $("#purpose").html(data["purpose"]);
+          $("#date_requested").html(
+            moment(data["created_at"]).format("MMMM D, YYYY")
+          );
+
+          if(data["status"] == "Approved"){
+              $('.when_approved').show()
+              $('.when_rejected').hide()
+
+            $("#date_approved").html(
+              moment(data["date_approved"]).format("MMMM D, YYYY")
+            );
     
-        $("#purpose").html(data["purpose"]);
-        $("#date_requested").html(
-          moment(data["created_at"]).format("MMMM D, YYYY")
-        );
+              
+            $("#approved_by").html(data["approved_by"]);
+            $("#estimated_amount").html( "\u20B1" +numberWithCommas(data["estimated_amount"]));
+            $("#given_budget").html( "\u20B1" +numberWithCommas(data["given_budget"]));
+          }
+          else if(data["status"] == "Rejected"){
+            $('.when_approved').hide()
+            $('.when_rejected').show()
 
-        if(data["status"] == "Approved"){
-            $('.when_approved').show()
+            $("#reason").html(data["reason"]);
+
+          }
+          else{
+            $('.when_approved').hide()
             $('.when_rejected').hide()
 
-          $("#date_approved").html(
-            moment(data["date_approved"]).format("MMMM D, YYYY")
-          );
-  
+            $("#reason").html(data["reason"]);
+          }
+
+          prd_table.clear().draw();
+
+          for (let pr_item in data.purchase_requisition_detail) {
+            if (data.purchase_requisition_detail[pr_item].status == "active" || data.purchase_requisition_detail[pr_item].status == "Complete/Good") {
+              bg_color = "primary";
+          
+            } else {
+              bg_color = "danger";
+    
+            }
+            if (data.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition_detail[pr_item].supply_id === null) {
+              prd_table.row
+                .add([
+                  data.purchase_requisition_detail[pr_item].new_category,
+                  data.purchase_requisition_detail[pr_item].new_product_name,
+                  data.purchase_requisition_detail[pr_item].description,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].estimated_price),
+                  data.purchase_requisition_detail[pr_item].quantity,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].estimated_price),
+
+                  '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
+                  data.purchase_requisition_detail[pr_item].status +
+                  '</label>',
+                  buttons
+                ])
+                .draw();
+            }  else if (data.purchase_requisition_detail[pr_item].supply_id != null && data.status == "Delivered") {
+              // Loop here
+              console.log(data.purchase_requisition_detail[pr_item].supply_id)
+
+              if(data.purchase_requisition_detail[pr_item].status == "active" || data.purchase_requisition_detail[pr_item].status == "Active")
+              {
+                console.log(dataInfoID)
+                buttons +=
+                  '<button type="button" onClick="return supplyCompleted(\'' +
+                  data.purchase_requisition_detail[pr_item].supply_id + 
+                  '\',\'' + data.purchase_requisition_detail[pr_item].id + 
+                  '\',\'' + dataInfoID + 
+                  '\',' + data.purchase_requisition_detail[pr_item].quantity + ')" class="btn btn-success waves-effect"><i class="bx bx-edit font-size-16 align-middle">Complete/Good</i></button> ';
+                buttons +=
+                  '<button type="button" onClick="return supplyIncompleted(\'' +
+                  data.purchase_requisition_detail[pr_item].supply_id +
+                  '\','+ data.purchase_requisition_detail[pr_item].id + 
+                  '\',\'' + dataInfoID + 
+                  '\',' + data.purchase_requisition_detail[pr_item].quantity + ')" class="btn btn-danger waves-effect"><i class="bx bx-trash font-size-16 align-middle">Incomplete/Damaged</i></button> ';
+              }
+              // else if (data.purchase_requisition_detail[pr_item].status == "Complete/Good")
+              // {
+              //   buttons = "Complete/Good"
+              // }
+              // else if (data.purchase_requisition_detail[pr_item].status == "Incomplete/Damaged")
+              // {
+              //   buttons = "Incomplete/Damaged"
+              // }
+              
+              prd_table.row
+                .add([
+                  data.purchase_requisition_detail[pr_item].supply.category
+                    .category_name,
+                  data.purchase_requisition_detail[pr_item].supply.product_name,
+                  data.purchase_requisition_detail[pr_item].supply.description,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].supply.estimated_price),
+                  data.purchase_requisition_detail[pr_item].quantity,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].supply.estimated_price),
+                  '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
+                  data.purchase_requisition_detail[pr_item].status +
+                  '</label>',
+                  buttons
+                ])
+                .draw();
+            } else if (data.purchase_requisition_detail[pr_item].supply_id != null && data.status != "Delivered") {
+              // Loop here
+              prd_table.row
+                .add([
+                  data.purchase_requisition_detail[pr_item].supply.category
+                    .category_name,
+                  data.purchase_requisition_detail[pr_item].supply.product_name,
+                  data.purchase_requisition_detail[pr_item].supply.description,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].supply.estimated_price),
+                  data.purchase_requisition_detail[pr_item].quantity,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].supply.estimated_price),
+                  '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
+                  data.purchase_requisition_detail[pr_item].status +
+                  '</label>',
+                  buttons
+                ])
+                .draw();
+            } else {
             
-          $("#approved_by").html(data["approved_by"]);
-          $("#estimated_amount").html( "\u20B1" +numberWithCommas(data["estimated_amount"]));
-          $("#given_budget").html( "\u20B1" +numberWithCommas(data["given_budget"]));
-        }
-        else if(data["status"] == "Rejected"){
-          $('.when_approved').hide()
-          $('.when_rejected').show()
+              // Loop here
 
-          $("#reason").html(data["reason"]);
+              prd_table.row
+                .add([
+                  data.purchase_requisition_detail[pr_item].product.category
+                    .category_name,
+                  data.purchase_requisition_detail[pr_item].product.product_name,
+                  data.purchase_requisition_detail[pr_item].product.description,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].product.estimated_price),
+                  data.purchase_requisition_detail[pr_item].quantity,
+                  "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].product.estimated_price),
+                  '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
+                  data.purchase_requisition_detail[pr_item].status +
+                  '</label>'
 
-        }
-        else{
-          $('.when_approved').hide()
-          $('.when_rejected').hide()
+                ])
+                .draw();
+            }
+          }
 
-          $("#reason").html(data["reason"]);
-        }
-
-        prd_table.clear().draw();
-
-        for (let pr_item in data.purchase_requisition_detail) {
-          if (data.purchase_requisition_detail[pr_item].status == "active") {
-            bg_color = "primary";
-        
+          if (type == 0) {
+            $(".print").hide();
           } else {
-            bg_color = "danger";
-  
+            $(".print").show();
           }
-          if (data.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition_detail[pr_item].supply_id === null) {
-            prd_table.row
-              .add([
-                data.purchase_requisition_detail[pr_item].new_category,
-                data.purchase_requisition_detail[pr_item].new_product_name,
-                data.purchase_requisition_detail[pr_item].description,
-                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].estimated_price),
-                data.purchase_requisition_detail[pr_item].quantity,
-                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].estimated_price),
-
-                '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
-                data.purchase_requisition_detail[pr_item].status +
-                '</label>'
-              ])
-              .draw();
-          }  else if (data.purchase_requisition_detail[pr_item].supply_id != null) {
-            // Loop here
-
-            prd_table.row
-              .add([
-                data.purchase_requisition_detail[pr_item].supply.category
-                  .category_name,
-                data.purchase_requisition_detail[pr_item].supply.product_name,
-                data.purchase_requisition_detail[pr_item].supply.description,
-                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].supply.estimated_price),
-                data.purchase_requisition_detail[pr_item].quantity,
-                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].supply.estimated_price),
-                '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
-                data.purchase_requisition_detail[pr_item].status +
-                '</label>'
-
-              ])
-              .draw();
-          }else {
-            // Loop here
-
-            prd_table.row
-              .add([
-                data.purchase_requisition_detail[pr_item].product.category
-                  .category_name,
-                data.purchase_requisition_detail[pr_item].product.product_name,
-                data.purchase_requisition_detail[pr_item].product.description,
-                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].product.estimated_price),
-                data.purchase_requisition_detail[pr_item].quantity,
-                "\u20B1" +numberWithCommas(data.purchase_requisition_detail[pr_item].quantity* data.purchase_requisition_detail[pr_item].product.estimated_price),
-                '<label class="text-left badge badge-'+bg_color+' p-2 w-100" >' +
-                data.purchase_requisition_detail[pr_item].status +
-                '</label>'
-
-              ])
-              .draw();
-          }
-        }
-
-        if (type == 0) {
-          $(".print").hide();
         } else {
-          $(".print").show();
-        }
-      } else {
-        notification("error", "Error!", data.detail);
+          notification("error", "Error!", data.detail);
 
-        console.log("error" + data);
-        loadTable();
-      }
+          console.log("error" + data);
+          loadTable();
+        }
     },
     error: function ({ responseJSON }) {},
+  });
+};
+
+supplyCompleted = (supply_id, pr_id, dataInfoID, qty) => 
+{
+  console.log(supply_id)
+  console.log(pr_id)
+  console.log(dataInfoID)
+  console.log(qty)
+
+  $.ajax(
+  {
+    url: apiURL + "purchase-requisition-detail/status/" + pr_id,
+    type: "PUT",
+    data: JSON.stringify(
+    {		
+      'status': "Complete/Good",
+    }),
+    dataType: "JSON",
+    contentType: 'application/json',
+    processData: false,
+    cache: false,
+    success: function (data) 
+    {
+      $.ajax(
+      {
+        url: "http://localhost:8000/supplies/" + supply_id,
+        type: "GET",
+        dataType: "json",
+        success: function (data) 
+        {
+            var id = data["id"]
+            var product_name = data["product_name"]
+            var supply_quantity = data["supply_quantity"]
+            var estimated_price = data["estimated_price"]
+            var supply_unit_type = data["supply_unit_type"]
+            var description = data["description"]
+            var supply_reorder_interval = data["supply_reorder_interval"]
+            var supply_expiration = data["supply_expiration"]
+            var supply_status = data["supply_status"]
+            var status = data["status"]
+
+            console.log(data)
+            
+            $.ajax(
+            {
+              url: "http://localhost:8000/supplies/"+ id,
+              type: "PUT",
+              data: JSON.stringify(
+              {		
+                  "product_name": product_name,
+                  "supply_quantity": supply_quantity + qty,
+                  "supply_unit_type": supply_unit_type,
+                  "estimated_price": estimated_price,
+                  "supply_status": supply_status,
+                  "description": description,
+                  "supply_reorder_interval": supply_reorder_interval,
+                  "supply_expiration": supply_expiration,
+              }),
+              dataType: "JSON",
+              contentType: 'application/json',
+              processData: false,
+              cache: false,
+              success: function (data) 
+              {
+                  notification("success", "Success!", data.message);
+                  // $("#modal-xl").modal("hide");    
+                  dataInfo(dataInfoID)
+              },
+              error: function ({ responseJSON }) 
+              {
+                  
+              }
+            //     url: "http://localhost:8000/supplies/"+ id,
+            //     type: "PUT",
+            //     data: JSON.stringify(
+            //       {		
+            //         "product_name": product_name,
+            //         "description": description,
+            //         "estimated_price": estimated_price,
+            //         "status": status,
+            //         "supply_reorder_interval": supply_reorder_interval,
+            //         "supply_status": supply_status,
+            //         "supply_unit_type": supply_unit_type,
+            //         "supply_quantity": supply_quantity + qty,
+            //         "supply_expiration": supply_expiration
+            //       }),
+            //     dataType: "JSON",
+            //     processData: false,
+            //     cache: false,
+            //     headers: {
+            //       'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+            //       Accept: "application/json",
+            //       Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
+            //     },
+            //     success: function (data) 
+            //     {
+            //         notification("success", "Success!", data.message);
+            //         pr_detail_table();
+            //     },
+            //     error: function ({ responseJSON }) 
+            //     {
+            //     },
+            });
+        },
+        error: function (data) {},
+      });
+    }
   });
 };
 
