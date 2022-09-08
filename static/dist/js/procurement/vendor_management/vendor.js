@@ -198,7 +198,7 @@ $(function () {
 // function to load category
 loadCategory = () => {
   $.ajax({
-    url: apiURL + "category/",
+    url: "http://localhost:8000/api/v1/category",
     type: "GET",
     headers: {
       Accept: "application/json",

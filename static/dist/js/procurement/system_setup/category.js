@@ -128,7 +128,7 @@ loadTable = () => {
   $("#data-table").dataTable().fnDraw();
   $("#data-table").dataTable().fnDestroy();
   $("#data-table").DataTable({
-    ajax: { url: apiURL + "category", dataSrc: "" },
+    ajax: { url: "http://localhost:8000/api/v1/category", dataSrc: "" },
 
     responsive: true,
     serverSide: false,

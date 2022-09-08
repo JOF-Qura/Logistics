@@ -22,6 +22,15 @@ class ShowCategory(BaseModel):
     class Config():
         orm_mode = True
 
+class ShowCategoryOnly(BaseModel):
+    id: str
+    category_name: str
+    description: str
+    status:str
+    # vendor_procurement: Optional[List[vendor.ShowVendor]]
+    class Config():
+        orm_mode = True
+
 
 # for payload 
 class ShowCategoryPayload(BaseModel):

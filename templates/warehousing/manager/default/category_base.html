@@ -251,8 +251,7 @@
                         href="#"
                         role="button" 
                         class="dropdown-item d-flex align-items-center" 
-                        data-toggle="modal" 
-                        data-target="#logout_modal"
+                        onclick="$('#logout-title').html('Logout')" data-toggle="modal" data-target="#logoutModal"
                     >
                         <div class="mr-3" style="width: 1.25rem">
                             <i class="fas fa-sign-out-alt"></i>
@@ -263,6 +262,38 @@
             </li>
         </ul>
     </nav>
+
+    <!-- Log Out Modal -->
+    <div class="modal fade" id="logoutModal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="d-flex align-items-center">
+                        <div>
+                        <i class="text-secondary fas fa-sign-out-alt mr-1"></i>
+                        </div>
+                        <div class="modal-title" id="logout-title">Logout</div>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to logout?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Close
+                    </button>
+                <button type="button" onClick="logout();" class="btn btn-danger">Logout <i
+                    class="fas fa-sign-out-alt ml-1"></i></button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
 <!-- END HEADERRRRRRRRRRRR -->
 <!-- ============================================================================== -->

@@ -868,10 +868,12 @@ $("#request_quotation_id").on("change", function () {
 
   $("#modal-xl").modal("show");
 
+  let vendor_id = localStorage.getItem("ID")
+
 
   //   console.log(id);
   $.ajax({
-    url: apiURL + "request-quotation/" + this.value,
+    url: apiURL + "request-quotation/vendor/"+ vendor_id +"/"+ this.value,
     type: "GET",
     dataType: "json",
     success: function (data) {
@@ -916,7 +918,7 @@ $("#request_quotation_id").on("change", function () {
         rfq_table.clear().draw();
 
         for (let pr_item in data.purchase_requisition.purchase_requisition_detail) {
-          if (data.purchase_requisition.purchase_requisition_detail[pr_item].product_id === null) {
+          if (data.purchase_requisition.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition.purchase_requisition_detail[pr_item].supply_id === null) {
             $("#quotation_code").val(
               data.purchase_requisition_detail[pr_item].new_category
                 .slice(0, 2)
@@ -941,7 +943,29 @@ $("#request_quotation_id").on("change", function () {
                   ),
               ])
               .draw();
-          } else {
+          } else if (data.purchase_requisition.purchase_requisition_detail[pr_item].supply_id != null) {
+          
+            rfq_table.row
+              .add([
+                data.purchase_requisition.purchase_requisition_detail[pr_item].supply.category
+                  .category_name,
+                data.purchase_requisition.purchase_requisition_detail[pr_item].supply.product_name,
+                data.purchase_requisition.purchase_requisition_detail[pr_item].supply.description,
+                "\u20B1" +
+                  numberWithCommas(
+                    data.purchase_requisition.purchase_requisition_detail[pr_item].supply
+                      .estimated_price
+                  ),
+                data.purchase_requisition.purchase_requisition_detail[pr_item].quantity,
+                "\u20B1" +
+                  numberWithCommas(
+                    data.purchase_requisition.purchase_requisition_detail[pr_item].quantity *
+                      data.purchase_requisition.purchase_requisition_detail[pr_item].supply
+                        .estimated_price
+                  ),
+              ])
+              .draw();
+          } else if (data.purchase_requisition.purchase_requisition_detail[pr_item].product_id != null && data.purchase_requisition.purchase_requisition_detail[pr_item].supply_id === null) {
           
             rfq_table.row
               .add([

@@ -52,6 +52,7 @@ loadTable = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
+          console.log(aData)
           return formatPurchaseRequestNo(aData.purchase_requisition_number);
         },
       },
@@ -63,7 +64,7 @@ loadTable = () => {
         // className: "dtr-control",
         render: function (aData, type, row) {
           // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
-          return "name"
+          return aData.department_procurement.department_name
         }
       },
 
@@ -193,7 +194,7 @@ loadTablePending = () => {
         width: "20%",
         render: function (aData, type, row) {
           // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
-          return "name"
+          return aData.department_procurement.department_name
 
         }
         // className: "dtr-control",
@@ -329,7 +330,7 @@ loadTableApproved = () => {
         width: "20%",
         render: function (aData, type, row) {
           // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
-          return "name"
+          return aData.department_procurement.department_name
 
         }
         // className: "dtr-control",
@@ -465,7 +466,7 @@ loadTableRejected = () => {
         width: "20%",
         render: function (aData, type, row) {
           // return aData.u_created_by.employees.first_name + " " +aData.u_created_by.employees.last_name
-          return "name"
+          return aData.department_procurement.department_name
 
         }
         // className: "dtr-control",

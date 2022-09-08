@@ -161,6 +161,7 @@ viewPR = () => {
       type: "GET",
       dataType: "json",
       success: function (data) {
+        console.log(data)
         if (data) {
           $("#pr_number").html(
             formatPurchaseRequestNo(data["purchase_requisition_number"])
@@ -176,7 +177,7 @@ viewPR = () => {
           prd_table.clear().draw();
 
           for (var pr_item in data.purchase_requisition_detail) {
-            if (data.purchase_requisition_detail[pr_item].product_id === null) {
+            if (data.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition_detail[pr_item].supply_id === null) {
               prd_table.row
                 .add([
                   data.purchase_requisition_detail[pr_item].new_category,
@@ -184,7 +185,17 @@ viewPR = () => {
                   data.purchase_requisition_detail[pr_item].quantity,
                 ])
                 .draw();
-            } else {
+            } else if(data.purchase_requisition_detail[pr_item].supply_id != null){
+              prd_table.row
+                .add([
+                  data.purchase_requisition_detail[pr_item].supply.category
+                    .category_name,
+                  data.purchase_requisition_detail[pr_item].supply
+                    .supply_name,
+                  data.purchase_requisition_detail[pr_item].quantity,
+                ])
+                .draw();
+            } else if (data.purchase_requisition_detail[pr_item].product_id != null && data.purchase_requisition_detail[pr_item].supply_id === null) {
               prd_table.row
                 .add([
                   data.purchase_requisition_detail[pr_item].product.category
@@ -297,7 +308,7 @@ editData = (id, type) => {
         prd_table.clear().draw();
 
         for (var pr_item in data.purchase_requisition.purchase_requisition_detail) {
-          if (data.purchase_requisition.purchase_requisition_detail[pr_item].product_id === null) {
+          if (data.purchase_requisition.purchase_requisition_detail[pr_item].product_id === null && data.purchase_requisition.purchase_requisition_detail[pr_item].supply_id === null) {
             prd_table.row
               .add([
                 data.purchase_requisition.purchase_requisition_detail[pr_item].new_category,
@@ -310,7 +321,22 @@ editData = (id, type) => {
 
               ])
               .draw();
-          } else {
+          } else if(data.purchase_requisition.purchase_requisition_detail[pr_item].supply_id != null) {
+            prd_table.row
+              .add([
+                data.purchase_requisition.purchase_requisition_detail[pr_item].supply.category
+                  .category_name,
+                data.purchase_requisition.purchase_requisition_detail[pr_item].supply
+                  .product_name,
+                data.purchase_requisition.purchase_requisition_detail[pr_item].supply.description,
+                "\u20B1" + numberWithCommas(data.purchase_requisition.purchase_requisition_detail[pr_item].supply.estimated_price),
+
+                data.purchase_requisition.purchase_requisition_detail[pr_item].quantity,
+                "\u20B1" + numberWithCommas(data.purchase_requisition.purchase_requisition_detail[pr_item].quantity * data.purchase_requisition.purchase_requisition_detail[pr_item].supply.estimated_price),
+
+              ])
+              .draw();
+          }else if (data.purchase_requisition.purchase_requisition_detail[pr_item].product_id != null && data.purchase_requisition.purchase_requisition_detail[pr_item].supply_id === null){
             prd_table.row
               .add([
                 data.purchase_requisition.purchase_requisition_detail[pr_item].product.category

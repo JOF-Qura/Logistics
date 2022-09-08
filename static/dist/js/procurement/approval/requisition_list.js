@@ -55,8 +55,10 @@ loadTable = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
+          // console.log(aData)
+          // console.log(row)
           // return aData.u_created_by.employees.first_name +" "+aData.u_created_by.employees.last_name;
-          return "name";
+          return (aData.department_procurement.department_name);
         },
       },
 
@@ -498,10 +500,10 @@ dataInfo = (id, type) => {
         $("#pr_uuid").val(data["id"]);
         $("#status").html(data["status"]);
         // $("#department").html(data.u_created_by.employees.department["department_name"]);
-        $("#department").html("dept name");
+        $("#department").html(data.department_procurement.department_name);
 
         // $("#requested_by").html(data.u_created_by.employees["first_name"] + " "+data.u_created_by.employees["last_name"] );
-        $("#requested_by").html("name");
+        $("#requested_by").html(data.department_procurement.department_name);
 
         $("#purpose").html(data["purpose"]);
         $("#message").html(data["message"]);

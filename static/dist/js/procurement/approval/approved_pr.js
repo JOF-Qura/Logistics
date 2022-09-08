@@ -46,7 +46,7 @@ loadTableApproved = () => {
         width: "10%",
         render: function (aData, type, row) {
           // return aData.u_created_by.employees.first_name+" "+aData.u_created_by.employees.last_name;
-          return "name"
+          return aData.department_procurement.department_name
         
         }
       },

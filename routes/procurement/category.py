@@ -6,7 +6,7 @@ from typing import List
 from repository.procurement import category
 from database import get_db
 
-from schemas.procurement.category import Category, CategoryStatus,ShowCategory
+from schemas.procurement.category import Category, CategoryStatus,ShowCategory,ShowCategoryOnly
 
 
 
@@ -22,6 +22,11 @@ router = APIRouter(
 @router.get('/', response_model=List[ShowCategory])
 def get( db : Session = Depends(get_db)):#
     return category.get(db)
+
+# get all
+# @router.get('/category_only', response_model=List[ShowCategoryOnly])
+# def get( db : Session = Depends(get_db)):#
+#     return category.get(db)
 
 
 # create
