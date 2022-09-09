@@ -552,7 +552,8 @@ collapsed()
             {
                 $.ajax(
                 {
-                    url: "http://localhost:8000/" + "count/inbound_per_month",
+                    // url: "http://localhost:8000/" + "count/inbound_per_month",
+                    url: "http://localhost:8000/" + "count/outbound_per_month",
                     type: "GET",
                     dataType: "JSON",
                     success: function(inbound_data)

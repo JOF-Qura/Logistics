@@ -1,5 +1,5 @@
 <!-- Apply layout from base.html -->
-{%extends 'warehousing/manager/default/base.html'%} 
+{%extends 'warehousing/manager/default/request_base.html'%} 
 
 <!-- Enter content for block 'content' -->
 {%block content%}
@@ -36,203 +36,271 @@
     </section>
     <!-- /.content-header -->
 
-    <!-- For TESTING -->
-    <!-- <div class="row align-items-center justify-content-center"> -->
-        <!-- Python conditional statement -->
-        <!-- {%for user in users%}
-            <div class="card card-outline card-primary w-75">
-                <div class="card-header">
-                    <div class="h3">ID: {{user.user_id}}</div>
-                    <div class="subtitle">Email: {{user.user_email}}</div>
-                </div>
-                <div class="card-body">
-                    <div>Date Created: {{user.created_at}}</div>
-                </div>
-            </div>
-        {%else%}
-            <h3>No users to show.</h3>
-        {%endfor%}
-    </div> -->
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
+    <!-- Timelime example  -->
+    <div class="row" id="div_timeline">
+      <div class="col-md-12">
+        <div class="card card-primary card-outline">
+          <div class="card-header">
+            <h3 class="card-title" id=timeline_pr_number></h3>
+
+          </div>
+          <div class="card-body">
+       <!-- The time line -->
+       <div class="timeline" id="timeline_body">
+
+      </div>
+          </div>
+
+          <div class="card-footer">
+
             <div class="row">
-                <div class="col-md-12">
-                    <!-- Card -->
-                    <div class="card card-primary card-outline">
-                        <!-- Card Header -->
-                        <div class="card-header">
-                            <div class="row"> 
-                                <div class="col-md-6">
-                                    <h3 class="card-title">Inbound Reports</h3>
-                                </div>
-                                <!-- Button -->
-                                <div class="col-md-6">
-                                    <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#adding_modal">Add New Inbound Report <i class="fas fa-plus"></i></button>
-                                    <!-- <input type="submit" value="Create new Project" class="btn btn-success float-right"> -->
-                                </div>
-                                <!-- / Button -->
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
+              <div class="col-md-12 text-right set-btn">
+                <!-- <button type="reset" class="btn btn-default bg-dark" onclick="return clearProducts(0);">Cancel</button> -->
+                <button type="button" class="btn btn-default bg-default"
+                  onClick="$('#div_timeline').hide()">Close</button>
 
-                        <!-- Card Body -->
-                        <div class="card-body">
-                            <table id="data-table" class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Inbound Reports ID</th>
-                                        <th>Request ID</th>
-                                        <th>Employee Name</th>
-                                        <th>Status</th>
-                                        <!-- <th>Total Quantity</th> -->
-                                        <!-- <th>Date Created</th> -->
-                                        <th class="text-center">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
+
+              </div>
             </div>
-            <!-- /.row -->
+
+
+          </div>
         </div>
-        <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-
-    <!-- Adding Inbound Report Modal -->
-    <div class="modal fade" id="adding_modal">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Inbound Report Form</h4>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- CONTENT -->
-                    <form id="form_id" name="form_id" enctype="multipart/form_data">
-                        <div class="card-body">
-                            <div class="row">
-                                <input type="hidden" name="uuid" id="uuid" value="" />
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="request_id">Request</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="request_id" name="request_id" required>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="employee_id">Employee</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="employee_id" name="employee_id" required>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="status">Status</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="status" name="status" required>
-                                            <option value="On Going">On Going</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="total_quantity" id="total_quantityLabel">Total Quantity</label> <span class="required-field"> </span>
-                                        <input type="number" class="form-control" id="total_quantity" placeholder="Enter Total Quantity" required>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- BUTTONS -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="Submit" class="btn btn-primary" id="button_add">Submit</button>
-                            </div>
-                            <!-- END BUTTONS -->
-                        </div>
-                    </form> <!-- END CONTENT -->
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+ 
+      </div>
+      <!-- /.col -->
     </div>
-    <!-- END Adding Inbound Report Modal -->
 
-    <!-- editing Inbound Report Modal -->
-    <div class="modal fade" id="editing_modal">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Inbound Report Form</h4>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- CONTENT -->
-                    <form id="e_form_id" name="e_form_id" enctype="multipart/form_data">
-                        <div class="card-body">
-                            <div class="row">
-                                <input type="hidden" name="e_uuid" id="e_uuid" value="" />
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="e_employee_id">Employee</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="e_employee_id" name="e_employee_id" required>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="e_status">Status</label> <span class="required-field"> </span>
-                                        <select class="form-control js-example-basic-single" id="e_status" name="e_status" required>
-                                            <option value="On Going">On Going</option>
-                                            <option value="On Going">Delivered</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="e_total_quantity" id="e_total_quantityLabel">Total Quantity</label> <span class="required-field"> </span>
-                                        <input type="number" class="form-control" id="e_total_quantity" placeholder="Enter Total Quantity" required>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- BUTTONS -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="Submit" class="btn btn-primary" id="button_save">Save</button>
-                            </div>
-                            <!-- END BUTTONS -->
-                        </div>
-                    </form> <!-- END CONTENT -->
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+      
+      <div class="row">
+        <div class="col-md-12 col-sm-6">
+          <div class="card card-primary card-outline card-tabs">
+            <div class="card-header p-0 pt-1 border-bottom-0">
+              <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                <!-- <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="tab" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">All</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="tab" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Pending</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="tab" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">Approved</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-settings-tab" data-toggle="tab" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Rejected</a>
+                </li> -->
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-delivered-tab" data-toggle="tab" href="#custom-tabs-three-delivered" role="tab" aria-controls="custom-tabs-three-delivered" aria-selected="false">Delivered</a>
+                </li>
+              </ul>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <table id="data-table-delivered" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                          <th>PR No.</th>
+      
+                          <th>Requested By</th>
+                          <th>Date Ordered</th>
+                          
+                          <th>Status</th>
+                          <th>Action</th>  
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+
+      </div>
+
+      
     </div>
-    <!-- END editing Inbound Report Modal -->
-{%endblock%}
-
-{%block scripts%}
-<script src="{{url_for('static', path='/dist/js/warehousing/admin/inbound_reports.js')}}"></script>
-{%endblock%}
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
 
 
+<script src="{{ url_for('static', path='/dist/js/warehousing/admin/list_of_request.js') }}"></script>
+
+
+
+
+<!-- Extra Large Modal  For Updating, Adding and Viewing-->
+<div class="modal fade" id="modal-xl">
+  <div class="
+          modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable
+        ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="d-flex align-items-center p-2">
+          <div>
+              <i class="text-secondary fas fa-file-alt mr-2"></i>
+          </div>
+          <div class="modal-title">Purchase Request</div>
+        </div>
+        <!-- <h4 class="modal-title">Purchase Request</h4> -->
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <!-- <div class="modal-body-wrapper"> -->
+      <div class="modal-body p-5">
+        <div class="modal-print">
+
+
+        <div class="form-group row m-t-10">
+          <div class="col-md-7">
+              <label>PR Number</label>
+             <p id="pr_number"></p>
+          </div>
+          <div class="col-md-4">
+              <label>Status</label>
+              <p id="status"></p>
+          </div>
+      </div>
+
+      <div class="form-group row"> 
+          <div class="col-md-7">
+              <label>Department</label>
+              <p id="department"></p>
+            </div>  
+          <div class="col-md-4">
+              <label>Requested By</label>
+              <p id="requested_by"></p>
+          </div>    
+
+
+      </div>
+
+      <div class="form-group row">
+
+        <div class="col-md-7">
+          <label>Date Requested</label>
+          <p id="date_requested"></p>
+        </div>
+
+        <div class="col-md-4">
+          <label>Date Approved/Rejected</label>
+          <p id="date_approved"></p>
+        </div>
+
+     
+      </div>
+
+      <div class="form-group row mb-5">
+        <div class="col-md-7">
+          <label>Purpose</label>
+          <p id="purpose"></p>
+        </div>
+
+        <div class="col-md-4">
+          <label>Approver</label>
+          <p id="approved_by"></p>
+        </div>
+      </div>
+
+      <label class="h5">Item Details</label class="h5">
+
+        <table id="pr-detail-table" class="table table-hover table-bordered" style="width: 100%;">
+          <thead>
+              <tr>
+                <!-- <th></th> -->
+                <th>Category</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Estimated Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+
+              </tr>
+          </thead>
+          <tbody>
+          </tbody>
+      </table>
+
+
+      <div class="form-group row my-5 when_approved">
+        <div class="col-md-7">
+          <label>Estimated Amount</label>
+          <p id="estimated_amount"></p>
+        </div>
+
+        <div class="col-md-4">
+          <label>Given Budget</label>
+          <p id="given_budget"></p>
+        </div>
+      </div>
+
+      <div class="form-group row my-5 when_rejected">
+        <div class="col-md-7">
+          <label>Reason</label>
+          <p id="reason"></p>
+        </div>
+
+     
+      </div>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary print">
+          Print
+          <i class="fas fa-print ml-1"></i>
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- /.modal -->
+
+<!-- Default Modal For updating and deleting -->
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title cancel-request"> Request</h4>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <p class="request-modal-body"> </p>
+        
+        <input type="hidden" id="uuid" name="uuid">
+
+     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-info" onclick="changeStatus()" id="changeStatus">Cancel Request <i class="fas fa-times-circle ml-1"></i></button>
+
+      </div>
+  
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+{% endblock %}

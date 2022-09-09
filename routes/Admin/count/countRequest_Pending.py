@@ -5,8 +5,10 @@ from datatables import DataTable
 # importing models one by one
 from models.Admin.requestModel import Request as Request_M
 
-from models.Admin import requestModel
-from schemas.Admin import requestSchema
+# from models.Admin import requestModel
+# from schemas.Admin import requestSchema
+from models.procurement import purchase_requisition as PR
+from schemas.procurement import purchase_requisition as PR_Schema
 from database import get_db
 from dependencies import get_token
 from typing import List, Optional
@@ -21,9 +23,17 @@ router = APIRouter(
 
 #================================ Request Table =================================#
 
-@router.get('/', response_model=List[requestSchema.ShowRequest])
+# @router.get('/', response_model=List[requestSchema.ShowRequest])
+# def count_response(db: Session = Depends(get_db)):
+#     query = db.query(requestModel.Request).filter(requestModel.Request.request_status == "Pending").all()
+#     if not query:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+#                             detail=f"No Pending Request")
+#     return query
+
+@router.get('/', response_model=List[PR_Schema.ShowPurchaseRequisition])
 def count_response(db: Session = Depends(get_db)):
-    query = db.query(requestModel.Request).filter(requestModel.Request.request_status == "Pending").all()
+    query = db.query(PR.PurchaseRequisition).filter(PR.PurchaseRequisition.status == "Pending").all()
     if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"No Pending Request")

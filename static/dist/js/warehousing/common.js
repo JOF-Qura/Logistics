@@ -95,7 +95,7 @@ loadNotif = () => {
                         notifData[i]["notification_id"] + 
                         '\')" class="dropdown-item">' +
                             '<i class="fas fa-box mr-2"></i>' +
-                                notifData[i].supply_notif.supply_name + 
+                                notifData[i].supply_notif.product_name + 
                             '<span class="float-right text-info text-sm">' +
                                 'is requested by Employee, click to resolved'
                             '</span>' +
@@ -162,7 +162,7 @@ loadNotif = () => {
                     '<div class="dropdown-divider"></div>' + 
                     // '<a href="/warehousing/manager/supplies" class="dropdown-item">' +
                         '<i class="fas fa-box mr-2"></i>' +
-                            responseData[i].supply_name +
+                            responseData[i].product_name +
                         '<span class="float-right text-danger text-sm">' +
                             'is Low on Stocks'
                         '</span>' +

@@ -5,9 +5,14 @@ from datatables import DataTable
 from models.Admin import supplyModel
 
 # importing request
-from models.Admin.requestModel import Request as Request_M
-from models.Admin import requestModel
-from schemas.Admin import requestSchema
+# from models.Admin.requestModel import Request as Request_M
+# from models.Admin import requestModel
+# from schemas.Admin import requestSchema
+
+# importing PR
+from models.procurement.purchase_requisition import PurchaseRequisition as Request_M
+from models.procurement import purchase_requisition
+from schemas.procurement import purchase_requisition as PR_Schema
 
 # importing return
 from models.Admin.returnModel import Return as Returns
@@ -15,11 +20,18 @@ from models.Admin import returnModel
 from schemas.Admin import returnSchema
 
 # importing request details
-from models.Admin.requestModel import Request as Request_M
-from models.Admin.request_detailModel import Request_Details
+# from models.Admin.requestModel import Request as Request_M
+# from models.Admin.request_detailModel import Request_Details
+# from models.Admin.supplyModel import Supplies
+# from models.Admin import request_detailModel
+# from schemas.Admin import request_detailSchema
+
+# importing PR detials
+from models.procurement.purchase_requisition import PurchaseRequisition as PR
+from models.procurement.purchase_requisition_detail import PurchaseRequisitionDetail as PR_Detail
 from models.Admin.supplyModel import Supplies
-from models.Admin import request_detailModel
-from schemas.Admin import request_detailSchema
+from models.procurement import purchase_requisition_detail
+from schemas.procurement import purchase_requisition_detail as PR_DetailSchema
 
 # importing inbound
 from models.Admin.inbound_reportModel import Inbound_Reports
@@ -50,21 +62,44 @@ router = APIRouter(
 
 #================================ Request Table =================================#
 
+# @router.get('/request_per_month')
+# def count_requestper_month(db: Session = Depends(get_db)):
+#     today = datetime.today()
+#     req_jan = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 1).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_feb = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 2).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_mar = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 3).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_apr = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 4).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_may = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 5).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_jun = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 6).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_jul = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 7).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_aug = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 8).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_sep = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 9).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_oct = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 10).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_nov = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 11).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     req_dec = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 12).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+    
+#     return {
+#             'January': req_jan,     'May': req_may,         'September': req_sep,
+#             'February': req_feb,    'June': req_jun,        'October': req_oct,
+#             'March': req_mar,       'July': req_jul,        'November': req_nov,
+#             'April': req_apr,       'August': req_aug,      'December': req_dec,
+#             }
+
 @router.get('/request_per_month')
 def count_requestper_month(db: Session = Depends(get_db)):
     today = datetime.today()
-    req_jan = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 1).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_feb = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 2).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_mar = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 3).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_apr = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 4).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_may = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 5).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_jun = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 6).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_jul = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 7).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_aug = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 8).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_sep = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 9).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_oct = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 10).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_nov = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 11).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    req_dec = db.query(requestModel.Request).filter(extract('month', requestModel.Request.request_date) == 12).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+    req_jan = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 1).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_feb = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 2).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_mar = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 3).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_apr = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 4).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_may = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 5).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_jun = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 6).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_jul = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 7).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_aug = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 8).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_sep = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 9).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_oct = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 10).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_nov = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 11).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    req_dec = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 12).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
     
     return {
             'January': req_jan,     'May': req_may,         'September': req_sep,
@@ -99,55 +134,94 @@ def count_return_per_month(db: Session = Depends(get_db)):
 
 #================================ Request Details Table =================================#
 
+# @router.get('/most_requested')
+# def count_most_requested(db: Session = Depends(get_db)):
+#     query = db.query(Supplies.product_name, func.count(Request_Details.id)
+#         ).join(Supplies, Supplies.id == Request_Details.id, isouter = True
+#         ).join(Request_M, Request_M.request_id == Request_Details.request_id, isouter = True
+#         ).filter(requestModel.Request.request_type == "To Request"
+#         ).order_by(desc(func.count(Request_Details.id))
+#         ).group_by(Request_Details.id
+#         ).limit(5)
+
+#     return query
+
 @router.get('/most_requested')
 def count_most_requested(db: Session = Depends(get_db)):
-    query = db.query(Supplies.product_name, func.count(Request_Details.id)
-        ).join(Supplies, Supplies.id == Request_Details.id, isouter = True
-        ).join(Request_M, Request_M.request_id == Request_Details.request_id, isouter = True
-        ).filter(requestModel.Request.request_type == "To Request"
-        ).order_by(desc(func.count(Request_Details.id))
-        ).group_by(Request_Details.id
+    query = db.query(Supplies.product_name, func.count(PR_Detail.id)
+        ).join(Supplies, Supplies.id == PR_Detail.supply_id, isouter = True
+        ).join(Request_M, Request_M.id == PR_Detail.purchase_requisition_id, isouter = True
+        ).order_by(desc(func.count(PR_Detail.id))
+        ).group_by(PR_Detail.id
         ).limit(5)
 
     return query
 
 @router.get('/most_ordered')
 def count_most_requested(db: Session = Depends(get_db)):
-    query = db.query(Supplies.product_name, func.count(Request_Details.id)
-        ).join(Supplies, Supplies.id == Request_Details.id, isouter = True
-        ).join(Request_M, Request_M.request_id == Request_Details.request_id, isouter = True
-        ).filter(requestModel.Request.request_type == "For Request"
-        ).order_by(desc(func.count(Request_Details.id))
-        ).group_by(Request_Details.id
+    query = db.query(Supplies.product_name, func.count(PR_Detail.id)
+        ).join(Supplies, Supplies.id == PR_Detail.supply_id, isouter = True
+        ).join(PR, PR.id == PR_Detail.purchase_requisition_id, isouter = True
+        ).order_by(desc(func.count(PR_Detail.id))
+        ).group_by(PR_Detail.id
         ).limit(5)
 
     return query
 
 # GET all request detail
+# @router.get('/')
+# def get_all_request_detail(db: Session = Depends(get_db)):
+#     rd = db.query(request_detailModel.Request_Details, func.count(Request_Details.id)).options(joinedload(request_detailModel.Request_Details.request)
+#                                                                 , joinedload(request_detailModel.Request_Details.supply)).all()
+#     return {'Request_Details': rd}
+
 @router.get('/')
 def get_all_request_detail(db: Session = Depends(get_db)):
-    rd = db.query(request_detailModel.Request_Details, func.count(Request_Details.id)).options(joinedload(request_detailModel.Request_Details.request)
-                                                                , joinedload(request_detailModel.Request_Details.supply)).all()
+    rd = db.query(purchase_requisition_detail.PurchaseRequisitionDetail, func.count(PR_Detail.id)).options(joinedload(purchase_requisition_detail.PurchaseRequisitionDetail.request)
+                                                                , joinedload(purchase_requisition_detail.PurchaseRequisitionDetail.supply)).all()
     return {'Request_Details': rd}
 
 
 #================================ IN/OUT Table =================================#
 
+# @router.get('/outbound_per_month')
+# def count_outbound_per_month(db: Session = Depends(get_db)):
+#     today = datetime.today()
+#     outB_jan = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 1).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_feb = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 2).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_mar = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 3).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_apr = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 4).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_may = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 5).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_jun = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 6).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_jul = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 7).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_aug = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 8).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_sep = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 9).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_oct = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 10).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_nov = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 11).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+#     outB_dec = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 12).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+    
+#     return {
+#             'January': outB_jan,     'May': outB_may,         'September': outB_sep,
+#             'February': outB_feb,    'June': outB_jun,        'October': outB_oct,
+#             'March': outB_mar,       'July': outB_jul,        'November': outB_nov,
+#             'April': outB_apr,       'August': outB_aug,      'December': outB_dec,
+#             }
+
 @router.get('/outbound_per_month')
 def count_outbound_per_month(db: Session = Depends(get_db)):
     today = datetime.today()
-    outB_jan = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 1).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_feb = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 2).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_mar = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 3).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_apr = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 4).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_may = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 5).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_jun = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 6).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_jul = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 7).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_aug = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 8).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_sep = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 9).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_oct = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 10).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_nov = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 11).filter(extract('year', requestModel.Request.request_date) == today.year).count()
-    outB_dec = db.query(requestModel.Request).filter(requestModel.Request.request_type == "For Request").filter(extract('month', requestModel.Request.request_date) == 12).filter(extract('year', requestModel.Request.request_date) == today.year).count()
+    outB_jan = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 1).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_feb = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 2).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_mar = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 3).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_apr = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 4).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_may = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 5).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_jun = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 6).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_jul = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 7).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_aug = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 8).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_sep = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 9).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_oct = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 10).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_nov = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 11).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
+    outB_dec = db.query(purchase_requisition.PurchaseRequisition).filter(extract('month', purchase_requisition.PurchaseRequisition.created_at) == 12).filter(extract('year', purchase_requisition.PurchaseRequisition.created_at) == today.year).count()
     
     return {
             'January': outB_jan,     'May': outB_may,         'September': outB_sep,
@@ -155,6 +229,7 @@ def count_outbound_per_month(db: Session = Depends(get_db)):
             'March': outB_mar,       'July': outB_jul,        'November': outB_nov,
             'April': outB_apr,       'August': outB_aug,      'December': outB_dec,
             }
+
 
 @router.get('/inbound_per_month')
 def count_inbound_month(db: Session = Depends(get_db)):
