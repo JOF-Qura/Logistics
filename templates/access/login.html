@@ -154,6 +154,7 @@
                 else 
                 {
                   console.log(user)
+                  sessionStorage.clear();
                   // Store
                   sessionStorage.setItem("id", user.user_id);
                   sessionStorage.setItem("email", user.user_email);
