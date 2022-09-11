@@ -123,7 +123,7 @@ $(function () {
               cache: false,
               headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+                Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
               },
               success: function (data) {
                 let temp_p_id = data.id;
@@ -151,8 +151,8 @@ $(function () {
                       crud: "Insert",
                       table:"vendor_proposal",
                       payload:JSON.stringify(data),
-                      client_ip:localStorage.getItem("CLIENT_IP"),
-                      vendor_id:localStorage.getItem("ID")
+                      client_ip:sessionStorage.getItem("CLIENT_IP"),
+                      vendor_id:sessionStorage.getItem("ID")
                     }),
                     success: function (data) {
                   
@@ -302,8 +302,8 @@ $(function () {
                       crud: "Update",
                       table:"vendor_proposal",
                       payload:JSON.stringify(data),
-                      client_ip:localStorage.getItem("CLIENT_IP"),
-                      vendor_id:localStorage.getItem("ID")
+                      client_ip:sessionStorage.getItem("CLIENT_IP"),
+                      vendor_id:sessionStorage.getItem("ID")
                     }),
                     success: function (data) {
                   
@@ -410,11 +410,11 @@ removePrDetail = (tr,td, proposal_item_id) => {
 
 // vendor proposal datatable
 loadTable = () => {
-  console.log(localStorage.getItem("USERID"))
+  // console.log(sessionStorage.getItem("ID"))
   $.ajaxSetup({
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
   });
@@ -426,7 +426,7 @@ loadTable = () => {
       url:
         apiURL +
         "vendor-proposal/one-vendor-proposals/" +
-        localStorage.getItem("USERID"),
+        sessionStorage.getItem("ID"),
       dataSrc: "",
     },
     aLengthMenu: [5, 10, 20, 30, 50, 100],
@@ -595,12 +595,12 @@ var edit_new_product = []
 // all request for quotation
 loadRFQ = () => {
   $.ajax({
-    url: apiURL + "request-quotation/vendor/" + localStorage.getItem("ID") + "/procure_of_products/Approved",
+    url: apiURL + "request-quotation/vendor/" + sessionStorage.getItem("ID") + "/procure_of_products/Approved",
     type: "GET",
     dataType: "json",
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
       ContentType: "application/x-www-form-urlencoded",
     },
     success: function (responseData) {
@@ -868,7 +868,7 @@ $("#request_quotation_id").on("change", function () {
 
   $("#modal-xl").modal("show");
 
-  let vendor_id = localStorage.getItem("ID")
+  let vendor_id = sessionStorage.getItem("ID")
 
 
   //   console.log(id);
@@ -1372,7 +1372,7 @@ loadCategory = () => {
     type: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+      Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
     },
     dataType: "json",
     success: function (responseData) {

@@ -68,7 +68,7 @@ class ShowVendorProposal(BaseModel):
     related_documents: Optional[List[related_documents.ShowRelatedDocuments]]
     # u_created_by: user.ShowUser
     message: Optional[str]
-    created_by: str
+    # created_by: str
     prepared_by: str
     contact_no: str
     arrival_date:date

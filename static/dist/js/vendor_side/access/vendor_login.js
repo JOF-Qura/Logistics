@@ -10,13 +10,12 @@ toastr.options = {
 };
 
 $(function () {
-  localStorage.removeItem("TOKEN");
-  localStorage.removeItem("ID");
-  localStorage.removeItem("VENDORNAME");
-  localStorage.removeItem("INDUSTRY");
-  localStorage.removeItem("VENDORSTATUS");
+   sessionStorage.removeItem("ID");
+  sessionStorage.removeItem("VENDORNAME");
+  sessionStorage.removeItem("INDUSTRY");
+  sessionStorage.removeItem("VENDORSTATUS");
 
-  localStorage.clear();
+  sessionStorage.clear();
 
   $("#loginForm")
     .on("submit", function (e) {
@@ -69,18 +68,18 @@ $(function () {
           success: function (data) {
             if (data.access_token) {
               console.log(data)
-              localStorage.setItem("TOKEN", data.access_token);
-              localStorage.setItem("ID", data.data.id);
+              sessionStorage.setItem("TOKEN", data.access_token);
+              sessionStorage.setItem("ID", data.data.id);
               // localStorage.setItem("USERID", data.data.id);
 
-              localStorage.setItem("VENDORNAME", data.data.vendor_name);
+              sessionStorage.setItem("VENDORNAME", data.data.vendor_name);
               // localStorage.setItem("INDUSTRY", data.vendor.industry);
-              localStorage.setItem("VENDORSTATUS", data.status);
+              sessionStorage.setItem("VENDORSTATUS", data.status);
 
               $.getJSON(
                 "https://api.ipify.org?format=json",
                 function (ip_data) {
-                  localStorage.setItem("CLIENT_IP", ip_data.ip);
+                  sessionStorage.setItem("CLIENT_IP", ip_data.ip);
                 }
               )
                 .done(function () {
@@ -115,8 +114,8 @@ vendorLoginAjax = () =>{
     type: "POST", // post, put, delete, get
     data: JSON.stringify({
       logged_type: "Logged In",
-      client_ip: localStorage.getItem("CLIENT_IP"),
-      vendor_id: localStorage.getItem("ID"),
+      client_ip: sessionStorage.getItem("CLIENT_IP"),
+      vendor_id: sessionStorage.getItem("ID"),
     }),
     contentType: "application/json",
     processData: false,

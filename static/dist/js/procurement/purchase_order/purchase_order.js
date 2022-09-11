@@ -36,7 +36,7 @@ const purchaseOrder = (id) => {
 
         $("#uuid").val(data["id"]);
 
-        $("#po_vendor_name").html(data.u_created_by.vendor["vendor_name"]);
+        $("#po_vendor_name").html("vendor_name");
         // $("#po_vendor_address").html(data.u_created_by["street"]);
         // $("#po_vendor_city").html(data.creu_created_byator["city"]);
 
@@ -307,10 +307,13 @@ loadAwardedProposalsTable = () => {
     
     columns: [
       {
-        data: "u_created_by.vendor.vendor_name",
-        name: "u_created_by.vendor.vendor_name",
+        data: null,
+        name: null,
         searchable: true,
         width: "10%",
+        render: function (aData, type, row) {
+          return formatRfqNo(aData.request_quotation.request_quotation_number);
+        },
         // className: "dtr-control",
       },
       {
@@ -319,7 +322,7 @@ loadAwardedProposalsTable = () => {
         searchable: true,
         width: "10%",
         render: function (aData, type, row) {
-          return formatRfqNo(aData.request_quotation.request_quotation_number);
+          return "vendor_name";
 
         },
 
@@ -815,7 +818,7 @@ poInfo = (id) => {
 
         $("#uuid").val(data["id"]);
 
-        $("#po_vendor_name").html(data.vendor["vendor_name"]);
+        $("#po_vendor_name").html("vendor_name");
         // $("#po_vendor_address").html(data..u_created_by["street"]);
         // $("#po_vendor_city").html(data.vendor_proposal.u_created_by["city"]);
 
@@ -1016,9 +1019,9 @@ editData = (id, type) => {
         }
         
         $("#uuid").val(data["id"]);
-        $("#vendor_id").val(data.u_created_by.vendor["id"]);
+        $("#vendor_id").val(data.vendor["id"]);
 
-        $("#vendor").html(data.u_created_by.vendor["vendor_name"]);
+        $("#vendor").html("vendor_name");
         $("#proposal_date").html(
           moment(data["created_at"]).format("MMMM D, YYYY")
         );
