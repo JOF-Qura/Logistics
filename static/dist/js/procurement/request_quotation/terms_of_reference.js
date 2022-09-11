@@ -686,8 +686,9 @@ editData = (id, type) => {
           '<li>' + '<a href="#modal-file" data-toggle="modal" onClick="return showFileModal(this,1,\'' + data.related_documents[i].attachment + '\')" data-id="'+data.related_documents[i].attachment+'" class="btn-link text-dark"><i class="far fa-fw fa-file-word"></i> '+data.related_documents[i].attachment+'</a>' 
           + '</li></div>'
         }
-console.log(project_request_id)
-        $('#project_request_id').val(project_request_id).trigger("change")
+console.log(data.project_request_id)
+
+        $('#project_request_id').val(data.project_request_id).trigger("change")
         
         $("#related_files_body").append(related_files_body)
         // formDataRFQ["vendor_id"] = "";
