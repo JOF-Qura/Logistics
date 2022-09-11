@@ -29,10 +29,10 @@ def get_own_proposal(id, db : Session):
 
 
 # create vendor proposal
-def create(request: VendorProposal, db : Session, current_user):#
+def create(request: VendorProposal, db : Session):#
     rfq = db.query(models.RequestQuotation).filter(models.RequestQuotation.id == request.request_quotation_id)
 
-    if db.query(models.VendorProposals).filter_by(request_quotation_id = request.request_quotation_id,created_by=current_user).count() > 0:
+    if db.query(models.VendorProposals).filter_by(request_quotation_id = request.request_quotation_id).count() > 0:
          raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You have already created proposal for this request")
 
 
@@ -48,7 +48,6 @@ def create(request: VendorProposal, db : Session, current_user):#
         tax=request.tax,
         total_amount=request.total_amount,
         message=request.message,
-        created_by = current_user,
         request_quotation_id = request.request_quotation_id,
         status = request.status
       
@@ -172,7 +171,7 @@ def update_status(id, request: VendorProposalStatus, db : Session,current_user):
     return 'Updated Succesfully'
 
 # award vendor proposal - change status
-def award_vendor(id, request: AwardVendor, db : Session,current_user):
+def award_vendor(id, request: AwardVendor, db : Session):
     vendor_proposal = db.query(models.VendorProposals).filter(models.VendorProposals.id == id)
 
     if not vendor_proposal.first():

@@ -65,9 +65,9 @@ $(function () {
   // load vendor logo
   fetchVendorLogo();
 
-localStorageArr.push(localStorage.getItem("TOKEN"));
-localStorageArr.push(localStorage.getItem("USERID"));
-if (localStorageArr[0] == null) {
+  sessionStorage.push(sessionStorage.getItem("TOKEN"));
+  sessionStorage.push(sessionStorage.getItem("ID"));
+if (sessionStorage[0] == null) {
   setTimeout(() =>{
 
     window.location.replace(baseURL+"vendor-login");
@@ -75,9 +75,9 @@ if (localStorageArr[0] == null) {
 
 }
 
-$("#vendorName").text(localStorage.getItem("VENDORNAME"))
+$("#vendorName").text(sessionStorage.getItem("VENDORNAME"))
 // $("#vendorIndustry").text(localStorage.getItem("INDUSTRY"))
-$("#vendorStatus").text(localStorage.getItem("VENDORSTATUS"))
+$("#vendorStatus").text(sessionStorage.getItem("VENDORSTATUS"))
 
 
 
@@ -91,8 +91,8 @@ logout = () => {
     type: "POST", // post, put, delete, get
     data: JSON.stringify({
         logged_type: "Logged Out",
-        client_ip:localStorage.getItem("CLIENT_IP"),
-        vendor_id:localStorage.getItem("ID"),
+        client_ip:sessionStorage.getItem("CLIENT_IP"),
+        vendor_id:sessionStorage.getItem("ID"),
       }),
     contentType: "application/json",
     processData: false,
@@ -112,7 +112,7 @@ logout = () => {
 
     },
 });
-  localStorage.clear();
+sessionStorage.clear();
   window.location.replace(baseURL+"vendor-login");
 
 }
@@ -120,16 +120,16 @@ logout = () => {
 $.ajaxSetup({
   headers: {
     Accept: "application/json",
-    Authorization: "Bearer " + localStorage.getItem("TOKEN"),
+    Authorization: "Bearer " + sessionStorage.getItem("TOKEN"),
   },
 });
 
 // get vendor logo
 const fetchVendorLogo = () =>{
 $.ajax({
-  url: apiURL + "vendor/" + localStorage.getItem("ID"),
+  url: apiURL + "vendor/" + sessionStorage.getItem("ID"),
   type: "GET",
-  headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+  headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
   success: (data) => {
     $("#vendor_logo").attr(
       "src",
@@ -143,9 +143,9 @@ $.ajax({
 // load notification
 const loadNotif = () => {
   $.ajax({
-    url: apiURL + "notification/vendor/" + localStorage.getItem("ID") +"/"+"vendor",
+    url: apiURL + "notification/vendor/" + sessionStorage.getItem("ID") +"/"+"vendor",
     type: "GET",
-    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
     success: (data) => {
       
       $("#notif_body").empty();
@@ -209,11 +209,11 @@ trimString =(string, length) => {
 
 // mark notification as read
 $(document).ready(function() {
-console.log(localStorage.getItem("CLIENT_IP"))
+console.log(sessionStorage.getItem("CLIENT_IP"))
 
 $('#notif_dropdown').click(function(){
   $.ajax({
-    url: apiURL + "notification/" + localStorage.getItem("ID"),
+    url: apiURL + "notification/" + sessionStorage.getItem("ID"),
     type: "PUT",
     contentType: "application/json",
     dataType: "json",
@@ -223,7 +223,7 @@ $('#notif_dropdown').click(function(){
     data: JSON.stringify({
       status: "read"
     }),
-    headers: { Authorization: `Bearer ${localStorage.getItem("TOKEN")}` },
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("TOKEN")}` },
     success: (data) => {
       // console.log("success")
       loadNotif()

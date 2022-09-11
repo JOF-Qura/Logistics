@@ -137,10 +137,13 @@ loadTable = () => {
         },
       },
       {
-        data: "u_created_by.vendor.vendor_name",
-        name: "u_created_by.vendor.vendor_name",
+        data: null,
+        name: null,
         searchable: true,
         width: "10%",
+        render: function (aData, type, row) {
+          return "vendor_name";
+        },
       },
       // {
       //   data: null,
@@ -319,7 +322,9 @@ editData = (id, type) => {
 
         $("#uuid").val(data["id"]);
         $("#proposal_message").empty();
-        $("#vendor").html(data.u_created_by.vendor["vendor_name"]);
+        $("#vendor").html(
+          "Vendor Name"
+        );
         $("#proposal_date").html(
           moment(data["created_at"]).format("MMMM D, YYYY")
         );
@@ -504,10 +509,13 @@ loadTableComparisons = (rfq_id) => {
         },
       },
       {
-        data: "u_created_by.vendor.vendor_name",
-        name: "u_created_by.vendor.vendor_name",
+        data: null,
+        name: null,
         searchable: true,
         width: "10%",
+        render: function (aData, type, row) {
+          return "Vendor Name";
+        },
       },
 
       {
