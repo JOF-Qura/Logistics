@@ -7,7 +7,7 @@ generateQRCode = () =>
 {
     $.ajax(
 	{
-		url: apiURL + "supplies/" + supply_id,
+		url: apiURL + "supplies/" + id,
 		type: "GET",
 		dataType: "json",
 		success: function (data) 
@@ -20,11 +20,11 @@ generateQRCode = () =>
                     "created_at": data.created_at,
                     "supplier_id": data.supplier_id,
                     "supply_category": data.supply_category.supply_category_name,
-                    "supply_category_id": data.supply_category_id,
+                    "category_id": data.category_id,
                     "supply_description": data.supply_description,
                     "supply_expiration": data.supply_expiration,
-                    "supply_id": data.supply_id,
-                    "supply_name": data.supply_name,
+                    "id": data.id,
+                    "product_name": data.product_name,
                     "supply_quantity": data.supply_quantity,
                     "supply_reorder_interval": data.supply_reorder_interval,
                     "supply_status": data.supply_status,
@@ -48,7 +48,7 @@ generateQRCode1 = () =>
 {
     $.ajax(
 	{
-		url: apiURL + "supplies/" + supply_id,
+		url: apiURL + "supplies/" + id,
 		type: "GET",
 		dataType: "json",
 		success: function (data) 
@@ -64,7 +64,7 @@ generateQRCode1 = () =>
 
               txt = JSON.stringify(
                 {
-                    "supply_id": data.supply_id,
+                    "id": data.id,
                 });
             //   txt = sessionStorage.getItem('USER_TYPE')
             

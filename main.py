@@ -588,9 +588,9 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
 
 # ------------ Warehousing Admin View --------------- #
 @app.get('/warehousing/admin/supplies_details', response_class=HTMLResponse)
-def index(request: Request, supply_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
+def index(request: Request, id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
-        supplies = db.query(Supplies).filter(Supplies.supply_id == supply_id).first()
+        supplies = db.query(Supplies).filter(Supplies.id == id).first()
         return template.TemplateResponse('warehousing/admin/content/viewSupplies.html', 
         {
             'request': request,
@@ -828,9 +828,9 @@ def index(request: Request, db: Session = Depends(get_db), current_user: User = 
 
 # ------------ Warehousing Manager View --------------- #
 @app.get('/warehousing/manager/supplies_details', response_class=HTMLResponse)
-def index(request: Request, supply_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
+def index(request: Request, id: str, db: Session = Depends(get_db), current_user: User = Depends(get_token)):
     try:
-        supplies = db.query(Supplies).filter(Supplies.supply_id == supply_id).first()
+        supplies = db.query(Supplies).filter(Supplies.id == id).first()
         return template.TemplateResponse('warehousing/manager/content/viewSupplies.html', 
         {
             'request': request,
